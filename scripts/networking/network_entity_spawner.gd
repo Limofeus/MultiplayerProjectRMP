@@ -27,10 +27,10 @@ func custom_spawn_functiuon(custom_spawn_object : Variant) -> Node:
 	if custom_spawn_object is PackedScene:
 		print("Instantiating packed scene...")
 		instantiated_scene = custom_spawn_object.instantiate()
-	else:
-		print("decoding by id...")
-		print("encoded_id: " + str(custom_spawn_object.object_id))
-		var decoded_spawn_object = instance_from_id(custom_spawn_object.object_id)
+	elif custom_spawn_object is String:
+		print("decoding by path...")
+		print("object path: " + custom_spawn_object)
+		var decoded_spawn_object = ResourceLoader.load(custom_spawn_object, "PackedScene", ResourceLoader.CACHE_MODE_REUSE)
 		print("decoded_spawn_object: " + str(decoded_spawn_object))
 		instantiated_scene = decoded_spawn_object.instantiate()
 
@@ -71,7 +71,7 @@ func spawn_network_entity(network_entity : PackedScene, spawn_arguments : Array[
 
 	this_entity.name += "_" + str(desired_authority) + "_" + str(object_spawn_increment) + "_0"
 	this_entity.set_entity_authority(desired_authority)
-	spawn_rpc.rpc(network_entity, desired_authority, object_spawn_increment)
+	spawn_rpc.rpc(network_entity.resource_path, desired_authority, object_spawn_increment)
 
 	object_spawn_increment += 1 #Helps prevent name conflicts
 

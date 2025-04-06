@@ -24,7 +24,7 @@ func add_initial_items() -> void:
 
 func add_item(item : InventoryItem) -> void:
 	creature_item_container.add_item(item)
-	propagate_add_item.rpc(item.get_instance_id())
+	propagate_add_item.rpc(item.resource_path)
 
 func use_selected_item(item_user : ItemUser) -> void:
 	var item : InventoryItem = creature_item_container.get_selected_item()
@@ -46,7 +46,7 @@ func propagate_selection(selected_slot : int) -> void:
 	creature_item_container.select_slot(selected_slot, creature_item_user)
 
 @rpc("call_remote", "any_peer", "reliable") #Adding items is reliable
-func propagate_add_item(item_resource_id : int) -> void:
-	var item : InventoryItem = instance_from_id(item_resource_id)
+func propagate_add_item(item_resource_path : String) -> void:
+	var item : InventoryItem = ResourceLoader.load(item_resource_path, "InventoryItem", ResourceLoader.CACHE_MODE_REUSE)
 	print("Recieved propagated item: " + item.name)
 	creature_item_container.add_item(item)
