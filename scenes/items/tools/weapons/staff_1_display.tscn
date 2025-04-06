@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4g87flbktjyp"]
+
+[ext_resource type="PackedScene" uid="uid://c760kgs2ih2dd" path="res://models/weapons/model_staff_1.glb" id="1_wqtpc"]
+[ext_resource type="Material" uid="uid://ce4sq6iwxvtjf" path="res://materials/items/weapons/common_weapon_material.tres" id="2_wajyj"]
+
+[node name="TestToolDisplay1" type="Node3D"]
+
+[node name="model_staff_1" parent="." instance=ExtResource("1_wqtpc")]
+transform = Transform3D(0.32, 0, 0, 0, 0.32, 0, 0, 0, 0.32, 0, 0.126408, 0)
+
+[node name="Cylinder_002" parent="model_staff_1" index="0"]
+material_override = ExtResource("2_wajyj")
+
+[editable path="model_staff_1"]

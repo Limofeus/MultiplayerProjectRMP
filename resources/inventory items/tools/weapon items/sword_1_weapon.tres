@@ -1,0 +1,62 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=18 format=3 uid="uid://b7tqoytns3x4d"]
+
+[ext_resource type="PackedScene" uid="uid://bisupap8w4luj" path="res://scenes/entities/projectiles/slash_projectile_right.tscn" id="1_83hib"]
+[ext_resource type="PackedScene" uid="uid://bp4nm6o3360qd" path="res://scenes/entities/projectiles/slash_projectile_left.tscn" id="2_priy5"]
+[ext_resource type="PackedScene" uid="uid://byk8uupvnaqsv" path="res://scenes/entities/projectiles/slash_projectile_spin.tscn" id="3_61ivu"]
+[ext_resource type="Texture2D" uid="uid://c3qn0ou0nvrek" path="res://sprites/items/weapons/icon_sowrd_1.png" id="4_6r1xi"]
+[ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="5_foyd7"]
+[ext_resource type="Script" uid="uid://1cpx5jpkildt" path="res://scripts/components/spawn components/projectile_spawn_component.gd" id="6_qhip5"]
+[ext_resource type="Script" uid="uid://dpxu25buoavix" path="res://scripts/components/spawn components/enable_processing_after_spawn.gd" id="7_26sou"]
+[ext_resource type="Script" uid="uid://dgn8lixy52hug" path="res://scripts/components/entity destruction/entity_destructor.gd" id="8_lal2c"]
+[ext_resource type="Script" uid="uid://b3ak36ulon771" path="res://scripts/components/basic/projectile_component.gd" id="9_8xnbb"]
+[ext_resource type="Script" uid="uid://b3tcmigxaglcv" path="res://scripts/resources/damage/damage_resource.gd" id="10_kcl2y"]
+[ext_resource type="Script" uid="uid://bhpfe1002alcr" path="res://scripts/resources/inventory/items/weapon_item.gd" id="11_7x3a4"]
+[ext_resource type="PackedScene" uid="uid://b8c8vsoces4pj" path="res://scenes/items/tools/weapons/sword_1_display.tscn" id="12_67ugd"]
+
+[sub_resource type="Resource" id="Resource_p4hvq"]
+script = ExtResource("10_kcl2y")
+damage_ammount = 2.0
+damage_type = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4uyv2"]
+transparency = 1
+albedo_color = Color(1, 0.572343, 0.0766366, 0.2)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_h31kf"]
+top_radius = 1.0
+bottom_radius = 1.0
+height = 0.1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_umi36"]
+height = 0.7
+radius = 2.0
+
+[sub_resource type="PackedScene" id="PackedScene_sjxy2"]
+_bundled = {
+"conn_count": 1,
+"conns": PackedInt32Array(1073741835, 1073741834, 51, 50, 2, 0, 0),
+"editable_instances": [],
+"names": PackedStringArray("NetworkProjectileTest", "Node", "script", "spawn_logic", "ownerLogic", "sharedLogic", "SpawnLogic", "Node", "ProjectileSpawnComponent", "Node", "script", "projectile_component", "positional_node", "ProcessEnabler", "Node", "script", "nodes_to_process", "OwnerLogic", "Node", "DestructionComponent", "Node", "script", "network_entity", "SharedLogic", "Node", "Projectile", "Node", "script", "projectile_node", "shape_cast", "entity_destruction_component", "only_update_pos_on_owner", "velocity", "dot_product_threshold", "projectile_lifetime", "projectile_damage", "network_entity", "Projectile", "Node3D", "MeshInstance3D", "MeshInstance3D", "transform", "material_override", "mesh", "ShapeCast3D", "ShapeCast3D", "shape", "target_position", "collision_mask", "debug_shape_custom_color", "start_destroy_timer", "entity_ready"),
+"node_count": 11,
+"node_paths": [NodePath("."), NodePath("./SpawnLogic"), NodePath("./SpawnLogic"), NodePath("."), NodePath("./OwnerLogic"), NodePath("."), NodePath("./SharedLogic"), NodePath("."), NodePath("./Projectile"), NodePath("./Projectile"), NodePath("SharedLogic/Projectile"), NodePath(".")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 4, 2, 0, 1073741827, 1, 1073741828, 2, 1073741829, 3, 0, 1073741824, 0, 7, 6, -1, 0, 0, 1073741825, 0, 9, 8, -1, 3, 10, 4, 1073741835, 5, 1073741836, 6, 0, 1073741826, 0, 14, 13, -1, 2, 15, 7, 1073741840, 8, 0, 1073741827, 0, 18, 17, -1, 0, 0, 1073741828, 0, 20, 19, -1, 2, 21, 9, 1073741846, 10, 0, 1073741829, 0, 24, 23, -1, 0, 0, 1073741830, 0, 26, 25, -1, 10, 27, 11, 1073741852, 12, 1073741853, 13, 1073741854, 14, 31, 15, 32, 16, 33, 17, 34, 18, 35, 19, 1073741860, 20, 0, 1073741831, 0, 38, 37, -1, 0, 0, 1073741832, 0, 40, 39, -1, 3, 41, 21, 42, 22, 43, 23, 0, 1073741833, 0, 45, 44, -1, 4, 46, 24, 47, 25, 48, 26, 49, 27, 0),
+"variants": [ExtResource("5_foyd7"), NodePath("SpawnLogic"), NodePath("OwnerLogic"), NodePath("SharedLogic"), ExtResource("6_qhip5"), NodePath("../../SharedLogic/Projectile"), NodePath("../../Projectile"), ExtResource("7_26sou"), [NodePath("../../SharedLogic/Projectile")], ExtResource("8_lal2c"), NodePath("../.."), ExtResource("9_8xnbb"), NodePath("../../Projectile"), NodePath("../../Projectile/ShapeCast3D"), NodePath("../../OwnerLogic/DestructionComponent"), false, Vector3(0, 0, -4), 0.0, 0.3, SubResource("Resource_p4hvq"), NodePath("../.."), Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0), SubResource("StandardMaterial3D_4uyv2"), SubResource("CylinderMesh_h31kf"), SubResource("CylinderShape3D_umi36"), Vector3(0, 0, -3), 23, Color(1, 0, 0, 1)],
+"version": 3
+}
+
+[resource]
+script = ExtResource("11_7x3a4")
+item_cooldown = 0.2
+useable_on_cooldown = false
+combo_scenes = Array[PackedScene]([ExtResource("1_83hib"), ExtResource("2_priy5"), ExtResource("3_61ivu")])
+combo_add_cooldowns = Array[float]([0.0, 0.0, 0.3])
+scene_to_instantiate = SubResource("PackedScene_sjxy2")
+spawn_from_position = 0
+copy_rotation = true
+position_offset = 0.6
+tool_scene = ExtResource("12_67ugd")
+select_string = "Select"
+name = "Sword"
+description = "Item description"
+stackable = false
+icon = ExtResource("4_6r1xi")

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvoqk8td5oyvy"]
+
+[ext_resource type="Script" path="res://scripts/visual/effects/jitter_scale_move_effect.gd" id="1_4v2qq"]
+[ext_resource type="Shader" path="res://shaders/spatial/transparent_fresnel.gdshader" id="2_ye8d4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kvjur"]
+render_priority = 0
+shader = ExtResource("2_ye8d4")
+shader_parameter/main_color = Color(3, 0, 0, 1)
+shader_parameter/fresnel_color = Color(5, 0, 0, 1)
+shader_parameter/fresnel_amount = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_snlxk"]
+
+[node name="HitEffect" type="Node3D"]
+script = ExtResource("1_4v2qq")
+rescale_factor = 0.3
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_kvjur")
+mesh = SubResource("SphereMesh_snlxk")
+
+[connection signal="timeout" from="Timer" to="." method="update_iteration"]

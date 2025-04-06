@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bk5ol55ebtuwr"]
+
+[ext_resource type="Shader" path="res://shaders/main menu effects/scroll_canvas.gdshader" id="1_m1rrk"]
+
+[resource]
+shader = ExtResource("1_m1rrk")
+shader_parameter/scroll_speed = Vector2(-0.005, -0.01)

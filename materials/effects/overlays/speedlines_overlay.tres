@@ -1,0 +1,25 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dox7ghi1mskpg"]
+
+[ext_resource type="Shader" uid="uid://bj33pfhb5gbcn" path="res://shaders/full screen effects/omnidirectional_speedlines.gdshader" id="1_asgui"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rskgj"]
+frequency = 0.04
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2ibvx"]
+width = 1024
+height = 1024
+seamless = true
+noise = SubResource("FastNoiseLite_rskgj")
+
+[resource]
+shader = ExtResource("1_asgui")
+shader_parameter/test_texture = SubResource("NoiseTexture2D_2ibvx")
+shader_parameter/vector_scaling = 1.2
+shader_parameter/scroll_position = 0.0
+shader_parameter/finalizing_alpha = 0.0
+shader_parameter/sphere_rotation_vector = Vector3(0, 0, 0)
+shader_parameter/texture_scaling = Vector2(6, 0.15)
+shader_parameter/sampled_value_params = Vector2(0.3, 2)
+shader_parameter/pole_reject_params = Vector2(0.02, 4)
+shader_parameter/screen_mask_params = Vector2(0.1, 0.3)
+shader_parameter/finalizing_params = Vector2(0.2, 7.5)

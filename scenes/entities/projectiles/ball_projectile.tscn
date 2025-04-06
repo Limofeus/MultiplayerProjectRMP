@@ -1,0 +1,134 @@
+[gd_scene load_steps=19 format=3 uid="uid://brq0omedrixx7"]
+
+[ext_resource type="Script" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_pr2bi"]
+[ext_resource type="Script" path="res://scripts/components/spawn components/projectile_spawn_component.gd" id="2_4c8u4"]
+[ext_resource type="Script" path="res://scripts/components/spawn components/enable_processing_after_spawn.gd" id="3_pyhik"]
+[ext_resource type="Script" path="res://scripts/components/entity destruction/entity_destructor.gd" id="4_uqev0"]
+[ext_resource type="Script" path="res://scripts/components/basic/projectile_component.gd" id="6_3xsqs"]
+[ext_resource type="Script" path="res://scripts/resources/damage/damage_resource.gd" id="7_inq12"]
+[ext_resource type="Shader" path="res://shaders/mesh effects/opaque_projectile.gdshader" id="8_2pmsx"]
+[ext_resource type="Shader" path="res://shaders/mesh effects/opaque_projectile_cull_disabled.gdshader" id="8_cnkyy"]
+[ext_resource type="Script" path="res://scripts/visual/projectile effects/spin_projectile_effect.gd" id="8_unmdd"]
+[ext_resource type="Script" path="res://scripts/visual/projectile effects/material_projectile_lifetime.gd" id="9_2ltma"]
+
+[sub_resource type="Resource" id="Resource_oryys"]
+script = ExtResource("7_inq12")
+damage_ammount = 1.0
+damage_type = 0
+
+[sub_resource type="Curve" id="Curve_vhb48"]
+_data = [Vector2(0, 0), 0.0, 50.0, 0, 1, Vector2(0.02, 1), 0.0, 0.0, 0, 0, Vector2(0.98, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -50.0, 0.0, 1, 0]
+point_count = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5yrbv"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("8_2pmsx")
+shader_parameter/main_color = Color(0, 0, 0, 1)
+shader_parameter/projectile_lifetime = 0.0
+
+[sub_resource type="Curve" id="Curve_85kwv"]
+_data = [Vector2(0, 0), 0.0, 10.0, 0, 1, Vector2(0.1, 1), 0.0, 0.0, 0, 0, Vector2(0.98, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -50.0, 0.0, 1, 0]
+point_count = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x34qk"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("8_cnkyy")
+shader_parameter/main_color = Color(3, 0, 0, 1)
+shader_parameter/projectile_lifetime = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_npafl"]
+radius = 0.125
+height = 0.25
+radial_segments = 5
+rings = 2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ektdg"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.05
+radial_segments = 8
+rings = 0
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cu23y"]
+radius = 0.125
+
+[node name="NetworkProjectileTest" type="Node" node_paths=PackedStringArray("spawn_logic", "ownerLogic", "sharedLogic")]
+script = ExtResource("1_pr2bi")
+spawn_logic = NodePath("SpawnLogic")
+ownerLogic = NodePath("OwnerLogic")
+sharedLogic = NodePath("SharedLogic")
+
+[node name="SpawnLogic" type="Node" parent="."]
+
+[node name="ProjectileSpawnComponent" type="Node" parent="SpawnLogic" node_paths=PackedStringArray("projectile_component", "positional_node")]
+script = ExtResource("2_4c8u4")
+projectile_component = NodePath("../../SharedLogic/Projectile")
+positional_node = NodePath("../../Projectile")
+
+[node name="ProcessEnabler" type="Node" parent="SpawnLogic" node_paths=PackedStringArray("nodes_to_process")]
+script = ExtResource("3_pyhik")
+nodes_to_process = [NodePath("../../SharedLogic/Projectile")]
+
+[node name="OwnerLogic" type="Node" parent="."]
+
+[node name="DestructionComponent" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("network_entity")]
+script = ExtResource("4_uqev0")
+network_entity = NodePath("../..")
+
+[node name="SharedLogic" type="Node" parent="."]
+
+[node name="Projectile" type="Node" parent="SharedLogic" node_paths=PackedStringArray("projectile_node", "shape_cast", "entity_destruction_component", "network_entity")]
+script = ExtResource("6_3xsqs")
+projectile_node = NodePath("../../Projectile")
+shape_cast = NodePath("../../Projectile/ShapeCast3D")
+entity_destruction_component = NodePath("../../OwnerLogic/DestructionComponent")
+only_update_pos_on_owner = false
+velocity = Vector3(0, 0, -40)
+projectile_damage = SubResource("Resource_oryys")
+network_entity = NodePath("../..")
+
+[node name="ProjSpin" type="Node" parent="SharedLogic/Projectile" node_paths=PackedStringArray("visual_to_spin")]
+script = ExtResource("8_unmdd")
+visual_to_spin = NodePath("../../../Projectile/MeshInstance3D")
+spin_speed = 5.0
+
+[node name="ProjSpin2" type="Node" parent="SharedLogic/Projectile" node_paths=PackedStringArray("visual_to_spin")]
+script = ExtResource("8_unmdd")
+visual_to_spin = NodePath("../../../Projectile/MeshInstance3D/MeshInstance3D2")
+spin_axis = Vector3(0, 0, 1)
+spin_speed = 3.0
+
+[node name="MaterialProjectileLifetime" type="Node" parent="SharedLogic/Projectile" node_paths=PackedStringArray("projectile")]
+script = ExtResource("9_2ltma")
+projectile = NodePath("..")
+curve_mapping = SubResource("Curve_vhb48")
+shader_material = SubResource("ShaderMaterial_5yrbv")
+
+[node name="MaterialProjectileLifetime2" type="Node" parent="SharedLogic/Projectile" node_paths=PackedStringArray("projectile")]
+script = ExtResource("9_2ltma")
+projectile = NodePath("..")
+curve_mapping = SubResource("Curve_85kwv")
+shader_material = SubResource("ShaderMaterial_x34qk")
+
+[node name="Projectile" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Projectile"]
+material_override = SubResource("ShaderMaterial_5yrbv")
+mesh = SubResource("SphereMesh_npafl")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Projectile/MeshInstance3D"]
+material_override = SubResource("ShaderMaterial_x34qk")
+mesh = SubResource("CylinderMesh_ektdg")
+skeleton = NodePath("../..")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="Projectile"]
+shape = SubResource("SphereShape3D_cu23y")
+target_position = Vector3(0, 0, -3)
+collision_mask = 23
+debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[connection signal="entity_ready" from="." to="SharedLogic/Projectile" method="start_destroy_timer"]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsg2v5f24bv4e"]
+
+[ext_resource type="PackedScene" uid="uid://bd2tb4bylcxbf" path="res://models/weapons/model_dagger_1.glb" id="1_ht7tp"]
+[ext_resource type="Material" uid="uid://ce4sq6iwxvtjf" path="res://materials/items/weapons/common_weapon_material.tres" id="2_np7kx"]
+
+[node name="TestToolDisplay1" type="Node3D"]
+
+[node name="model_dagger_1" parent="." instance=ExtResource("1_ht7tp")]
+transform = Transform3D(0.225, 0, 0, 0, 0.225, 0, 0, 0, 0.225, 0, -0.0338862, 0.0120859)
+
+[node name="dagger_01" parent="model_dagger_1" index="0"]
+material_override = ExtResource("2_np7kx")
+
+[editable path="model_dagger_1"]

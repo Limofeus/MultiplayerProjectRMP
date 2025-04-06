@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="OmnidirectionalSpriteSheet" load_steps=3 format=3 uid="uid://bma6n50ls37tp"]
+
+[ext_resource type="Script" path="res://scripts/resources/visual/omnidir_sprite_sheet.gd" id="1_iiy34"]
+[ext_resource type="Texture2D" uid="uid://bwn6utsms3djl" path="res://sprites/creatures/skeleton/Skeleton_SpriteSheet_SideStepRight.png" id="2_qf2j8"]
+
+[resource]
+script = ExtResource("1_iiy34")
+texture = ExtResource("2_qf2j8")
+frame_count = 10
+dir_count = 4
+cycle_speed_mult = 1.3
+reset_timer = true

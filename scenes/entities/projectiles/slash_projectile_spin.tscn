@@ -1,0 +1,109 @@
+[gd_scene load_steps=16 format=3 uid="uid://byk8uupvnaqsv"]
+
+[ext_resource type="Script" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_1wr4e"]
+[ext_resource type="Script" path="res://scripts/components/spawn components/projectile_spawn_component.gd" id="2_g6xvb"]
+[ext_resource type="Script" path="res://scripts/components/spawn components/enable_processing_after_spawn.gd" id="3_0qwln"]
+[ext_resource type="Script" path="res://scripts/components/entity destruction/entity_destructor.gd" id="4_4uwmi"]
+[ext_resource type="Script" path="res://scripts/components/basic/projectile_component.gd" id="5_6wir6"]
+[ext_resource type="Script" path="res://scripts/resources/damage/damage_resource.gd" id="6_sesg0"]
+[ext_resource type="Script" path="res://scripts/visual/projectile effects/material_projectile_lifetime.gd" id="7_7htvs"]
+[ext_resource type="Shader" path="res://shaders/mesh effects/slash_projectile.gdshader" id="8_w46ip"]
+[ext_resource type="Texture2D" uid="uid://dgasl1uvvxv6g" path="res://sprites/effects/circ-slice.png" id="9_apm1l"]
+[ext_resource type="Script" path="res://scripts/visual/projectile effects/spin_projectile_effect.gd" id="10_r7mcr"]
+
+[sub_resource type="Resource" id="Resource_26f71"]
+script = ExtResource("6_sesg0")
+damage_ammount = 2.0
+damage_type = 0
+
+[sub_resource type="Curve" id="Curve_f8krt"]
+_data = [Vector2(0, 0), 0.0, 5.0, 0, 1, Vector2(0.2, 1), 0.0, 0.0, 0, 0, Vector2(0.8, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.0, 0.0, 1, 0]
+point_count = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jb8ja"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("8_w46ip")
+shader_parameter/main_color = Color(0.784314, 0.784314, 0.784314, 1)
+shader_parameter/projectile_lifetime = 0.0
+shader_parameter/hit_texture = ExtResource("9_apm1l")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_euxgr"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_hl2q8"]
+height = 1.0
+radius = 2.0
+
+[node name="NetworkProjectileTest" type="Node" node_paths=PackedStringArray("spawn_logic", "ownerLogic", "sharedLogic")]
+script = ExtResource("1_1wr4e")
+spawn_logic = NodePath("SpawnLogic")
+ownerLogic = NodePath("OwnerLogic")
+sharedLogic = NodePath("SharedLogic")
+
+[node name="SpawnLogic" type="Node" parent="."]
+
+[node name="ProjectileSpawnComponent" type="Node" parent="SpawnLogic" node_paths=PackedStringArray("projectile_component", "positional_node")]
+script = ExtResource("2_g6xvb")
+projectile_component = NodePath("../../SharedLogic/Projectile")
+positional_node = NodePath("../../SpawnPosition")
+
+[node name="ProcessEnabler" type="Node" parent="SpawnLogic" node_paths=PackedStringArray("nodes_to_process")]
+script = ExtResource("3_0qwln")
+nodes_to_process = [NodePath("../../SharedLogic/Projectile")]
+
+[node name="OwnerLogic" type="Node" parent="."]
+
+[node name="DestructionComponent" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("network_entity")]
+script = ExtResource("4_4uwmi")
+network_entity = NodePath("../..")
+
+[node name="SharedLogic" type="Node" parent="."]
+
+[node name="Projectile" type="Node" parent="SharedLogic" node_paths=PackedStringArray("projectile_node", "shape_cast", "entity_destruction_component", "network_entity")]
+script = ExtResource("5_6wir6")
+projectile_node = NodePath("../../SpawnPosition/Projectile")
+shape_cast = NodePath("../../SpawnPosition/Projectile/ShapeCast3D")
+entity_destruction_component = NodePath("../../OwnerLogic/DestructionComponent")
+only_update_pos_on_owner = false
+velocity = Vector3(0, 0, -4)
+projectile_lifetime = 0.8
+projectile_damage = SubResource("Resource_26f71")
+network_entity = NodePath("../..")
+
+[node name="SlashShader" type="Node" parent="SharedLogic/Projectile" node_paths=PackedStringArray("projectile")]
+script = ExtResource("7_7htvs")
+projectile = NodePath("..")
+curve_mapping = SubResource("Curve_f8krt")
+shader_material = SubResource("ShaderMaterial_jb8ja")
+
+[node name="SlashSpin" type="Node" parent="SharedLogic/Projectile" node_paths=PackedStringArray("visual_to_spin")]
+script = ExtResource("10_r7mcr")
+visual_to_spin = NodePath("../../../SpawnPosition/Projectile/SlashEffect")
+spin_speed = 10.0
+
+[node name="SunSlashSpin" type="Node" parent="SharedLogic/Projectile" node_paths=PackedStringArray("visual_to_spin")]
+script = ExtResource("10_r7mcr")
+visual_to_spin = NodePath("../../../SpawnPosition/Projectile/SubSlash")
+spin_speed = 20.0
+
+[node name="SpawnPosition" type="Node3D" parent="."]
+
+[node name="Projectile" type="Node3D" parent="SpawnPosition"]
+
+[node name="SlashEffect" type="MeshInstance3D" parent="SpawnPosition/Projectile"]
+transform = Transform3D(-1.00536e-07, 0, 2.3, 0, 2.3, 0, -2.3, 0, -1.00536e-07, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_jb8ja")
+mesh = SubResource("PlaneMesh_euxgr")
+
+[node name="SubSlash" type="MeshInstance3D" parent="SpawnPosition/Projectile"]
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 0, 0.1, 0)
+material_override = SubResource("ShaderMaterial_jb8ja")
+mesh = SubResource("PlaneMesh_euxgr")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="SpawnPosition/Projectile"]
+shape = SubResource("CylinderShape3D_hl2q8")
+target_position = Vector3(0, 0, -3)
+collision_mask = 23
+debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[connection signal="entity_ready" from="." to="SharedLogic/Projectile" method="start_destroy_timer"]

@@ -1,0 +1,361 @@
+[gd_scene load_steps=17 format=3 uid="uid://gixsyoob5s8g"]
+
+[ext_resource type="Material" uid="uid://bk5ol55ebtuwr" path="res://materials/effects/main menu/scroll_material.tres" id="1_u3o1y"]
+[ext_resource type="Texture2D" uid="uid://npwcvk5vjtu" path="res://sprites/menu/VoynichBG.png" id="2_jqlu3"]
+[ext_resource type="FontFile" uid="uid://cti2p0a5rv6dr" path="res://fonts/Empyrean.otf" id="3_v0m2p"]
+[ext_resource type="FontFile" uid="uid://carf6kvexo2l0" path="res://fonts/PirataOne-Regular.ttf" id="4_fgirq"]
+[ext_resource type="Script" uid="uid://s116x0hjuwgg" path="res://scripts/ui/quick visuals/menu_button_hover_effect.gd" id="5_n0hxh"]
+[ext_resource type="Texture2D" uid="uid://c2m4p1keindis" path="res://sprites/menu/MagicCircle1-min.png" id="6_i8aox"]
+[ext_resource type="Script" uid="uid://5hqgf0b2vh2w" path="res://scripts/ui/quick visuals/rotate_control_node.gd" id="7_jof28"]
+[ext_resource type="Texture2D" uid="uid://bi505anobcbfq" path="res://sprites/menu/red-skull-mask-circle.png" id="8_xbg2f"]
+[ext_resource type="Texture2D" uid="uid://cdc3ir1avnepb" path="res://sprites/menu/red-skull-mask-skull.png" id="9_t8nt5"]
+[ext_resource type="Material" uid="uid://bnvnlxtgjouuo" path="res://materials/effects/main menu/invert_color_material.tres" id="10_3ey45"]
+[ext_resource type="Script" uid="uid://brism4g3gt4mt" path="res://scripts/ui/quick visuals/random_control_pos_size.gd" id="11_bbb3l"]
+[ext_resource type="Script" uid="uid://b8ue418n6k5sw" path="res://scripts/ui/quick visuals/menu_button_hover_panel.gd" id="12_u1feq"]
+[ext_resource type="Material" uid="uid://n6bqdq6gr8g1" path="res://materials/effects/main menu/dither_material.tres" id="13_36w5a"]
+[ext_resource type="Material" uid="uid://dh7n305okdfh8" path="res://materials/effects/main menu/warm_air_material.tres" id="14_24t8m"]
+
+[sub_resource type="Gradient" id="Gradient_m0jq8"]
+offsets = PackedFloat32Array(0, 0.5)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2duy0"]
+gradient = SubResource("Gradient_m0jq8")
+
+[node name="MenuUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Menu"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 1)
+
+[node name="BgTexture" type="TextureRect" parent="Menu"]
+texture_filter = 4
+texture_repeat = 2
+material = ExtResource("1_u3o1y")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_jqlu3")
+expand_mode = 5
+
+[node name="ColorRect2" type="ColorRect" parent="Menu"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="Menu"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -18.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(1, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="Menu"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 20.0
+grow_horizontal = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect5" type="ColorRect" parent="Menu"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 16.0
+offset_bottom = 18.0
+grow_horizontal = 2
+color = Color(1, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 493.0
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/MarginContainer/VBoxContainer"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+theme_override_constants/line_spacing = -40
+theme_override_fonts/font = ExtResource("3_v0m2p")
+theme_override_font_sizes/font_size = 131
+text = "Skeleton
+ Saturday"
+
+[node name="Control" type="Control" parent="Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 0
+theme_override_constants/separation = -2
+
+[node name="Button" type="Button" parent="Menu/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("menu_hover_rect")]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+focus_mode = 0
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("4_fgirq")
+theme_override_font_sizes/font_size = 40
+text = "Play Solo"
+flat = true
+alignment = 0
+script = ExtResource("5_n0hxh")
+menu_hover_rect = NodePath("../../../../ButtonSelector")
+
+[node name="Button2" type="Button" parent="Menu/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("menu_hover_rect")]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+focus_mode = 0
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("4_fgirq")
+theme_override_font_sizes/font_size = 40
+text = "Play Online"
+flat = true
+alignment = 0
+script = ExtResource("5_n0hxh")
+menu_hover_rect = NodePath("../../../../ButtonSelector")
+
+[node name="Button3" type="Button" parent="Menu/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("menu_hover_rect")]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+focus_mode = 0
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("4_fgirq")
+theme_override_font_sizes/font_size = 40
+text = "Options"
+flat = true
+alignment = 0
+script = ExtResource("5_n0hxh")
+menu_hover_rect = NodePath("../../../../ButtonSelector")
+
+[node name="Button4" type="Button" parent="Menu/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("menu_hover_rect")]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+focus_mode = 0
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("4_fgirq")
+theme_override_font_sizes/font_size = 40
+text = "Exit"
+flat = true
+alignment = 0
+script = ExtResource("5_n0hxh")
+menu_hover_rect = NodePath("../../../../ButtonSelector")
+
+[node name="SkullLogo" type="Control" parent="Menu"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1296.0
+offset_top = -1078.0
+offset_right = 752.0
+offset_bottom = 970.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.215, 0.215)
+pivot_offset = Vector2(1024, 1024)
+
+[node name="MagicCircle" type="TextureRect" parent="Menu/SkullLogo"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(1024, 1024)
+texture = ExtResource("6_i8aox")
+script = ExtResource("7_jof28")
+rotation_speed = 0.05
+
+[node name="CircleCover" type="TextureRect" parent="Menu/SkullLogo"]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("8_xbg2f")
+
+[node name="Skull" type="TextureRect" parent="Menu/SkullLogo"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("9_t8nt5")
+
+[node name="InvertCover" type="ColorRect" parent="Menu/SkullLogo"]
+self_modulate = Color(1, 0, 0, 1)
+material = ExtResource("10_3ey45")
+layout_mode = 0
+script = ExtResource("11_bbb3l")
+max_pos = Vector2(2048, 2500)
+min_size = Vector2(150, 150)
+max_size = Vector2(800, 800)
+
+[node name="Timer" type="Timer" parent="Menu/SkullLogo/InvertCover"]
+wait_time = 0.2
+autostart = true
+
+[node name="InvertCover2" type="ColorRect" parent="Menu/SkullLogo"]
+self_modulate = Color(1, 0, 0, 1)
+material = ExtResource("10_3ey45")
+layout_mode = 0
+script = ExtResource("11_bbb3l")
+max_pos = Vector2(2048, 2500)
+min_size = Vector2(150, 150)
+max_size = Vector2(400, 400)
+
+[node name="Timer" type="Timer" parent="Menu/SkullLogo/InvertCover2"]
+wait_time = 0.1
+autostart = true
+
+[node name="InvertCover3" type="ColorRect" parent="Menu/SkullLogo"]
+self_modulate = Color(1, 0, 0, 1)
+material = ExtResource("10_3ey45")
+layout_mode = 0
+script = ExtResource("11_bbb3l")
+max_pos = Vector2(2048, 2500)
+min_size = Vector2(150, 150)
+max_size = Vector2(400, 400)
+
+[node name="Timer" type="Timer" parent="Menu/SkullLogo/InvertCover3"]
+wait_time = 0.1
+autostart = true
+
+[node name="InvertCover4" type="ColorRect" parent="Menu/SkullLogo"]
+self_modulate = Color(1, 0, 0, 1)
+material = ExtResource("10_3ey45")
+layout_mode = 0
+script = ExtResource("11_bbb3l")
+max_pos = Vector2(2048, 2500)
+min_size = Vector2(75, 75)
+max_size = Vector2(300, 300)
+
+[node name="Timer" type="Timer" parent="Menu/SkullLogo/InvertCover4"]
+wait_time = 0.3
+autostart = true
+
+[node name="ButtonSelector" type="ColorRect" parent="Menu"]
+clip_children = 1
+material = ExtResource("10_3ey45")
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -324.0
+offset_bottom = -324.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+script = ExtResource("12_u1feq")
+
+[node name="ButtonSelector2" type="TextureRect" parent="Menu/ButtonSelector"]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -28.5
+offset_bottom = -26.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_2duy0")
+
+[node name="ButtonSelector3" type="TextureRect" parent="Menu/ButtonSelector"]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 26.5
+offset_bottom = 28.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_2duy0")
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+copy_mode = 2
+
+[node name="DitheEffect" type="ColorRect" parent="."]
+visible = false
+material = ExtResource("13_36w5a")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="WarmAirEffect" type="ColorRect" parent="."]
+material = ExtResource("14_24t8m")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="mouse_exited" from="Menu/MarginContainer/VBoxContainer/VBoxContainer" to="Menu/ButtonSelector" method="deselect"]
+[connection signal="mouse_entered" from="Menu/MarginContainer/VBoxContainer/VBoxContainer/Button" to="Menu/MarginContainer/VBoxContainer/VBoxContainer/Button" method="trigger_hover"]
+[connection signal="mouse_entered" from="Menu/MarginContainer/VBoxContainer/VBoxContainer/Button2" to="Menu/MarginContainer/VBoxContainer/VBoxContainer/Button2" method="trigger_hover"]
+[connection signal="mouse_entered" from="Menu/MarginContainer/VBoxContainer/VBoxContainer/Button3" to="Menu/MarginContainer/VBoxContainer/VBoxContainer/Button3" method="trigger_hover"]
+[connection signal="mouse_entered" from="Menu/MarginContainer/VBoxContainer/VBoxContainer/Button4" to="Menu/MarginContainer/VBoxContainer/VBoxContainer/Button4" method="trigger_hover"]
+[connection signal="timeout" from="Menu/SkullLogo/InvertCover/Timer" to="Menu/SkullLogo/InvertCover" method="randomize"]
+[connection signal="timeout" from="Menu/SkullLogo/InvertCover2/Timer" to="Menu/SkullLogo/InvertCover2" method="randomize"]
+[connection signal="timeout" from="Menu/SkullLogo/InvertCover3/Timer" to="Menu/SkullLogo/InvertCover3" method="randomize"]
+[connection signal="timeout" from="Menu/SkullLogo/InvertCover4/Timer" to="Menu/SkullLogo/InvertCover4" method="randomize"]

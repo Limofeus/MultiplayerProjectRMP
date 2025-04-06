@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EntitySpawnerItem" load_steps=5 format=3 uid="uid://040yl843thoa"]
+
+[ext_resource type="Texture2D" uid="uid://blb8dwjc4v0gg" path="res://sprites/testing/test_texture.png" id="1_28jun"]
+[ext_resource type="PackedScene" uid="uid://bw2i466uid2v5" path="res://scenes/entities/creatures/yolo_ranged_enemy.tscn" id="2_011ne"]
+[ext_resource type="Script" path="res://scripts/resources/inventory/items/entity_spawner_item.gd" id="3_5vmrr"]
+[ext_resource type="PackedScene" uid="uid://btcr3jt8wthqt" path="res://scenes/items/tools/test_tool_display_1.tscn" id="4_f5vm6"]
+
+[resource]
+script = ExtResource("3_5vmrr")
+scene_to_instantiate = ExtResource("2_011ne")
+spawn_from_position = 1
+copy_rotation = false
+position_offset = 25.0
+tool_scene = ExtResource("4_f5vm6")
+select_string = "Select"
+name = "ENEMY R SPAWN"
+description = "Item description"
+stackable = false
+icon = ExtResource("1_28jun")

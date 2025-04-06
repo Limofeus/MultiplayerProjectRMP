@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://n6bqdq6gr8g1"]
+
+[ext_resource type="Shader" path="res://shaders/main menu effects/dither_canvas.gdshader" id="1_u78df"]
+[ext_resource type="Texture2D" uid="uid://dsp2730flqo78" path="res://sprites/menu/dither2.png" id="2_scmrd"]
+
+[resource]
+shader = ExtResource("1_u78df")
+shader_parameter/pixel_size = 2.0
+shader_parameter/dither_power = 0.5
+shader_parameter/dither_scroll_speed = Vector2(5, 5)
+shader_parameter/dither_tex_size = Vector2(5, 5)
+shader_parameter/dither_texture = ExtResource("2_scmrd")

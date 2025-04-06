@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EntitySpawnerItem" load_steps=5 format=3 uid="uid://hr26l03c7p77"]
+
+[ext_resource type="Texture2D" uid="uid://blb8dwjc4v0gg" path="res://sprites/testing/test_texture.png" id="1_dmhhr"]
+[ext_resource type="PackedScene" uid="uid://h4rhiwl8xmhl" path="res://scenes/entities/creatures/yolo_enemy.tscn" id="2_oljuq"]
+[ext_resource type="Script" path="res://scripts/resources/inventory/items/entity_spawner_item.gd" id="24_ulbog"]
+[ext_resource type="PackedScene" uid="uid://btcr3jt8wthqt" path="res://scenes/items/tools/test_tool_display_1.tscn" id="25_sniej"]
+
+[resource]
+script = ExtResource("24_ulbog")
+scene_to_instantiate = ExtResource("2_oljuq")
+spawn_from_position = 1
+copy_rotation = false
+position_offset = 25.0
+tool_scene = ExtResource("25_sniej")
+select_string = "Select"
+name = "ENEMY 1 SPAWN"
+description = "Item description"
+stackable = false
+icon = ExtResource("1_dmhhr")

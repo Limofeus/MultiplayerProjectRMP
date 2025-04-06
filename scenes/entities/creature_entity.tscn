@@ -1,0 +1,122 @@
+[gd_scene load_steps=16 format=3 uid="uid://ddl316vcfax13"]
+
+[ext_resource type="Script" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_5m7fn"]
+[ext_resource type="Script" path="res://scripts/components/spawn components/spawn_transform_setter.gd" id="2_526m6"]
+[ext_resource type="Script" path="res://scripts/components/input/input interfaces/movement_input_interface.gd" id="5_pirr5"]
+[ext_resource type="Script" path="res://scripts/components/controllers/state_machine.gd" id="6_8pyns"]
+[ext_resource type="Script" path="res://scripts/states/movement states/creature_movement_state.gd" id="7_5pcfj"]
+[ext_resource type="Script" path="res://scripts/states/movement states/creature_ground_run_state.gd" id="8_ytpi2"]
+[ext_resource type="Script" path="res://scripts/states/movement states/creature_jump_state.gd" id="9_c2xsm"]
+[ext_resource type="Script" path="res://scripts/components/inventory/creature_item_user_component.gd" id="11_15jth"]
+[ext_resource type="Script" path="res://scripts/components/attribute holders/creature_attributes.gd" id="28_2dwhu"]
+[ext_resource type="Script" path="res://scripts/components/sync/position_sync.gd" id="33_fnw68"]
+[ext_resource type="Script" path="res://scripts/components/sync/optimized_rotation_sync.gd" id="34_pja33"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rbwj3"]
+albedo_color = Color(0.520433, 1, 0.235412, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_p7622"]
+radius = 0.3
+height = 1.75
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1pu0w"]
+radius = 0.3
+height = 1.75
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sxsqu"]
+
+[node name="CreatureEntity NAH, itll take to long to make this properly" type="Node"]
+script = ExtResource("1_5m7fn")
+
+[node name="SpawnLogic" type="Node" parent="."]
+
+[node name="SpawnTransformSetter" type="Node" parent="SpawnLogic"]
+script = ExtResource("2_526m6")
+
+[node name="OwnerLogic" type="Node" parent="."]
+
+[node name="--- AI & Input ---" type="Node" parent="OwnerLogic"]
+
+[node name="MovementInputInterface" type="Node" parent="OwnerLogic"]
+script = ExtResource("5_pirr5")
+
+[node name="--- Movement & Rotation ---" type="Node" parent="OwnerLogic"]
+
+[node name="MovementStateMachine" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("current_state")]
+script = ExtResource("6_8pyns")
+current_state = NodePath("CreatureMovementState")
+
+[node name="CreatureMovementState" type="Node" parent="OwnerLogic/MovementStateMachine" node_paths=PackedStringArray("movement_input_interface", "next_states")]
+script = ExtResource("7_5pcfj")
+movement_input_interface = NodePath("../../MovementInputInterface")
+speed_mult = 0.7
+next_states = [NodePath("../CreatureRunState"), NodePath("../CreatureJumpState")]
+
+[node name="CreatureRunState" type="Node" parent="OwnerLogic/MovementStateMachine" node_paths=PackedStringArray("movement_input_interface", "next_states")]
+script = ExtResource("8_ytpi2")
+movement_input_interface = NodePath("../../MovementInputInterface")
+speed_mult = 1.1
+next_states = [NodePath("../CreatureMovementState"), NodePath("../CreatureJumpState")]
+
+[node name="CreatureJumpState" type="Node" parent="OwnerLogic/MovementStateMachine" node_paths=PackedStringArray("movement_input_interface", "next_states")]
+script = ExtResource("9_c2xsm")
+jump_power = 2.0
+movement_input_interface = NodePath("../../MovementInputInterface")
+max_accel = 1.0
+max_angle_correct = 0.1
+next_states = [NodePath("../CreatureMovementState")]
+
+[node name="--- Items & Inventory ---" type="Node" parent="OwnerLogic"]
+
+[node name="CreatureItemUser" type="Node" parent="OwnerLogic"]
+script = ExtResource("11_15jth")
+
+[node name="--- Visuals & Looks ---" type="Node" parent="OwnerLogic"]
+
+[node name="--- Other --" type="Node" parent="OwnerLogic"]
+
+[node name="--- Debugging & Testing ---" type="Node" parent="OwnerLogic"]
+
+[node name="SharedLogic" type="Node" parent="."]
+
+[node name="CreatureAttributes" type="Node" parent="SharedLogic" node_paths=PackedStringArray("character_body", "head_node", "look_node") groups=["Creature"]]
+script = ExtResource("28_2dwhu")
+creature_name = "Player"
+character_body = NodePath("../../CreatureCharacterBody")
+head_node = NodePath("../../CreatureCharacterBody/CreatureHeadNode")
+look_node = NodePath("../../CreatureCharacterBody/CreatureHeadNode/CreatureLookNode")
+
+[node name="PositionSync" type="Node" parent="SharedLogic"]
+script = ExtResource("33_fnw68")
+
+[node name="OptimizedRotationSyncComponent" type="Node" parent="SharedLogic"]
+script = ExtResource("34_pja33")
+
+[node name="CreatureCharacterBody" type="CharacterBody3D" parent="."]
+collision_layer = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CreatureCharacterBody"]
+material_override = SubResource("StandardMaterial3D_rbwj3")
+mesh = SubResource("CapsuleMesh_p7622")
+
+[node name="CreatureCollider" type="CollisionShape3D" parent="CreatureCharacterBody"]
+shape = SubResource("CapsuleShape3D_1pu0w")
+
+[node name="CreatureHeadNode" type="Node3D" parent="CreatureCharacterBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="CreatureLookNode" type="Node3D" parent="CreatureCharacterBody/CreatureHeadNode"]
+
+[node name="CreatureToolDisplay" type="Node3D" parent="CreatureCharacterBody/CreatureHeadNode/CreatureLookNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39438, -0.538827, -0.48142)
+
+[node name="SpatialItemUse" type="Node3D" parent="CreatureCharacterBody/CreatureHeadNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="PhysicsPropogationArea" type="Area3D" parent="CreatureCharacterBody"]
+collision_layer = 0
+collision_mask = 6
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CreatureCharacterBody/PhysicsPropogationArea"]
+shape = SubResource("CapsuleShape3D_sxsqu")

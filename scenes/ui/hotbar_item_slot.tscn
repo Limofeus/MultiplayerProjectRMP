@@ -1,0 +1,167 @@
+[gd_scene load_steps=9 format=3 uid="uid://knu7xi3jljm5"]
+
+[ext_resource type="Script" path="res://scripts/ui/hotbar/hotbar_slot.gd" id="1_ikd3e"]
+[ext_resource type="Texture2D" uid="uid://djr0qvb7dkyl7" path="res://sprites/ui/slot_border_1.png" id="3_6y6sb"]
+[ext_resource type="FontFile" uid="uid://4p42hhp6h76q" path="res://fonts/vollkorn/Vollkorn-Bold.otf" id="3_vgvcx"]
+[ext_resource type="Texture2D" uid="uid://bigotb143s2ov" path="res://sprites/ui/slot_bg_1.png" id="4_sgp6t"]
+[ext_resource type="FontFile" uid="uid://carf6kvexo2l0" path="res://fonts/PirataOne-Regular.ttf" id="5_bimgx"]
+[ext_resource type="Texture2D" uid="uid://bntgl6sg14j56" path="res://sprites/ui/slot_selector_right.png" id="6_0n56a"]
+[ext_resource type="Texture2D" uid="uid://4hsfhwxdrcbd" path="res://sprites/ui/slot_selector_left.png" id="7_cyxjv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ooeog"]
+
+[node name="ItemSlot" type="MarginContainer" node_paths=PackedStringArray("slot_num_label", "selection_indicator", "item_icon_node", "amount_label_node")]
+offset_right = 226.0
+offset_bottom = 288.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("1_ikd3e")
+slot_num_label = NodePath("InsideSlot/SlotNumber")
+selection_indicator = NodePath("InsideSlot/Selectors")
+item_icon_node = NodePath("InsideSlot/ItemImage")
+amount_label_node = NodePath("BottomRight/ItemCount")
+
+[node name="BottomRight" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="ItemCount" type="Label" parent="BottomRight"]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.0
+offset_top = -17.5
+offset_right = 7.0
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.196078)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -5
+theme_override_constants/shadow_offset_y = -5
+theme_override_constants/outline_size = 20
+theme_override_constants/shadow_outline_size = 10
+theme_override_fonts/font = ExtResource("3_vgvcx")
+theme_override_font_sizes/font_size = 60
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InsideSlot" type="Control" parent="."]
+custom_minimum_size = Vector2(206, 268)
+layout_mode = 2
+
+[node name="SlotBorder" type="TextureRect" parent="InsideSlot"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0970874
+anchor_top = 0.156716
+anchor_right = 1.09709
+anchor_bottom = 1.07463
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_6y6sb")
+metadata/_edit_use_anchors_ = true
+
+[node name="SlotBackground" type="TextureRect" parent="InsideSlot"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0558253
+anchor_top = 0.272388
+anchor_right = 0.944175
+anchor_bottom = 0.955224
+offset_left = 20.0001
+offset_top = 20.0
+offset_right = -20.0001
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_sgp6t")
+metadata/_edit_use_anchors_ = true
+
+[node name="SlotNumber" type="Label" parent="InsideSlot"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.0783584
+anchor_right = 1.0
+anchor_bottom = 0.41791
+offset_top = -3.05176e-05
+offset_bottom = 3.8147e-05
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 0
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 6
+theme_override_fonts/font = ExtResource("5_bimgx")
+theme_override_font_sizes/font_size = 95
+text = "6"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Selectors" type="Control" parent="InsideSlot"]
+layout_mode = 1
+anchor_top = 0.19403
+anchor_right = 1.0
+anchor_bottom = 0.19403
+offset_top = -80.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SelectorLeft" type="TextureRect" parent="InsideSlot/Selectors"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.092233
+anchor_top = 0.1
+anchor_right = 0.441748
+anchor_bottom = 1.25
+grow_vertical = 0
+texture = ExtResource("7_cyxjv")
+metadata/_edit_use_anchors_ = true
+
+[node name="SelectorRight" type="TextureRect" parent="InsideSlot/Selectors"]
+visible = false
+material = SubResource("ShaderMaterial_ooeog")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.558252
+anchor_top = 0.1
+anchor_right = 1.09223
+anchor_bottom = 1.25
+offset_right = -1.52588e-05
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("6_0n56a")
+metadata/_edit_use_anchors_ = true
+
+[node name="ItemImage" type="TextureRect" parent="InsideSlot"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -119.5
+offset_right = 150.0
+offset_bottom = 180.5
+grow_horizontal = 2
+grow_vertical = 2

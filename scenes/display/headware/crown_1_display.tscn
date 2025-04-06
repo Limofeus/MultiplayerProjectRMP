@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgms0t4038v2s"]
+
+[ext_resource type="PackedScene" uid="uid://bw7qyk0r5tdop" path="res://models/headwear/crown_1.glb" id="1_081dm"]
+[ext_resource type="Material" uid="uid://ce4sq6iwxvtjf" path="res://materials/items/weapons/common_weapon_material.tres" id="2_fcjaw"]
+[ext_resource type="Script" path="res://scripts/visual/simple effects/3d_node_simple_spin.gd" id="2_tm4cv"]
+
+[node name="Crown1Display" type="Node3D"]
+
+[node name="crown_1" parent="." instance=ExtResource("1_081dm")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+script = ExtResource("2_tm4cv")
+
+[node name="Cylinder_003" parent="crown_1" index="0"]
+material_override = ExtResource("2_fcjaw")
+
+[editable path="crown_1"]

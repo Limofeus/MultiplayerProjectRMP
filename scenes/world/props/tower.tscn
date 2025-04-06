@@ -1,0 +1,128 @@
+[gd_scene load_steps=5 format=3 uid="uid://yejbiqoload0"]
+
+[sub_resource type="Gradient" id="Gradient_avuye"]
+offsets = PackedFloat32Array(0.488806, 0.645522)
+colors = PackedColorArray(0.226563, 0.226563, 0.226563, 1, 0.601563, 0.601563, 0.601563, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qdilh"]
+frequency = 0.0316
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sa4cl"]
+seamless = true
+color_ramp = SubResource("Gradient_avuye")
+noise = SubResource("FastNoiseLite_qdilh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kjuv7"]
+albedo_color = Color(0.25, 0.25, 0.25, 1)
+albedo_texture = SubResource("NoiseTexture2D_sa4cl")
+uv1_scale = Vector3(114.753, 98.604, 8.58411)
+
+[node name="tower" type="Node3D"]
+
+[node name="Floor19" type="CSGBox3D" parent="."]
+transform = Transform3D(0.999979, -0.00348388, 0.00545515, 0.00348484, 0.999994, -0.000167163, -0.00545453, 0.000186186, 0.999985, 0, 0, 0)
+use_collision = true
+size = Vector3(29.254, 131.951, 34.3106)
+material = SubResource("StandardMaterial3D_kjuv7")
+
+[node name="Floor20" type="CSGBox3D" parent="."]
+transform = Transform3D(0.999979, -0.00348388, 0.00545515, 0.00348484, 0.999994, -0.000167163, -0.00545453, 0.000186186, 0.999985, -0.284663, 64.652, -0.437114)
+use_collision = true
+size = Vector3(37.7943, 7.07619, 41.8731)
+material = SubResource("StandardMaterial3D_kjuv7")
+
+[node name="Floor21" type="CSGBox3D" parent="."]
+transform = Transform3D(0.999979, -0.00348388, 0.00545515, 0.00348484, 0.999994, -0.000167163, -0.00545453, 0.000186186, 0.999985, -0.358644, 69.6803, -18.1283)
+use_collision = true
+size = Vector3(37.8264, 3.35102, 6.49097)
+material = SubResource("StandardMaterial3D_kjuv7")
+
+[node name="Floor22" type="CSGBox3D" parent="."]
+transform = Transform3D(0.999979, -0.00348388, 0.00545515, 0.00348484, 0.999994, -0.000167163, -0.00545453, 0.000186186, 0.999985, -0.358644, 69.6803, 17.3755)
+use_collision = true
+size = Vector3(37.8264, 3.35102, 6.49097)
+material = SubResource("StandardMaterial3D_kjuv7")
+
+[node name="Floor23" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37111e-08, 1.52581e-10, 1, 0.00349065, 0.999994, 0, -0.999994, 0.00349065, -4.37114e-08, -16.0712, 69.6803, -0.247898)
+use_collision = true
+size = Vector3(37.8264, 3.35102, 6.49097)
+material = SubResource("StandardMaterial3D_kjuv7")
+
+[node name="Floor24" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37111e-08, 1.52581e-10, 1, 0.00349065, 0.999994, 0, -0.999994, 0.00349065, -4.37114e-08, 15.1834, 69.6803, -0.247898)
+use_collision = true
+size = Vector3(37.8264, 3.35102, 6.49097)
+material = SubResource("StandardMaterial3D_kjuv7")
+
+[node name="Floor25" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37111e-08, 1.52581e-10, 1, 0.00349065, 0.999994, 0, -0.999994, 0.00349065, -4.37114e-08, 15.1834, 72.9412, -18.1212)
+use_collision = true
+size = Vector3(6.52394, 9.74809, 6.49097)
+material = SubResource("StandardMaterial3D_kjuv7")
+
+[node name="Floor26" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37111e-08, 1.52581e-10, 1, 0.00349065, 0.999994, 0, -0.999994, 0.00349065, -4.37114e-08, 15.1834, 72.9412, -0.980724)
+use_collision = true
+size = Vector3(6.52394, 9.74809, 6.49097)
+material = SubResource("StandardMaterial3D_kjuv7")
+
+[node name="Floor27" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37111e-08, 1.52581e-10, 1, 0.00349065, 0.999994, 0, -0.999994, 0.00349065, -4.37114e-08, 15.1834, 72.9412, 17.4038)
+use_collision = true
+size = Vector3(6.52394, 9.74809, 6.49097)
+material = SubResource("StandardMaterial3D_kjuv7")
+
+[node name="Floor28" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37111e-08, 1.52581e-10, 1, 0.00349065, 0.999994, 0, -0.999994, 0.00349065, -4.37114e-08, -0.989191, 72.9412, 17.4038)
+use_collision = true
+size = Vector3(6.52394, 9.74809, 6.49097)
+material = SubResource("StandardMaterial3D_kjuv7")
+
+[node name="Floor29" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37111e-08, 1.52581e-10, 1, 0.00349065, 0.999994, 0, -0.999994, 0.00349065, -4.37114e-08, -15.9402, 72.9412, 17.4038)
+use_collision = true
+size = Vector3(6.52394, 9.74809, 6.49097)
+material = SubResource("StandardMaterial3D_kjuv7")
+
+[node name="Floor30" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37111e-08, 1.52581e-10, 1, 0.00349065, 0.999994, 0, -0.999994, 0.00349065, -4.37114e-08, -15.9402, 72.9412, 0.00960541)
+use_collision = true
+size = Vector3(6.52394, 9.74809, 6.49097)
+material = SubResource("StandardMaterial3D_kjuv7")
+
+[node name="Floor31" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37111e-08, 1.52581e-10, 1, 0.00349065, 0.999994, 0, -0.999994, 0.00349065, -4.37114e-08, -15.9402, 72.9412, -17.6796)
+use_collision = true
+size = Vector3(6.52394, 9.74809, 6.49097)
+material = SubResource("StandardMaterial3D_kjuv7")
+
+[node name="Floor32" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37111e-08, 1.52581e-10, 1, 0.00349065, 0.999994, 0, -0.999994, 0.00349065, -4.37114e-08, -1.1323, 72.9412, -17.6796)
+use_collision = true
+size = Vector3(6.52394, 9.74809, 6.49097)
+material = SubResource("StandardMaterial3D_kjuv7")
+
+[node name="Floor33" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37111e-08, 1.52585e-10, 1, -0.260235, 0.965545, -1.15225e-08, -0.965545, -0.260235, -4.21654e-08, -1.08179, 50.652, -16.1556)
+use_collision = true
+size = Vector3(6.52394, 28.708, 6.49097)
+material = SubResource("StandardMaterial3D_kjuv7")
+
+[node name="Floor34" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.22021e-08, -1.1387e-08, -1, -0.260504, 0.965473, 0, 0.965473, 0.260505, -4.37114e-08, -1.08179, 50.652, 14.7771)
+use_collision = true
+size = Vector3(6.52394, 28.708, 6.49097)
+material = SubResource("StandardMaterial3D_kjuv7")
+
+[node name="Floor35" type="CSGBox3D" parent="."]
+transform = Transform3D(0.965473, 0.260505, 0, -0.260504, 0.965473, 0, 0, 0, 1, 13.2326, 50.652, -0.787146)
+use_collision = true
+size = Vector3(6.52394, 28.708, 6.49097)
+material = SubResource("StandardMaterial3D_kjuv7")
+
+[node name="Floor36" type="CSGBox3D" parent="."]
+transform = Transform3D(-0.965473, -0.260505, 8.74228e-08, -0.260504, 0.965473, 0, -8.44043e-08, -2.2774e-08, -1, -14.3072, 50.652, -0.787146)
+use_collision = true
+size = Vector3(6.52394, 28.708, 6.49097)
+material = SubResource("StandardMaterial3D_kjuv7")

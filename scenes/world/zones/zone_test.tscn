@@ -1,0 +1,267 @@
+[gd_scene load_steps=28 format=3 uid="uid://d18ee7hebbod5"]
+
+[ext_resource type="Texture2D" uid="uid://coeqr5p2toa25" path="res://sprites/testing/TEST_TEX.png" id="1_sfa5y"]
+[ext_resource type="Script" path="res://scripts/components/utility/editor tools/csg_material_texture_size_setter.gd" id="2_y1tiq"]
+[ext_resource type="Script" path="res://scripts/visual/creatures/sprite_sheet_billboard.gd" id="3_2dhyc"]
+[ext_resource type="Script" path="res://scripts/resources/visual/omnidir_sprite_sheet.gd" id="4_ne3ic"]
+[ext_resource type="Texture2D" uid="uid://b44xx5t4fp802" path="res://sprites/creatures/skeleton/Skeleton_SpriteSheet_Walk.png" id="5_axg5r"]
+[ext_resource type="Shader" path="res://shaders/spatial/creature_sprite_sheet.gdshader" id="6_bkkd4"]
+[ext_resource type="Script" path="res://scripts/world/entity spawning/spawn_entity_on_players_created.gd" id="7_4q7r7"]
+[ext_resource type="PackedScene" uid="uid://h4rhiwl8xmhl" path="res://scenes/entities/creatures/yolo_enemy.tscn" id="8_o782x"]
+[ext_resource type="PackedScene" uid="uid://bw2i466uid2v5" path="res://scenes/entities/creatures/yolo_ranged_enemy.tscn" id="9_fcomc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lamas"]
+albedo_texture = ExtResource("1_sfa5y")
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_aaqok"]
+size = Vector3(1, 10, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kf0tq"]
+size = Vector3(1, 10, 1)
+
+[sub_resource type="Gradient" id="Gradient_p5gqa"]
+offsets = PackedFloat32Array(0.488806, 0.645522)
+colors = PackedColorArray(0.226563, 0.226563, 0.226563, 1, 0.601563, 0.601563, 0.601563, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_n5doh"]
+frequency = 0.0316
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gfgok"]
+seamless = true
+color_ramp = SubResource("Gradient_p5gqa")
+noise = SubResource("FastNoiseLite_n5doh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tmrx"]
+albedo_color = Color(0.25, 0.25, 0.25, 1)
+albedo_texture = SubResource("NoiseTexture2D_gfgok")
+uv1_scale = Vector3(114.753, 98.604, 8.58411)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sat28"]
+albedo_color = Color(0.25, 0.25, 0.25, 1)
+albedo_texture = SubResource("NoiseTexture2D_gfgok")
+uv1_scale = Vector3(114.753, 98.604, 8.58411)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_16qb8"]
+albedo_color = Color(0.25, 0.25, 0.25, 1)
+albedo_texture = SubResource("NoiseTexture2D_gfgok")
+uv1_scale = Vector3(58.8662, 30.4498, 24.3699)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dcxec"]
+albedo_color = Color(0.25, 0.25, 0.25, 1)
+albedo_texture = SubResource("NoiseTexture2D_gfgok")
+uv1_scale = Vector3(47.2969, 23.748, 14.7918)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r2s4b"]
+albedo_color = Color(0.25, 0.25, 0.25, 1)
+albedo_texture = SubResource("NoiseTexture2D_gfgok")
+uv1_scale = Vector3(114.753, 100.814, 8.58411)
+
+[sub_resource type="Gradient" id="Gradient_y20lq"]
+offsets = PackedFloat32Array(0.45, 0.571429)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3vb4o"]
+frequency = 0.3299
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_7kev1"]
+color_ramp = SubResource("Gradient_y20lq")
+noise = SubResource("FastNoiseLite_3vb4o")
+
+[sub_resource type="FogMaterial" id="FogMaterial_26j6m"]
+density = 0.2
+albedo = Color(0.21875, 0.21875, 0.21875, 1)
+edge_fade = 0.0225313
+density_texture = SubResource("NoiseTexture3D_7kev1")
+
+[sub_resource type="Resource" id="Resource_d13ty"]
+script = ExtResource("4_ne3ic")
+texture = ExtResource("5_axg5r")
+frame_count = 16
+dir_count = 4
+cycle_speed_mult = 1.0
+reset_timer = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o55rv"]
+render_priority = 0
+shader = ExtResource("6_bkkd4")
+shader_parameter/base_color = Color(1, 0.0229377, 0.0527846, 1)
+shader_parameter/roughness = 3.0
+shader_parameter/sprite_sheet_pos = Vector2(0, 0)
+shader_parameter/sprite_sheet_rows = 4
+shader_parameter/sprite_sheet_columns = 16
+
+[sub_resource type="QuadMesh" id="QuadMesh_rx52d"]
+size = Vector2(38, 51.2)
+
+[node name="ZoneTest" type="Node3D"]
+
+[node name="Testing" type="Node3D" parent="."]
+transform = Transform3D(5.82983, 0, 0, 0, 5.82983, 0, 0, 0, 5.82983, 1.01979, 1.94386, -21.2873)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Testing"]
+transform = Transform3D(51.4595, 0, 0, 0, 51.4595, 0, 0, 0, 51.4595, 0.1774, 171.198, -682.475)
+material_override = SubResource("StandardMaterial3D_lamas")
+mesh = SubResource("BoxMesh_aaqok")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Testing"]
+transform = Transform3D(0.171532, 0, 0, 0, 0.171532, 0, 0, 0, 0.171532, 0.163677, 0.524225, 6.68309)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Testing/StaticBody3D2"]
+shape = SubResource("BoxShape3D_kf0tq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Testing/StaticBody3D2"]
+material_override = SubResource("StandardMaterial3D_lamas")
+mesh = SubResource("BoxMesh_aaqok")
+skeleton = NodePath("../../../..")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="Testing"]
+transform = Transform3D(0.171532, 0, 0, 0, 0.171532, 0, 0, 0, 0.171532, 0.163677, 0.524225, 2.30339)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Testing/StaticBody3D3"]
+shape = SubResource("BoxShape3D_kf0tq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Testing/StaticBody3D3"]
+material_override = SubResource("StandardMaterial3D_lamas")
+mesh = SubResource("BoxMesh_aaqok")
+skeleton = NodePath("../../../..")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="Testing"]
+transform = Transform3D(0.171532, 0, 0, 0, 0.171532, 0, 0, 0, 0.171532, 0.163677, 0.524225, -4.52011)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Testing/StaticBody3D4"]
+shape = SubResource("BoxShape3D_kf0tq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Testing/StaticBody3D4"]
+material_override = SubResource("StandardMaterial3D_lamas")
+mesh = SubResource("BoxMesh_aaqok")
+skeleton = NodePath("../../../..")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="Testing"]
+transform = Transform3D(0.171532, 0, 0, 0, 0.171532, 0, 0, 0, 0.171532, 0.163677, 0.524225, -14.3746)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Testing/StaticBody3D5"]
+shape = SubResource("BoxShape3D_kf0tq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Testing/StaticBody3D5"]
+material_override = SubResource("StandardMaterial3D_lamas")
+mesh = SubResource("BoxMesh_aaqok")
+skeleton = NodePath("../../../..")
+
+[node name="Label3D" type="Label3D" parent="Testing"]
+modulate = Color(0, 0.214811, 1, 1)
+text = "-Z"
+
+[node name="Label3D2" type="Label3D" parent="Testing"]
+transform = Transform3D(0.084217, 0, 0.996448, 0, 1, 0, -0.996448, 0, 0.084217, -3.49785, 0, 3.44543)
+modulate = Color(1, 0, 0.423702, 1)
+text = "-X"
+
+[node name="Label3D3" type="Label3D" parent="Testing"]
+transform = Transform3D(-0.993777, 0, -0.1114, 0, 1, 0, 0.1114, 0, -0.993777, 0.320805, 0, 7.61262)
+modulate = Color(0, 0.00750613, 1, 1)
+text = "Z"
+
+[node name="Label3D4" type="Label3D" parent="Testing"]
+transform = Transform3D(0.499713, 0, -0.866192, 0, 1, 0, 0.866192, 0, 0.499713, 2.33247, 0, 3.48293)
+modulate = Color(1, 0, 0.0517225, 1)
+text = "X"
+
+[node name="Label3D5" type="Label3D" parent="Testing"]
+transform = Transform3D(0.98455, 0, -0.17511, 0, 1, 0, 0.17511, 0, 0.98455, 3.09412, -0.0977421, 5.65253)
+modulate = Color(1, 0, 0.0517225, 1)
+text = "CHUNK 0, 0"
+
+[node name="Csgs" type="Node3D" parent="." node_paths=PackedStringArray("csg_array")]
+script = ExtResource("2_y1tiq")
+material_to_apply = SubResource("StandardMaterial3D_8tmrx")
+csg_array = [NodePath("CSGBox3D"), NodePath("CSGBox3D3"), NodePath("CSGBox3D3/CSGBox3D4"), NodePath("CSGBox3D2")]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Csgs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2075, -4.19916, -4.62315)
+use_collision = true
+size = Vector3(114.753, 8.58411, 98.604)
+material = SubResource("StandardMaterial3D_sat28")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Csgs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.8643, 7.94408, 17.7467)
+use_collision = true
+size = Vector3(58.8662, 24.3699, 30.4498)
+material = SubResource("StandardMaterial3D_16qb8")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Csgs/CSGBox3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.8058, -0.465731, 0)
+operation = 2
+use_collision = true
+size = Vector3(47.2969, 14.7918, 23.748)
+material = SubResource("StandardMaterial3D_dcxec")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Csgs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2075, -4.19916, -102.925)
+use_collision = true
+size = Vector3(114.753, 8.58411, 100.814)
+material = SubResource("StandardMaterial3D_r2s4b")
+
+[node name="FogVolume" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.767, 6.40221, 17.7467)
+size = Vector3(18.749, 16.0439, 22.301)
+material = SubResource("FogMaterial_26j6m")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.5205, 6.40221, 17.7467)
+light_color = Color(1, 0.0685818, 0, 1)
+light_energy = 60.0
+omni_range = 13.375
+
+[node name="TestThingy" type="Node3D" parent="." node_paths=PackedStringArray("billboard_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.30332, 4.76837e-07, 13.2141)
+script = ExtResource("3_2dhyc")
+cur_sprite_sheet = SubResource("Resource_d13ty")
+billboard_node = NodePath("MeshInstance3D")
+billboard_material = SubResource("ShaderMaterial_o55rv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestThingy"]
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 1.60655, 0)
+material_override = SubResource("ShaderMaterial_o55rv")
+mesh = SubResource("QuadMesh_rx52d")
+skeleton = NodePath("../../..")
+
+[node name="SkeletMeleSpawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8783, 1.16903, -16.8424)
+script = ExtResource("7_4q7r7")
+entity_to_spawn = ExtResource("8_o782x")
+
+[node name="SkeletMeleSpawn2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.9275, 1.16903, -16.8424)
+script = ExtResource("7_4q7r7")
+entity_to_spawn = ExtResource("8_o782x")
+
+[node name="SkeletMeleSpawn3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.3377, 1.16903, -16.8424)
+script = ExtResource("7_4q7r7")
+entity_to_spawn = ExtResource("8_o782x")
+
+[node name="SkeletMeleSpawn4" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.2827, 1.16903, -16.8424)
+script = ExtResource("7_4q7r7")
+entity_to_spawn = ExtResource("8_o782x")
+
+[node name="SkeletMeleSpawn5" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2263, 1.16903, -22.0974)
+script = ExtResource("7_4q7r7")
+entity_to_spawn = ExtResource("9_fcomc")
+
+[node name="SkeletMeleSpawn6" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.2754, 1.16903, -22.0974)
+script = ExtResource("7_4q7r7")
+entity_to_spawn = ExtResource("9_fcomc")
+
+[node name="SkeletMeleSpawn7" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6856, 1.16903, -22.0974)
+script = ExtResource("7_4q7r7")
+entity_to_spawn = ExtResource("9_fcomc")
+
+[node name="SkeletMeleSpawn8" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.6306, 1.16903, -22.0974)
+script = ExtResource("7_4q7r7")
+entity_to_spawn = ExtResource("9_fcomc")

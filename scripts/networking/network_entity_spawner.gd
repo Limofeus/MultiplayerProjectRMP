@@ -80,7 +80,8 @@ func spawn_network_entity(network_entity : PackedScene, spawn_arguments : Array[
 
 	this_entity.fire_spawn_logic(spawn_arguments)
 	#Arguments apply AFTER entity ready, this way... Idk entity_ready will be called immidiatly after spawn and arguments will only be called on owner peer that spawned the entity (then it should propagate to other peers)
-	#Looking back at it.. I kinda regret this..
+	#Looking back at it.. I kinda regret this.. 
+	#TODO: In YOLO ai it'll also be benefitial to fire this args before entity ready or something idk
 
 	print("[" + str(Time.get_unix_time_from_system() * 1000) + ", " + str(multiplayer.get_unique_id()) + "]" + this_entity.name + " has been spawned")
 	

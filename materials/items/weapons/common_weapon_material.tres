@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ce4sq6iwxvtjf"]
+
+[ext_resource type="Shader" path="res://shaders/spatial/weapon_display_common.gdshader" id="1_s0hb0"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_s0hb0")
+shader_parameter/main_color = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/fresnel_color = Color(2, 2, 2, 1)
+shader_parameter/fresnel_amount = 1.0

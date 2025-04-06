@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://cwmq73l35padg"]
+
+[sub_resource type="Gradient" id="Gradient_avuye"]
+offsets = PackedFloat32Array(0.488806, 0.645522)
+colors = PackedColorArray(0.226563, 0.226563, 0.226563, 1, 0.601563, 0.601563, 0.601563, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qdilh"]
+frequency = 0.0316
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sa4cl"]
+seamless = true
+color_ramp = SubResource("Gradient_avuye")
+noise = SubResource("FastNoiseLite_qdilh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kjuv7"]
+albedo_color = Color(0.25, 0.25, 0.25, 1)
+albedo_texture = SubResource("NoiseTexture2D_sa4cl")
+uv1_scale = Vector3(114.753, 98.604, 8.58411)
+
+[sub_resource type="Gradient" id="Gradient_6x86n"]
+offsets = PackedFloat32Array(0.488806, 0.645522)
+colors = PackedColorArray(0.226563, 0.226563, 0.226563, 1, 0.601563, 0.601563, 0.601563, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6mngm"]
+frequency = 0.0316
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mgs57"]
+seamless = true
+color_ramp = SubResource("Gradient_6x86n")
+noise = SubResource("FastNoiseLite_6mngm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7d5m4"]
+albedo_color = Color(0.9, 0.09, 0.09, 1)
+albedo_texture = SubResource("NoiseTexture2D_mgs57")
+uv1_scale = Vector3(114.753, 98.604, 8.58411)
+
+[node name="torch5" type="Node3D"]
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0286846, 0.00603628, 0.0146549)
+use_collision = true
+size = Vector3(0.087389, 0.63092, 0.0725174)
+material = SubResource("StandardMaterial3D_kjuv7")
+
+[node name="Floor2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0330839, 0.311282, 0.00812793)
+use_collision = true
+size = Vector3(0.140457, 0.203621, 0.125397)
+material = SubResource("StandardMaterial3D_7d5m4")
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0449258, 0.49878, 0.0236664)
+light_color = Color(1, 0.29, 0.29, 1)
+omni_range = 6.27438
+
+[node name="Floor3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0786788, -0.0935009, 0.0158806)
+use_collision = true
+size = Vector3(0.233626, 0.169991, 0.0979235)
+material = SubResource("StandardMaterial3D_kjuv7")

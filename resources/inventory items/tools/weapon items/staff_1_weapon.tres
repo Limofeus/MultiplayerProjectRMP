@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=5 format=3 uid="uid://1a3tdlhxsylr"]
+
+[ext_resource type="Texture2D" uid="uid://o317ptkytj45" path="res://sprites/items/weapons/icon_staff_1.png" id="1_cfikc"]
+[ext_resource type="PackedScene" uid="uid://brq0omedrixx7" path="res://scenes/entities/projectiles/ball_projectile.tscn" id="2_8qmnu"]
+[ext_resource type="PackedScene" uid="uid://b4g87flbktjyp" path="res://scenes/items/tools/weapons/staff_1_display.tscn" id="4_3by1l"]
+[ext_resource type="Script" path="res://scripts/resources/inventory/items/weapon_item.gd" id="9_v61cw"]
+
+[resource]
+script = ExtResource("9_v61cw")
+item_cooldown = 0.1
+useable_on_cooldown = false
+combo_scenes = Array[PackedScene]([])
+combo_add_cooldowns = Array[float]([])
+scene_to_instantiate = ExtResource("2_8qmnu")
+spawn_from_position = 1
+copy_rotation = true
+position_offset = 0.6
+tool_scene = ExtResource("4_3by1l")
+select_string = "Select"
+name = "Magic Staff"
+description = "Item description"
+stackable = false
+icon = ExtResource("1_cfikc")

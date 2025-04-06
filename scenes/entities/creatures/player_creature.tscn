@@ -1,0 +1,457 @@
+[gd_scene load_steps=65 format=3 uid="uid://bqdtx48rr07yc"]
+
+[ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_63m7l"]
+[ext_resource type="Script" uid="uid://urhqvfpddfc2" path="res://scripts/components/spawn components/spawn_transform_setter.gd" id="2_etd3o"]
+[ext_resource type="Script" uid="uid://cqdvli1115c6a" path="res://scripts/components/input/player_input.gd" id="3_7ars2"]
+[ext_resource type="Script" uid="uid://cghj1m2vlluh" path="res://scripts/components/player/head_rotation.gd" id="4_sontl"]
+[ext_resource type="Script" uid="uid://gfjtfpctsj3i" path="res://scripts/components/input/input interfaces/movement_input_interface.gd" id="5_dqvwe"]
+[ext_resource type="Script" uid="uid://cfivoy48piog5" path="res://scripts/components/controllers/state_machine.gd" id="6_nupmt"]
+[ext_resource type="Script" uid="uid://brrrj4ht8xx1p" path="res://scripts/states/movement states/creature_movement_state.gd" id="7_7mgjt"]
+[ext_resource type="Script" uid="uid://cj1vyj2ir4t5" path="res://scripts/states/movement states/creature_ground_run_state.gd" id="8_wlqpj"]
+[ext_resource type="Script" uid="uid://cbhdtjrfxxd6g" path="res://scripts/states/movement states/creature_jump_state.gd" id="9_s76jf"]
+[ext_resource type="Script" uid="uid://bq7javr7pjydw" path="res://scripts/components/player/camera_mounter.gd" id="10_m48n2"]
+[ext_resource type="Script" uid="uid://d2e1un7ndy87l" path="res://scripts/components/inventory/creature_item_user_component.gd" id="11_hrnlk"]
+[ext_resource type="Script" uid="uid://dml1a3xtoqc47" path="res://scripts/components/player/movement_effects_parameters_send.gd" id="13_tqlmt"]
+[ext_resource type="Script" uid="uid://pj6i8cqi2t1p" path="res://scripts/components/inventory/player_hotbar_component.gd" id="14_3ehfr"]
+[ext_resource type="Script" uid="uid://dc18yxsjhmfb4" path="res://scripts/components/inventory/item user visual/item_cooldown_bar_updater.gd" id="14_80fpb"]
+[ext_resource type="Script" uid="uid://dcc48kjd0o4v5" path="res://scripts/debug/testing/test_inv_item_adder.gd" id="15_xaj14"]
+[ext_resource type="Script" uid="uid://tqtqwrpn4m2x" path="res://scripts/resources/inventory/items/inventory_item.gd" id="16_tlce0"]
+[ext_resource type="Resource" uid="uid://hr26l03c7p77" path="res://resources/inventory items/tools/spawner items/enemy_spawn_item_1.tres" id="17_fvq0r"]
+[ext_resource type="Resource" uid="uid://bpvdms7w0up6v" path="res://resources/inventory items/tools/spawner items/roomba_spawner_item.tres" id="18_x1fg6"]
+[ext_resource type="Resource" uid="uid://b7tqoytns3x4d" path="res://resources/inventory items/tools/weapon items/sword_1_weapon.tres" id="19_640nl"]
+[ext_resource type="Resource" uid="uid://1a3tdlhxsylr" path="res://resources/inventory items/tools/weapon items/staff_1_weapon.tres" id="20_bfh14"]
+[ext_resource type="Script" uid="uid://dp26vonrii4k4" path="res://scripts/visual/creatures/healthbars/healthbar_updater.gd" id="21_3dyv3"]
+[ext_resource type="Script" uid="uid://dtga6lwq1vuxj" path="res://scripts/utility/quick actions/disable_node_array.gd" id="22_u1yxl"]
+[ext_resource type="Resource" uid="uid://bb1do7tbrgse4" path="res://resources/inventory items/tools/weapon items/dagger_1_weapon.tres" id="23_8it18"]
+[ext_resource type="Resource" uid="uid://040yl843thoa" path="res://resources/inventory items/tools/spawner items/enemy_spawn_item_2.tres" id="23_awi5f"]
+[ext_resource type="Script" uid="uid://dvtq2pvnwrpir" path="res://scripts/visual/creatures/projectile_hit_effect.gd" id="23_ckyfg"]
+[ext_resource type="PackedScene" uid="uid://dvoqk8td5oyvy" path="res://scenes/visual/effects/hit_effect.tscn" id="24_5ig3w"]
+[ext_resource type="Script" uid="uid://cx2qjejn3x3ba" path="res://scripts/components/inventory/inventory visual/fancy tool display/fancy_tool_display_updater.gd" id="24_ivi5d"]
+[ext_resource type="Script" uid="uid://c3w66lokilw4f" path="res://scripts/components/sync/creature_sprite_sheet_sync.gd" id="27_7ghp2"]
+[ext_resource type="Script" uid="uid://cf62jkm8arfbu" path="res://scripts/visual/creatures/sprite_sheet_billboard.gd" id="27_e2f3t"]
+[ext_resource type="Resource" uid="uid://b75lkdk8nosox" path="res://resources/sprite sheets/creatures/skeleton/skeleton_walk_fwd_omnidir_sprite_sheet.tres" id="28_b26iv"]
+[ext_resource type="Script" uid="uid://cv1oo7e2vw3ff" path="res://scripts/components/attribute holders/creature_attributes.gd" id="28_og07y"]
+[ext_resource type="Script" uid="uid://dhxpbknwhmrl" path="res://scripts/components/inventory/player_inventory_component.gd" id="29_8gigg"]
+[ext_resource type="Resource" uid="uid://djidi5l2lw7o1" path="res://resources/sprite sheets/creatures/skeleton/skeleton_walk_bwd_omnidir_sprite_sheet.tres" id="29_a0v5g"]
+[ext_resource type="Shader" uid="uid://bfx5psllv5gl5" path="res://shaders/spatial/creature_sprite_sheet.gdshader" id="30_3wo27"]
+[ext_resource type="Resource" uid="uid://b1f7d4cf2gc3x" path="res://resources/sprite sheets/creatures/skeleton/skeleton_sidestep_left_omnidir_sprite_sheet.tres" id="30_5mosc"]
+[ext_resource type="Resource" uid="uid://bma6n50ls37tp" path="res://resources/sprite sheets/creatures/skeleton/skeleton_sidestep_right_omnidir_sprite_sheet.tres" id="31_2pcem"]
+[ext_resource type="Resource" uid="uid://b3jk6eigtjjyo" path="res://resources/sprite sheets/creatures/skeleton/skeleton_idle_omnidir_sprite_sheet.tres" id="32_3sbut"]
+[ext_resource type="Script" uid="uid://cjrfibd7sxy0y" path="res://scripts/components/utility/set_material_based_on_owner.gd" id="32_g4v40"]
+[ext_resource type="PackedScene" uid="uid://df3xjwnja4ke" path="res://scenes/visual/fancy_tool_displayer.tscn" id="33_ef6d6"]
+[ext_resource type="Script" uid="uid://cq0jynvxpb854" path="res://scripts/components/sync/position_sync.gd" id="33_melic"]
+[ext_resource type="Shader" uid="uid://bi67yjngfsmxq" path="res://shaders/mesh effects/textured_alpha_additive.gdshader" id="34_5cia7"]
+[ext_resource type="Script" uid="uid://ceiyrvvrjtl5s" path="res://scripts/components/sync/optimized_rotation_sync.gd" id="34_xex5s"]
+[ext_resource type="Texture2D" uid="uid://dhxfkl1b3x4bf" path="res://sprites/effects/circle1_1.png" id="35_wwoik"]
+[ext_resource type="Texture2D" uid="uid://dc22ttjov378h" path="res://sprites/creatures/skeleton/Skeleton_SpriteSheet_Idle.png" id="39_40yc1"]
+[ext_resource type="Script" uid="uid://52avxl67y58j" path="res://scripts/visual/control_node_to_world_position.gd" id="39_865de"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wuj5g"]
+albedo_color = Color(0.196071, 0.25379, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rjudh"]
+albedo_color = Color(0.373333, 1, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ttwh"]
+albedo_color = Color(1, 0.2, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qgny7"]
+albedo_color = Color(1, 0.666667, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_www38"]
+albedo_color = Color(0.773333, 0.2, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qr1bo"]
+albedo_color = Color(0.2, 1, 0.986667, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hj1vt"]
+albedo_color = Color(0.520433, 1, 0.235412, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ekfel"]
+radius = 0.3
+height = 1.75
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_atlbh"]
+top_radius = 0.05
+bottom_radius = 0.1
+height = 0.25
+cap_bottom = false
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ws0uc"]
+radius = 0.3
+height = 1.75
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dskx3"]
+radius = 0.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8h034"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("34_5cia7")
+shader_parameter/main_texture = ExtResource("35_wwoik")
+shader_parameter/main_color = Color(1, 1, 1, 1)
+shader_parameter/power_mult = 20.0
+shader_parameter/alpha_mult = 1.0
+shader_parameter/mpimap_offset = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f0emg"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("30_3wo27")
+shader_parameter/base_color = Color(1, 0.0229377, 0.0527846, 1)
+shader_parameter/roughness = 3.0
+shader_parameter/sprite_sheet = ExtResource("39_40yc1")
+shader_parameter/sprite_sheet_pos = Vector2(0, 0)
+shader_parameter/sprite_sheet_rows = 4
+shader_parameter/sprite_sheet_columns = 8
+
+[sub_resource type="QuadMesh" id="QuadMesh_k4lpv"]
+size = Vector2(38, 51.2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jpr2b"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vdsfb"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iocts"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e626i"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qlogj"]
+
+[node name="NetworkPlayerTest" type="Node" node_paths=PackedStringArray("spawn_logic", "ownerLogic", "sharedLogic")]
+script = ExtResource("1_63m7l")
+authority_interaction_priority = 1
+spawn_logic = NodePath("SpawnLogic")
+ownerLogic = NodePath("OwnerLogic")
+sharedLogic = NodePath("SharedLogic")
+
+[node name="SpawnLogic" type="Node" parent="."]
+
+[node name="SpawnTransformSetter" type="Node" parent="SpawnLogic" node_paths=PackedStringArray("positional_node")]
+script = ExtResource("2_etd3o")
+positional_node = NodePath("../../Player")
+
+[node name="OwnerLogic" type="Node" parent="."]
+
+[node name="--- AI & Input ---" type="Node" parent="OwnerLogic"]
+
+[node name="PlayerInputWIP" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("movement_input_interface", "network_entity")]
+script = ExtResource("3_7ars2")
+movement_input_interface = NodePath("../MovementInputInterface")
+network_entity = NodePath("../..")
+
+[node name="HeadRotation" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("head_node", "look_node", "network_entity")]
+script = ExtResource("4_sontl")
+head_node = NodePath("../../Player/Head")
+look_node = NodePath("../../Player/Head/CameraMount")
+network_entity = NodePath("../..")
+
+[node name="MovementInputInterface" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("network_entity")]
+script = ExtResource("5_dqvwe")
+network_entity = NodePath("../..")
+
+[node name="--- Movement & Rotation ---" type="Node" parent="OwnerLogic"]
+
+[node name="MovementStateMachine" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("current_state", "network_entity")]
+script = ExtResource("6_nupmt")
+current_state = NodePath("CreatureMovementState")
+network_entity = NodePath("../..")
+
+[node name="CreatureMovementState" type="Node" parent="OwnerLogic/MovementStateMachine" node_paths=PackedStringArray("creature_attributes", "movement_input_interface", "next_states")]
+script = ExtResource("7_7mgjt")
+creature_attributes = NodePath("../../../SharedLogic/CreatureAttributes")
+movement_input_interface = NodePath("../../MovementInputInterface")
+speed_mult = 0.7
+next_states = [NodePath("../CreatureRunState"), NodePath("../CreatureJumpState")]
+
+[node name="CreatureRunState" type="Node" parent="OwnerLogic/MovementStateMachine" node_paths=PackedStringArray("creature_attributes", "movement_input_interface", "next_states")]
+script = ExtResource("8_wlqpj")
+creature_attributes = NodePath("../../../SharedLogic/CreatureAttributes")
+movement_input_interface = NodePath("../../MovementInputInterface")
+speed_mult = 1.1
+next_states = [NodePath("../CreatureMovementState"), NodePath("../CreatureJumpState")]
+
+[node name="CreatureJumpState" type="Node" parent="OwnerLogic/MovementStateMachine" node_paths=PackedStringArray("creature_attributes", "movement_input_interface", "next_states")]
+script = ExtResource("9_s76jf")
+jump_power = 2.0
+creature_attributes = NodePath("../../../SharedLogic/CreatureAttributes")
+movement_input_interface = NodePath("../../MovementInputInterface")
+max_accel = 1.0
+max_angle_correct = 0.1
+next_states = [NodePath("../CreatureMovementState")]
+
+[node name="CameraMounter" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("camera_mount", "network_entity")]
+script = ExtResource("10_m48n2")
+camera_mount = NodePath("../../Player/Head/CameraMount/SpringArm3D/ActualCameraMount")
+unsynced_node_path = "/root/Main/CameraRig"
+network_entity = NodePath("../..")
+
+[node name="--- Items & Inventory ---" type="Node" parent="OwnerLogic"]
+
+[node name="CreatureItemUser" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("creature_inventory", "spatial_node", "character_body", "head_node", "network_entity")]
+script = ExtResource("11_hrnlk")
+creature_inventory = NodePath("../../SharedLogic/PlayerInventory")
+spatial_node = NodePath("../../Player/Head/SpatialItemUse")
+character_body = NodePath("../../Player")
+head_node = NodePath("../../Player/Head/CameraMount")
+network_entity = NodePath("../..")
+
+[node name="--- Visuals & Looks ---" type="Node" parent="OwnerLogic"]
+
+[node name="MovementEffectsSend" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("player_body", "network_entity")]
+script = ExtResource("13_tqlmt")
+player_body = NodePath("../../Player")
+unsynced_node_path = "/root/Main/CameraRig/MovementEffects"
+network_entity = NodePath("../..")
+
+[node name="PlayerHotbar" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("creature_inventory", "network_entity")]
+script = ExtResource("14_3ehfr")
+creature_inventory = NodePath("../../SharedLogic/PlayerInventory")
+unsynced_node_path = "/root/Main/UI Layer/UI/Hotbar/Hotbar"
+network_entity = NodePath("../..")
+
+[node name="ItemCooldownBarUpdate" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("item_user_component", "network_entity")]
+script = ExtResource("14_80fpb")
+item_user_component = NodePath("../CreatureItemUser")
+unsynced_node_path = "/root/Main/UI Layer/UI/CooldownBarHolder/CooldownBar"
+network_entity = NodePath("../..")
+
+[node name="--- Other --" type="Node" parent="OwnerLogic"]
+
+[node name="--- Debugging & Testing ---" type="Node" parent="OwnerLogic"]
+
+[node name="DebugInvItemAdder" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("player_inventory")]
+script = ExtResource("15_xaj14")
+player_inventory = NodePath("../../SharedLogic/PlayerInventory")
+debug_items = Array[ExtResource("16_tlce0")]([ExtResource("18_x1fg6"), ExtResource("17_fvq0r"), ExtResource("23_awi5f")])
+
+[node name="SharedLogic" type="Node" parent="."]
+
+[node name="CreatureAttributes" type="Node" parent="SharedLogic" node_paths=PackedStringArray("character_body", "head_node", "look_node", "spatial_node", "network_entity") groups=["Creature"]]
+script = ExtResource("28_og07y")
+creature_name = "Player"
+character_body = NodePath("../../Player")
+head_node = NodePath("../../Player/Head")
+look_node = NodePath("../../Player/Head/CameraMount")
+max_health = 10.0
+health = 10.0
+spatial_node = NodePath("../../Player")
+network_entity = NodePath("../..")
+
+[node name="HealthbarUpdater" type="Node" parent="SharedLogic/CreatureAttributes" node_paths=PackedStringArray("killable_attributes", "main_healthbar", "effect_healthbar")]
+script = ExtResource("21_3dyv3")
+killable_attributes = NodePath("..")
+main_healthbar = NodePath("../../../Player/Head/Healthbar/HealthbarHolder/HitBar/HealthBar")
+effect_healthbar = NodePath("../../../Player/Head/Healthbar/HealthbarHolder/HitBar")
+
+[node name="DeathDisableComponents" type="Node" parent="SharedLogic/CreatureAttributes" node_paths=PackedStringArray("node_array", "hide_nodes")]
+script = ExtResource("22_u1yxl")
+node_array = [NodePath(".."), NodePath("../../../OwnerLogic/MovementStateMachine"), NodePath("../../../OwnerLogic/PlayerHotbar"), NodePath("../../../OwnerLogic"), NodePath("../../../Player/PlayerCollider")]
+hide_nodes = [NodePath("../../../Player/Head/FancyToolDisplayer"), NodePath("../../../Player/Head/SpriteSheetBillboard"), NodePath("../../../Player/Head/Healthbar")]
+
+[node name="ProjectileHitEffect" type="Node" parent="SharedLogic/CreatureAttributes" node_paths=PackedStringArray("killable_attributes")]
+script = ExtResource("23_ckyfg")
+killable_attributes = NodePath("..")
+hit_effect_scene = ExtResource("24_5ig3w")
+
+[node name="PlayerInventory" type="Node" parent="SharedLogic" node_paths=PackedStringArray("player_hotbar_component", "network_entity")]
+script = ExtResource("29_8gigg")
+player_hotbar_component = NodePath("../../OwnerLogic/PlayerHotbar")
+inventory_size = 9
+initial_items = Array[ExtResource("16_tlce0")]([ExtResource("23_8it18"), ExtResource("19_640nl"), ExtResource("20_bfh14")])
+network_entity = NodePath("../..")
+
+[node name="UpdateFancyItemDisplay" type="Node" parent="SharedLogic/PlayerInventory" node_paths=PackedStringArray("tool_display_visual", "creature_item_user_component")]
+script = ExtResource("24_ivi5d")
+tool_display_visual = NodePath("../../../Player/Head/FancyToolDisplayer")
+creature_item_user_component = NodePath("../../../OwnerLogic/CreatureItemUser")
+
+[node name="SetMaterialBasedOnOwner" type="Node" parent="SharedLogic" node_paths=PackedStringArray("mesh", "network_entity")]
+script = ExtResource("32_g4v40")
+materials = Array[Material]([SubResource("StandardMaterial3D_wuj5g"), SubResource("StandardMaterial3D_rjudh"), SubResource("StandardMaterial3D_4ttwh"), SubResource("StandardMaterial3D_qgny7"), SubResource("StandardMaterial3D_www38"), SubResource("StandardMaterial3D_qr1bo")])
+mesh = NodePath("../../Player/MeshInstance3D/HatMesh")
+network_entity = NodePath("../..")
+
+[node name="PositionSync" type="Node" parent="SharedLogic" node_paths=PackedStringArray("node_to_sync", "network_entity")]
+script = ExtResource("33_melic")
+node_to_sync = NodePath("../../Player")
+network_entity = NodePath("../..")
+
+[node name="OptimizedRotationSyncComponent" type="Node" parent="SharedLogic" node_paths=PackedStringArray("node_to_sync", "network_entity")]
+script = ExtResource("34_xex5s")
+node_to_sync = NodePath("../../Player/Head")
+network_entity = NodePath("../..")
+
+[node name="SpriteSheetSync" type="Node" parent="SharedLogic" node_paths=PackedStringArray("movement_input_interface", "character_body", "sprite_sheet_billboard", "network_entity")]
+script = ExtResource("27_7ghp2")
+movement_input_interface = NodePath("../../OwnerLogic/MovementInputInterface")
+character_body = NodePath("../../Player")
+sprite_sheet_billboard = NodePath("../../Player/Head/SpriteSheetBillboard")
+move_speed_mult = 0.25
+fwd_move_sprite_sheet = ExtResource("28_b26iv")
+bwd_move_sprite_sheet = ExtResource("29_a0v5g")
+sidestep_left_sprite_sheet = ExtResource("30_5mosc")
+sidestep_right_sprite_sheet = ExtResource("31_2pcem")
+idle_sprite_sheet = ExtResource("32_3sbut")
+network_entity = NodePath("../..")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+collision_layer = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+visible = false
+material_override = SubResource("StandardMaterial3D_hj1vt")
+mesh = SubResource("CapsuleMesh_ekfel")
+
+[node name="HatMesh" type="MeshInstance3D" parent="Player/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.976369, 0)
+mesh = SubResource("CylinderMesh_atlbh")
+skeleton = NodePath("../..")
+
+[node name="PlayerCollider" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_ws0uc")
+
+[node name="Head" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
+[node name="CameraMount" type="Node3D" parent="Player/Head"]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Player/Head/CameraMount"]
+transform = Transform3D(1, 0, 0, 0, 0.97437, 0.224951, 0, -0.224951, 0.97437, 0, 0, 0)
+shape = SubResource("SphereShape3D_dskx3")
+spring_length = 2.0
+
+[node name="ActualCameraMount" type="Node3D" parent="Player/Head/CameraMount/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 0.97437, -0.224951, 0, 0.224951, 0.97437, 0, -0.00138885, 1.99341)
+
+[node name="BodyRaycast" type="RayCast3D" parent="Player/Head/CameraMount"]
+enabled = false
+target_position = Vector3(0, 0, -10)
+collision_mask = 7
+hit_back_faces = false
+
+[node name="FancyToolDisplayer" parent="Player/Head" instance=ExtResource("33_ef6d6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.95, -0.4)
+magic_circle_material = SubResource("ShaderMaterial_8h034")
+item_selected_circle_spin_speed = 3.0
+item_selected_visual_spin_speed = 1.5
+scale_spring_damping = 0.9
+
+[node name="SpatialItemUse" type="Node3D" parent="Player/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.45, 0)
+
+[node name="SpriteSheetBillboard" type="Node3D" parent="Player/Head" node_paths=PackedStringArray("billboard_node")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, -1.66918, 0)
+script = ExtResource("27_e2f3t")
+cur_sprite_sheet = ExtResource("32_3sbut")
+cycle_speed_mult = 12.0
+billboard_node = NodePath("Billboard")
+billboard_material = SubResource("ShaderMaterial_f0emg")
+
+[node name="Billboard" type="MeshInstance3D" parent="Player/Head/SpriteSheetBillboard"]
+transform = Transform3D(-0.06, 0, -5.24537e-09, 0, 0.06, 0, 5.24537e-09, 0, -0.06, 0, 1.60655, 0)
+material_override = SubResource("ShaderMaterial_f0emg")
+mesh = SubResource("QuadMesh_k4lpv")
+skeleton = NodePath("../..")
+
+[node name="Healthbar" type="Node3D" parent="Player/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="HealthbarPosition" type="Node" parent="Player/Head/Healthbar" node_paths=PackedStringArray("position_node", "control_node")]
+script = ExtResource("39_865de")
+position_node = NodePath("..")
+control_node = NodePath("../HealthbarHolder")
+
+[node name="HealthbarHolder" type="Control" parent="Player/Head/Healthbar"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+
+[node name="HitBar" type="ProgressBar" parent="Player/Head/Healthbar/HealthbarHolder"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -8.0
+offset_right = 40.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_jpr2b")
+theme_override_styles/fill = SubResource("StyleBoxFlat_vdsfb")
+max_value = 1.0
+step = 0.0
+value = 0.705
+show_percentage = false
+
+[node name="HealthBar" type="ProgressBar" parent="Player/Head/Healthbar/HealthbarHolder/HitBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -4.0
+offset_right = 40.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_iocts")
+theme_override_styles/fill = SubResource("StyleBoxFlat_e626i")
+max_value = 1.0
+step = 0.0
+value = 0.485
+show_percentage = false
+
+[node name="PhysicsPropogationArea" type="Area3D" parent="Player"]
+collision_layer = 0
+collision_mask = 6
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/PhysicsPropogationArea"]
+shape = SubResource("CapsuleShape3D_qlogj")
+
+[connection signal="authority_changed" from="." to="SharedLogic/SetMaterialBasedOnOwner" method="_on_entity_authority_change"]
+[connection signal="entity_ready" from="." to="OwnerLogic/PlayerHotbar" method="connect_container_to_hotbar"]
+[connection signal="entity_ready" from="." to="SharedLogic/PlayerInventory" method="add_initial_items"]
+[connection signal="primary_action" from="OwnerLogic/PlayerInputWIP" to="OwnerLogic/CreatureItemUser" method="use_selected_item"]
+[connection signal="on_death" from="SharedLogic/CreatureAttributes" to="SharedLogic/CreatureAttributes/DeathDisableComponents" method="disable_nodes"]

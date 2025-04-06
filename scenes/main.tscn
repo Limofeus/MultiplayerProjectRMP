@@ -1,0 +1,262 @@
+[gd_scene load_steps=27 format=3 uid="uid://fjib4361ovfd"]
+
+[ext_resource type="Script" uid="uid://bdbitsb3bdwvf" path="res://scripts/networking/network_manager.gd" id="1_1ap1m"]
+[ext_resource type="Script" uid="uid://bjmp5kq0tl031" path="res://scripts/utility/fps_counter.gd" id="1_bkmm5"]
+[ext_resource type="Script" uid="uid://mpjk7rbd5tlw" path="res://scripts/debug/debug_network_controls.gd" id="1_gmcmt"]
+[ext_resource type="Script" uid="uid://4wjqwfst7h6d" path="res://scripts/debug/debug_mouse_lock.gd" id="1_jcguy"]
+[ext_resource type="PackedScene" uid="uid://bqdtx48rr07yc" path="res://scenes/entities/creatures/player_creature.tscn" id="5_i60h2"]
+[ext_resource type="Script" uid="uid://nu64f0pvct6p" path="res://scripts/networking/peer_tracker.gd" id="9_asaim"]
+[ext_resource type="Script" uid="uid://b3ihdy361g2yg" path="res://scripts/networking/spawn arguments/spawn_argument.gd" id="9_smuhi"]
+[ext_resource type="Script" uid="uid://bfgxp3pwi8l12" path="res://scripts/visual/player_movement_effects.gd" id="10_3ad3a"]
+[ext_resource type="Script" uid="uid://dluhh2oy78ykj" path="res://scripts/networking/spawn arguments/manual_pos_rot_spawn_argument.gd" id="10_aukot"]
+[ext_resource type="Script" uid="uid://c3aue38bey2rx" path="res://scripts/networking/network_entity_spawner.gd" id="10_f6xxt"]
+[ext_resource type="PackedScene" uid="uid://bsdka40fec030" path="res://scenes/world/zones/zone_1.tscn" id="12_d6rcw"]
+[ext_resource type="Material" uid="uid://dox7ghi1mskpg" path="res://materials/effects/overlays/speedlines_overlay.tres" id="12_oyb24"]
+[ext_resource type="Shader" uid="uid://2u66ri5gklxa" path="res://shaders/main menu effects/dither_canvas.gdshader" id="18_v1b13"]
+[ext_resource type="Texture2D" uid="uid://dsp2730flqo78" path="res://sprites/menu/dither2.png" id="19_6gyjg"]
+[ext_resource type="PackedScene" uid="uid://6ypd48k7kbjj" path="res://scenes/ui/items_hotbar.tscn" id="21_iy7cf"]
+
+[sub_resource type="Resource" id="Resource_oj2bi"]
+script = ExtResource("10_aukot")
+position = Vector3(0, 3, 0)
+rotation = Vector3(0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_yk65l"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.404167, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_is43h"]
+frequency = 0.0355
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nwsi2"]
+seamless = true
+color_ramp = SubResource("Gradient_yk65l")
+noise = SubResource("FastNoiseLite_is43h")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ewqmj"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(1, 0, 0, 1)
+sky_energy_multiplier = 1.3
+sky_cover = SubResource("NoiseTexture2D_nwsi2")
+sky_cover_modulate = Color(0.269531, 0, 0.0109459, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(1, 0, 0, 1)
+ground_curve = 0.0399999
+ground_energy_multiplier = 1.3
+sun_angle_max = 81.37
+sun_curve = 0.0369158
+
+[sub_resource type="Sky" id="Sky_xn2w4"]
+sky_material = SubResource("ProceduralSkyMaterial_ewqmj")
+
+[sub_resource type="Environment" id="Environment_g77om"]
+background_mode = 2
+sky = SubResource("Sky_xn2w4")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 3
+ssr_enabled = true
+ssao_enabled = true
+ssao_light_affect = 1.0
+ssao_ao_channel_affect = 1.0
+glow_enabled = true
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0, 0, 0, 1)
+fog_density = 1.0
+fog_aerial_perspective = 0.4
+fog_sky_affect = 0.519
+fog_depth_curve = 0.659753
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+adjustment_contrast = 1.5
+adjustment_saturation = 2.0
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_rqodr"]
+auto_exposure_enabled = true
+auto_exposure_scale = 0.2
+auto_exposure_speed = 2.0
+auto_exposure_min_sensitivity = 50.0
+auto_exposure_max_sensitivity = 500.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tsk2b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flevc"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qd0fb"]
+shader = ExtResource("18_v1b13")
+shader_parameter/pixel_size = 1.0
+shader_parameter/dither_power = 0.75
+shader_parameter/dither_scroll_speed = Vector2(2, 2)
+shader_parameter/dither_tex_size = Vector2(5, 5)
+shader_parameter/dither_texture = ExtResource("19_6gyjg")
+
+[node name="Main" type="Node"]
+
+[node name="FPSCounter" type="Node" parent="."]
+script = ExtResource("1_bkmm5")
+
+[node name="DebugMouseLocker" type="Node" parent="." node_paths=PackedStringArray("mouse_blocker")]
+script = ExtResource("1_jcguy")
+mouse_blocker = NodePath("../UI Layer/UI/MouseBlock")
+
+[node name="DebugNode" type="Node" parent="." node_paths=PackedStringArray("network_manager")]
+script = ExtResource("1_gmcmt")
+network_manager = NodePath("../NetworkManager")
+
+[node name="NetworkManager" type="Node" parent="." node_paths=PackedStringArray("network_spawner", "peer_tracker", "debugLabel1")]
+script = ExtResource("1_1ap1m")
+network_spawner = NodePath("../NetworkSpawner")
+peer_tracker = NodePath("../PeerTracker")
+initial_player_scene = ExtResource("5_i60h2")
+player_spawn_arguments = Array[ExtResource("9_smuhi")]([SubResource("Resource_oj2bi")])
+debugLabel1 = NodePath("../UI Layer/UI/DebugWindow/VBoxContainer/Label")
+
+[node name="PeerTracker" type="Node" parent="."]
+script = ExtResource("9_asaim")
+
+[node name="NetworkSpawner" type="Node" parent="." node_paths=PackedStringArray("spawn_parent")]
+script = ExtResource("10_f6xxt")
+spawn_parent = NodePath("..")
+add_as_singleton = true
+
+[node name="CameraRig" type="Node3D" parent="."]
+
+[node name="MovementEffects" type="Node" parent="CameraRig" node_paths=PackedStringArray("camera_node", "camera_rig_node")]
+script = ExtResource("10_3ad3a")
+base_fov = 90.0
+camera_node = NodePath("../Camera3D")
+camera_rig_node = NodePath("..")
+speedlines_material = ExtResource("12_oyb24")
+speed_fov_affection = 0.02
+power_to_speedlines_speed = 0.004
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+fov = 105.0
+far = 8000.0
+
+[node name="SpeedlinesOverlay" type="ColorRect" parent="CameraRig/Camera3D"]
+material = ExtResource("12_oyb24")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+environment = SubResource("Environment_g77om")
+camera_attributes = SubResource("CameraAttributesPractical_rqodr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Zone1" parent="World" instance=ExtResource("12_d6rcw")]
+
+[node name="UI Layer" type="CanvasLayer" parent="."]
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="UI Layer"]
+copy_mode = 2
+
+[node name="UI" type="Control" parent="UI Layer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Hotbar" parent="UI Layer/UI" instance=ExtResource("21_iy7cf")]
+layout_mode = 1
+
+[node name="CooldownBarHolder" type="Control" parent="UI Layer/UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_right = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CooldownBar" type="ProgressBar" parent="UI Layer/UI/CooldownBarHolder"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -2.5
+offset_top = -80.0
+offset_right = 2.5
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_tsk2b")
+theme_override_styles/fill = SubResource("StyleBoxFlat_flevc")
+max_value = 1.0
+step = 0.0
+value = 0.1
+fill_mode = 3
+show_percentage = false
+
+[node name="MouseBlock" type="Control" parent="UI Layer/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DebugWindow" type="PanelContainer" parent="UI Layer/UI"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -46.5
+offset_right = 150.0
+offset_bottom = 46.5
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI Layer/UI/DebugWindow"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI Layer/UI/DebugWindow/VBoxContainer"]
+layout_mode = 2
+text = "TEST: 4"
+
+[node name="IpField" type="LineEdit" parent="UI Layer/UI/DebugWindow/VBoxContainer"]
+layout_mode = 2
+text = "127.0.0.1"
+
+[node name="PortField" type="LineEdit" parent="UI Layer/UI/DebugWindow/VBoxContainer"]
+layout_mode = 2
+text = "1337"
+
+[node name="Pixelezation" type="ColorRect" parent="UI Layer"]
+material = SubResource("ShaderMaterial_qd0fb")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.156863)
+
+[connection signal="text_changed" from="UI Layer/UI/DebugWindow/VBoxContainer/IpField" to="DebugNode" method="set_connection_address_string"]
+[connection signal="text_changed" from="UI Layer/UI/DebugWindow/VBoxContainer/PortField" to="DebugNode" method="set_connection_port_string"]

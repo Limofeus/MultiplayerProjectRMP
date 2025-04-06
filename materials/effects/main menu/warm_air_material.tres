@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dh7n305okdfh8"]
+
+[ext_resource type="Shader" path="res://shaders/main menu effects/warm_air_effect.gdshader" id="1_2lxrp"]
+
+[resource]
+shader = ExtResource("1_2lxrp")
+shader_parameter/grid_scale = 70.0
+shader_parameter/noise_scroll_speed = Vector3(0, 0.8, 0.2)
+shader_parameter/noise_screen_uv_offset = Vector2(0.002, 0)

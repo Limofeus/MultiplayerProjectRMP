@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bnvnlxtgjouuo"]
+
+[ext_resource type="Shader" path="res://shaders/main menu effects/invert_color.gdshader" id="1_gel80"]
+
+[resource]
+shader = ExtResource("1_gel80")

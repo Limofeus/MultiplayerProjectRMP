@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://df3xjwnja4ke"]
+
+[ext_resource type="Script" path="res://scripts/components/inventory/inventory visual/fancy tool display/fancy_tool_display_visual.gd" id="1_xy01p"]
+[ext_resource type="Shader" path="res://shaders/mesh effects/textured_alpha_additive.gdshader" id="2_bq7xn"]
+[ext_resource type="Texture2D" uid="uid://dhxfkl1b3x4bf" path="res://sprites/effects/circle1_1.png" id="3_kkvqd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qmtnh"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_bq7xn")
+shader_parameter/main_color = Color(1, 1, 1, 1)
+shader_parameter/power_mult = 20.0
+shader_parameter/alpha_mult = 1.0
+shader_parameter/mpimap_offset = 0.0
+shader_parameter/main_texture = ExtResource("3_kkvqd")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vjgie"]
+size = Vector2(0.6, 0.6)
+
+[node name="FancyToolDisplayer" type="Node3D" node_paths=PackedStringArray("magic_circle_node", "tool_rotator_node", "tool_holder_node")]
+script = ExtResource("1_xy01p")
+magic_circle_node = NodePath("Holder/MagicCircle")
+magic_circle_material = SubResource("ShaderMaterial_qmtnh")
+tool_rotator_node = NodePath("Holder/Rotator")
+tool_holder_node = NodePath("Holder/Rotator/ToolHolder")
+item_selected_visual_spin_speed = 2.0
+
+[node name="Holder" type="Node3D" parent="."]
+
+[node name="MagicCircle" type="Node3D" parent="Holder"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Holder/MagicCircle"]
+material_override = SubResource("ShaderMaterial_qmtnh")
+mesh = SubResource("PlaneMesh_vjgie")
+
+[node name="Rotator" type="Node3D" parent="Holder"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.5, 0)
+
+[node name="ToolHolder" type="Node3D" parent="Holder/Rotator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
