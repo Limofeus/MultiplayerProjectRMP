@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://bqdtx48rr07yc"]
+[gd_scene load_steps=68 format=3 uid="uid://bqdtx48rr07yc"]
 
 [ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_63m7l"]
 [ext_resource type="Script" uid="uid://urhqvfpddfc2" path="res://scripts/components/spawn components/spawn_transform_setter.gd" id="2_etd3o"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" uid="uid://cbhdtjrfxxd6g" path="res://scripts/states/movement states/creature_jump_state.gd" id="9_s76jf"]
 [ext_resource type="Script" uid="uid://bq7javr7pjydw" path="res://scripts/components/player/camera_mounter.gd" id="10_m48n2"]
 [ext_resource type="Script" uid="uid://d2e1un7ndy87l" path="res://scripts/components/inventory/creature_item_user_component.gd" id="11_hrnlk"]
+[ext_resource type="Script" uid="uid://comgo01fnclsm" path="res://scripts/components/inventory/player_item_drop_component.gd" id="12_ju1jf"]
+[ext_resource type="PackedScene" uid="uid://cu8s4ho80jjmr" path="res://scenes/entities/items/dropped_item.tscn" id="13_8kbnr"]
 [ext_resource type="Script" uid="uid://dml1a3xtoqc47" path="res://scripts/components/player/movement_effects_parameters_send.gd" id="13_tqlmt"]
 [ext_resource type="Script" uid="uid://pj6i8cqi2t1p" path="res://scripts/components/inventory/player_hotbar_component.gd" id="14_3ehfr"]
 [ext_resource type="Script" uid="uid://dc18yxsjhmfb4" path="res://scripts/components/inventory/item user visual/item_cooldown_bar_updater.gd" id="14_80fpb"]
@@ -45,6 +47,7 @@
 [ext_resource type="Texture2D" uid="uid://dhxfkl1b3x4bf" path="res://sprites/effects/circle1_1.png" id="35_wwoik"]
 [ext_resource type="Texture2D" uid="uid://dc22ttjov378h" path="res://sprites/creatures/skeleton/Skeleton_SpriteSheet_Idle.png" id="39_40yc1"]
 [ext_resource type="Script" uid="uid://52avxl67y58j" path="res://scripts/visual/control_node_to_world_position.gd" id="39_865de"]
+[ext_resource type="Script" uid="uid://bmcerh7kxn1lm" path="res://scripts/components/inventory/item_pickup_component.gd" id="39_o7knh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wuj5g"]
 albedo_color = Color(0.196071, 0.25379, 1, 1)
@@ -224,6 +227,14 @@ character_body = NodePath("../../Player")
 head_node = NodePath("../../Player/Head/CameraMount")
 network_entity = NodePath("../..")
 
+[node name="PlayerItemDropComponent" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("player_inventory_component", "item_drop_spawn_position", "network_entity")]
+script = ExtResource("12_ju1jf")
+dropped_item_scene = ExtResource("13_8kbnr")
+player_inventory_component = NodePath("../../SharedLogic/PlayerInventory")
+item_drop_spawn_position = NodePath("../../Player/Head/ItemDropPos")
+network_entity = NodePath("../..")
+metadata/_custom_type_script = "uid://comgo01fnclsm"
+
 [node name="--- Visuals & Looks ---" type="Node" parent="OwnerLogic"]
 
 [node name="MovementEffectsSend" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("player_body", "network_entity")]
@@ -322,6 +333,13 @@ sidestep_left_sprite_sheet = ExtResource("30_5mosc")
 sidestep_right_sprite_sheet = ExtResource("31_2pcem")
 idle_sprite_sheet = ExtResource("32_3sbut")
 network_entity = NodePath("../..")
+
+[node name="ItemPickupComponent" type="Node" parent="SharedLogic" node_paths=PackedStringArray("item_pickup_area", "creature_inventory", "network_entity")]
+script = ExtResource("39_o7knh")
+item_pickup_area = NodePath("../../Player/ItemPickup")
+creature_inventory = NodePath("../PlayerInventory")
+network_entity = NodePath("../..")
+metadata/_custom_type_script = "uid://bmcerh7kxn1lm"
 
 [node name="Player" type="CharacterBody3D" parent="."]
 collision_layer = 2
@@ -442,12 +460,15 @@ step = 0.0
 value = 0.485
 show_percentage = false
 
-[node name="PhysicsPropogationArea" type="Area3D" parent="Player"]
+[node name="ItemDropPos" type="Node3D" parent="Player/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -2)
+
+[node name="ItemPickup" type="Area3D" parent="Player"]
 collision_layer = 0
 collision_mask = 6
 monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/PhysicsPropogationArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/ItemPickup"]
 shape = SubResource("CapsuleShape3D_qlogj")
 
 [connection signal="authority_changed" from="." to="SharedLogic/SetMaterialBasedOnOwner" method="_on_entity_authority_change"]

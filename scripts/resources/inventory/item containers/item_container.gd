@@ -23,7 +23,10 @@ func is_full() -> bool:
 	return true
 
 #No items per slot limit
-func has_room_for(item : InventoryItem) -> int: #Returns the first slot suitable for the item
+func has_room_for(item : InventoryItem) -> bool:
+	return find_suitable_slot(item) >= 0
+
+func find_suitable_slot(item : InventoryItem) -> int: #Returns the first slot suitable for the item
 	for i in range(storage_capacity):
 		if items[i] == null:
 			return i
@@ -51,6 +54,12 @@ func remove_item_at(slot : int, amount : int = 1) -> void:
 	item_count[slot] -= amount
 	if item_count[slot] <= 0:
 		items[slot] = null
+
+	on_container_updated.emit()
+
+func clear_slot(slot : int) -> void:
+	items[slot] = null
+	item_count[slot] = 0
 
 	on_container_updated.emit()
 

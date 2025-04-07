@@ -20,3 +20,6 @@ func offset_selected_slot(offset : int, item_user : ItemUser) -> void:
 
 func get_selected_item() -> InventoryItem:
 	return items[selected_slot]
+
+func get_selected_item_ammount() -> int:
+	return item_count[selected_slot]

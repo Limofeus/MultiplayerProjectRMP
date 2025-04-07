@@ -40,7 +40,7 @@ func reassign_target() -> void:
 	if !entity_ready or !network_entity.has_authority():
 		return #Only authority does all this
 
-	print("Searching for targets")
+	#print("Searching for targets")
 	var target_aray : Array[CreatureAttributes] = targeting_component.find_different_team_creatures(creature_attributes)
 	target_aray = filter_targets_by_distance(target_aray)
 	if target_aray.size() > 0:

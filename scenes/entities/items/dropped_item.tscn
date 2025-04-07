@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://cu8s4ho80jjmr"]
+
+[ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_08r0l"]
+[ext_resource type="Script" uid="uid://bf7fadkascqa1" path="res://scripts/components/spawn components/item_spawn_component.gd" id="2_qhuj6"]
+[ext_resource type="Script" uid="uid://chahk0rmmc7tg" path="res://scripts/components/inventory/dropped_item_component.gd" id="2_ufukf"]
+[ext_resource type="Script" uid="uid://dgn8lixy52hug" path="res://scripts/components/entity destruction/entity_destructor.gd" id="3_r5htu"]
+[ext_resource type="Script" uid="uid://dpxu25buoavix" path="res://scripts/components/spawn components/enable_processing_after_spawn.gd" id="3_xu8tx"]
+[ext_resource type="Script" uid="uid://dl81mamuiydco" path="res://scripts/components/inventory/item visual/dropped_item_visual_updater.gd" id="4_sp5rk"]
+[ext_resource type="Script" uid="uid://lghsw7lphblg" path="res://scripts/components/inventory/item visual/dropped_item_visual.gd" id="5_5nm3a"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sp5rk"]
+radius = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sp5rk"]
+resource_local_to_scene = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_sp5rk"]
+size = Vector2(0.5, 0.5)
+
+[node name="DroppedItem" type="Node" node_paths=PackedStringArray("spawn_logic", "ownerLogic", "sharedLogic")]
+script = ExtResource("1_08r0l")
+spawn_logic = NodePath("SpawnLogic")
+ownerLogic = NodePath("OwnerLogic")
+sharedLogic = NodePath("SharedLogic")
+metadata/_custom_type_script = "uid://cwi5c0lmgvugw"
+
+[node name="SpawnLogic" type="Node" parent="."]
+
+[node name="ItemSpawnComponent" type="Node" parent="SpawnLogic" node_paths=PackedStringArray("dropped_item_component", "positional_node")]
+script = ExtResource("2_qhuj6")
+dropped_item_component = NodePath("../../SharedLogic/DroppedItemComponent")
+positional_node = NodePath("../../DroppedItem")
+metadata/_custom_type_script = "uid://bf7fadkascqa1"
+
+[node name="ProcessEnabler" type="Node" parent="SpawnLogic" node_paths=PackedStringArray("nodes_to_process")]
+script = ExtResource("3_xu8tx")
+nodes_to_process = [NodePath("../../DroppedItem/Area3D")]
+
+[node name="OwnerLogic" type="Node" parent="."]
+
+[node name="SharedLogic" type="Node" parent="."]
+
+[node name="DroppedItemComponent" type="Node" parent="SharedLogic" node_paths=PackedStringArray("destruction_component", "network_entity")]
+script = ExtResource("2_ufukf")
+destruction_component = NodePath("DestructionComponent")
+network_entity = NodePath("../..")
+metadata/_custom_type_script = "uid://chahk0rmmc7tg"
+
+[node name="DestructionComponent" type="Node" parent="SharedLogic/DroppedItemComponent" node_paths=PackedStringArray("network_entity")]
+script = ExtResource("3_r5htu")
+network_entity = NodePath("../../..")
+metadata/_custom_type_script = "uid://dgn8lixy52hug"
+
+[node name="DroppedItemVisualUpdater" type="Node" parent="SharedLogic" node_paths=PackedStringArray("dropped_item_component", "dropped_item_visual")]
+script = ExtResource("4_sp5rk")
+dropped_item_component = NodePath("../DroppedItemComponent")
+dropped_item_visual = NodePath("../../DroppedItem/DroppedItemVisual")
+metadata/_custom_type_script = "uid://dl81mamuiydco"
+
+[node name="DroppedItem" type="Node3D" parent="."]
+
+[node name="DroppedItemVisual" type="Node3D" parent="DroppedItem" node_paths=PackedStringArray("item_display_plane")]
+script = ExtResource("5_5nm3a")
+item_display_plane = NodePath("../MeshInstance3D")
+metadata/_custom_type_script = "uid://lghsw7lphblg"
+
+[node name="Area3D" type="Area3D" parent="DroppedItem"]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DroppedItem/Area3D"]
+shape = SubResource("SphereShape3D_sp5rk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DroppedItem"]
+material_override = SubResource("StandardMaterial3D_sp5rk")
+mesh = SubResource("PlaneMesh_sp5rk")

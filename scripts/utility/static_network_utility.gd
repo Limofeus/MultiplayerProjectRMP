@@ -39,6 +39,8 @@ static func find_owner_component_on_entity(network_entity : NetworkEntity, compo
 		return null
 	return find_component_on_node(network_entity.ownerLogic, component_type) #TODO: Change ownerLogic style BUMP
 
-static func spatial_spawn_network_entity(entity_to_spawn : PackedScene, spawn_position : Vector3, spawn_rotation : Vector3) -> NetworkEntity:
+static func spatial_spawn_network_entity(entity_to_spawn : PackedScene, spawn_position : Vector3, spawn_rotation : Vector3, additional_spawn_arguments : Array[SpawnArgument] = []) -> NetworkEntity:
 	var pos_rot_spawn_argument : PosRotSpawnArgument = PosRotSpawnArgument.new(spawn_position, spawn_rotation)
-	return NetworkSpawner.spawner_singleton.spawn_network_entity(entity_to_spawn, [pos_rot_spawn_argument])
+	var spawn_arg_array : Array[SpawnArgument] = additional_spawn_arguments
+	spawn_arg_array.push_front(pos_rot_spawn_argument)
+	return NetworkSpawner.spawner_singleton.spawn_network_entity(entity_to_spawn, spawn_arg_array)

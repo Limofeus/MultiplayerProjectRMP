@@ -1,4 +1,5 @@
 extends SpawnComponent
+class_name ProcessEnableSpawnComponent
 
 const PROCESS_SET_CHANNEL = 0
 

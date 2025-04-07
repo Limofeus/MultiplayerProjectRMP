@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://knu7xi3jljm5"]
 
-[ext_resource type="Script" path="res://scripts/ui/hotbar/hotbar_slot.gd" id="1_ikd3e"]
+[ext_resource type="Script" uid="uid://c4sxy220rxmy0" path="res://scripts/ui/hotbar/hotbar_slot.gd" id="1_ikd3e"]
 [ext_resource type="Texture2D" uid="uid://djr0qvb7dkyl7" path="res://sprites/ui/slot_border_1.png" id="3_6y6sb"]
 [ext_resource type="FontFile" uid="uid://4p42hhp6h76q" path="res://fonts/vollkorn/Vollkorn-Bold.otf" id="3_vgvcx"]
 [ext_resource type="Texture2D" uid="uid://bigotb143s2ov" path="res://sprites/ui/slot_bg_1.png" id="4_sgp6t"]
@@ -31,7 +31,6 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 
 [node name="ItemCount" type="Label" parent="BottomRight"]
-visible = false
 z_index = 1
 layout_mode = 1
 anchors_preset = 8

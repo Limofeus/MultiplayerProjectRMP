@@ -5,6 +5,8 @@ class_name InteractableNetworkEntity
 
 #An interesting concept would be to put logic inside interactions (interaction.start_interaction(self, interacted_entity))
 
+#PRIORITY CHECK INTERACTION, call with: network_entity.start_interaction(target_entity, interaction)
+
 func start_interaction(interacted_entity : InteractableNetworkEntity, interaction : Interaction) -> void:
 	
 	if(!has_authority() and !interacted_entity.has_authority()):
@@ -23,6 +25,8 @@ func start_interaction(interacted_entity : InteractableNetworkEntity, interactio
 
 func check_if_peer_has_priority(interacted_entity : InteractableNetworkEntity, interaction : Interaction) -> bool:
 	return authority_interaction_priority + interaction.authority_interaction_priority >= interacted_entity.authority_interaction_priority
+
+#DIRECT INTERACTION, call with: network_entity.send_interaction(target_entity, interaction)
 
 # start_interaction can be bypassed by using send_interaction, might be useful for callbacks
 func send_interaction(interacted_entity : InteractableNetworkEntity, interaction : Interaction) -> void:
