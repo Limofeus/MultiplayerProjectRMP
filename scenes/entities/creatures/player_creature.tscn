@@ -461,7 +461,7 @@ value = 0.485
 show_percentage = false
 
 [node name="ItemDropPos" type="Node3D" parent="Player/Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 
 [node name="ItemPickup" type="Area3D" parent="Player"]
 collision_layer = 0

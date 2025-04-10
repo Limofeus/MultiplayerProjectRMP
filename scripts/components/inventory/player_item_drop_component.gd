@@ -14,4 +14,4 @@ func _process(delta):
 			return
 		print("Dropping item " + item_to_drop.name + " with ammount: " + str(item_drop_ammount))
 		player_inventory_component.clear_slot(selection_item_container.selected_slot)
-		StaticNetworkUtility.spatial_spawn_network_entity(dropped_item_scene, item_drop_spawn_position.global_position, Vector3.ZERO, [ItemSpawnArgument.new(item_to_drop, item_drop_ammount)])
+		StaticNetworkUtility.spatial_spawn_network_entity(dropped_item_scene, item_drop_spawn_position.global_position, item_drop_spawn_position.global_rotation, [ItemSpawnArgument.new(item_to_drop, item_drop_ammount)])

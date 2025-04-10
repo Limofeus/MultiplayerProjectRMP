@@ -1,18 +1,18 @@
 [gd_scene load_steps=6 format=3 uid="uid://df3xjwnja4ke"]
 
-[ext_resource type="Script" path="res://scripts/components/inventory/inventory visual/fancy tool display/fancy_tool_display_visual.gd" id="1_xy01p"]
-[ext_resource type="Shader" path="res://shaders/mesh effects/textured_alpha_additive.gdshader" id="2_bq7xn"]
+[ext_resource type="Script" uid="uid://dfah5odlo8fjd" path="res://scripts/components/inventory/inventory visual/fancy tool display/fancy_tool_display_visual.gd" id="1_xy01p"]
+[ext_resource type="Shader" uid="uid://bi67yjngfsmxq" path="res://shaders/mesh effects/textured_alpha_additive.gdshader" id="2_bq7xn"]
 [ext_resource type="Texture2D" uid="uid://dhxfkl1b3x4bf" path="res://sprites/effects/circle1_1.png" id="3_kkvqd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qmtnh"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_bq7xn")
+shader_parameter/main_texture = ExtResource("3_kkvqd")
 shader_parameter/main_color = Color(1, 1, 1, 1)
 shader_parameter/power_mult = 20.0
 shader_parameter/alpha_mult = 1.0
 shader_parameter/mpimap_offset = 0.0
-shader_parameter/main_texture = ExtResource("3_kkvqd")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_vjgie"]
 size = Vector2(0.6, 0.6)

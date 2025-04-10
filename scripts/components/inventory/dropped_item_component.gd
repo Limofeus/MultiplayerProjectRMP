@@ -1,6 +1,7 @@
 extends InteractionRespondingComponent
 class_name DroppedItemComponent
 
+@export var owner_prevent_pickup_timer : Timer = null
 @export var destruction_component : DestructionComponent = null
 
 var inventory_item_resource : InventoryItem = null
@@ -18,5 +19,8 @@ func interaction_filter(interaction : Interaction) -> bool:
 	return interaction is GenericActionInteraction and interaction.action_string == "pickup_item"
 
 func authority_recieve_interaction(interaction_args : Array) -> void:
+	if network_entity.get_current_authority() == multiplayer.get_unique_id():
+		if owner_prevent_pickup_timer.time_left > 0:
+			return
 	super(interaction_args)
 	destruction_component.destroy_entity(true)

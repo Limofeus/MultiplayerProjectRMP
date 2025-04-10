@@ -1,21 +1,45 @@
-[gd_scene load_steps=11 format=3 uid="uid://cu8s4ho80jjmr"]
+[gd_scene load_steps=19 format=3 uid="uid://cu8s4ho80jjmr"]
 
 [ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_08r0l"]
 [ext_resource type="Script" uid="uid://bf7fadkascqa1" path="res://scripts/components/spawn components/item_spawn_component.gd" id="2_qhuj6"]
 [ext_resource type="Script" uid="uid://chahk0rmmc7tg" path="res://scripts/components/inventory/dropped_item_component.gd" id="2_ufukf"]
 [ext_resource type="Script" uid="uid://dgn8lixy52hug" path="res://scripts/components/entity destruction/entity_destructor.gd" id="3_r5htu"]
 [ext_resource type="Script" uid="uid://dpxu25buoavix" path="res://scripts/components/spawn components/enable_processing_after_spawn.gd" id="3_xu8tx"]
+[ext_resource type="Script" uid="uid://d380v462n6x6i" path="res://scripts/components/physics/dropped_item_floater.gd" id="4_oc4u5"]
 [ext_resource type="Script" uid="uid://dl81mamuiydco" path="res://scripts/components/inventory/item visual/dropped_item_visual_updater.gd" id="4_sp5rk"]
 [ext_resource type="Script" uid="uid://lghsw7lphblg" path="res://scripts/components/inventory/item visual/dropped_item_visual.gd" id="5_5nm3a"]
+[ext_resource type="Script" uid="uid://c16p8nfy7vxqp" path="res://scripts/visual/simple effects/3d_node_simple_spin.gd" id="8_1nmbv"]
+[ext_resource type="Script" uid="uid://oh5wp301gyde" path="res://scripts/components/sync/optimized_position_sync.gd" id="8_qrbbo"]
+[ext_resource type="Shader" uid="uid://bi67yjngfsmxq" path="res://shaders/mesh effects/textured_alpha_additive.gdshader" id="8_ric3b"]
+[ext_resource type="Texture2D" uid="uid://dhxfkl1b3x4bf" path="res://sprites/effects/circle1_1.png" id="9_1nmbv"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_sp5rk"]
-radius = 0.3
+[sub_resource type="SphereShape3D" id="SphereShape3D_xu8tx"]
+radius = 0.25
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sp5rk"]
 resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+shading_mode = 0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_sp5rk"]
 size = Vector2(0.5, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_26oh2"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("8_ric3b")
+shader_parameter/main_texture = ExtResource("9_1nmbv")
+shader_parameter/main_color = Color(1, 1, 1, 1)
+shader_parameter/power_mult = 20.0
+shader_parameter/alpha_mult = 1.0
+shader_parameter/mpimap_offset = 0.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oc4u5"]
+size = Vector2(0.6, 0.6)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sp5rk"]
+radius = 0.3
 
 [node name="DroppedItem" type="Node" node_paths=PackedStringArray("spawn_logic", "ownerLogic", "sharedLogic")]
 script = ExtResource("1_08r0l")
@@ -38,10 +62,25 @@ nodes_to_process = [NodePath("../../DroppedItem/Area3D")]
 
 [node name="OwnerLogic" type="Node" parent="."]
 
+[node name="Timer" type="Timer" parent="OwnerLogic"]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="DroppedItemFloater" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("floater_character_body", "floater_raycast", "process_enabler", "network_entity")]
+script = ExtResource("4_oc4u5")
+floater_character_body = NodePath("../../DroppedItem")
+floater_raycast = NodePath("../../DroppedItem/RayCast3D")
+process_enabler = NodePath("../../SpawnLogic/ProcessEnabler")
+height_to_vel_coef = 5.0
+start_velocity = Vector3(0, 0, -5)
+network_entity = NodePath("../..")
+
 [node name="SharedLogic" type="Node" parent="."]
 
-[node name="DroppedItemComponent" type="Node" parent="SharedLogic" node_paths=PackedStringArray("destruction_component", "network_entity")]
+[node name="DroppedItemComponent" type="Node" parent="SharedLogic" node_paths=PackedStringArray("owner_prevent_pickup_timer", "destruction_component", "network_entity")]
 script = ExtResource("2_ufukf")
+owner_prevent_pickup_timer = NodePath("../../OwnerLogic/Timer")
 destruction_component = NodePath("DestructionComponent")
 network_entity = NodePath("../..")
 metadata/_custom_type_script = "uid://chahk0rmmc7tg"
@@ -57,12 +96,46 @@ dropped_item_component = NodePath("../DroppedItemComponent")
 dropped_item_visual = NodePath("../../DroppedItem/DroppedItemVisual")
 metadata/_custom_type_script = "uid://dl81mamuiydco"
 
-[node name="DroppedItem" type="Node3D" parent="."]
+[node name="PosSync" type="Node" parent="SharedLogic" node_paths=PackedStringArray("node_to_sync", "network_entity")]
+script = ExtResource("8_qrbbo")
+node_to_sync = NodePath("../../DroppedItem")
+network_entity = NodePath("../..")
 
-[node name="DroppedItemVisual" type="Node3D" parent="DroppedItem" node_paths=PackedStringArray("item_display_plane")]
+[node name="DroppedItem" type="CharacterBody3D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DroppedItem"]
+shape = SubResource("SphereShape3D_xu8tx")
+
+[node name="DroppedItemVisual" type="Node3D" parent="DroppedItem" node_paths=PackedStringArray("item_display_plane", "tool_item_model_holder")]
 script = ExtResource("5_5nm3a")
-item_display_plane = NodePath("../MeshInstance3D")
+item_display_plane = NodePath("MeshInstance3D")
+tool_item_model_holder = NodePath("ToolHolder")
 metadata/_custom_type_script = "uid://lghsw7lphblg"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DroppedItem/DroppedItemVisual"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_sp5rk")
+mesh = SubResource("PlaneMesh_sp5rk")
+skeleton = NodePath("../..")
+script = ExtResource("8_1nmbv")
+spin_speed = 3.0
+
+[node name="ToolHolder" type="Node3D" parent="DroppedItem/DroppedItemVisual"]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, -0.25, 0)
+script = ExtResource("8_1nmbv")
+
+[node name="MagicCircle" type="Node3D" parent="DroppedItem/DroppedItemVisual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+script = ExtResource("8_1nmbv")
+spin_speed = 5.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DroppedItem/DroppedItemVisual/MagicCircle"]
+material_override = SubResource("ShaderMaterial_26oh2")
+mesh = SubResource("PlaneMesh_oc4u5")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="DroppedItem/DroppedItemVisual"]
+light_energy = 0.8
 
 [node name="Area3D" type="Area3D" parent="DroppedItem"]
 collision_layer = 2
@@ -72,6 +145,5 @@ monitoring = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DroppedItem/Area3D"]
 shape = SubResource("SphereShape3D_sp5rk")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="DroppedItem"]
-material_override = SubResource("StandardMaterial3D_sp5rk")
-mesh = SubResource("PlaneMesh_sp5rk")
+[node name="RayCast3D" type="RayCast3D" parent="DroppedItem"]
+target_position = Vector3(0, -2, 0)
