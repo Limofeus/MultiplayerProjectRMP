@@ -1,15 +1,20 @@
-[gd_scene load_steps=19 format=3 uid="uid://brq0omedrixx7"]
+[gd_scene load_steps=24 format=3 uid="uid://brq0omedrixx7"]
 
-[ext_resource type="Script" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_pr2bi"]
-[ext_resource type="Script" path="res://scripts/components/spawn components/projectile_spawn_component.gd" id="2_4c8u4"]
-[ext_resource type="Script" path="res://scripts/components/spawn components/enable_processing_after_spawn.gd" id="3_pyhik"]
-[ext_resource type="Script" path="res://scripts/components/entity destruction/entity_destructor.gd" id="4_uqev0"]
-[ext_resource type="Script" path="res://scripts/components/basic/projectile_component.gd" id="6_3xsqs"]
-[ext_resource type="Script" path="res://scripts/resources/damage/damage_resource.gd" id="7_inq12"]
-[ext_resource type="Shader" path="res://shaders/mesh effects/opaque_projectile.gdshader" id="8_2pmsx"]
-[ext_resource type="Shader" path="res://shaders/mesh effects/opaque_projectile_cull_disabled.gdshader" id="8_cnkyy"]
-[ext_resource type="Script" path="res://scripts/visual/projectile effects/spin_projectile_effect.gd" id="8_unmdd"]
-[ext_resource type="Script" path="res://scripts/visual/projectile effects/material_projectile_lifetime.gd" id="9_2ltma"]
+[ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_pr2bi"]
+[ext_resource type="Script" uid="uid://1cpx5jpkildt" path="res://scripts/components/spawn components/projectile_spawn_component.gd" id="2_4c8u4"]
+[ext_resource type="Script" uid="uid://dpxu25buoavix" path="res://scripts/components/spawn components/enable_processing_after_spawn.gd" id="3_pyhik"]
+[ext_resource type="Script" uid="uid://dgn8lixy52hug" path="res://scripts/components/entity destruction/entity_destructor.gd" id="4_uqev0"]
+[ext_resource type="Script" uid="uid://b3ak36ulon771" path="res://scripts/components/basic/projectile_component.gd" id="6_3xsqs"]
+[ext_resource type="Script" uid="uid://b3tcmigxaglcv" path="res://scripts/resources/damage/damage_resource.gd" id="7_inq12"]
+[ext_resource type="Shader" uid="uid://d2q6ygjab6l2b" path="res://shaders/mesh effects/opaque_projectile.gdshader" id="8_2pmsx"]
+[ext_resource type="Shader" uid="uid://b13x684b2kfho" path="res://shaders/mesh effects/opaque_projectile_cull_disabled.gdshader" id="8_cnkyy"]
+[ext_resource type="Script" uid="uid://b4polmacrwxx6" path="res://scripts/visual/projectile effects/spin_projectile_effect.gd" id="8_unmdd"]
+[ext_resource type="Script" uid="uid://ypv8x2nwu0u5" path="res://scripts/visual/projectile effects/material_projectile_lifetime.gd" id="9_2ltma"]
+[ext_resource type="Script" uid="uid://bm4pff6n8vlq2" path="res://scripts/audio/audio_stream_randomized.gd" id="11_7ajxt"]
+[ext_resource type="AudioStream" uid="uid://dpluco3db72le" path="res://audio/sfx/casts/cast_1.wav" id="12_up674"]
+[ext_resource type="AudioStream" uid="uid://blmyi3fu8jv3y" path="res://audio/sfx/casts/cast_2.wav" id="13_iqwik"]
+[ext_resource type="AudioStream" uid="uid://dgj38k7ctrlj7" path="res://audio/sfx/casts/cast_3.wav" id="14_hwho7"]
+[ext_resource type="AudioStream" uid="uid://f34hb57wcvok" path="res://audio/sfx/casts/cast_4.wav" id="15_vyeeh"]
 
 [sub_resource type="Resource" id="Resource_oryys"]
 script = ExtResource("7_inq12")
@@ -115,6 +120,12 @@ curve_mapping = SubResource("Curve_85kwv")
 shader_material = SubResource("ShaderMaterial_x34qk")
 
 [node name="Projectile" type="Node3D" parent="."]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Projectile"]
+volume_db = -4.0
+bus = &"Sounds"
+script = ExtResource("11_7ajxt")
+audio_streams = Array[AudioStream]([ExtResource("12_up674"), ExtResource("13_iqwik"), ExtResource("14_hwho7"), ExtResource("15_vyeeh")])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Projectile"]
 material_override = SubResource("ShaderMaterial_5yrbv")

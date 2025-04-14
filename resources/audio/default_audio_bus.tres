@@ -1,0 +1,28 @@
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://ddpiylin0hlea"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_h2ktk"]
+resource_name = "Reverb"
+room_size = 0.75
+damping = 0.3
+wet = 0.2
+
+[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_h2ktk"]
+resource_name = "Compressor"
+
+[resource]
+bus/1/name = &"Music"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/2/name = &"Sounds"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = -5.04538
+bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectReverb_h2ktk")
+bus/2/effect/0/enabled = true
+bus/2/effect/1/effect = SubResource("AudioEffectCompressor_h2ktk")
+bus/2/effect/1/enabled = true

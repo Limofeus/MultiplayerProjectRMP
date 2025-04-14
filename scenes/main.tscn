@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://fjib4361ovfd"]
+[gd_scene load_steps=30 format=3 uid="uid://fjib4361ovfd"]
 
 [ext_resource type="Script" uid="uid://bdbitsb3bdwvf" path="res://scripts/networking/network_manager.gd" id="1_1ap1m"]
 [ext_resource type="Script" uid="uid://bjmp5kq0tl031" path="res://scripts/utility/fps_counter.gd" id="1_bkmm5"]
@@ -9,7 +9,10 @@
 [ext_resource type="Script" uid="uid://b3ihdy361g2yg" path="res://scripts/networking/spawn arguments/spawn_argument.gd" id="9_smuhi"]
 [ext_resource type="Script" uid="uid://bfgxp3pwi8l12" path="res://scripts/visual/player_movement_effects.gd" id="10_3ad3a"]
 [ext_resource type="Script" uid="uid://dluhh2oy78ykj" path="res://scripts/networking/spawn arguments/manual_pos_rot_spawn_argument.gd" id="10_aukot"]
+[ext_resource type="Script" uid="uid://rrjl83o22843" path="res://scripts/debug/testing/quick_dynamic_music.gd" id="10_dp3eg"]
 [ext_resource type="Script" uid="uid://c3aue38bey2rx" path="res://scripts/networking/network_entity_spawner.gd" id="10_f6xxt"]
+[ext_resource type="AudioStream" uid="uid://b1g5gqke1y13a" path="res://audio/music/theme_ambient_1.ogg" id="10_jbj1t"]
+[ext_resource type="AudioStream" uid="uid://dgf4kuwg5o5cg" path="res://audio/music/theme_battle_1.ogg" id="11_muem4"]
 [ext_resource type="PackedScene" uid="uid://bsdka40fec030" path="res://scenes/world/zones/zone_1.tscn" id="12_d6rcw"]
 [ext_resource type="Material" uid="uid://dox7ghi1mskpg" path="res://materials/effects/overlays/speedlines_overlay.tres" id="12_oyb24"]
 [ext_resource type="Shader" uid="uid://2u66ri5gklxa" path="res://shaders/main menu effects/dither_canvas.gdshader" id="18_v1b13"]
@@ -126,6 +129,23 @@ script = ExtResource("10_f6xxt")
 spawn_parent = NodePath("..")
 add_as_singleton = true
 
+[node name="DynamicMusic" type="Node" parent="." node_paths=PackedStringArray("network_manager", "ambient_stream_player", "battle_stream_player")]
+script = ExtResource("10_dp3eg")
+network_manager = NodePath("../NetworkManager")
+ambient_stream_player = NodePath("AmbientPlayer")
+battle_stream_player = NodePath("BattlePlayer")
+battle_to_ambient_transition_time = 2.0
+
+[node name="AmbientPlayer" type="AudioStreamPlayer" parent="DynamicMusic"]
+stream = ExtResource("10_jbj1t")
+bus = &"Music"
+parameters/looping = true
+
+[node name="BattlePlayer" type="AudioStreamPlayer" parent="DynamicMusic"]
+stream = ExtResource("11_muem4")
+bus = &"Music"
+parameters/looping = true
+
 [node name="CameraRig" type="Node3D" parent="."]
 
 [node name="MovementEffects" type="Node" parent="CameraRig" node_paths=PackedStringArray("camera_node", "camera_rig_node")]
@@ -136,6 +156,9 @@ camera_rig_node = NodePath("..")
 speedlines_material = ExtResource("12_oyb24")
 speed_fov_affection = 0.02
 power_to_speedlines_speed = 0.004
+
+[node name="AudioListener3D" type="AudioListener3D" parent="CameraRig"]
+current = true
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig"]
 fov = 105.0

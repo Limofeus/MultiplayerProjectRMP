@@ -272,8 +272,8 @@ creature_name = "Player"
 character_body = NodePath("../../Player")
 head_node = NodePath("../../Player/Head")
 look_node = NodePath("../../Player/Head/CameraMount")
-max_health = 10.0
-health = 10.0
+max_health = 50.0
+health = 50.0
 spatial_node = NodePath("../../Player")
 network_entity = NodePath("../..")
 

@@ -15,6 +15,10 @@ run/main_scene="uid://fjib4361ovfd"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://ddpiylin0hlea"
+
 [autoload]
 
 ImGuiRoot="*res://addons/imgui-godot/data/ImGuiRoot.tscn"

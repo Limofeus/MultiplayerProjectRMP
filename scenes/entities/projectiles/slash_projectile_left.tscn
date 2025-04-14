@@ -1,15 +1,19 @@
-[gd_scene load_steps=18 format=3 uid="uid://bp4nm6o3360qd"]
+[gd_scene load_steps=22 format=3 uid="uid://bp4nm6o3360qd"]
 
-[ext_resource type="Script" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_3k84p"]
-[ext_resource type="Script" path="res://scripts/components/spawn components/projectile_spawn_component.gd" id="2_owhao"]
-[ext_resource type="Script" path="res://scripts/components/spawn components/enable_processing_after_spawn.gd" id="3_flga1"]
-[ext_resource type="Script" path="res://scripts/components/entity destruction/entity_destructor.gd" id="4_4fyd3"]
-[ext_resource type="Script" path="res://scripts/components/basic/projectile_component.gd" id="5_31j7c"]
-[ext_resource type="Script" path="res://scripts/resources/damage/damage_resource.gd" id="6_y8mpl"]
-[ext_resource type="Script" path="res://scripts/visual/projectile effects/rotation_projectile_lifetime.gd" id="7_feto3"]
-[ext_resource type="Script" path="res://scripts/visual/projectile effects/material_projectile_lifetime.gd" id="7_sevmf"]
+[ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_3k84p"]
+[ext_resource type="Script" uid="uid://1cpx5jpkildt" path="res://scripts/components/spawn components/projectile_spawn_component.gd" id="2_owhao"]
+[ext_resource type="Script" uid="uid://dpxu25buoavix" path="res://scripts/components/spawn components/enable_processing_after_spawn.gd" id="3_flga1"]
+[ext_resource type="Script" uid="uid://dgn8lixy52hug" path="res://scripts/components/entity destruction/entity_destructor.gd" id="4_4fyd3"]
+[ext_resource type="Script" uid="uid://b3ak36ulon771" path="res://scripts/components/basic/projectile_component.gd" id="5_31j7c"]
+[ext_resource type="Script" uid="uid://b3tcmigxaglcv" path="res://scripts/resources/damage/damage_resource.gd" id="6_y8mpl"]
+[ext_resource type="Script" uid="uid://cxvcs43xmkf6p" path="res://scripts/visual/projectile effects/rotation_projectile_lifetime.gd" id="7_feto3"]
+[ext_resource type="Script" uid="uid://ypv8x2nwu0u5" path="res://scripts/visual/projectile effects/material_projectile_lifetime.gd" id="7_sevmf"]
 [ext_resource type="Texture2D" uid="uid://dgasl1uvvxv6g" path="res://sprites/effects/circ-slice.png" id="8_8dccc"]
-[ext_resource type="Shader" path="res://shaders/mesh effects/slash_projectile.gdshader" id="8_crryy"]
+[ext_resource type="Shader" uid="uid://7mv2ull4gk3v" path="res://shaders/mesh effects/slash_projectile.gdshader" id="8_crryy"]
+[ext_resource type="Script" uid="uid://bm4pff6n8vlq2" path="res://scripts/audio/audio_stream_randomized.gd" id="11_yexgh"]
+[ext_resource type="AudioStream" uid="uid://4i1fq0x31lhs" path="res://audio/sfx/swooshes/swoosh_1.wav" id="12_sgfbr"]
+[ext_resource type="AudioStream" uid="uid://b1obodoejiwwd" path="res://audio/sfx/swooshes/swoosh_2.wav" id="13_kxeer"]
+[ext_resource type="AudioStream" uid="uid://dbbcapjmycpao" path="res://audio/sfx/swooshes/swoosh_3.wav" id="14_ygb77"]
 
 [sub_resource type="Resource" id="Resource_26f71"]
 script = ExtResource("6_y8mpl")
@@ -24,9 +28,9 @@ point_count = 3
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("8_crryy")
+shader_parameter/hit_texture = ExtResource("8_8dccc")
 shader_parameter/main_color = Color(0.784314, 0.784314, 0.784314, 1)
 shader_parameter/projectile_lifetime = 0.0
-shader_parameter/hit_texture = ExtResource("8_8dccc")
 
 [sub_resource type="Curve" id="Curve_tgsv2"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
@@ -104,6 +108,12 @@ end_rotation = Vector3(0, -0.5, 0)
 
 [node name="Projectile" type="Node3D" parent="SpawnPosition"]
 transform = Transform3D(0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="SpawnPosition/Projectile"]
+transform = Transform3D(0.906308, -0.422618, 0, 0.422618, 0.906308, 0, 0, 0, 1, 0, 0, 0)
+bus = &"Sounds"
+script = ExtResource("11_yexgh")
+audio_streams = Array[AudioStream]([ExtResource("12_sgfbr"), ExtResource("13_kxeer"), ExtResource("14_ygb77")])
 
 [node name="SlashEffect" type="MeshInstance3D" parent="SpawnPosition/Projectile"]
 transform = Transform3D(2.3, 0, 0, 0, 2.3, 0, 0, 0, 2.3, 0, 0, 0)

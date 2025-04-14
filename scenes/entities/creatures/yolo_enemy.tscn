@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://h4rhiwl8xmhl"]
+[gd_scene load_steps=54 format=3 uid="uid://h4rhiwl8xmhl"]
 
 [ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_pbj8a"]
 [ext_resource type="Script" uid="uid://urhqvfpddfc2" path="res://scripts/components/spawn components/spawn_transform_setter.gd" id="2_kwna1"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://cv1oo7e2vw3ff" path="res://scripts/components/attribute holders/creature_attributes.gd" id="13_qsfnq"]
 [ext_resource type="Script" uid="uid://co68htlnerhrm" path="res://scripts/components/authority change/owner_change.gd" id="13_sm0xw"]
 [ext_resource type="Script" uid="uid://dgn8lixy52hug" path="res://scripts/components/entity destruction/entity_destructor.gd" id="14_i476q"]
+[ext_resource type="Script" uid="uid://c51ha0neje3qh" path="res://scripts/components/controllers/creature ai/dynamic_music_yolo_updater.gd" id="14_pxp44"]
 [ext_resource type="Script" uid="uid://dw3pb55nxmgpt" path="res://scripts/components/inventory/creature_inventory_component.gd" id="15_h7bcp"]
 [ext_resource type="Script" uid="uid://dp26vonrii4k4" path="res://scripts/visual/creatures/healthbars/healthbar_updater.gd" id="16_0i7gp"]
 [ext_resource type="Script" uid="uid://tqtqwrpn4m2x" path="res://scripts/resources/inventory/items/inventory_item.gd" id="16_xk4rs"]
@@ -231,6 +232,13 @@ network_entity = NodePath("../..")
 [node name="--- Debugging & Testing ---" type="Node" parent="OwnerLogic"]
 
 [node name="SharedLogic" type="Node" parent="."]
+
+[node name="DynamicMusicUpdater" type="Node" parent="SharedLogic" node_paths=PackedStringArray("yolo_ai", "creature_attributes", "network_entity")]
+script = ExtResource("14_pxp44")
+yolo_ai = NodePath("../../OwnerLogic/DumbYoloAI")
+creature_attributes = NodePath("../CreatureAttributes")
+unsynced_node_path = "/root/Main/DynamicMusic"
+network_entity = NodePath("../..")
 
 [node name="CreatureAttributes" type="Node" parent="SharedLogic" node_paths=PackedStringArray("character_body", "head_node", "look_node", "spatial_node", "network_entity") groups=["Creature"]]
 script = ExtResource("13_qsfnq")

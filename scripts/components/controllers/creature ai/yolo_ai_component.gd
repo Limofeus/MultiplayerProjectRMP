@@ -26,6 +26,8 @@ var mega_kostyl : bool = false #This is some mega ultra kostyl, I know of a bett
 
 var entity_ready : bool = false #TODO: Look in to implementing such bool in actual net entity
 
+signal target_updated(has_target : bool)
+
 func cur_dist_to_target() -> float:
 	if current_target == null:
 		return 0.0
@@ -58,6 +60,8 @@ func reassign_target() -> void:
 		var target_entity = StaticNetworkUtility.get_network_entity_from_node(current_target, false)
 		if network_entity.get_current_authority() != target_entity.get_current_authority():
 			owner_change_component.change_owner(target_entity.get_current_authority(), true)
+
+	target_updated.emit(current_target != null)
 
 func filter_targets_by_distance(targets_to_filter : Array[CreatureAttributes]) -> Array[CreatureAttributes]:
 	var return_array : Array[CreatureAttributes] = []

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cu8s4ho80jjmr"]
+[gd_scene load_steps=21 format=3 uid="uid://cu8s4ho80jjmr"]
 
 [ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_08r0l"]
 [ext_resource type="Script" uid="uid://bf7fadkascqa1" path="res://scripts/components/spawn components/item_spawn_component.gd" id="2_qhuj6"]
@@ -12,6 +12,8 @@
 [ext_resource type="Script" uid="uid://oh5wp301gyde" path="res://scripts/components/sync/optimized_position_sync.gd" id="8_qrbbo"]
 [ext_resource type="Shader" uid="uid://bi67yjngfsmxq" path="res://shaders/mesh effects/textured_alpha_additive.gdshader" id="8_ric3b"]
 [ext_resource type="Texture2D" uid="uid://dhxfkl1b3x4bf" path="res://sprites/effects/circle1_1.png" id="9_1nmbv"]
+[ext_resource type="Script" uid="uid://bm4pff6n8vlq2" path="res://scripts/audio/audio_stream_randomized.gd" id="13_bnpn8"]
+[ext_resource type="AudioStream" uid="uid://swvgqye3yg1r" path="res://audio/sfx/other/item_drop.wav" id="14_3d3rv"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xu8tx"]
 radius = 0.25
@@ -147,3 +149,10 @@ shape = SubResource("SphereShape3D_sp5rk")
 
 [node name="RayCast3D" type="RayCast3D" parent="DroppedItem"]
 target_position = Vector3(0, -2, 0)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="DroppedItem"]
+bus = &"Sounds"
+script = ExtResource("13_bnpn8")
+base_pitch = 0.95
+pitch_randomization = 0.05
+audio_streams = Array[AudioStream]([ExtResource("14_3d3rv")])

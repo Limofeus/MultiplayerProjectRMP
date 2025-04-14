@@ -1,7 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dvoqk8td5oyvy"]
+[gd_scene load_steps=10 format=3 uid="uid://dvoqk8td5oyvy"]
 
-[ext_resource type="Script" path="res://scripts/visual/effects/jitter_scale_move_effect.gd" id="1_4v2qq"]
-[ext_resource type="Shader" path="res://shaders/spatial/transparent_fresnel.gdshader" id="2_ye8d4"]
+[ext_resource type="Script" uid="uid://e0irqt7kukgh" path="res://scripts/visual/effects/jitter_scale_move_effect.gd" id="1_4v2qq"]
+[ext_resource type="Shader" uid="uid://kdbtd8ebdy00" path="res://shaders/spatial/transparent_fresnel.gdshader" id="2_ye8d4"]
+[ext_resource type="Script" uid="uid://bm4pff6n8vlq2" path="res://scripts/audio/audio_stream_randomized.gd" id="3_01i8j"]
+[ext_resource type="AudioStream" uid="uid://bx40af3e4dsp4" path="res://audio/sfx/hits/hit_1.wav" id="4_1krfl"]
+[ext_resource type="AudioStream" uid="uid://dyehiuose661y" path="res://audio/sfx/hits/hit_2.wav" id="5_ccmns"]
+[ext_resource type="AudioStream" uid="uid://cpeingmrtuj23" path="res://audio/sfx/hits/hit_3.wav" id="6_ehpu6"]
+[ext_resource type="AudioStream" uid="uid://dc8n3tk7a3ck3" path="res://audio/sfx/hits/hit_4.wav" id="7_r5s8t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kvjur"]
 render_priority = 0
@@ -23,5 +28,11 @@ autostart = true
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("ShaderMaterial_kvjur")
 mesh = SubResource("SphereMesh_snlxk")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = 2.0
+bus = &"Sounds"
+script = ExtResource("3_01i8j")
+audio_streams = Array[AudioStream]([ExtResource("4_1krfl"), ExtResource("5_ccmns"), ExtResource("6_ehpu6"), ExtResource("7_r5s8t")])
 
 [connection signal="timeout" from="Timer" to="." method="update_iteration"]
