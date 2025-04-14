@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://bhsif3qdd7ft0"]
+
+[node name="SettingsWindowUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "БОЛЬШАЯ КАМАНДА МНОГА ЛЮДЕЙ!!1
+
+ТРИПАЛ А ИГРА (ААААА)"
+
+[node name="Label2" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -502.0
+offset_top = 408.0
+offset_right = 469.0
+offset_bottom = 436.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "https://preview.redd.it/jezle3t8lgiz.jpg?auto=webp&s=de78a975611866a5849386ef276b94c8f2ee1148"

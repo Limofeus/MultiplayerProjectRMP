@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4eqeivjiq3wi"]
+
+[ext_resource type="Script" uid="uid://dt7kikgee2xey" path="res://scripts/ui/menus/window_closer.gd" id="1_ldm1u"]
+[ext_resource type="PackedScene" uid="uid://5myphgigqt0d" path="res://scenes/ui/settings_window_tmp.tscn" id="1_vx61c"]
+
+[node name="SettingsWindow" type="Window"]
+auto_translate_mode = 1
+initial_position = 1
+content_scale_size = Vector2i(1152, 648)
+content_scale_mode = 1
+content_scale_aspect = 3
+
+[node name="WindowCloser" type="Node" parent="." node_paths=PackedStringArray("window")]
+script = ExtResource("1_ldm1u")
+window = NodePath("..")
+
+[node name="SettingsWindowUI" parent="." instance=ExtResource("1_vx61c")]

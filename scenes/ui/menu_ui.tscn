@@ -1,8 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://gixsyoob5s8g"]
+[gd_scene load_steps=21 format=3 uid="uid://gixsyoob5s8g"]
 
+[ext_resource type="Script" uid="uid://b6svc5r70akl4" path="res://scripts/ui/menus/main_menu.gd" id="1_f48gr"]
 [ext_resource type="Material" uid="uid://bk5ol55ebtuwr" path="res://materials/effects/main menu/scroll_material.tres" id="1_u3o1y"]
+[ext_resource type="PackedScene" uid="uid://c4eqeivjiq3wi" path="res://scenes/ui/settings_window_tmp_tmp.tscn" id="2_fagw5"]
 [ext_resource type="Texture2D" uid="uid://npwcvk5vjtu" path="res://sprites/menu/VoynichBG.png" id="2_jqlu3"]
+[ext_resource type="PackedScene" uid="uid://fjib4361ovfd" path="res://scenes/main.tscn" id="2_yhwna"]
 [ext_resource type="FontFile" uid="uid://cti2p0a5rv6dr" path="res://fonts/Empyrean.otf" id="3_v0m2p"]
+[ext_resource type="PackedScene" uid="uid://2xhj30bri52r" path="res://scenes/ui/credits_window_tmp_tmp.tscn" id="3_wg11r"]
 [ext_resource type="FontFile" uid="uid://carf6kvexo2l0" path="res://fonts/PirataOne-Regular.ttf" id="4_fgirq"]
 [ext_resource type="Script" uid="uid://s116x0hjuwgg" path="res://scripts/ui/quick visuals/menu_button_hover_effect.gd" id="5_n0hxh"]
 [ext_resource type="Texture2D" uid="uid://c2m4p1keindis" path="res://sprites/menu/MagicCircle1-min.png" id="6_i8aox"]
@@ -22,13 +26,21 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_2duy0"]
 gradient = SubResource("Gradient_m0jq8")
 
-[node name="MenuUI" type="Control"]
+[node name="MenuUI" type="Control" node_paths=PackedStringArray("start_game_solo_button", "options_button", "credits_button", "quit_game_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_f48gr")
+start_game_solo_button = NodePath("Menu/MarginContainer/VBoxContainer/VBoxContainer/Button")
+options_button = NodePath("Menu/MarginContainer/VBoxContainer/VBoxContainer/Button2")
+credits_button = NodePath("Menu/MarginContainer/VBoxContainer/VBoxContainer/Button3")
+quit_game_button = NodePath("Menu/MarginContainer/VBoxContainer/VBoxContainer/Button4")
+main_game_scene = ExtResource("2_yhwna")
+options_window_scene = ExtResource("2_fagw5")
+credits_window_scene = ExtResource("3_wg11r")
 
 [node name="Menu" type="Control" parent="."]
 layout_mode = 1
@@ -145,7 +157,7 @@ focus_mode = 0
 mouse_filter = 1
 theme_override_fonts/font = ExtResource("4_fgirq")
 theme_override_font_sizes/font_size = 40
-text = "Play Solo"
+text = "Play"
 flat = true
 alignment = 0
 script = ExtResource("5_n0hxh")
@@ -158,7 +170,7 @@ focus_mode = 0
 mouse_filter = 1
 theme_override_fonts/font = ExtResource("4_fgirq")
 theme_override_font_sizes/font_size = 40
-text = "Play Online"
+text = "Options"
 flat = true
 alignment = 0
 script = ExtResource("5_n0hxh")
@@ -171,7 +183,7 @@ focus_mode = 0
 mouse_filter = 1
 theme_override_fonts/font = ExtResource("4_fgirq")
 theme_override_font_sizes/font_size = 40
-text = "Options"
+text = "Credits"
 flat = true
 alignment = 0
 script = ExtResource("5_n0hxh")

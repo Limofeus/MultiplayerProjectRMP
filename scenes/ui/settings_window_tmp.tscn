@@ -1,0 +1,89 @@
+[gd_scene load_steps=2 format=3 uid="uid://5myphgigqt0d"]
+
+[ext_resource type="Script" uid="uid://dp1ujvidqbie" path="res://scripts/ui/menus/quick_settings_window.gd" id="1_e52v6"]
+
+[node name="SettingsWindowUI" type="Control" node_paths=PackedStringArray("music_vol_slider", "sfx_vol_slider")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e52v6")
+music_vol_slider = NodePath("ColorRect/VBoxContainer/HSlider")
+sfx_vol_slider = NodePath("ColorRect/VBoxContainer/HSlider2")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "НАСТРОЙКИИИ!!!!"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Громкасть музыкпа"
+
+[node name="HSlider" type="HSlider" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.0
+
+[node name="Label3" type="Label" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Громкасть ЗВУКИ"
+
+[node name="HSlider2" type="HSlider" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.0
+
+[node name="Label2" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -564.0
+offset_top = -149.0
+offset_right = 564.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 30
+text = "ДИСК ЛЕЙМЕР: Настройки короче это окно оно не финальное\"!!! Ещё оно иноглдда ломается текст, но вы прочсто часто не настраивайте игру и всё нормально будет"
+autowrap_mode = 2
