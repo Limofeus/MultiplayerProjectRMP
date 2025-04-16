@@ -6,6 +6,7 @@
 [node name="SettingsWindow" type="Window"]
 auto_translate_mode = 1
 initial_position = 1
+size = Vector2i(800, 500)
 content_scale_size = Vector2i(1152, 648)
 content_scale_mode = 1
 content_scale_aspect = 3

@@ -124,6 +124,7 @@ shader_material = SubResource("ShaderMaterial_x34qk")
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Projectile"]
 volume_db = -4.0
 bus = &"Sounds"
+doppler_tracking = 1
 script = ExtResource("11_7ajxt")
 audio_streams = Array[AudioStream]([ExtResource("12_up674"), ExtResource("13_iqwik"), ExtResource("14_hwho7"), ExtResource("15_vyeeh")])
 
