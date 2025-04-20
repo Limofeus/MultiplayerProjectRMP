@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://djj70kq81f8d1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gqmmt"]
+size = Vector3(2, 3, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gqmmt"]
+size = Vector3(2, 3, 0.2)
+
+[node name="BadDver" type="Node3D"]
+
+[node name="PinJoint3D" type="PinJoint3D" parent="."]
+node_a = NodePath("../RigidBody3D")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.5, 0)
+collision_layer = 0
+collision_mask = 7
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_gqmmt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("BoxMesh_gqmmt")
