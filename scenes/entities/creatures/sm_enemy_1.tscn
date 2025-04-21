@@ -1,43 +1,49 @@
-[gd_scene load_steps=54 format=3 uid="uid://h4rhiwl8xmhl"]
+[gd_scene load_steps=60 format=3 uid="uid://ceop6a5c7n060"]
 
-[ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_pbj8a"]
-[ext_resource type="Script" uid="uid://urhqvfpddfc2" path="res://scripts/components/spawn components/spawn_transform_setter.gd" id="2_kwna1"]
-[ext_resource type="Script" uid="uid://dpxu25buoavix" path="res://scripts/components/spawn components/enable_processing_after_spawn.gd" id="3_ydvj4"]
-[ext_resource type="Script" uid="uid://dplbxb4sud3ak" path="res://scripts/components/utility/targeting_component.gd" id="4_jgbfu"]
-[ext_resource type="Script" uid="uid://bfnek0oy36dm0" path="res://scripts/components/controllers/creature ai/yolo_ai_component.gd" id="5_okrkm"]
-[ext_resource type="Script" uid="uid://gfjtfpctsj3i" path="res://scripts/components/input/input interfaces/movement_input_interface.gd" id="6_j34ns"]
-[ext_resource type="Script" uid="uid://bbdus7rni4q4p" path="res://scripts/components/input/input interfaces/rotation_input_interface.gd" id="7_skjma"]
-[ext_resource type="Script" uid="uid://cfivoy48piog5" path="res://scripts/components/controllers/state_machine.gd" id="8_1arji"]
-[ext_resource type="Script" uid="uid://brrrj4ht8xx1p" path="res://scripts/states/movement states/creature_movement_state.gd" id="9_vovs3"]
-[ext_resource type="Script" uid="uid://cj1vyj2ir4t5" path="res://scripts/states/movement states/creature_ground_run_state.gd" id="10_dg5h6"]
-[ext_resource type="Script" uid="uid://cbhdtjrfxxd6g" path="res://scripts/states/movement states/creature_jump_state.gd" id="11_gs83r"]
-[ext_resource type="Script" uid="uid://d2e1un7ndy87l" path="res://scripts/components/inventory/creature_item_user_component.gd" id="12_ycgrh"]
-[ext_resource type="Script" uid="uid://cv1oo7e2vw3ff" path="res://scripts/components/attribute holders/creature_attributes.gd" id="13_qsfnq"]
-[ext_resource type="Script" uid="uid://co68htlnerhrm" path="res://scripts/components/authority change/owner_change.gd" id="13_sm0xw"]
-[ext_resource type="Script" uid="uid://dgn8lixy52hug" path="res://scripts/components/entity destruction/entity_destructor.gd" id="14_i476q"]
-[ext_resource type="Script" uid="uid://c51ha0neje3qh" path="res://scripts/components/controllers/creature ai/music updaters/dynamic_music_yolo_updater.gd" id="14_pxp44"]
-[ext_resource type="Script" uid="uid://dw3pb55nxmgpt" path="res://scripts/components/inventory/creature_inventory_component.gd" id="15_h7bcp"]
-[ext_resource type="Script" uid="uid://dp26vonrii4k4" path="res://scripts/visual/creatures/healthbars/healthbar_updater.gd" id="16_0i7gp"]
-[ext_resource type="Script" uid="uid://tqtqwrpn4m2x" path="res://scripts/resources/inventory/items/inventory_item.gd" id="16_xk4rs"]
-[ext_resource type="Script" uid="uid://dvtq2pvnwrpir" path="res://scripts/visual/creatures/projectile_hit_effect.gd" id="17_2s1ix"]
-[ext_resource type="Resource" uid="uid://b7tqoytns3x4d" path="res://resources/inventory items/tools/weapon items/sword_1_weapon.tres" id="17_4bqor"]
-[ext_resource type="Resource" uid="uid://1a3tdlhxsylr" path="res://resources/inventory items/tools/weapon items/staff_1_weapon.tres" id="17_xfm8a"]
-[ext_resource type="Script" uid="uid://s1stxpi6sp7j" path="res://scripts/components/inventory/inventory visual/display_tool_item.gd" id="18_4dv4h"]
-[ext_resource type="PackedScene" uid="uid://dvoqk8td5oyvy" path="res://scenes/visual/effects/hit_effect.tscn" id="18_pnlwv"]
-[ext_resource type="Resource" uid="uid://bb1do7tbrgse4" path="res://resources/inventory items/tools/weapon items/dagger_1_weapon.tres" id="19_1np74"]
-[ext_resource type="Script" uid="uid://cjrfibd7sxy0y" path="res://scripts/components/utility/set_material_based_on_owner.gd" id="19_snh2j"]
-[ext_resource type="Script" uid="uid://cq0jynvxpb854" path="res://scripts/components/sync/position_sync.gd" id="20_ollk2"]
-[ext_resource type="Script" uid="uid://ceiyrvvrjtl5s" path="res://scripts/components/sync/optimized_rotation_sync.gd" id="21_weoul"]
-[ext_resource type="Script" uid="uid://cf62jkm8arfbu" path="res://scripts/visual/creatures/sprite_sheet_billboard.gd" id="22_2horj"]
-[ext_resource type="Script" uid="uid://c3w66lokilw4f" path="res://scripts/components/sync/creature_sprite_sheet_sync.gd" id="22_nrvkl"]
-[ext_resource type="Resource" uid="uid://b75lkdk8nosox" path="res://resources/sprite sheets/creatures/skeleton/skeleton_walk_fwd_omnidir_sprite_sheet.tres" id="23_mwgq2"]
-[ext_resource type="Resource" uid="uid://djidi5l2lw7o1" path="res://resources/sprite sheets/creatures/skeleton/skeleton_walk_bwd_omnidir_sprite_sheet.tres" id="24_idslx"]
-[ext_resource type="Shader" uid="uid://bfx5psllv5gl5" path="res://shaders/spatial/creature_sprite_sheet.gdshader" id="24_mrt8g"]
-[ext_resource type="Resource" uid="uid://b1f7d4cf2gc3x" path="res://resources/sprite sheets/creatures/skeleton/skeleton_sidestep_left_omnidir_sprite_sheet.tres" id="25_2wq8a"]
-[ext_resource type="Texture2D" uid="uid://b44xx5t4fp802" path="res://sprites/creatures/skeleton/Skeleton_SpriteSheet_Walk.png" id="25_ymcs1"]
-[ext_resource type="Resource" uid="uid://bma6n50ls37tp" path="res://resources/sprite sheets/creatures/skeleton/skeleton_sidestep_right_omnidir_sprite_sheet.tres" id="26_8vm8t"]
-[ext_resource type="Resource" uid="uid://b3jk6eigtjjyo" path="res://resources/sprite sheets/creatures/skeleton/skeleton_idle_omnidir_sprite_sheet.tres" id="27_m78qa"]
-[ext_resource type="Script" uid="uid://52avxl67y58j" path="res://scripts/visual/control_node_to_world_position.gd" id="33_8jldf"]
+[ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_0ali3"]
+[ext_resource type="Script" uid="uid://urhqvfpddfc2" path="res://scripts/components/spawn components/spawn_transform_setter.gd" id="2_uj783"]
+[ext_resource type="Script" uid="uid://dpxu25buoavix" path="res://scripts/components/spawn components/enable_processing_after_spawn.gd" id="3_57ola"]
+[ext_resource type="Script" uid="uid://dplbxb4sud3ak" path="res://scripts/components/utility/targeting_component.gd" id="4_7kuqh"]
+[ext_resource type="Script" uid="uid://bhsituwos2hag" path="res://scripts/components/utility/creatures/owner_change_target_seeker.gd" id="5_7kuqh"]
+[ext_resource type="Script" uid="uid://dq71333hw4u8a" path="res://scripts/components/controllers/creature ai/state_machine_ai.gd" id="6_134uw"]
+[ext_resource type="Script" uid="uid://gfjtfpctsj3i" path="res://scripts/components/input/input interfaces/movement_input_interface.gd" id="6_w1lq5"]
+[ext_resource type="Script" uid="uid://bbdus7rni4q4p" path="res://scripts/components/input/input interfaces/rotation_input_interface.gd" id="7_3km5c"]
+[ext_resource type="Script" uid="uid://c7k6bqrpp3xjt" path="res://scripts/components/controllers/creature ai/state machine ai states/idle_ai_state.gd" id="7_w1lq5"]
+[ext_resource type="Script" uid="uid://8peg7n1gi8ys" path="res://scripts/components/controllers/creature ai/state machine ai states/chase_ai_state.gd" id="8_134uw"]
+[ext_resource type="Script" uid="uid://cfivoy48piog5" path="res://scripts/components/controllers/state_machine.gd" id="8_vsymq"]
+[ext_resource type="Script" uid="uid://brrrj4ht8xx1p" path="res://scripts/states/movement states/creature_movement_state.gd" id="9_dycma"]
+[ext_resource type="Script" uid="uid://wpy50s5gjsh0" path="res://scripts/components/controllers/creature ai/state machine ai states/attack_ai_state.gd" id="9_w1lq5"]
+[ext_resource type="Script" uid="uid://cn1l1po5mgiya" path="res://scripts/components/controllers/creature ai/state machine ai states/return_to_spawn_ai_state.gd" id="10_3km5c"]
+[ext_resource type="Script" uid="uid://cj1vyj2ir4t5" path="res://scripts/states/movement states/creature_ground_run_state.gd" id="10_sf6a8"]
+[ext_resource type="Script" uid="uid://cbhdtjrfxxd6g" path="res://scripts/states/movement states/creature_jump_state.gd" id="11_l5xib"]
+[ext_resource type="Script" uid="uid://d2e1un7ndy87l" path="res://scripts/components/inventory/creature_item_user_component.gd" id="12_trcuw"]
+[ext_resource type="Script" uid="uid://co68htlnerhrm" path="res://scripts/components/authority change/owner_change.gd" id="13_5qcxl"]
+[ext_resource type="Script" uid="uid://cv1oo7e2vw3ff" path="res://scripts/components/attribute holders/creature_attributes.gd" id="15_l7okd"]
+[ext_resource type="Script" uid="uid://dgn8lixy52hug" path="res://scripts/components/entity destruction/entity_destructor.gd" id="16_qji4v"]
+[ext_resource type="Script" uid="uid://dp26vonrii4k4" path="res://scripts/visual/creatures/healthbars/healthbar_updater.gd" id="17_pij5w"]
+[ext_resource type="Script" uid="uid://dvtq2pvnwrpir" path="res://scripts/visual/creatures/projectile_hit_effect.gd" id="18_4ibc7"]
+[ext_resource type="Script" uid="uid://cejhutetvpjtx" path="res://scripts/components/controllers/creature ai/music updaters/dynamic_music_state_updater.gd" id="18_134uw"]
+[ext_resource type="PackedScene" uid="uid://dvoqk8td5oyvy" path="res://scenes/visual/effects/hit_effect.tscn" id="19_dg4ff"]
+[ext_resource type="Script" uid="uid://dw3pb55nxmgpt" path="res://scripts/components/inventory/creature_inventory_component.gd" id="20_hv8t3"]
+[ext_resource type="Script" uid="uid://tqtqwrpn4m2x" path="res://scripts/resources/inventory/items/inventory_item.gd" id="21_e3txj"]
+[ext_resource type="Resource" uid="uid://bb1do7tbrgse4" path="res://resources/inventory items/tools/weapon items/dagger_1_weapon.tres" id="22_5ipsa"]
+[ext_resource type="Resource" uid="uid://b7tqoytns3x4d" path="res://resources/inventory items/tools/weapon items/sword_1_weapon.tres" id="23_crn3e"]
+[ext_resource type="Resource" uid="uid://1a3tdlhxsylr" path="res://resources/inventory items/tools/weapon items/staff_1_weapon.tres" id="24_4w0tx"]
+[ext_resource type="Script" uid="uid://s1stxpi6sp7j" path="res://scripts/components/inventory/inventory visual/display_tool_item.gd" id="25_74kvo"]
+[ext_resource type="Script" uid="uid://cjrfibd7sxy0y" path="res://scripts/components/utility/set_material_based_on_owner.gd" id="26_t1fw8"]
+[ext_resource type="Script" uid="uid://cq0jynvxpb854" path="res://scripts/components/sync/position_sync.gd" id="27_e45v5"]
+[ext_resource type="Script" uid="uid://ceiyrvvrjtl5s" path="res://scripts/components/sync/optimized_rotation_sync.gd" id="28_o6h1x"]
+[ext_resource type="Script" uid="uid://c3w66lokilw4f" path="res://scripts/components/sync/creature_sprite_sheet_sync.gd" id="29_q2mdj"]
+[ext_resource type="Resource" uid="uid://b75lkdk8nosox" path="res://resources/sprite sheets/creatures/skeleton/skeleton_walk_fwd_omnidir_sprite_sheet.tres" id="30_k4wyl"]
+[ext_resource type="Resource" uid="uid://djidi5l2lw7o1" path="res://resources/sprite sheets/creatures/skeleton/skeleton_walk_bwd_omnidir_sprite_sheet.tres" id="31_g1ogm"]
+[ext_resource type="Resource" uid="uid://b1f7d4cf2gc3x" path="res://resources/sprite sheets/creatures/skeleton/skeleton_sidestep_left_omnidir_sprite_sheet.tres" id="32_t2yik"]
+[ext_resource type="Resource" uid="uid://bma6n50ls37tp" path="res://resources/sprite sheets/creatures/skeleton/skeleton_sidestep_right_omnidir_sprite_sheet.tres" id="33_32h8u"]
+[ext_resource type="Resource" uid="uid://b3jk6eigtjjyo" path="res://resources/sprite sheets/creatures/skeleton/skeleton_idle_omnidir_sprite_sheet.tres" id="34_ngijq"]
+[ext_resource type="Script" uid="uid://cf62jkm8arfbu" path="res://scripts/visual/creatures/sprite_sheet_billboard.gd" id="35_ig8xc"]
+[ext_resource type="Shader" uid="uid://bfx5psllv5gl5" path="res://shaders/spatial/creature_sprite_sheet.gdshader" id="36_nnxp4"]
+[ext_resource type="Texture2D" uid="uid://b44xx5t4fp802" path="res://sprites/creatures/skeleton/Skeleton_SpriteSheet_Walk.png" id="37_1guby"]
+[ext_resource type="Script" uid="uid://bfu4ax4bc34c" path="res://scripts/visual/simple effects/3d_squish_scaler_spring.gd" id="38_134uw"]
+[ext_resource type="Script" uid="uid://52avxl67y58j" path="res://scripts/visual/control_node_to_world_position.gd" id="38_x73g2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wuj5g"]
 albedo_color = Color(0.196071, 0.25379, 1, 1)
@@ -79,10 +85,10 @@ cap_bottom = false
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_af17o"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("24_mrt8g")
+shader = ExtResource("36_nnxp4")
 shader_parameter/base_color = Color(1, 0.0229377, 0.0527846, 1)
 shader_parameter/roughness = 3.0
-shader_parameter/sprite_sheet = ExtResource("25_ymcs1")
+shader_parameter/sprite_sheet = ExtResource("37_1guby")
 shader_parameter/sprite_sheet_pos = Vector2(0, 0)
 shader_parameter/sprite_sheet_rows = 4
 shader_parameter/sprite_sheet_columns = 16
@@ -129,7 +135,7 @@ corner_detail = 1
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qlogj"]
 
 [node name="DummyEnemy" type="Node" node_paths=PackedStringArray("spawn_logic", "ownerLogic", "sharedLogic")]
-script = ExtResource("1_pbj8a")
+script = ExtResource("1_0ali3")
 authority_interaction_priority = -1
 spawn_logic = NodePath("SpawnLogic")
 ownerLogic = NodePath("OwnerLogic")
@@ -138,42 +144,78 @@ sharedLogic = NodePath("SharedLogic")
 [node name="SpawnLogic" type="Node" parent="."]
 
 [node name="SpawnTransformSetter" type="Node" parent="SpawnLogic" node_paths=PackedStringArray("positional_node")]
-script = ExtResource("2_kwna1")
+script = ExtResource("2_uj783")
 positional_node = NodePath("../../Creature")
 
 [node name="ProcessEnabler" type="Node" parent="SpawnLogic" node_paths=PackedStringArray("nodes_to_process")]
-script = ExtResource("3_ydvj4")
-nodes_to_process = [NodePath("../../OwnerLogic/DumbYoloAI"), NodePath("../../OwnerLogic/DumbYoloAI/SearchTargetTimer")]
+script = ExtResource("3_57ola")
+nodes_to_process = [NodePath("../../OwnerLogic/StateMachineAI")]
 
 [node name="OwnerLogic" type="Node" parent="."]
 
 [node name="--- AI & Input ---" type="Node" parent="OwnerLogic"]
 
 [node name="TargetingComponent" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("network_entity")]
-script = ExtResource("4_jgbfu")
+script = ExtResource("4_7kuqh")
 network_entity = NodePath("../..")
 
-[node name="DumbYoloAI" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("monster_springing_node", "owner_change_component", "creature_attributes", "targeting_component", "movement_input_interface", "rotation_input_interface", "network_entity")]
-script = ExtResource("5_okrkm")
-close_distance = 2.0
-monster_springing_node = NodePath("../../Creature/Head/MonsterAttackScaler")
+[node name="OwnerChangeTargetSeeker" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("head_raycast", "creature_ai_component", "owner_change_component", "process_enable_spawn_component", "network_entity")]
+script = ExtResource("5_7kuqh")
+head_raycast = NodePath("../../Creature/Head/RayCast3D")
+creature_ai_component = NodePath("../StateMachineAI")
 owner_change_component = NodePath("../OwnerChangeComponent")
+process_enable_spawn_component = NodePath("../../SpawnLogic/ProcessEnabler")
+network_entity = NodePath("../..")
+
+[node name="StateMachineAI" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("current_state", "creature_attributes", "targeting_component", "movement_input_interface", "rotation_input_interface", "network_entity")]
+script = ExtResource("6_134uw")
+current_state = NodePath("IdleAIState")
 creature_attributes = NodePath("../../SharedLogic/CreatureAttributes")
 targeting_component = NodePath("../TargetingComponent")
 movement_input_interface = NodePath("../MovementInputInterface")
 rotation_input_interface = NodePath("../RotationInputInterface")
 network_entity = NodePath("../..")
 
-[node name="SearchTargetTimer" type="Timer" parent="OwnerLogic/DumbYoloAI"]
-wait_time = 2.0
-autostart = true
+[node name="IdleAIState" type="Node" parent="OwnerLogic/StateMachineAI" node_paths=PackedStringArray("creature_ai_component", "owner_change_target_seeker", "next_states")]
+script = ExtResource("7_w1lq5")
+creature_ai_component = NodePath("..")
+owner_change_target_seeker = NodePath("../../OwnerChangeTargetSeeker")
+threshold_distance = 5.0
+next_states = [NodePath("../ChaseAIState")]
+
+[node name="ChaseAIState" type="Node" parent="OwnerLogic/StateMachineAI" node_paths=PackedStringArray("creature_ai_component", "owner_change_target_seeker", "research_target_timer", "next_states")]
+script = ExtResource("8_134uw")
+creature_ai_component = NodePath("..")
+owner_change_target_seeker = NodePath("../../OwnerChangeTargetSeeker")
+research_target_timer = NodePath("Timer")
+chase_distance = 20.0
+run_distance = 10.0
+next_states = [NodePath("../AttackAIState"), NodePath("../ReturnToSpawnState")]
+
+[node name="Timer" type="Timer" parent="OwnerLogic/StateMachineAI/ChaseAIState"]
+one_shot = true
+
+[node name="AttackAIState" type="Node" parent="OwnerLogic/StateMachineAI" node_paths=PackedStringArray("creature_ai_component", "owner_change_target_seeker", "scaler_spring", "next_states")]
+script = ExtResource("9_w1lq5")
+creature_ai_component = NodePath("..")
+owner_change_target_seeker = NodePath("../../OwnerChangeTargetSeeker")
+scaler_spring = NodePath("../../../Creature/Head/MonsterAttackScaler")
+next_states = [NodePath("."), NodePath("../ChaseAIState")]
+
+[node name="ReturnToSpawnState" type="Node" parent="OwnerLogic/StateMachineAI" node_paths=PackedStringArray("creature_ai_component", "owner_change_target_seeker", "next_states")]
+script = ExtResource("10_3km5c")
+creature_ai_component = NodePath("..")
+owner_change_target_seeker = NodePath("../../OwnerChangeTargetSeeker")
+force_return_distance = 20.0
+away_from_spawn_return_distance = 40.0
+next_states = [NodePath("../IdleAIState"), NodePath("../ChaseAIState")]
 
 [node name="MovementInputInterface" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("network_entity")]
-script = ExtResource("6_j34ns")
+script = ExtResource("6_w1lq5")
 network_entity = NodePath("../..")
 
 [node name="RotationInputInterface" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("head_node_to_rotate", "look_node_to_rotate", "network_entity")]
-script = ExtResource("7_skjma")
+script = ExtResource("7_3km5c")
 auto_rotate_head = true
 auto_rotate_speed = 3.0
 head_node_to_rotate = NodePath("../../Creature/Head")
@@ -183,26 +225,26 @@ network_entity = NodePath("../..")
 [node name="--- Movement & Rotation ---" type="Node" parent="OwnerLogic"]
 
 [node name="MovementStateMachine" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("current_state", "network_entity")]
-script = ExtResource("8_1arji")
+script = ExtResource("8_vsymq")
 current_state = NodePath("CreatureMovementState")
 network_entity = NodePath("../..")
 
 [node name="CreatureMovementState" type="Node" parent="OwnerLogic/MovementStateMachine" node_paths=PackedStringArray("creature_attributes", "movement_input_interface", "next_states")]
-script = ExtResource("9_vovs3")
+script = ExtResource("9_dycma")
 creature_attributes = NodePath("../../../SharedLogic/CreatureAttributes")
 movement_input_interface = NodePath("../../MovementInputInterface")
 speed_mult = 0.7
 next_states = [NodePath("../CreatureRunState"), NodePath("../CreatureJumpState")]
 
 [node name="CreatureRunState" type="Node" parent="OwnerLogic/MovementStateMachine" node_paths=PackedStringArray("creature_attributes", "movement_input_interface", "next_states")]
-script = ExtResource("10_dg5h6")
+script = ExtResource("10_sf6a8")
 creature_attributes = NodePath("../../../SharedLogic/CreatureAttributes")
 movement_input_interface = NodePath("../../MovementInputInterface")
 speed_mult = 1.1
 next_states = [NodePath("../CreatureMovementState"), NodePath("../CreatureJumpState")]
 
 [node name="CreatureJumpState" type="Node" parent="OwnerLogic/MovementStateMachine" node_paths=PackedStringArray("creature_attributes", "movement_input_interface", "next_states")]
-script = ExtResource("11_gs83r")
+script = ExtResource("11_l5xib")
 jump_power = 2.0
 creature_attributes = NodePath("../../../SharedLogic/CreatureAttributes")
 movement_input_interface = NodePath("../../MovementInputInterface")
@@ -213,7 +255,7 @@ next_states = [NodePath("../CreatureMovementState")]
 [node name="--- Items & Inventory ---" type="Node" parent="OwnerLogic"]
 
 [node name="CreatureItemUser" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("creature_inventory", "spatial_node", "character_body", "head_node", "network_entity")]
-script = ExtResource("12_ycgrh")
+script = ExtResource("12_trcuw")
 creature_team_id = 1
 creature_inventory = NodePath("../../SharedLogic/CreatureInventoryComponent")
 spatial_node = NodePath("../../Creature/Head/SpatialItemUse")
@@ -226,22 +268,23 @@ network_entity = NodePath("../..")
 [node name="--- Other --" type="Node" parent="OwnerLogic"]
 
 [node name="OwnerChangeComponent" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("network_entity")]
-script = ExtResource("13_sm0xw")
+script = ExtResource("13_5qcxl")
 network_entity = NodePath("../..")
 
 [node name="--- Debugging & Testing ---" type="Node" parent="OwnerLogic"]
 
 [node name="SharedLogic" type="Node" parent="."]
 
-[node name="DynamicMusicUpdater" type="Node" parent="SharedLogic" node_paths=PackedStringArray("yolo_ai", "creature_attributes", "network_entity")]
-script = ExtResource("14_pxp44")
-yolo_ai = NodePath("../../OwnerLogic/DumbYoloAI")
+[node name="DynamicMusicUpdater" type="Node" parent="SharedLogic" node_paths=PackedStringArray("state_machine_ai", "creature_attributes", "aggroed_states", "network_entity")]
+script = ExtResource("18_134uw")
+state_machine_ai = NodePath("../../OwnerLogic/StateMachineAI")
 creature_attributes = NodePath("../CreatureAttributes")
+aggroed_states = [NodePath("../../OwnerLogic/StateMachineAI/ChaseAIState"), NodePath("../../OwnerLogic/StateMachineAI/AttackAIState")]
 unsynced_node_path = "/root/Main/DynamicMusic"
 network_entity = NodePath("../..")
 
 [node name="CreatureAttributes" type="Node" parent="SharedLogic" node_paths=PackedStringArray("character_body", "head_node", "look_node", "spatial_node", "network_entity") groups=["Creature"]]
-script = ExtResource("13_qsfnq")
+script = ExtResource("15_l7okd")
 creature_name = "Enemy"
 character_body = NodePath("../../Creature")
 head_node = NodePath("../../Creature/Head")
@@ -254,57 +297,57 @@ spatial_node = NodePath("../../Creature")
 network_entity = NodePath("../..")
 
 [node name="CreatureDestroy" type="Node" parent="SharedLogic/CreatureAttributes" node_paths=PackedStringArray("network_entity")]
-script = ExtResource("14_i476q")
+script = ExtResource("16_qji4v")
 network_entity = NodePath("../../..")
 
 [node name="HealthbarUpdater" type="Node" parent="SharedLogic/CreatureAttributes" node_paths=PackedStringArray("killable_attributes", "main_healthbar", "effect_healthbar")]
-script = ExtResource("16_0i7gp")
+script = ExtResource("17_pij5w")
 killable_attributes = NodePath("..")
 main_healthbar = NodePath("../../../Creature/Head/MonsterAttackScaler/Healthbar/HealthbarHolder/HitBar/HealthBar")
 effect_healthbar = NodePath("../../../Creature/Head/MonsterAttackScaler/Healthbar/HealthbarHolder/HitBar")
 
 [node name="ProjectileHitEffect" type="Node" parent="SharedLogic/CreatureAttributes" node_paths=PackedStringArray("killable_attributes")]
-script = ExtResource("17_2s1ix")
+script = ExtResource("18_4ibc7")
 killable_attributes = NodePath("..")
-hit_effect_scene = ExtResource("18_pnlwv")
+hit_effect_scene = ExtResource("19_dg4ff")
 
 [node name="CreatureInventoryComponent" type="Node" parent="SharedLogic" node_paths=PackedStringArray("network_entity")]
-script = ExtResource("15_h7bcp")
+script = ExtResource("20_hv8t3")
 inventory_size = 5
-initial_items = Array[ExtResource("16_xk4rs")]([ExtResource("19_1np74"), ExtResource("17_4bqor"), ExtResource("17_xfm8a")])
+initial_items = Array[ExtResource("21_e3txj")]([ExtResource("22_5ipsa"), ExtResource("23_crn3e"), ExtResource("24_4w0tx")])
 network_entity = NodePath("../..")
 
 [node name="DisplayToolItem" type="Node" parent="SharedLogic/CreatureInventoryComponent" node_paths=PackedStringArray("tool_item_parent_node")]
-script = ExtResource("18_4dv4h")
+script = ExtResource("25_74kvo")
 tool_item_parent_node = NodePath("../../../Creature/Head/CameraMount/ToolItemDisplay")
 
 [node name="SetMaterialBasedOnOwner" type="Node" parent="SharedLogic" node_paths=PackedStringArray("mesh", "network_entity")]
-script = ExtResource("19_snh2j")
+script = ExtResource("26_t1fw8")
 materials = Array[Material]([SubResource("StandardMaterial3D_wuj5g"), SubResource("StandardMaterial3D_rjudh"), SubResource("StandardMaterial3D_4ttwh"), SubResource("StandardMaterial3D_qgny7"), SubResource("StandardMaterial3D_www38"), SubResource("StandardMaterial3D_qr1bo")])
 mesh = NodePath("../../Creature/Head/HatMesh")
 network_entity = NodePath("../..")
 
 [node name="PositionSync" type="Node" parent="SharedLogic" node_paths=PackedStringArray("node_to_sync", "network_entity")]
-script = ExtResource("20_ollk2")
+script = ExtResource("27_e45v5")
 node_to_sync = NodePath("../../Creature")
 network_entity = NodePath("../..")
 
 [node name="OptimizedRotationSyncComponent" type="Node" parent="SharedLogic" node_paths=PackedStringArray("node_to_sync", "network_entity")]
-script = ExtResource("21_weoul")
+script = ExtResource("28_o6h1x")
 node_to_sync = NodePath("../../Creature/Head")
 network_entity = NodePath("../..")
 
 [node name="SpriteSheetSync" type="Node" parent="SharedLogic" node_paths=PackedStringArray("movement_input_interface", "character_body", "sprite_sheet_billboard", "network_entity")]
-script = ExtResource("22_nrvkl")
+script = ExtResource("29_q2mdj")
 movement_input_interface = NodePath("../../OwnerLogic/MovementInputInterface")
 character_body = NodePath("../../Creature")
 sprite_sheet_billboard = NodePath("../../Creature/Head/MonsterAttackScaler/SpriteSheetBillboard")
 move_speed_mult = 0.25
-fwd_move_sprite_sheet = ExtResource("23_mwgq2")
-bwd_move_sprite_sheet = ExtResource("24_idslx")
-sidestep_left_sprite_sheet = ExtResource("25_2wq8a")
-sidestep_right_sprite_sheet = ExtResource("26_8vm8t")
-idle_sprite_sheet = ExtResource("27_m78qa")
+fwd_move_sprite_sheet = ExtResource("30_k4wyl")
+bwd_move_sprite_sheet = ExtResource("31_g1ogm")
+sidestep_left_sprite_sheet = ExtResource("32_t2yik")
+sidestep_right_sprite_sheet = ExtResource("33_32h8u")
+idle_sprite_sheet = ExtResource("34_ngijq")
 network_entity = NodePath("../..")
 
 [node name="Creature" type="CharacterBody3D" parent="."]
@@ -315,9 +358,10 @@ shape = SubResource("CapsuleShape3D_ws0uc")
 [node name="Head" type="Node3D" parent="Creature"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 
+[node name="RayCast3D" type="RayCast3D" parent="Creature/Head"]
+
 [node name="HatMesh" type="MeshInstance3D" parent="Creature/Head"]
 transform = Transform3D(0.55, 0, -3.55271e-15, 0, 0.55, 0, 3.55271e-15, 0, 0.55, 0, 0.58321, 0)
-visible = false
 mesh = SubResource("CylinderMesh_atlbh")
 skeleton = NodePath("../..")
 
@@ -331,11 +375,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
 
 [node name="MonsterAttackScaler" type="Node3D" parent="Creature/Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.51918, 0)
+script = ExtResource("38_134uw")
 
 [node name="SpriteSheetBillboard" type="Node3D" parent="Creature/Head/MonsterAttackScaler" node_paths=PackedStringArray("billboard_node")]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
-script = ExtResource("22_2horj")
-cur_sprite_sheet = ExtResource("27_m78qa")
+script = ExtResource("35_ig8xc")
+cur_sprite_sheet = ExtResource("34_ngijq")
 cycle_speed_mult = 12.0
 billboard_node = NodePath("Billboard")
 billboard_material = SubResource("ShaderMaterial_af17o")
@@ -350,7 +395,7 @@ skeleton = NodePath("../../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
 
 [node name="HealthbarPosition" type="Node" parent="Creature/Head/MonsterAttackScaler/Healthbar" node_paths=PackedStringArray("position_node", "control_node")]
-script = ExtResource("33_8jldf")
+script = ExtResource("38_x73g2")
 position_node = NodePath("..")
 control_node = NodePath("../HealthbarHolder")
 
@@ -414,12 +459,7 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Creature/PhysicsPropogationArea"]
 shape = SubResource("CapsuleShape3D_qlogj")
 
-[connection signal="authority_changed" from="." to="OwnerLogic/DumbYoloAI" method="reassign_target"]
 [connection signal="authority_changed" from="." to="SharedLogic/SetMaterialBasedOnOwner" method="_on_entity_authority_change"]
 [connection signal="entity_ready" from="." to="SharedLogic/CreatureInventoryComponent" method="add_initial_items"]
-[connection signal="nodes_enabled" from="SpawnLogic/ProcessEnabler" to="OwnerLogic/DumbYoloAI" method="on_entity_ready"]
-[connection signal="change_item_slot" from="OwnerLogic/DumbYoloAI" to="SharedLogic/CreatureInventoryComponent" method="select_slot"]
-[connection signal="use_item" from="OwnerLogic/DumbYoloAI" to="OwnerLogic/CreatureItemUser" method="use_selected_item"]
-[connection signal="timeout" from="OwnerLogic/DumbYoloAI/SearchTargetTimer" to="OwnerLogic/DumbYoloAI" method="reassign_target"]
+[connection signal="use_item" from="OwnerLogic/StateMachineAI" to="OwnerLogic/CreatureItemUser" method="use_selected_item"]
 [connection signal="on_death" from="SharedLogic/CreatureAttributes" to="SharedLogic/CreatureAttributes/CreatureDestroy" method="destroy_entity" binds= [false]]
-[connection signal="on_take_damage" from="SharedLogic/CreatureAttributes" to="OwnerLogic/DumbYoloAI" method="_on_creature_attributes_on_take_damage"]

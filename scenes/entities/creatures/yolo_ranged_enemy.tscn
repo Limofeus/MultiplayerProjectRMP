@@ -35,7 +35,7 @@
 [ext_resource type="Script" uid="uid://cf62jkm8arfbu" path="res://scripts/visual/creatures/sprite_sheet_billboard.gd" id="30_pf4l8"]
 [ext_resource type="Shader" uid="uid://bfx5psllv5gl5" path="res://shaders/spatial/creature_sprite_sheet.gdshader" id="31_jnd0b"]
 [ext_resource type="Texture2D" uid="uid://b44xx5t4fp802" path="res://sprites/creatures/skeleton/Skeleton_SpriteSheet_Walk.png" id="32_pww2a"]
-[ext_resource type="Script" uid="uid://c51ha0neje3qh" path="res://scripts/components/controllers/creature ai/dynamic_music_yolo_updater.gd" id="33_l6imw"]
+[ext_resource type="Script" uid="uid://c51ha0neje3qh" path="res://scripts/components/controllers/creature ai/music updaters/dynamic_music_yolo_updater.gd" id="33_l6imw"]
 [ext_resource type="Script" uid="uid://52avxl67y58j" path="res://scripts/visual/control_node_to_world_position.gd" id="34_kljth"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wuj5g"]
