@@ -8,6 +8,7 @@ var inventory_item_resource : InventoryItem = null
 var item_ammount : int = 0
 
 signal item_set(item : InventoryItem, amount : int)
+signal item_picked_up()
 
 func set_item(item : InventoryItem, amount : int = 1) -> void:
 	inventory_item_resource = item
@@ -23,4 +24,5 @@ func authority_recieve_interaction(interaction_args : Array) -> void:
 		if owner_prevent_pickup_timer.time_left > 0:
 			return
 	super(interaction_args)
+	item_picked_up.emit()
 	destruction_component.destroy_entity(true)

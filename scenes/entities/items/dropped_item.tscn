@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_08r0l"]
 [ext_resource type="Script" uid="uid://bf7fadkascqa1" path="res://scripts/components/spawn components/item_spawn_component.gd" id="2_qhuj6"]
 [ext_resource type="Script" uid="uid://chahk0rmmc7tg" path="res://scripts/components/inventory/dropped_item_component.gd" id="2_ufukf"]
-[ext_resource type="Script" uid="uid://dgn8lixy52hug" path="res://scripts/components/entity destruction/entity_destructor.gd" id="3_r5htu"]
 [ext_resource type="Script" uid="uid://dpxu25buoavix" path="res://scripts/components/spawn components/enable_processing_after_spawn.gd" id="3_xu8tx"]
 [ext_resource type="Script" uid="uid://d380v462n6x6i" path="res://scripts/components/physics/dropped_item_floater.gd" id="4_oc4u5"]
 [ext_resource type="Script" uid="uid://dl81mamuiydco" path="res://scripts/components/inventory/item visual/dropped_item_visual_updater.gd" id="4_sp5rk"]
 [ext_resource type="Script" uid="uid://lghsw7lphblg" path="res://scripts/components/inventory/item visual/dropped_item_visual.gd" id="5_5nm3a"]
+[ext_resource type="Script" uid="uid://hhxrri38woka" path="res://scripts/components/entity destruction/sequential_entity_destructor.gd" id="6_bnpn8"]
 [ext_resource type="Script" uid="uid://c16p8nfy7vxqp" path="res://scripts/visual/simple effects/3d_node_simple_spin.gd" id="8_1nmbv"]
 [ext_resource type="Script" uid="uid://oh5wp301gyde" path="res://scripts/components/sync/optimized_position_sync.gd" id="8_qrbbo"]
 [ext_resource type="Shader" uid="uid://bi67yjngfsmxq" path="res://shaders/mesh effects/textured_alpha_additive.gdshader" id="8_ric3b"]
@@ -60,7 +60,7 @@ metadata/_custom_type_script = "uid://bf7fadkascqa1"
 
 [node name="ProcessEnabler" type="Node" parent="SpawnLogic" node_paths=PackedStringArray("nodes_to_process")]
 script = ExtResource("3_xu8tx")
-nodes_to_process = [NodePath("../../DroppedItem/Area3D")]
+nodes_to_process = [NodePath("../../DroppedItem/Area3D"), NodePath("../../DroppedItem/DroppedItemVisual")]
 
 [node name="OwnerLogic" type="Node" parent="."]
 
@@ -83,19 +83,22 @@ network_entity = NodePath("../..")
 [node name="DroppedItemComponent" type="Node" parent="SharedLogic" node_paths=PackedStringArray("owner_prevent_pickup_timer", "destruction_component", "network_entity")]
 script = ExtResource("2_ufukf")
 owner_prevent_pickup_timer = NodePath("../../OwnerLogic/Timer")
-destruction_component = NodePath("DestructionComponent")
+destruction_component = NodePath("../DestructionComponent")
 network_entity = NodePath("../..")
 metadata/_custom_type_script = "uid://chahk0rmmc7tg"
 
-[node name="DestructionComponent" type="Node" parent="SharedLogic/DroppedItemComponent" node_paths=PackedStringArray("network_entity")]
-script = ExtResource("3_r5htu")
-network_entity = NodePath("../../..")
-metadata/_custom_type_script = "uid://dgn8lixy52hug"
+[node name="DestructionComponent" type="Node" parent="SharedLogic" node_paths=PackedStringArray("sequential_deletion_nodes", "network_entity")]
+script = ExtResource("6_bnpn8")
+sequential_deletion_nodes = [NodePath("../../SpawnLogic"), NodePath("../../OwnerLogic"), NodePath("../DroppedItemComponent"), NodePath("../DroppedItemVisualUpdater"), NodePath("../PosSync"), null]
+sequential_deletion_wait_times = Array[float]([5.0])
+network_entity = NodePath("../..")
+metadata/_custom_type_script = "uid://hhxrri38woka"
 
-[node name="DroppedItemVisualUpdater" type="Node" parent="SharedLogic" node_paths=PackedStringArray("dropped_item_component", "dropped_item_visual")]
+[node name="DroppedItemVisualUpdater" type="Node" parent="SharedLogic" node_paths=PackedStringArray("dropped_item_component", "dropped_item_visual", "destruction_component")]
 script = ExtResource("4_sp5rk")
 dropped_item_component = NodePath("../DroppedItemComponent")
 dropped_item_visual = NodePath("../../DroppedItem/DroppedItemVisual")
+destruction_component = NodePath("../DestructionComponent")
 metadata/_custom_type_script = "uid://dl81mamuiydco"
 
 [node name="PosSync" type="Node" parent="SharedLogic" node_paths=PackedStringArray("node_to_sync", "network_entity")]
@@ -109,10 +112,14 @@ collision_layer = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DroppedItem"]
 shape = SubResource("SphereShape3D_xu8tx")
 
-[node name="DroppedItemVisual" type="Node3D" parent="DroppedItem" node_paths=PackedStringArray("item_display_plane", "tool_item_model_holder")]
+[node name="OmniLight3D" type="OmniLight3D" parent="DroppedItem"]
+light_energy = 0.8
+
+[node name="DroppedItemVisual" type="Node3D" parent="DroppedItem" node_paths=PackedStringArray("item_display_plane", "tool_item_model_holder", "item_light")]
 script = ExtResource("5_5nm3a")
 item_display_plane = NodePath("MeshInstance3D")
 tool_item_model_holder = NodePath("ToolHolder")
+item_light = NodePath("../OmniLight3D")
 metadata/_custom_type_script = "uid://lghsw7lphblg"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="DroppedItem/DroppedItemVisual"]
@@ -135,9 +142,6 @@ spin_speed = 5.0
 [node name="MeshInstance3D" type="MeshInstance3D" parent="DroppedItem/DroppedItemVisual/MagicCircle"]
 material_override = SubResource("ShaderMaterial_26oh2")
 mesh = SubResource("PlaneMesh_oc4u5")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="DroppedItem/DroppedItemVisual"]
-light_energy = 0.8
 
 [node name="Area3D" type="Area3D" parent="DroppedItem"]
 collision_layer = 2
