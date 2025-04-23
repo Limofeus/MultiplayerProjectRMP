@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://blb8dwjc4v0gg" path="res://sprites/testing/test_texture.png" id="1_dalq8"]
 [ext_resource type="PackedScene" uid="uid://c547e34umuh5a" path="res://scenes/entities/creatures/roomba_creature.tscn" id="2_25mxe"]
-[ext_resource type="Script" path="res://scripts/resources/inventory/items/entity_spawner_item.gd" id="21_ygrl1"]
+[ext_resource type="Script" uid="uid://jppd5ysq3ci8" path="res://scripts/resources/inventory/items/entity_spawner_item.gd" id="21_ygrl1"]
 [ext_resource type="PackedScene" uid="uid://btcr3jt8wthqt" path="res://scenes/items/tools/test_tool_display_1.tscn" id="22_767dl"]
 
 [resource]
@@ -15,5 +15,5 @@ tool_scene = ExtResource("22_767dl")
 select_string = "Select"
 name = "ROOMBA"
 description = "Item description"
-stackable = false
+max_stack_size = 10
 icon = ExtResource("1_dalq8")

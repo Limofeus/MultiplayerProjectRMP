@@ -17,12 +17,21 @@ func set_item(item : InventoryItem, amount : int = 1) -> void:
 	item_set.emit(item, amount)
 
 func interaction_filter(interaction : Interaction) -> bool:
-	return interaction is GenericActionInteraction and interaction.action_string == "pickup_item"
+	return interaction is PickupRequestInteraction
+
+func interaction_to_arguments(interaction : Interaction, interacted_entity : InteractableNetworkEntity) -> Array:
+	return [interaction.pickup_amount]
 
 func authority_recieve_interaction(interaction_args : Array) -> void:
 	if network_entity.get_current_authority() == multiplayer.get_unique_id():
 		if owner_prevent_pickup_timer.time_left > 0:
 			return
+
+	response_interaction.amount = min(interaction_args[0], item_ammount)
+	item_ammount -= response_interaction.amount
+
 	super(interaction_args)
 	item_picked_up.emit()
-	destruction_component.destroy_entity(true)
+
+	if item_ammount <= 0:
+		destruction_component.destroy_entity(true)

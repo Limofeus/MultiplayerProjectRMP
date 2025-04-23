@@ -39,5 +39,6 @@ func process_item_pickup(item_reference_node : Node3D) -> void:
 		return
 
 	if creature_item_container.has_room_for(inventory_item):
-		var item_pickup_interaction = GenericActionInteraction.new("pickup_item")
+		print("Max free space for " + inventory_item.name + ": " + str(creature_item_container.max_free_space_for_item(inventory_item)))
+		var item_pickup_interaction = PickupRequestInteraction.new(creature_item_container.max_free_space_for_item(inventory_item))
 		network_entity.send_interaction(dropped_item_entity, item_pickup_interaction)

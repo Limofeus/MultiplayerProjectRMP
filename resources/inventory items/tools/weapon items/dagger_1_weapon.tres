@@ -57,5 +57,5 @@ tool_scene = ExtResource("11_6wx1w")
 select_string = "Select"
 name = "Dagger"
 description = "Item description"
-stackable = false
+max_stack_size = 1
 icon = ExtResource("3_s3u2b")

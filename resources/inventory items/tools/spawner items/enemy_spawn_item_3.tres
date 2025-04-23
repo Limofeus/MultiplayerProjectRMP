@@ -15,5 +15,5 @@ tool_scene = ExtResource("4_sb8j3")
 select_string = "Select"
 name = "STATE MACHINE ENEMY SPAWN"
 description = "Item description"
-stackable = false
+max_stack_size = 1
 icon = ExtResource("1_688di")
