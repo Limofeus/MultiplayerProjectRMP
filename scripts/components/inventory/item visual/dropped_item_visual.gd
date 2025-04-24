@@ -5,6 +5,9 @@ class_name DroppedItemVisual
 @export var tool_item_model_holder : Node3D = null
 @export var item_light : OmniLight3D = null
 
+@export var item_name_label : Label3D = null
+@export var item_ammount_label : Label3D = null
+
 @export var max_light_power : float = 0.8
 
 @export var spring_damping : float = 0.6
@@ -39,6 +42,9 @@ func update_visual(item : InventoryItem, ammount : int) -> void:
 		item_display_plane.visible = true
 		var item_material : StandardMaterial3D = item_display_plane.material_override
 		item_material.albedo_texture = item.icon
+
+	item_name_label.text = "       " + item.name
+	item_ammount_label.text = str(ammount) + "       " #Do not ask about the spaces
 
 func on_item_pickup() -> void:
 	eq_pos = 0.0

@@ -62,8 +62,9 @@ func add_item(item : InventoryItem, amount : int = 1, slot : int = -1) -> void:
 				item_count[i] = min(amount, item.max_stack_size)
 				amount -= item_count[i]
 			elif items[i] == item and item_count[i] < item.max_stack_size:
-				item_count[i] += amount
-				amount -= item_count[i]
+				var add_amount = min(item.max_stack_size - item_count[i], amount)
+				item_count[i] += add_amount
+				amount -= add_amount
 			if amount <= 0:
 				break
 

@@ -8,3 +8,8 @@ class_name DroppedItemVisualUpdater
 func _ready():
 	dropped_item_component.item_set.connect(dropped_item_visual.update_visual)
 	destruction_component.on_destruction.connect(dropped_item_visual.on_item_pickup)
+
+	dropped_item_component.item_picked_up.connect(update_item_labels)
+
+func update_item_labels():
+	dropped_item_visual.update_visual(dropped_item_component.inventory_item_resource, dropped_item_component.item_ammount)
