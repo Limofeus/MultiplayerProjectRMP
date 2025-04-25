@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://fjib4361ovfd"]
+[gd_scene load_steps=33 format=3 uid="uid://fjib4361ovfd"]
 
 [ext_resource type="Script" uid="uid://bdbitsb3bdwvf" path="res://scripts/networking/network_manager.gd" id="1_1ap1m"]
 [ext_resource type="Script" uid="uid://bjmp5kq0tl031" path="res://scripts/utility/fps_counter.gd" id="1_bkmm5"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://dgf4kuwg5o5cg" path="res://audio/music/theme_battle_1.ogg" id="11_muem4"]
 [ext_resource type="PackedScene" uid="uid://bsdka40fec030" path="res://scenes/world/zones/zone_1.tscn" id="12_d6rcw"]
 [ext_resource type="Material" uid="uid://dox7ghi1mskpg" path="res://materials/effects/overlays/speedlines_overlay.tres" id="12_oyb24"]
+[ext_resource type="Script" uid="uid://cyis3mmb6k6lw" path="res://scripts/visual/enchanced_control_node_to_world_position.gd" id="16_yc10j"]
 [ext_resource type="Script" uid="uid://jrqidiswd16s" path="res://scripts/ui/menus/open_settings_window_button.gd" id="17_gqmmt"]
 [ext_resource type="Shader" uid="uid://2u66ri5gklxa" path="res://shaders/main menu effects/dither_canvas.gdshader" id="18_v1b13"]
 [ext_resource type="Texture2D" uid="uid://dsp2730flqo78" path="res://sprites/menu/dither2.png" id="19_6gyjg"]
@@ -186,6 +187,53 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="Zone1" parent="World" instance=ExtResource("12_d6rcw")]
+
+[node name="TestWorlUi" type="Node" parent="."]
+
+[node name="WorldNode" type="Node3D" parent="TestWorlUi"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.48898, 0.999003, 4.458)
+
+[node name="Setter" type="Node" parent="TestWorlUi/WorldNode" node_paths=PackedStringArray("position_node", "control_node", "size_ref_container")]
+script = ExtResource("16_yc10j")
+position_node = NodePath("..")
+control_node = NodePath("../Holder")
+size_ref_container = NodePath("../Holder/MarginContainer")
+
+[node name="Holder" type="Control" parent="TestWorlUi/WorldNode"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TestWorlUi/WorldNode/Holder"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -20.5
+offset_right = 37.5
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Button" type="Button" parent="TestWorlUi/WorldNode/Holder/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+text = "BUTON"
 
 [node name="UI Layer" type="CanvasLayer" parent="."]
 
