@@ -195,6 +195,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.48898, 0.999003, 4.458)
 
 [node name="Setter" type="Node" parent="TestWorlUi/WorldNode" node_paths=PackedStringArray("position_node", "control_node", "size_ref_container")]
 script = ExtResource("16_yc10j")
+frustum_spring_freq = 100.0
 position_node = NodePath("..")
 control_node = NodePath("../Holder")
 size_ref_container = NodePath("../Holder/MarginContainer")
