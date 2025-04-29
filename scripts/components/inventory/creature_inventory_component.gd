@@ -45,6 +45,9 @@ func select_slot(selected_slot : int) -> void:
 	creature_item_container.select_slot(selected_slot, creature_item_user)
 	propagate_selection.rpc(selected_slot)
 
+func get_selected_slot() -> int:
+	return creature_item_container.selected_slot
+
 @rpc("call_remote", "any_peer", "unreliable") #Since logic is handled on owner of the entity, we can make this unreliable as it should only affect visuals
 func propagate_selection(selected_slot : int) -> void:
 	creature_item_container.select_slot(selected_slot, creature_item_user)

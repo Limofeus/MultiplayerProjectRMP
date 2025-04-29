@@ -2,7 +2,10 @@ extends State
 
 @export var creature_ai_component : CreatureAIComponent = null
 @export var owner_change_target_seeker : OwnerChangeTargetSeeker = null
+@export var creature_inventory_component : CreatureInventoryComponent = null
 
+@export var weapon_slot_on_attack_switch : int = -1
+@export var attack_min_dist : float = 0.0
 @export var attack_distance : float = 2.0
 @export var attack_windup_time : float = 0.4
 @export var attack_delay_time : float = 0.1
@@ -14,6 +17,12 @@ var attacking : bool = true
 
 func _on_enter() -> void:
 	attacking = true
+
+	if weapon_slot_on_attack_switch != -1 and creature_inventory_component != null:
+		if weapon_slot_on_attack_switch != creature_inventory_component.get_selected_slot():
+			creature_inventory_component.select_slot(weapon_slot_on_attack_switch)
+		
+
 	creature_ai_component.movement_input_interface.movement_vector = Vector2.ZERO
 	creature_ai_component.movement_input_interface.dash_pressed = false
 
@@ -21,6 +30,9 @@ func _on_enter() -> void:
 
 	if scaler_spring != null:
 		start_attack_visual.rpc()
+
+func _on_update(_delta : float) -> void:
+	creature_ai_component.rotation_input_interface.desired_rotation_direction = creature_ai_component.creature_attributes.head_node.global_position.direction_to(owner_change_target_seeker.target_node.global_position + (Vector3.UP))
 
 func attacking_coroutine() -> void:
 	await get_tree().create_timer(attack_windup_time).timeout
@@ -34,7 +46,7 @@ func state_locked() -> bool:
 func check_conditions() -> bool:
 	if not owner_change_target_seeker.get_has_target():
 		return false
-	return owner_change_target_seeker.get_dist_to_target() < attack_distance
+	return owner_change_target_seeker.get_dist_to_target() < attack_distance and owner_change_target_seeker.get_dist_to_target() > attack_min_dist
 
 @rpc("unreliable", "call_local", "any_peer")
 func start_attack_visual() -> void:
