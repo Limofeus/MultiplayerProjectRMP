@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EntitySpawnerItem" load_steps=5 format=3 uid="uid://d0bwe73d5rbc1"]
+
+[ext_resource type="Texture2D" uid="uid://blb8dwjc4v0gg" path="res://sprites/testing/test_texture.png" id="1_jr4nd"]
+[ext_resource type="PackedScene" uid="uid://d3bsmge540ao7" path="res://scenes/entities/creatures/sm_peace_enemy_1.tscn" id="2_jr4nd"]
+[ext_resource type="Script" uid="uid://jppd5ysq3ci8" path="res://scripts/resources/inventory/items/entity_spawner_item.gd" id="3_3tfwx"]
+[ext_resource type="PackedScene" uid="uid://btcr3jt8wthqt" path="res://scenes/items/tools/test_tool_display_1.tscn" id="4_ueipl"]
+
+[resource]
+script = ExtResource("3_3tfwx")
+scene_to_instantiate = ExtResource("2_jr4nd")
+spawn_from_position = 1
+copy_rotation = false
+position_offset = 6.0
+tool_scene = ExtResource("4_ueipl")
+select_string = "Select"
+name = "PEACE enemy"
+description = "Item description"
+max_stack_size = 1
+icon = ExtResource("1_jr4nd")

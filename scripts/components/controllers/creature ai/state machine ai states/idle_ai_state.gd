@@ -1,4 +1,5 @@
 extends State
+class_name IdleAiState
 
 @export var creature_ai_component : CreatureAIComponent = null
 @export var owner_change_target_seeker : OwnerChangeTargetSeeker = null

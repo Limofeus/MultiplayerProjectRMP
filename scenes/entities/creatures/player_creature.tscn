@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://bqdtx48rr07yc"]
+[gd_scene load_steps=72 format=3 uid="uid://bqdtx48rr07yc"]
 
 [ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_63m7l"]
 [ext_resource type="Script" uid="uid://urhqvfpddfc2" path="res://scripts/components/spawn components/spawn_transform_setter.gd" id="2_etd3o"]
@@ -24,8 +24,10 @@
 [ext_resource type="Resource" uid="uid://1a3tdlhxsylr" path="res://resources/inventory items/tools/weapon items/staff_1_weapon.tres" id="20_bfh14"]
 [ext_resource type="Resource" uid="uid://b6l3kvm7xejds" path="res://resources/inventory items/tools/spawner items/enemy_spawn_item_4.tres" id="20_uhsrm"]
 [ext_resource type="Script" uid="uid://dp26vonrii4k4" path="res://scripts/visual/creatures/healthbars/healthbar_updater.gd" id="21_3dyv3"]
+[ext_resource type="Resource" uid="uid://d0bwe73d5rbc1" path="res://resources/inventory items/tools/spawner items/enemy_spawn_item_5.tres" id="21_j76wl"]
 [ext_resource type="Resource" uid="uid://cq3yuh8ku484g" path="res://resources/inventory items/tools/spawner items/enemy_spawn_item_3.tres" id="22_8kbnr"]
 [ext_resource type="Script" uid="uid://dtga6lwq1vuxj" path="res://scripts/utility/quick actions/disable_node_array.gd" id="22_u1yxl"]
+[ext_resource type="Resource" uid="uid://irusriy347nk" path="res://resources/inventory items/tools/spawner items/enemy_spawn_item_6.tres" id="22_x6h4n"]
 [ext_resource type="Resource" uid="uid://bb1do7tbrgse4" path="res://resources/inventory items/tools/weapon items/dagger_1_weapon.tres" id="23_8it18"]
 [ext_resource type="Resource" uid="uid://040yl843thoa" path="res://resources/inventory items/tools/spawner items/enemy_spawn_item_2.tres" id="23_awi5f"]
 [ext_resource type="Script" uid="uid://dvtq2pvnwrpir" path="res://scripts/visual/creatures/projectile_hit_effect.gd" id="23_ckyfg"]
@@ -264,7 +266,7 @@ network_entity = NodePath("../..")
 [node name="DebugInvItemAdder" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("player_inventory")]
 script = ExtResource("15_xaj14")
 player_inventory = NodePath("../../SharedLogic/PlayerInventory")
-debug_items = Array[ExtResource("16_tlce0")]([ExtResource("22_8kbnr"), ExtResource("20_uhsrm"), ExtResource("18_x1fg6"), ExtResource("17_fvq0r"), ExtResource("23_awi5f")])
+debug_items = Array[ExtResource("16_tlce0")]([ExtResource("22_8kbnr"), ExtResource("20_uhsrm"), ExtResource("21_j76wl"), ExtResource("22_x6h4n"), ExtResource("18_x1fg6"), ExtResource("17_fvq0r"), ExtResource("23_awi5f")])
 
 [node name="SharedLogic" type="Node" parent="."]
 
