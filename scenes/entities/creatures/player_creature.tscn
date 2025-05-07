@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://bqdtx48rr07yc"]
+[gd_scene load_steps=74 format=3 uid="uid://bqdtx48rr07yc"]
 
 [ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_63m7l"]
 [ext_resource type="Script" uid="uid://urhqvfpddfc2" path="res://scripts/components/spawn components/spawn_transform_setter.gd" id="2_etd3o"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://dcc48kjd0o4v5" path="res://scripts/debug/testing/test_inv_item_adder.gd" id="15_xaj14"]
 [ext_resource type="Script" uid="uid://tqtqwrpn4m2x" path="res://scripts/resources/inventory/items/inventory_item.gd" id="16_tlce0"]
 [ext_resource type="Resource" uid="uid://hr26l03c7p77" path="res://resources/inventory items/tools/spawner items/enemy_spawn_item_1.tres" id="17_fvq0r"]
+[ext_resource type="Script" uid="uid://tyql57nns2bm" path="res://scripts/components/tinkering/tinkereres/directional_shapecast_tinkerer.gd" id="17_x6h4n"]
 [ext_resource type="Resource" uid="uid://bpvdms7w0up6v" path="res://resources/inventory items/tools/spawner items/roomba_spawner_item.tres" id="18_x1fg6"]
 [ext_resource type="Resource" uid="uid://b7tqoytns3x4d" path="res://resources/inventory items/tools/weapon items/sword_1_weapon.tres" id="19_640nl"]
 [ext_resource type="Resource" uid="uid://1a3tdlhxsylr" path="res://resources/inventory items/tools/weapon items/staff_1_weapon.tres" id="20_bfh14"]
@@ -90,6 +91,9 @@ height = 1.75
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_dskx3"]
 radius = 0.2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_j76wl"]
+radius = 5.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8h034"]
 resource_local_to_scene = true
@@ -261,6 +265,12 @@ network_entity = NodePath("../..")
 
 [node name="--- Other --" type="Node" parent="OwnerLogic"]
 
+[node name="ShapecastTinkerer" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("dot_check_node", "tinker_shapecast", "network_entity")]
+script = ExtResource("17_x6h4n")
+dot_check_node = NodePath("../../Player/Head/CameraMount")
+tinker_shapecast = NodePath("../../Player/Head/CameraMount/ShapeCast3D")
+network_entity = NodePath("../..")
+
 [node name="--- Debugging & Testing ---" type="Node" parent="OwnerLogic"]
 
 [node name="DebugInvItemAdder" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("player_inventory")]
@@ -379,6 +389,14 @@ enabled = false
 target_position = Vector3(0, 0, -10)
 collision_mask = 7
 hit_back_faces = false
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="Player/Head/CameraMount"]
+enabled = false
+shape = SubResource("SphereShape3D_j76wl")
+target_position = Vector3(0, 0, -1)
+collision_mask = 16
+collide_with_areas = true
+collide_with_bodies = false
 
 [node name="FancyToolDisplayer" parent="Player/Head" instance=ExtResource("33_ef6d6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.95, -0.4)
