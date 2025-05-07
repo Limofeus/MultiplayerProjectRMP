@@ -1,0 +1,89 @@
+[gd_scene load_steps=6 format=3 uid="uid://prgs730tnshv"]
+
+[ext_resource type="Script" uid="uid://cp80prt2k4yio" path="res://scripts/components/tinkering/tinkerable/tinkerable_debug_thingy.gd" id="1_cu1to"]
+[ext_resource type="Script" uid="uid://b18e7c0mw44yb" path="res://scripts/debug/testing/tinkering_visual_state_testing.gd" id="2_3fosd"]
+[ext_resource type="Script" uid="uid://dhr6u82gkorbh" path="res://scripts/components/tinkering/spatial/tinkerable_area.gd" id="3_kccuy"]
+[ext_resource type="Script" uid="uid://cyis3mmb6k6lw" path="res://scripts/visual/enchanced_control_node_to_world_position.gd" id="4_30shm"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yc10j"]
+
+[node name="WorldNode" type="Node3D"]
+
+[node name="TestTinkerable" type="Node" parent="." node_paths=PackedStringArray("tinker_center_node")]
+script = ExtResource("1_cu1to")
+tinker_center_node = NodePath("../TinkerableArea")
+
+[node name="VisualThing" type="Node" parent="." node_paths=PackedStringArray("tinkerable", "focused_node", "unfocused_node", "hidden_node")]
+script = ExtResource("2_3fosd")
+tinkerable = NodePath("../TestTinkerable")
+focused_node = NodePath("../Holder/MarginContainer/Focused")
+unfocused_node = NodePath("../Holder/MarginContainer/Unfocused")
+hidden_node = NodePath("../Holder/MarginContainer/Hidden")
+
+[node name="TinkerableArea" type="Area3D" parent="." node_paths=PackedStringArray("tinkerable")]
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_kccuy")
+tinkerable = NodePath("../TestTinkerable")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TinkerableArea"]
+shape = SubResource("SphereShape3D_yc10j")
+
+[node name="WorldUiPosThing" type="Node" parent="." node_paths=PackedStringArray("position_node", "control_node", "size_ref_container")]
+script = ExtResource("4_30shm")
+frustum_spring_freq = 100.0
+position_node = NodePath("..")
+control_node = NodePath("../Holder")
+size_ref_container = NodePath("../Holder/MarginContainer")
+
+[node name="Holder" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Holder"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -20.5
+offset_right = 37.5
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Hidden" type="ColorRect" parent="Holder/MarginContainer"]
+visible = false
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.164063, 0.0513132, 0.0672833, 1)
+
+[node name="Unfocused" type="ColorRect" parent="Holder/MarginContainer"]
+visible = false
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.335938, 0.238188, 0.230662, 1)
+
+[node name="Focused" type="ColorRect" parent="Holder/MarginContainer"]
+visible = false
+z_index = 1
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 0.890346, 0.897813, 1)
