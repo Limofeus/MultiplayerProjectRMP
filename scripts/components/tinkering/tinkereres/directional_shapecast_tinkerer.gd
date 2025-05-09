@@ -20,6 +20,10 @@ func _process(delta):
 	if scan_tinkereres:
 		update_shapecast()
 
+func _input(event):
+	for tinkerable in tinkerable_display_state_dict.keys():
+		tinkerable.recieve_interaction(TinkerInputEventInteraction.new(event), network_entity)
+
 func update_shapecast():
 	var tinkerable_list : Array[Tinkerable]
 	tinker_shapecast.force_shapecast_update()
@@ -65,7 +69,7 @@ func update_tinkerable_list(new_tinkerable_list : Array[Tinkerable]):
 func try_update_tinkerable_dict_entry(update_tinkerable : Tinkerable, new_value : Tinkerable.TinkerableState):
 	if tinkerable_display_state_dict[update_tinkerable] != new_value:
 
-		update_tinkerable.recieve_interaction(TinkerVisibilityUpdateInteraction.new(new_value), network_entity) #NOTICE this sends interaction DIRECTLY to focused component because 1) This way it doesnt has to be part of entity, 2) Entity can have multiple tinkerable components and it should work fine
+		update_tinkerable.recieve_interaction(TinkerVisibilityUpdateInteraction.new(new_value), network_entity) #NOTICE: this sends interaction DIRECTLY to focused component because 1) This way it doesnt has to be part of entity, 2) Entity can have multiple tinkerable components and it should work fine
 
 		print("TINK| Update " + str(update_tinkerable) + " to " + str(new_value))
 		tinkerable_display_state_dict[update_tinkerable] = new_value
