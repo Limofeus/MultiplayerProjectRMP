@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://dbnnhfo4lkk0v"]
+
+[ext_resource type="Script" uid="uid://dpsxsqr6l4b7g" path="res://scripts/components/tinkering/tinkerable/visual/tinkerable_multibutton_updater.gd" id="1_8emns"]
+[ext_resource type="Script" uid="uid://cukv5okftni85" path="res://scripts/components/tinkering/tinkerable/tinkerable_multibutton.gd" id="2_v2rd2"]
+[ext_resource type="Script" uid="uid://dhr6u82gkorbh" path="res://scripts/components/tinkering/spatial/tinkerable_area.gd" id="3_8emns"]
+[ext_resource type="Script" uid="uid://73romn18puo4" path="res://scripts/resources/tinkering/tinkerable_interact_prompt_button_settings.gd" id="3_ql6qo"]
+[ext_resource type="PackedScene" uid="uid://beoxoc1xjfv2c" path="res://scenes/testing_2/multi_button_prompt_window_test.tscn" id="3_v3mr8"]
+[ext_resource type="Script" uid="uid://cyis3mmb6k6lw" path="res://scripts/visual/enchanced_control_node_to_world_position.gd" id="4_v2rd2"]
+
+[sub_resource type="Resource" id="Resource_vy44t"]
+script = ExtResource("3_ql6qo")
+interact_prompt = "DO action1"
+interact_time = 1.0
+metadata/_custom_type_script = "uid://73romn18puo4"
+
+[sub_resource type="Resource" id="Resource_afa8h"]
+script = ExtResource("3_ql6qo")
+interact_prompt = "Do action2"
+interact_time = 2.0
+metadata/_custom_type_script = "uid://73romn18puo4"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yc10j"]
+
+[node name="WorldNode" type="Node3D"]
+
+[node name="ViewUpdater" type="Node" parent="." node_paths=PackedStringArray("tinkerable_multibutton", "tinkerable_multibutton_view")]
+script = ExtResource("1_8emns")
+tinkerable_multibutton = NodePath("../TinkerableMultibutton")
+tinkerable_multibutton_view = NodePath("../MultiButtonPromptWindow")
+
+[node name="TinkerableMultibutton" type="Node" parent="." node_paths=PackedStringArray("tinker_center_node")]
+script = ExtResource("2_v2rd2")
+interact_prompt_settings = Array[ExtResource("3_ql6qo")]([SubResource("Resource_vy44t"), SubResource("Resource_afa8h")])
+tinker_center_node = NodePath("../TinkerableArea")
+
+[node name="TinkerableArea" type="Area3D" parent="." node_paths=PackedStringArray("tinkerable")]
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_8emns")
+tinkerable = NodePath("../TinkerableMultibutton")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TinkerableArea"]
+shape = SubResource("SphereShape3D_yc10j")
+
+[node name="WorldUiPosThing" type="Node" parent="." node_paths=PackedStringArray("position_node", "control_node", "size_ref_container")]
+script = ExtResource("4_v2rd2")
+frustum_spring_freq = 100.0
+position_node = NodePath("..")
+control_node = NodePath("../MultiButtonPromptWindow")
+size_ref_container = NodePath("../MultiButtonPromptWindow/PanelContainer")
+
+[node name="MultiButtonPromptWindow" parent="." instance=ExtResource("3_v3mr8")]
+
+[editable path="MultiButtonPromptWindow"]

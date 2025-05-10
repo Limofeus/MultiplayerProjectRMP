@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://fjib4361ovfd"]
+[gd_scene load_steps=34 format=3 uid="uid://fjib4361ovfd"]
 
 [ext_resource type="Script" uid="uid://bdbitsb3bdwvf" path="res://scripts/networking/network_manager.gd" id="1_1ap1m"]
 [ext_resource type="Script" uid="uid://bjmp5kq0tl031" path="res://scripts/utility/fps_counter.gd" id="1_bkmm5"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://dsp2730flqo78" path="res://sprites/menu/dither2.png" id="19_6gyjg"]
 [ext_resource type="PackedScene" uid="uid://c4eqeivjiq3wi" path="res://scenes/ui/settings_window_tmp_tmp.tscn" id="20_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://6ypd48k7kbjj" path="res://scenes/ui/items_hotbar.tscn" id="21_iy7cf"]
+[ext_resource type="PackedScene" uid="uid://dbnnhfo4lkk0v" path="res://scenes/testing_2/world_node_tinkerable_multibutton_test.tscn" id="22_jscy8"]
 
 [sub_resource type="Resource" id="Resource_oj2bi"]
 script = ExtResource("10_aukot")
@@ -311,6 +312,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 1, 1, 0.156863)
+
+[node name="WorldNode" parent="." instance=ExtResource("22_jscy8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4919, 0.990006, 7.61866)
 
 [connection signal="text_changed" from="UI Layer/UI/DebugWindow/VBoxContainer/IpField" to="DebugNode" method="set_connection_address_string"]
 [connection signal="text_changed" from="UI Layer/UI/DebugWindow/VBoxContainer/PortField" to="DebugNode" method="set_connection_port_string"]
