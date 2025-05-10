@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://crjrcsggrl04i" path="res://scripts/components/tinkering/tinkerable/visual/tinkerable_button_view.gd" id="1_jusm5"]
 
-[node name="TinkerButtonPrompt" type="PanelContainer" node_paths=PackedStringArray("key_prompt_label", "action_prompt_label", "button_progress_bar")]
+[node name="TinkerButtonPrompt" type="PanelContainer" node_paths=PackedStringArray("key_prompt_label", "action_prompt_label", "button_progress_bar", "size_interaction_indicator_node")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -14,9 +14,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_jusm5")
-key_prompt_label = NodePath("MarginContainer/HBoxContainer/Panel/Label")
+interacting_size = 0.5
+spring_dampener_freq = 25.0
+spring_dampener_damp = 0.7
+key_prompt_label = NodePath("MarginContainer/HBoxContainer/Panel/Control/Panel/Label")
 action_prompt_label = NodePath("MarginContainer/HBoxContainer/Label2")
 button_progress_bar = NodePath("ProgressBar")
+size_interaction_indicator_node = NodePath("MarginContainer/HBoxContainer/Panel/Control/Panel")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -27,26 +31,41 @@ theme_override_constants/margin_right = 10
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer"]
+[node name="Panel" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Panel"]
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer/Panel"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer/Panel/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(20, 20)
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Panel/Control/Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -4.5
+offset_left = -20.0
 offset_top = -11.5
-offset_right = 4.5
+offset_right = 20.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 30
 text = "E"
 horizontal_alignment = 1
 vertical_alignment = 1

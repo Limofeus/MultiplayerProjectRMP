@@ -200,6 +200,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2122, 0.754485, 6.44678)
 [node name="WorldNode3" parent="TestWorlUi" instance=ExtResource("16_yc10j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.85439, 1.10439, 4.14479)
 
+[node name="WorldNode4" parent="TestWorlUi" instance=ExtResource("22_jscy8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4919, 0.753613, 7.61866)
+
+[node name="WorldNode5" parent="TestWorlUi" instance=ExtResource("22_jscy8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8566, 0.753613, 8.98435)
+
 [node name="UI Layer" type="CanvasLayer" parent="."]
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="UI Layer"]
@@ -312,9 +318,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 1, 1, 0.156863)
-
-[node name="WorldNode" parent="." instance=ExtResource("22_jscy8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4919, 0.990006, 7.61866)
 
 [connection signal="text_changed" from="UI Layer/UI/DebugWindow/VBoxContainer/IpField" to="DebugNode" method="set_connection_address_string"]
 [connection signal="text_changed" from="UI Layer/UI/DebugWindow/VBoxContainer/PortField" to="DebugNode" method="set_connection_port_string"]

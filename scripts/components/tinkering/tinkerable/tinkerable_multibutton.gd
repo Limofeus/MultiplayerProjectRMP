@@ -7,7 +7,7 @@ class InteractPromptButton:
 	var time_to_interact : float = 0.0
 	var is_interacting : bool = false
 
-	signal on_interact_state_changed()
+	signal on_interact_state_changed(new_state : bool)
 	signal on_interaction_completed()
 	signal on_progress_updated(progress : float)
 
@@ -20,7 +20,7 @@ class InteractPromptButton:
 		if is_interacting:
 			return
 		is_interacting = true
-		on_interact_state_changed.emit()
+		on_interact_state_changed.emit(is_interacting)
 		if time_to_interact == 0.0:
 			on_interaction_completed.emit()
 			stop_interaction()
@@ -30,7 +30,8 @@ class InteractPromptButton:
 			return
 		interact_progress = 0.0
 		is_interacting = false
-		on_interact_state_changed.emit()
+		on_progress_updated.emit(0.0)
+		on_interact_state_changed.emit(is_interacting)
 
 	func update_interaction_progress(delta : float) -> void:
 		if is_interacting:
@@ -88,11 +89,12 @@ func stop_all_button_interactions() -> void:
 
 func process_tinker_input(input_event : InputEvent) -> void:
 	for i in range(interact_prompt_buttons.size()):
-		if input_event.is_action(tinker_action_name_prefix + str(i)):
-			if input_event.is_pressed() and current_tinkerable_state == TinkerableState.Focused:
+		var action_name : String = tinker_action_name_prefix + str(i)
+		if input_event.is_action(action_name):
+			if input_event.is_action_pressed(action_name) and current_tinkerable_state == TinkerableState.Focused:
 				interact_prompt_buttons[i].start_interaction()
 				print("Starting interaction")
-			else:
+			elif input_event.is_action_released(action_name) and current_tinkerable_state == TinkerableState.Focused:
 				interact_prompt_buttons[i].stop_interaction()
 			return
 
