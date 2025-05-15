@@ -1,14 +1,20 @@
-[gd_scene load_steps=28 format=3 uid="uid://d18ee7hebbod5"]
+[gd_scene load_steps=34 format=3 uid="uid://d18ee7hebbod5"]
 
 [ext_resource type="Texture2D" uid="uid://coeqr5p2toa25" path="res://sprites/testing/TEST_TEX.png" id="1_sfa5y"]
-[ext_resource type="Script" path="res://scripts/components/utility/editor tools/csg_material_texture_size_setter.gd" id="2_y1tiq"]
-[ext_resource type="Script" path="res://scripts/visual/creatures/sprite_sheet_billboard.gd" id="3_2dhyc"]
-[ext_resource type="Script" path="res://scripts/resources/visual/omnidir_sprite_sheet.gd" id="4_ne3ic"]
+[ext_resource type="Script" uid="uid://tfe74edb8n6c" path="res://scripts/components/utility/editor tools/csg_material_texture_size_setter.gd" id="2_y1tiq"]
+[ext_resource type="Script" uid="uid://cf62jkm8arfbu" path="res://scripts/visual/creatures/sprite_sheet_billboard.gd" id="3_2dhyc"]
+[ext_resource type="Script" uid="uid://cr3oqdnc12cvo" path="res://scripts/resources/visual/omnidir_sprite_sheet.gd" id="4_ne3ic"]
 [ext_resource type="Texture2D" uid="uid://b44xx5t4fp802" path="res://sprites/creatures/skeleton/Skeleton_SpriteSheet_Walk.png" id="5_axg5r"]
-[ext_resource type="Shader" path="res://shaders/spatial/creature_sprite_sheet.gdshader" id="6_bkkd4"]
-[ext_resource type="Script" path="res://scripts/world/entity spawning/spawn_entity_on_players_created.gd" id="7_4q7r7"]
+[ext_resource type="Shader" uid="uid://bfx5psllv5gl5" path="res://shaders/spatial/creature_sprite_sheet.gdshader" id="6_bkkd4"]
+[ext_resource type="Script" uid="uid://cpcgd5d5boc6h" path="res://scripts/world/entity spawning/spawn_entity_on_players_created.gd" id="7_4q7r7"]
 [ext_resource type="PackedScene" uid="uid://h4rhiwl8xmhl" path="res://scenes/entities/creatures/yolo_enemy.tscn" id="8_o782x"]
 [ext_resource type="PackedScene" uid="uid://bw2i466uid2v5" path="res://scenes/entities/creatures/yolo_ranged_enemy.tscn" id="9_fcomc"]
+[ext_resource type="PackedScene" uid="uid://dtbs1e44py625" path="res://scenes/entities/creatures/yolo_enemy_alt.tscn" id="9_um1ws"]
+[ext_resource type="PackedScene" uid="uid://b6jdf6diba46" path="res://scenes/entities/creatures/yolo_ranged_enemy_alt.tscn" id="11_m2ve2"]
+[ext_resource type="PackedScene" uid="uid://b1s0h0w4kbxbx" path="res://scenes/entities/creatures/bosses/sm_enemy_boss_blue_1.tscn" id="12_m2ve2"]
+[ext_resource type="PackedScene" uid="uid://c484qktn6burs" path="res://scenes/entities/creatures/bosses/sm_enemy_boss_green_1.tscn" id="13_pok8s"]
+[ext_resource type="PackedScene" uid="uid://b3kj2xjwgeemc" path="res://scenes/entities/creatures/bosses/sm_enemy_boss_red_1.tscn" id="14_ihdt4"]
+[ext_resource type="PackedScene" uid="uid://dugj4q0ytwe0u" path="res://scenes/entities/creatures/bosses/sm_enemy_boss_purple_1.tscn" id="15_bhfbc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lamas"]
 albedo_texture = ExtResource("1_sfa5y")
@@ -227,41 +233,41 @@ mesh = SubResource("QuadMesh_rx52d")
 skeleton = NodePath("../../..")
 
 [node name="SkeletMeleSpawn" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8783, 1.16903, -16.8424)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.86532, 1.16903, -20.7277)
 script = ExtResource("7_4q7r7")
 entity_to_spawn = ExtResource("8_o782x")
 
 [node name="SkeletMeleSpawn2" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.9275, 1.16903, -16.8424)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.163, 1.16903, -20.7277)
 script = ExtResource("7_4q7r7")
-entity_to_spawn = ExtResource("8_o782x")
+entity_to_spawn = ExtResource("9_um1ws")
 
 [node name="SkeletMeleSpawn3" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.3377, 1.16903, -16.8424)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.056, 1.16903, -20.7277)
 script = ExtResource("7_4q7r7")
-entity_to_spawn = ExtResource("8_o782x")
+entity_to_spawn = ExtResource("9_fcomc")
 
 [node name="SkeletMeleSpawn4" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.2827, 1.16903, -16.8424)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.3537, 1.16903, -20.7277)
 script = ExtResource("7_4q7r7")
-entity_to_spawn = ExtResource("8_o782x")
+entity_to_spawn = ExtResource("11_m2ve2")
 
 [node name="SkeletMeleSpawn5" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2263, 1.16903, -22.0974)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.9505, 3.89212, 28.5203)
 script = ExtResource("7_4q7r7")
-entity_to_spawn = ExtResource("9_fcomc")
+entity_to_spawn = ExtResource("12_m2ve2")
 
 [node name="SkeletMeleSpawn6" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.2754, 1.16903, -22.0974)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.9505, 3.89212, 8.62976)
 script = ExtResource("7_4q7r7")
-entity_to_spawn = ExtResource("9_fcomc")
+entity_to_spawn = ExtResource("13_pok8s")
 
 [node name="SkeletMeleSpawn7" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6856, 1.16903, -22.0974)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.9206, 3.89212, -9.50806)
 script = ExtResource("7_4q7r7")
-entity_to_spawn = ExtResource("9_fcomc")
+entity_to_spawn = ExtResource("14_ihdt4")
 
 [node name="SkeletMeleSpawn8" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.6306, 1.16903, -22.0974)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.672, 3.89212, -10.9612)
 script = ExtResource("7_4q7r7")
-entity_to_spawn = ExtResource("9_fcomc")
+entity_to_spawn = ExtResource("15_bhfbc")

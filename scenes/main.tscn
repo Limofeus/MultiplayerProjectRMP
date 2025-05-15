@@ -13,8 +13,8 @@
 [ext_resource type="Script" uid="uid://c3aue38bey2rx" path="res://scripts/networking/network_entity_spawner.gd" id="10_f6xxt"]
 [ext_resource type="AudioStream" uid="uid://b1g5gqke1y13a" path="res://audio/music/theme_ambient_1.ogg" id="10_jbj1t"]
 [ext_resource type="AudioStream" uid="uid://dgf4kuwg5o5cg" path="res://audio/music/theme_battle_1.ogg" id="11_muem4"]
-[ext_resource type="PackedScene" uid="uid://bsdka40fec030" path="res://scenes/world/zones/zone_1.tscn" id="12_d6rcw"]
 [ext_resource type="Material" uid="uid://dox7ghi1mskpg" path="res://materials/effects/overlays/speedlines_overlay.tres" id="12_oyb24"]
+[ext_resource type="PackedScene" uid="uid://d18ee7hebbod5" path="res://scenes/world/zones/zone_test.tscn" id="15_jscy8"]
 [ext_resource type="PackedScene" uid="uid://prgs730tnshv" path="res://scenes/testing_2/world_node_tinkerable_test.tscn" id="16_yc10j"]
 [ext_resource type="Script" uid="uid://jrqidiswd16s" path="res://scripts/ui/menus/open_settings_window_button.gd" id="17_gqmmt"]
 [ext_resource type="Shader" uid="uid://2u66ri5gklxa" path="res://shaders/main menu effects/dither_canvas.gdshader" id="18_v1b13"]
@@ -187,7 +187,7 @@ camera_attributes = SubResource("CameraAttributesPractical_rqodr")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Zone1" parent="World" instance=ExtResource("12_d6rcw")]
+[node name="ZoneTest" parent="World" instance=ExtResource("15_jscy8")]
 
 [node name="TestWorlUi" type="Node" parent="."]
 

@@ -1,0 +1,103 @@
+[gd_scene load_steps=19 format=3 uid="uid://ch0xdg0q85f7i"]
+
+[ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_vd7g3"]
+[ext_resource type="Script" uid="uid://1cpx5jpkildt" path="res://scripts/components/spawn components/projectile_spawn_component.gd" id="2_iptsi"]
+[ext_resource type="Script" uid="uid://dpxu25buoavix" path="res://scripts/components/spawn components/enable_processing_after_spawn.gd" id="3_753w1"]
+[ext_resource type="Script" uid="uid://dgn8lixy52hug" path="res://scripts/components/entity destruction/entity_destructor.gd" id="4_dahow"]
+[ext_resource type="Script" uid="uid://b3ak36ulon771" path="res://scripts/components/basic/projectile_component.gd" id="5_ivsoy"]
+[ext_resource type="Script" uid="uid://b3tcmigxaglcv" path="res://scripts/resources/damage/damage_resource.gd" id="6_dqck4"]
+[ext_resource type="Script" uid="uid://ypv8x2nwu0u5" path="res://scripts/visual/projectile effects/material_projectile_lifetime.gd" id="7_frhi1"]
+[ext_resource type="Shader" uid="uid://7mv2ull4gk3v" path="res://shaders/mesh effects/slash_projectile.gdshader" id="8_hdxyf"]
+[ext_resource type="Script" uid="uid://bm4pff6n8vlq2" path="res://scripts/audio/audio_stream_randomized.gd" id="9_eoogy"]
+[ext_resource type="AudioStream" uid="uid://dpluco3db72le" path="res://audio/sfx/casts/cast_1.wav" id="10_8yg23"]
+[ext_resource type="AudioStream" uid="uid://blmyi3fu8jv3y" path="res://audio/sfx/casts/cast_2.wav" id="11_yyug6"]
+[ext_resource type="AudioStream" uid="uid://dgj38k7ctrlj7" path="res://audio/sfx/casts/cast_3.wav" id="12_11vbv"]
+[ext_resource type="AudioStream" uid="uid://f34hb57wcvok" path="res://audio/sfx/casts/cast_4.wav" id="13_g1jxb"]
+
+[sub_resource type="Resource" id="Resource_vd7g3"]
+script = ExtResource("6_dqck4")
+damage_ammount = 2.0
+damage_type = 0
+
+[sub_resource type="Curve" id="Curve_vd7g3"]
+_data = [Vector2(0, 0), 0.0, 5.28357, 0, 1, Vector2(0.189266, 1), -9.5, -2.1, 0, 0, Vector2(0.483051, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.93443, 0.0, 1, 0]
+point_count = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0aj55"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("8_hdxyf")
+shader_parameter/main_color = Color(0.7, 0, 1.2, 1)
+shader_parameter/projectile_lifetime = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_iptsi"]
+radial_segments = 16
+rings = 8
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cu23y"]
+
+[node name="NetworkProjectileTest" type="Node" node_paths=PackedStringArray("spawn_logic", "ownerLogic", "sharedLogic")]
+script = ExtResource("1_vd7g3")
+spawn_logic = NodePath("SpawnLogic")
+ownerLogic = NodePath("OwnerLogic")
+sharedLogic = NodePath("SharedLogic")
+
+[node name="SpawnLogic" type="Node" parent="."]
+
+[node name="ProjectileSpawnComponent" type="Node" parent="SpawnLogic" node_paths=PackedStringArray("projectile_component", "positional_node")]
+script = ExtResource("2_iptsi")
+projectile_component = NodePath("../../SharedLogic/Projectile")
+global_velocity_transfer = 0.5
+positional_node = NodePath("../../Projectile")
+
+[node name="ProcessEnabler" type="Node" parent="SpawnLogic" node_paths=PackedStringArray("nodes_to_process")]
+script = ExtResource("3_753w1")
+nodes_to_process = [NodePath("../../SharedLogic/Projectile")]
+
+[node name="OwnerLogic" type="Node" parent="."]
+
+[node name="DestructionComponent" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("network_entity")]
+script = ExtResource("4_dahow")
+network_entity = NodePath("../..")
+
+[node name="SharedLogic" type="Node" parent="."]
+
+[node name="Projectile" type="Node" parent="SharedLogic" node_paths=PackedStringArray("projectile_node", "shape_cast", "entity_destruction_component", "network_entity")]
+script = ExtResource("5_ivsoy")
+projectile_node = NodePath("../../Projectile")
+shape_cast = NodePath("../../Projectile/ShapeCast3D")
+entity_destruction_component = NodePath("../../OwnerLogic/DestructionComponent")
+only_update_pos_on_owner = false
+velocity = Vector3(0, 0, -5)
+projectile_lifetime = 1.8
+projectile_damage = SubResource("Resource_vd7g3")
+network_entity = NodePath("../..")
+
+[node name="MaterialProjectileLifetime" type="Node" parent="SharedLogic/Projectile" node_paths=PackedStringArray("projectile")]
+script = ExtResource("7_frhi1")
+projectile = NodePath("..")
+curve_mapping = SubResource("Curve_vd7g3")
+shader_material = SubResource("ShaderMaterial_0aj55")
+
+[node name="Projectile" type="Node3D" parent="."]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Projectile"]
+volume_db = -4.0
+bus = &"Sounds"
+doppler_tracking = 1
+script = ExtResource("9_eoogy")
+audio_streams = Array[AudioStream]([ExtResource("10_8yg23"), ExtResource("11_yyug6"), ExtResource("12_11vbv"), ExtResource("13_g1jxb")])
+
+[node name="Cone" type="MeshInstance3D" parent="Projectile"]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_0aj55")
+mesh = SubResource("SphereMesh_iptsi")
+skeleton = NodePath("")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="Projectile"]
+shape = SubResource("SphereShape3D_cu23y")
+target_position = Vector3(0, 0, -3)
+collision_mask = 23
+debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[connection signal="entity_ready" from="." to="SharedLogic/Projectile" method="start_destroy_timer"]

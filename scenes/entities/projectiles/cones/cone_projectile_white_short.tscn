@@ -1,0 +1,142 @@
+[gd_scene load_steps=23 format=4 uid="uid://c8p7wdqx8rsq4"]
+
+[ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_ban3x"]
+[ext_resource type="Script" uid="uid://1cpx5jpkildt" path="res://scripts/components/spawn components/projectile_spawn_component.gd" id="2_rp7ev"]
+[ext_resource type="Script" uid="uid://dpxu25buoavix" path="res://scripts/components/spawn components/enable_processing_after_spawn.gd" id="3_rlnxr"]
+[ext_resource type="Script" uid="uid://dgn8lixy52hug" path="res://scripts/components/entity destruction/entity_destructor.gd" id="4_8yadn"]
+[ext_resource type="Script" uid="uid://b3ak36ulon771" path="res://scripts/components/basic/projectile_component.gd" id="5_od6c4"]
+[ext_resource type="Script" uid="uid://b3tcmigxaglcv" path="res://scripts/resources/damage/damage_resource.gd" id="6_lswdo"]
+[ext_resource type="Script" uid="uid://ypv8x2nwu0u5" path="res://scripts/visual/projectile effects/material_projectile_lifetime.gd" id="8_rkl3p"]
+[ext_resource type="Script" uid="uid://bm4pff6n8vlq2" path="res://scripts/audio/audio_stream_randomized.gd" id="11_hte1c"]
+[ext_resource type="AudioStream" uid="uid://dpluco3db72le" path="res://audio/sfx/casts/cast_1.wav" id="12_wqfwf"]
+[ext_resource type="AudioStream" uid="uid://blmyi3fu8jv3y" path="res://audio/sfx/casts/cast_2.wav" id="13_04cir"]
+[ext_resource type="AudioStream" uid="uid://dgj38k7ctrlj7" path="res://audio/sfx/casts/cast_3.wav" id="14_j7rxf"]
+[ext_resource type="Shader" uid="uid://7mv2ull4gk3v" path="res://shaders/mesh effects/slash_projectile.gdshader" id="15_ban3x"]
+[ext_resource type="AudioStream" uid="uid://f34hb57wcvok" path="res://audio/sfx/casts/cast_4.wav" id="15_j8rwe"]
+
+[sub_resource type="Resource" id="Resource_v5x10"]
+script = ExtResource("6_lswdo")
+damage_ammount = 3.0
+damage_type = 0
+
+[sub_resource type="Curve" id="Curve_v5x10"]
+_data = [Vector2(0, 0), 0.0, 2.37584, 0, 1, Vector2(0.420904, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.0, 0.0, 1, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_rp7ev"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rlnxr"]
+gradient = SubResource("Gradient_rp7ev")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8yadn"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("15_ban3x")
+shader_parameter/hit_texture = SubResource("GradientTexture2D_rlnxr")
+shader_parameter/main_color = Color(1, 1, 1, 1)
+shader_parameter/projectile_lifetime = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11axm"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ab7wd"]
+_surfaces = [{
+"aabb": AABB(-0.263044, -1, -0.263044, 0.526088, 2, 0.526088),
+"format": 34896613377,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAQADAAIABAAAAAIAAwAFAAIABgAEAAIABQAHAAIACAAGAAIABwAJAAIACgAIAAIACQALAAIADAAKAAIACwANAAIADgAMAAIADQAPAAIAEAAOAAIADwAQAAIA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 17,
+"vertex_data": PackedByteArray("/38AAAAAAAD7sAAAvgkAAP9/////fwAAgdoAAH0lAAADTwAAvgkAAED2AAADTwAAfSUAAH0lAAD//wAA/38AAL4JAAADTwAAQPYAAPuwAAAAAAAA/38AAIHaAACB2gAAvgkAAPuwAAD7sAAAQPYAAH0lAACB2gAA/38AAP//AAADTwAAQPYAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_2ni11"]
+resource_name = "model_projectile_cone_Cone"
+_surfaces = [{
+"aabb": AABB(-0.263044, -1, -0.263044, 0.526088, 2, 0.526088),
+"attribute_data": PackedByteArray("/3///wNP////fwAAfSX///uw//++Cf//gdr//wAA//9A9v//vgn///////99Jf//QPb//wNP//+B2v///3////uw//8="),
+"format": 34896613399,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAQADAAIABAAAAAIAAwAFAAIABgAEAAIABQAHAAIACAAGAAIABwAJAAIACgAIAAIACQALAAIADAAKAAIACwANAAIADgAMAAIADQAPAAIAEAAOAAIADwAQAAIA"),
+"material": SubResource("StandardMaterial3D_11axm"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 17,
+"vertex_data": PackedByteArray("/38AAAAA///7sAAAvgkI8P9/////f///gdoAAH0lEeADTwAAvgkI8ED2AAADTxzQfSUAAH0lEeD//wAA/38FA74JAAADTxzQQPYAAPuw9QIAAAAA/38/wIHaAACB2gkCvgkAAPuw9QL7sAAAQPYJAX0lAACB2gkC/38AAP//AAADTwAAQPYJAf9/IfhQiYsB/3//v9iKLQOLga32mowMBSyDJfWHvdSEC4Vk81Sx1YTvhS/x1KOphSn7VTEilKCGVfrUI/9/3Yde+SIU")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_ab7wd")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cu23y"]
+radius = 0.25
+
+[node name="NetworkProjectileTest" type="Node" node_paths=PackedStringArray("spawn_logic", "ownerLogic", "sharedLogic")]
+script = ExtResource("1_ban3x")
+spawn_logic = NodePath("SpawnLogic")
+ownerLogic = NodePath("OwnerLogic")
+sharedLogic = NodePath("SharedLogic")
+
+[node name="SpawnLogic" type="Node" parent="."]
+
+[node name="ProjectileSpawnComponent" type="Node" parent="SpawnLogic" node_paths=PackedStringArray("projectile_component", "positional_node")]
+script = ExtResource("2_rp7ev")
+projectile_component = NodePath("../../SharedLogic/Projectile")
+global_velocity_transfer = 0.5
+positional_node = NodePath("../../Projectile")
+
+[node name="ProcessEnabler" type="Node" parent="SpawnLogic" node_paths=PackedStringArray("nodes_to_process")]
+script = ExtResource("3_rlnxr")
+nodes_to_process = [NodePath("../../SharedLogic/Projectile")]
+
+[node name="OwnerLogic" type="Node" parent="."]
+
+[node name="DestructionComponent" type="Node" parent="OwnerLogic" node_paths=PackedStringArray("network_entity")]
+script = ExtResource("4_8yadn")
+network_entity = NodePath("../..")
+
+[node name="SharedLogic" type="Node" parent="."]
+
+[node name="Projectile" type="Node" parent="SharedLogic" node_paths=PackedStringArray("projectile_node", "shape_cast", "entity_destruction_component", "network_entity")]
+script = ExtResource("5_od6c4")
+projectile_node = NodePath("../../Projectile")
+shape_cast = NodePath("../../Projectile/ShapeCast3D")
+entity_destruction_component = NodePath("../../OwnerLogic/DestructionComponent")
+only_update_pos_on_owner = false
+velocity = Vector3(0, 0, -40)
+dir_dot_product_threshold = 0.0
+projectile_lifetime = 0.12
+projectile_damage = SubResource("Resource_v5x10")
+network_entity = NodePath("../..")
+
+[node name="MaterialProjectileLifetime" type="Node" parent="SharedLogic/Projectile" node_paths=PackedStringArray("projectile")]
+script = ExtResource("8_rkl3p")
+projectile = NodePath("..")
+curve_mapping = SubResource("Curve_v5x10")
+shader_material = SubResource("ShaderMaterial_8yadn")
+
+[node name="Projectile" type="Node3D" parent="."]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Projectile"]
+volume_db = -4.0
+bus = &"Sounds"
+doppler_tracking = 1
+script = ExtResource("11_hte1c")
+audio_streams = Array[AudioStream]([ExtResource("12_wqfwf"), ExtResource("13_04cir"), ExtResource("14_j7rxf"), ExtResource("15_j8rwe")])
+
+[node name="Cone" type="MeshInstance3D" parent="Projectile"]
+transform = Transform3D(-0.6, -9.05975e-08, 3.96014e-15, 0, -2.62268e-08, -0.6, 9.05975e-08, -0.6, 2.62268e-08, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_8yadn")
+mesh = SubResource("ArrayMesh_2ni11")
+skeleton = NodePath("")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="Projectile"]
+shape = SubResource("SphereShape3D_cu23y")
+target_position = Vector3(0, 0, -3)
+collision_mask = 23
+debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[connection signal="entity_ready" from="." to="SharedLogic/Projectile" method="start_destroy_timer"]

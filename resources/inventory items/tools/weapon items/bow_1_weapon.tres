@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=5 format=3 uid="uid://c3f3100tm85xh"]
+
+[ext_resource type="Texture2D" uid="uid://dmnkuknkxblu1" path="res://sprites/items/weapons/icon_bow_1.png" id="1_bmnja"]
+[ext_resource type="PackedScene" uid="uid://bn6nwmpk3b1xm" path="res://scenes/entities/projectiles/cones/cone_projectile_white_long.tscn" id="2_bmnja"]
+[ext_resource type="Script" uid="uid://bhpfe1002alcr" path="res://scripts/resources/inventory/items/weapon_item.gd" id="3_wbmw2"]
+[ext_resource type="PackedScene" uid="uid://b4b4xo8mv5par" path="res://scenes/items/tools/weapons/bow_1_display.tscn" id="4_bmnja"]
+
+[resource]
+script = ExtResource("3_wbmw2")
+item_cooldown = 0.2
+useable_on_cooldown = false
+combo_scenes = Array[PackedScene]([])
+combo_add_cooldowns = Array[float]([])
+scene_to_instantiate = ExtResource("2_bmnja")
+spawn_from_position = 1
+copy_rotation = true
+position_offset = 0.6
+tool_scene = ExtResource("4_bmnja")
+select_string = "Select"
+name = "Bow"
+description = "Item description"
+max_stack_size = 1
+icon = ExtResource("1_bmnja")

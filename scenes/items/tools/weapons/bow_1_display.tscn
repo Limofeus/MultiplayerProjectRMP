@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4b4xo8mv5par"]
+
+[ext_resource type="Material" uid="uid://ce4sq6iwxvtjf" path="res://materials/items/weapons/common_weapon_material.tres" id="2_7eyfr"]
+[ext_resource type="PackedScene" uid="uid://dtnltsptyfr3g" path="res://models/weapons/model_bow_1.glb" id="3_7eyfr"]
+
+[node name="TestToolDisplay1" type="Node3D"]
+
+[node name="model_bow_1" parent="." instance=ExtResource("3_7eyfr")]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 0.06, 0)
+
+[node name="Cylinder_005" parent="model_bow_1" index="0"]
+material_override = ExtResource("2_7eyfr")
+
+[editable path="model_bow_1"]

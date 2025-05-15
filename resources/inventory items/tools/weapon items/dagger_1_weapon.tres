@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponItem" load_steps=17 format=3 uid="uid://bb1do7tbrgse4"]
 
-[ext_resource type="PackedScene" uid="uid://bm7n485u7id3k" path="res://scenes/entities/projectiles/slash_projectile_right_small.tscn" id="1_tqk2w"]
-[ext_resource type="PackedScene" uid="uid://bh7tcqcjywh1y" path="res://scenes/entities/projectiles/slash_projectile_left_small.tscn" id="2_w6ee3"]
+[ext_resource type="PackedScene" uid="uid://bm7n485u7id3k" path="res://scenes/entities/projectiles/slashes/slash_projectile_right_small.tscn" id="1_tqk2w"]
+[ext_resource type="PackedScene" uid="uid://bh7tcqcjywh1y" path="res://scenes/entities/projectiles/slashes/slash_projectile_left_small.tscn" id="2_w6ee3"]
 [ext_resource type="Texture2D" uid="uid://b122hjneo1ghw" path="res://sprites/items/weapons/icon_dagger_1.png" id="3_s3u2b"]
 [ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="4_ph0py"]
 [ext_resource type="Script" uid="uid://1cpx5jpkildt" path="res://scripts/components/spawn components/projectile_spawn_component.gd" id="5_kwrpm"]

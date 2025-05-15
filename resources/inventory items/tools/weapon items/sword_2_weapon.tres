@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=5 format=3 uid="uid://4f2plb3vwcur"]
+
+[ext_resource type="PackedScene" uid="uid://c8p7wdqx8rsq4" path="res://scenes/entities/projectiles/cones/cone_projectile_white_short.tscn" id="1_0hda0"]
+[ext_resource type="Texture2D" uid="uid://df342bedrcwtv" path="res://sprites/items/weapons/icon_sword_2.png" id="2_0hda0"]
+[ext_resource type="PackedScene" uid="uid://b8c8vsoces4pj" path="res://scenes/items/tools/weapons/sword_2_display.tscn" id="10_s1tqg"]
+[ext_resource type="Script" uid="uid://bhpfe1002alcr" path="res://scripts/resources/inventory/items/weapon_item.gd" id="11_tlkj3"]
+
+[resource]
+script = ExtResource("11_tlkj3")
+item_cooldown = 0.1
+useable_on_cooldown = false
+combo_scenes = Array[PackedScene]([ExtResource("1_0hda0"), ExtResource("1_0hda0"), ExtResource("1_0hda0")])
+combo_add_cooldowns = Array[float]([0.0, 0.0, 0.4])
+scene_to_instantiate = ExtResource("1_0hda0")
+spawn_from_position = 0
+copy_rotation = true
+position_offset = 0.6
+tool_scene = ExtResource("10_s1tqg")
+select_string = "Select"
+name = "Rapier"
+description = "Item description"
+max_stack_size = 1
+icon = ExtResource("2_0hda0")

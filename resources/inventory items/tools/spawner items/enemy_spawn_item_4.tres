@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EntitySpawnerItem" load_steps=5 format=3 uid="uid://b6l3kvm7xejds"]
 
 [ext_resource type="Texture2D" uid="uid://blb8dwjc4v0gg" path="res://sprites/testing/test_texture.png" id="1_2ro80"]
-[ext_resource type="PackedScene" uid="uid://bxkewtu6igv0e" path="res://scenes/entities/creatures/sm_enemy_boss_1.tscn" id="2_2ro80"]
+[ext_resource type="PackedScene" uid="uid://bxkewtu6igv0e" path="res://scenes/entities/creatures/bosses/sm_enemy_boss_1.tscn" id="2_2ro80"]
 [ext_resource type="Script" uid="uid://jppd5ysq3ci8" path="res://scripts/resources/inventory/items/entity_spawner_item.gd" id="3_6432j"]
 [ext_resource type="PackedScene" uid="uid://btcr3jt8wthqt" path="res://scenes/items/tools/test_tool_display_1.tscn" id="4_f6lo2"]
 

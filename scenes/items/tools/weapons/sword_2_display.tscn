@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8c8vsoces4pj"]
+
+[ext_resource type="PackedScene" uid="uid://crnewx27uk0cf" path="res://models/weapons/model_sword_2.glb" id="1_ocqwl"]
+[ext_resource type="Material" uid="uid://ce4sq6iwxvtjf" path="res://materials/items/weapons/common_weapon_material.tres" id="2_qkt73"]
+
+[node name="TestToolDisplay1" type="Node3D"]
+
+[node name="model_sword_2" parent="." instance=ExtResource("1_ocqwl")]
+transform = Transform3D(0.32, 0, 0, 0, 0.32, 0, 0, 0, 0.32, 0, 0.206, 0)
+
+[node name="Cylinder_004" parent="model_sword_2" index="0"]
+material_override = ExtResource("2_qkt73")
+
+[editable path="model_sword_2"]
