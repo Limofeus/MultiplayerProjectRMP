@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://b3kj2xjwgeemc"]
+[gd_scene load_steps=75 format=3 uid="uid://b3kj2xjwgeemc"]
 
 [ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="1_j17pr"]
 [ext_resource type="Script" uid="uid://urhqvfpddfc2" path="res://scripts/components/spawn components/spawn_transform_setter.gd" id="2_pwdee"]
@@ -135,6 +135,73 @@ corner_radius_bottom_left = 2
 corner_detail = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qlogj"]
+
+[sub_resource type="Gradient" id="Gradient_j17pr"]
+offsets = PackedFloat32Array(0, 0.104167, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.180556, 0.180556, 0.180556, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pwdee"]
+gradient = SubResource("Gradient_j17pr")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xg5kg"]
+blend_mode = 1
+depth_draw_mode = 1
+no_depth_test = true
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("GradientTexture2D_pwdee")
+
+[sub_resource type="Gradient" id="Gradient_nj24j"]
+offsets = PackedFloat32Array(0, 0.105072, 1)
+colors = PackedColorArray(0.968627, 1, 1, 1, 0, 0.494279, 1, 1, 0, 0, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xlnb1"]
+gradient = SubResource("Gradient_nj24j")
+
+[sub_resource type="Curve" id="Curve_ugfqm"]
+
+[sub_resource type="Curve" id="Curve_wd4n6"]
+_data = [Vector2(0, 1), 0.0, -0.52349, 0, 1, Vector2(1, 0.47651), -0.52349, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_50k31"]
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_gov5c"]
+curve_x = SubResource("Curve_ugfqm")
+curve_y = SubResource("Curve_wd4n6")
+curve_z = SubResource("Curve_50k31")
+
+[sub_resource type="Curve" id="Curve_pj80y"]
+_data = [Vector2(0, 0), 0.0, 9.90259, 0, 0, Vector2(0.278146, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.86574, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_3iwv8"]
+curve = SubResource("Curve_pj80y")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xfcu0"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 3.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.5
+emission_ring_cone_angle = 90.0
+orbit_velocity_min = -0.301
+orbit_velocity_max = 0.311
+orbit_velocity_curve = SubResource("CurveXYZTexture_gov5c")
+gravity = Vector3(0, 0.64, 0)
+scale_min = 0.3
+scale_max = 0.7
+scale_curve = SubResource("CurveTexture_3iwv8")
+color_ramp = SubResource("GradientTexture1D_xlnb1")
+hue_variation_min = 0.26
+hue_variation_max = 0.3
+turbulence_noise_strength = 20.0
+turbulence_noise_scale = 10.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_dgr54"]
 
 [node name="DummyEnemy" type="Node" node_paths=PackedStringArray("spawn_logic", "ownerLogic", "sharedLogic")]
 script = ExtResource("1_j17pr")
@@ -509,6 +576,15 @@ monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Creature/PhysicsPropogationArea"]
 shape = SubResource("CapsuleShape3D_qlogj")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Creature"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.214747, 0)
+material_override = SubResource("StandardMaterial3D_xg5kg")
+amount = 60
+lifetime = 2.0
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_xfcu0")
+draw_pass_1 = SubResource("QuadMesh_dgr54")
 
 [connection signal="authority_changed" from="." to="SharedLogic/SetMaterialBasedOnOwner" method="_on_entity_authority_change"]
 [connection signal="entity_ready" from="." to="SharedLogic/CreatureInventoryComponent" method="add_initial_items"]
