@@ -57,6 +57,8 @@ func _process(delta):
 		button.update_interaction_progress(delta)
 
 func recreate_interact_prompt_buttons() -> void:
+	stop_all_button_interactions()
+	interact_prompt_buttons.clear()
 	for i in range(interact_prompt_settings.size()):
 		var interact_prompt_setting = interact_prompt_settings[i]
 		var interact_prompt_button = InteractPromptButton.new(interact_prompt_setting.interact_prompt, interact_prompt_setting.interact_time)

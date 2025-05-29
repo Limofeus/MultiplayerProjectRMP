@@ -31,6 +31,9 @@ func update_buttons(button_list : Array[TinkerableMultibutton.InteractPromptButt
 func update_button_progress(button_index : int, progress : float) -> void:
 	button_view_array[button_index].update_button_progress(progress)
 
+func botton_interaction_completed(button_index : int) -> void:
+	button_view_array[button_index].button_pressed()
+
 func button_interact_state_changed(new_interact_state : bool, button_index : int) -> void:
 	button_view_array[button_index].set_is_interacting(new_interact_state)
 

@@ -1,0 +1,173 @@
+[gd_scene load_steps=4 format=3 uid="uid://cd0yemnim3xk4"]
+
+[ext_resource type="FontFile" uid="uid://c2sattq3np4gm" path="res://fonts/vollkorn/Vollkorn-Black.otf" id="1_k001a"]
+[ext_resource type="Script" uid="uid://rpigau741e6g" path="res://scripts/ui/dialogue window/dialogue_window_visual.gd" id="1_kfdjx"]
+[ext_resource type="PackedScene" uid="uid://dhtsulks4qu18" path="res://scenes/ui/tinkerables/dialogue/dialogue_option.tscn" id="3_kfdjx"]
+
+[node name="DialogueWindow" type="Control" node_paths=PackedStringArray("modulate_item", "interpolating_content", "dynamic_dialogue_box_container", "dynamic_dialogue_box_content", "dynamic_dialogue_text_label", "static_dialogue_box_container", "static_dialogue_box_content", "static_dialogue_text_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kfdjx")
+modulate_item = NodePath("CanvasGroup")
+interpolating_content = NodePath("BackdropPanel")
+dynamic_dialogue_box_container = NodePath("DynamicDialogueBoxContainer")
+dynamic_dialogue_box_content = NodePath("DynamicDialogueBoxContainer/StartTextSizeRef")
+dynamic_dialogue_text_label = NodePath("CanvasGroup/DynamicDialogueLabel")
+static_dialogue_box_container = NodePath("StaticDialogueBoxContainer")
+static_dialogue_box_content = NodePath("StaticDialogueBoxContainer/EndTextSizeRef")
+static_dialogue_text_label = NodePath("CanvasGroup/StaticDialogueLabel")
+
+[node name="DynamicDialogueBoxContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+offset_left = 606.0
+offset_top = 131.0
+offset_right = 1012.0
+offset_bottom = 259.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 20
+
+[node name="StartTextSizeRef" type="ColorRect" parent="DynamicDialogueBoxContainer"]
+custom_minimum_size = Vector2(385.999, 88)
+layout_mode = 2
+color = Color(1, 0.26496, 0.294811, 1)
+
+[node name="StaticDialogueBoxContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -118.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 15
+
+[node name="EndTextSizeRef" type="ColorRect" parent="StaticDialogueBoxContainer"]
+custom_minimum_size = Vector2(262, 88)
+layout_mode = 2
+color = Color(0.597899, 0.584099, 1, 1)
+
+[node name="BackdropPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 606.0
+offset_top = -517.0
+offset_right = -140.001
+offset_bottom = -389.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+
+[node name="StaticDialogueLabel" type="RichTextLabel" parent="CanvasGroup"]
+texture_filter = 2
+clip_contents = false
+offset_left = 123.0
+offset_top = 478.0
+offset_right = 1035.0
+offset_bottom = 628.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/normal_font = ExtResource("1_k001a")
+theme_override_font_sizes/normal_font_size = 23
+bbcode_enabled = true
+text = "SOme [color=red][wave]dialogue[/wave][/color] text goes here I'd imagine..
+[right]Anyway, how's your day going?.. but what if the text starts to become waaay to long for this container?[/right]
+Surely [color=orange][shake]there are means[/shake][/color] to handle it ;-;"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+vertical_alignment = 1
+visible_characters_behavior = 1
+
+[node name="DynamicDialogueLabel" type="RichTextLabel" parent="CanvasGroup"]
+texture_filter = 2
+clip_contents = false
+offset_left = 616.0
+offset_top = 151.0
+offset_right = 1002.0
+offset_bottom = 239.0
+pivot_offset = Vector2(131, 44)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/normal_font = ExtResource("1_k001a")
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "SOme [color=red][wave]dialogue[/wave][/color] text goes here I'd imagine..
+[right]Anyway, how's your day going?.. but what if the text starts to become waaay to long for this container?[/right]
+Surely [color=orange][shake]there are means[/shake][/color] to handle it ;-;"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+visible_characters_behavior = 1
+
+[node name="CanvasGroup2" type="CanvasGroup" parent="."]
+
+[node name="ChoiseSelectionBox" type="Control" parent="CanvasGroup2"]
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 802.0
+offset_top = 324.0
+offset_right = 802.0
+offset_bottom = 324.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasGroup2/ChoiseSelectionBox"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -58.0
+offset_right = 348.0
+offset_bottom = 58.0
+grow_vertical = 2
+
+[node name="DialogueOption3" parent="CanvasGroup2/ChoiseSelectionBox/VBoxContainer" instance=ExtResource("3_kfdjx")]
+layout_mode = 2
+
+[node name="DialogueOption2" parent="CanvasGroup2/ChoiseSelectionBox/VBoxContainer" instance=ExtResource("3_kfdjx")]
+layout_mode = 2
+
+[node name="MinSizeScaler" parent="CanvasGroup2/ChoiseSelectionBox/VBoxContainer/DialogueOption2/HBoxContainer" index="0"]
+custom_minimum_size = Vector2(30, 0)
+
+[node name="Selected" parent="CanvasGroup2/ChoiseSelectionBox/VBoxContainer/DialogueOption2/HBoxContainer/MinSizeScaler/SelectorHolder" index="1"]
+visible = false
+
+[node name="Arrow" parent="CanvasGroup2/ChoiseSelectionBox/VBoxContainer/DialogueOption2/HBoxContainer/MinSizeScaler/SelectorHolder" index="2"]
+visible = false
+
+[node name="DialogueOption4" parent="CanvasGroup2/ChoiseSelectionBox/VBoxContainer" instance=ExtResource("3_kfdjx")]
+layout_mode = 2
+
+[node name="MinSizeScaler" parent="CanvasGroup2/ChoiseSelectionBox/VBoxContainer/DialogueOption4/HBoxContainer" index="0"]
+custom_minimum_size = Vector2(30, 0)
+
+[node name="Selected" parent="CanvasGroup2/ChoiseSelectionBox/VBoxContainer/DialogueOption4/HBoxContainer/MinSizeScaler/SelectorHolder" index="1"]
+visible = false
+
+[node name="Arrow" parent="CanvasGroup2/ChoiseSelectionBox/VBoxContainer/DialogueOption4/HBoxContainer/MinSizeScaler/SelectorHolder" index="2"]
+visible = false
+
+[editable path="CanvasGroup2/ChoiseSelectionBox/VBoxContainer/DialogueOption2"]
+[editable path="CanvasGroup2/ChoiseSelectionBox/VBoxContainer/DialogueOption4"]
