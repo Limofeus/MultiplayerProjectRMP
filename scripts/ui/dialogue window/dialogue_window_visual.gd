@@ -6,6 +6,9 @@ const MAX_ITERS : int = 30
 @export var spring_freq = 15.0
 @export var spring_damp = 1.0
 
+@export var dialogue_option_scene : PackedScene = null
+@export var dialogue_option_container : Container = null
+
 @export var modulate_item : CanvasItem = null
 @export var interpolating_content : Control = null
 
@@ -30,7 +33,7 @@ var target_dynamic_dialogue : bool = true:
 var cur_visible_dynamic_dialogue : bool = true
 
 #@export_tool_button("TestResize")
-var button = recalculate_dynamic_window_size.bind(4)
+#var button = recalculate_dynamic_window_size.bind(4)
 
 func _ready():
 	update_static_dialogue_box()
@@ -40,7 +43,7 @@ func _process(delta):
 	SpringUtility.UpdateSpring(spring_dampener, 1.0 if target_dynamic_dialogue else 0.0, delta, spring_freq, spring_damp)
 	var lerp_pos = spring_dampener.pos
 	
-	interpolating_content.position = lerp(static_dialogue_box_container.position, dynamic_dialogue_box_container.position, spring_dampener.pos)
+	interpolating_content.global_position = lerp(static_dialogue_box_container.global_position, dynamic_dialogue_box_container.global_position, spring_dampener.pos)
 	interpolating_content.size = lerp(static_dialogue_box_container.size, dynamic_dialogue_box_container.size, spring_dampener.pos)
 
 	reposition_dynamic_dialogue()
@@ -48,6 +51,8 @@ func _process(delta):
 	
 	change_canvas_transparency(lerp_pos, dynamic_dialogue_text_label)
 	change_canvas_transparency(1.0 - lerp_pos, static_dialogue_text_label)
+
+#Dialogue box
 
 func update_dynamic_dialogue_box():
 	#dynamic_dialogue_text_label.show()
@@ -99,3 +104,22 @@ func recalculate_dynamic_window_size(target_line_count : int, start_max_size : f
 func check_step_size(cur_size : float, target_line_count : int) -> bool:
 	dynamic_dialogue_text_label.size.x = cur_size
 	return dynamic_dialogue_text_label.get_line_count() > target_line_count
+
+#Choices
+
+func set_choices_visible(set_visible : bool):
+	dialogue_option_container.visible = set_visible
+
+func update_choice_options(choice_options : Array[String]):
+	for child in dialogue_option_container.get_children():
+		child.queue_free()
+
+	for option in choice_options:
+		var new_choice_option_visual : DialogueChoiceOptionVisual = dialogue_option_scene.instantiate()
+		dialogue_option_container.add_child(new_choice_option_visual)
+		new_choice_option_visual.set_text(option)
+
+func select_choise_option(index : int):
+	for child in dialogue_option_container.get_children():
+		var choise_option_visual = child as DialogueChoiceOptionVisual
+		choise_option_visual.set_selected(choise_option_visual.get_index() == index)

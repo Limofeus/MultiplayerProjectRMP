@@ -20,6 +20,7 @@ interact_time = 2.0
 metadata/_custom_type_script = "uid://73romn18puo4"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yc10j"]
+radius = 1.0
 
 [node name="WorldNode" type="Node3D"]
 

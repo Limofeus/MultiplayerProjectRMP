@@ -78,6 +78,8 @@ vec4 over(vec4 color_a, vec4 color_b){
 
 void fragment() {
 	
+	float alpha_mult = COLOR.a;
+	
 	vec4 baked_params = texture(TEXTURE, UV);
 	
 	vec2 noise_uv = UV * grid_scale;
@@ -90,5 +92,5 @@ void fragment() {
 	vec4 underglow_color = vec4(0.0, 0.0, 0.0, (0.5 * baked_params.y) + (sampled_noise * baked_params.y));
 	
 	COLOR = over(base_color, underglow_color);
-	
+	COLOR.a *= alpha_mult;
 }

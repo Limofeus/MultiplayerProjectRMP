@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhtsulks4qu18"]
+[gd_scene load_steps=8 format=3 uid="uid://dhtsulks4qu18"]
 
 [ext_resource type="Shader" uid="uid://dx15w12ftu8i0" path="res://shaders/test/outline_test_6.gdshader" id="1_8i0ac"]
+[ext_resource type="Script" uid="uid://5exu5ocbk2r6" path="res://scripts/ui/dialogue window/dialogue_choise_option_visual.gd" id="1_nbe3h"]
 [ext_resource type="Texture2D" uid="uid://cprp0ruq77wtm" path="res://sprites/testing/sdf_test_textures/dialogue_selector_unselected-p.png" id="1_s2sx6"]
 [ext_resource type="Texture2D" uid="uid://bcmvkv7cjbnlo" path="res://sprites/testing/sdf_test_textures/dialogue_selector_selected-p.png" id="2_co52j"]
 [ext_resource type="Texture2D" uid="uid://5kus2b2yt3qk" path="res://sprites/testing/sdf_test_textures/dialogue_selector_arrow-p.png" id="3_0n328"]
@@ -12,7 +13,7 @@ shader_parameter/grid_scale = 7.5
 shader_parameter/gradient_affects_noise = 4.0
 shader_parameter/noise_scroll_speed = 2.0
 
-[node name="DialogueOption" type="MarginContainer"]
+[node name="DialogueOption" type="MarginContainer" node_paths=PackedStringArray("option_text", "deselected_rect", "selected_rect", "arrow_rect", "min_size_scaler")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -26,15 +27,24 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+mouse_filter = 2
+script = ExtResource("1_nbe3h")
+option_text = NodePath("HBoxContainer/RichTextLabel")
+deselected_rect = NodePath("HBoxContainer/MinSizeScaler/SelectorHolder/Deselected")
+selected_rect = NodePath("HBoxContainer/MinSizeScaler/SelectorHolder/Selected")
+arrow_rect = NodePath("HBoxContainer/MinSizeScaler/SelectorHolder/Arrow")
+min_size_scaler = NodePath("HBoxContainer/MinSizeScaler")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="MinSizeScaler" type="Control" parent="HBoxContainer"]
 texture_filter = 4
 custom_minimum_size = Vector2(44, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+mouse_filter = 2
 
 [node name="SelectorHolder" type="Control" parent="HBoxContainer/MinSizeScaler"]
 layout_mode = 1
@@ -45,35 +55,7 @@ offset_top = -2.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Deselected" type="TextureRect" parent="HBoxContainer/MinSizeScaler/SelectorHolder"]
-material = SubResource("ShaderMaterial_tnddu")
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 4.0
-offset_top = -16.0
-offset_right = 28.0
-offset_bottom = 16.0
-grow_vertical = 2
-texture = ExtResource("1_s2sx6")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="Selected" type="TextureRect" parent="HBoxContainer/MinSizeScaler/SelectorHolder"]
-material = SubResource("ShaderMaterial_tnddu")
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -16.0
-offset_right = 32.0
-offset_bottom = 16.0
-grow_vertical = 2
-texture = ExtResource("2_co52j")
-expand_mode = 4
-stretch_mode = 5
+mouse_filter = 2
 
 [node name="Arrow" type="TextureRect" parent="HBoxContainer/MinSizeScaler/SelectorHolder"]
 material = SubResource("ShaderMaterial_tnddu")
@@ -89,7 +71,42 @@ offset_right = 2.0
 offset_bottom = 16.0
 grow_horizontal = 0
 grow_vertical = 2
+pivot_offset = Vector2(2, 16)
+mouse_filter = 2
 texture = ExtResource("3_0n328")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="Selected" type="TextureRect" parent="HBoxContainer/MinSizeScaler/SelectorHolder"]
+material = SubResource("ShaderMaterial_tnddu")
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -16.0
+offset_right = 32.0
+offset_bottom = 16.0
+grow_vertical = 2
+pivot_offset = Vector2(16, 16)
+mouse_filter = 2
+texture = ExtResource("2_co52j")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="Deselected" type="TextureRect" parent="HBoxContainer/MinSizeScaler/SelectorHolder"]
+material = SubResource("ShaderMaterial_tnddu")
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 4.0
+offset_top = -16.0
+offset_right = 28.0
+offset_bottom = 16.0
+grow_vertical = 2
+pivot_offset = Vector2(12, 16)
+mouse_filter = 2
+texture = ExtResource("1_s2sx6")
 expand_mode = 4
 stretch_mode = 5
 
@@ -99,12 +116,13 @@ custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.509804)
 theme_override_constants/outline_size = 9
 theme_override_fonts/normal_font = ExtResource("5_tnddu")
 theme_override_font_sizes/normal_font_size = 25
 bbcode_enabled = true
-text = "[shake]Attack[/shake] "
+text = "Attack"
 fit_content = true
 scroll_active = false
 shortcut_keys_enabled = false
