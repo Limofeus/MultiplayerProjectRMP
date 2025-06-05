@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cp80prt2k4yio" path="res://scripts/components/tinkering/tinkerable/tinkerable_debug_thingy.gd" id="1_cu1to"]
 [ext_resource type="Script" uid="uid://b18e7c0mw44yb" path="res://scripts/debug/testing/tinkering_visual_state_testing.gd" id="2_3fosd"]
 [ext_resource type="Script" uid="uid://dhr6u82gkorbh" path="res://scripts/components/tinkering/spatial/tinkerable_area.gd" id="3_kccuy"]
-[ext_resource type="Script" uid="uid://cyis3mmb6k6lw" path="res://scripts/visual/enchanced_control_node_to_world_position.gd" id="4_30shm"]
+[ext_resource type="Script" uid="uid://cyis3mmb6k6lw" path="res://scripts/ui/positioning/enchanced_control_node_to_world_position.gd" id="4_30shm"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yc10j"]
 

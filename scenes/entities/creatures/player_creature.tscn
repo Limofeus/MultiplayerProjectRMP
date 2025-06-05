@@ -53,7 +53,7 @@
 [ext_resource type="Script" uid="uid://ceiyrvvrjtl5s" path="res://scripts/components/sync/optimized_rotation_sync.gd" id="34_xex5s"]
 [ext_resource type="Texture2D" uid="uid://dhxfkl1b3x4bf" path="res://sprites/effects/circle1_1.png" id="35_wwoik"]
 [ext_resource type="Texture2D" uid="uid://dc22ttjov378h" path="res://sprites/creatures/skeleton/Skeleton_SpriteSheet_Idle.png" id="39_40yc1"]
-[ext_resource type="Script" uid="uid://52avxl67y58j" path="res://scripts/visual/control_node_to_world_position.gd" id="39_865de"]
+[ext_resource type="Script" uid="uid://52avxl67y58j" path="res://scripts/ui/positioning/control_node_to_world_position.gd" id="39_865de"]
 [ext_resource type="Script" uid="uid://bmcerh7kxn1lm" path="res://scripts/components/inventory/item_pickup_component.gd" id="39_o7knh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wuj5g"]

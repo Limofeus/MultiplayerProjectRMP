@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bxt5pyurdjmat" path="res://scripts/components/tinkering/tinkerable/tinkerable_select_multibutton.gd" id="2_tfso2"]
 [ext_resource type="Script" uid="uid://73romn18puo4" path="res://scripts/resources/tinkering/tinkerable_interact_prompt_button_settings.gd" id="3_bnr7m"]
 [ext_resource type="Script" uid="uid://dhr6u82gkorbh" path="res://scripts/components/tinkering/spatial/tinkerable_area.gd" id="4_kbkqh"]
-[ext_resource type="Script" uid="uid://cyis3mmb6k6lw" path="res://scripts/visual/enchanced_control_node_to_world_position.gd" id="5_2bx51"]
+[ext_resource type="Script" uid="uid://cyis3mmb6k6lw" path="res://scripts/ui/positioning/enchanced_control_node_to_world_position.gd" id="5_2bx51"]
 [ext_resource type="PackedScene" uid="uid://57syyuw4gtdv" path="res://scenes/testing_2/selection_multi_button_prompt_window_test.tscn" id="6_du2ra"]
 
 [sub_resource type="Resource" id="Resource_vy44t"]

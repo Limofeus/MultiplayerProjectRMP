@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dhr6u82gkorbh" path="res://scripts/components/tinkering/spatial/tinkerable_area.gd" id="3_8emns"]
 [ext_resource type="Script" uid="uid://73romn18puo4" path="res://scripts/resources/tinkering/tinkerable_interact_prompt_button_settings.gd" id="3_ql6qo"]
 [ext_resource type="PackedScene" uid="uid://beoxoc1xjfv2c" path="res://scenes/testing_2/multi_button_prompt_window_test.tscn" id="3_v3mr8"]
-[ext_resource type="Script" uid="uid://cyis3mmb6k6lw" path="res://scripts/visual/enchanced_control_node_to_world_position.gd" id="4_v2rd2"]
+[ext_resource type="Script" uid="uid://cyis3mmb6k6lw" path="res://scripts/ui/positioning/enchanced_control_node_to_world_position.gd" id="4_v2rd2"]
 
 [sub_resource type="Resource" id="Resource_vy44t"]
 script = ExtResource("3_ql6qo")

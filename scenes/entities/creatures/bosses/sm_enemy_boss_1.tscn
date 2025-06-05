@@ -43,7 +43,7 @@
 [ext_resource type="Script" uid="uid://cf62jkm8arfbu" path="res://scripts/visual/creatures/sprite_sheet_billboard.gd" id="41_vlfnf"]
 [ext_resource type="Shader" uid="uid://bfx5psllv5gl5" path="res://shaders/spatial/creature_sprite_sheet.gdshader" id="42_fbj8l"]
 [ext_resource type="Texture2D" uid="uid://b44xx5t4fp802" path="res://sprites/creatures/skeleton/Skeleton_SpriteSheet_Walk.png" id="43_qlx0a"]
-[ext_resource type="Script" uid="uid://52avxl67y58j" path="res://scripts/visual/control_node_to_world_position.gd" id="44_f7qk3"]
+[ext_resource type="Script" uid="uid://52avxl67y58j" path="res://scripts/ui/positioning/control_node_to_world_position.gd" id="44_f7qk3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wuj5g"]
 albedo_color = Color(0.196071, 0.25379, 1, 1)

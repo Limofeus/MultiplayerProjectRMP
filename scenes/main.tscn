@@ -27,7 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://6ypd48k7kbjj" path="res://scenes/ui/items_hotbar.tscn" id="21_iy7cf"]
 [ext_resource type="PackedScene" uid="uid://dbnnhfo4lkk0v" path="res://scenes/testing_2/world_node_tinkerable_multibutton_test.tscn" id="22_jscy8"]
 [ext_resource type="Script" uid="uid://dhr6u82gkorbh" path="res://scripts/components/tinkering/spatial/tinkerable_area.gd" id="22_tel4y"]
-[ext_resource type="Script" uid="uid://cyis3mmb6k6lw" path="res://scripts/visual/enchanced_control_node_to_world_position.gd" id="23_qkpxi"]
+[ext_resource type="Script" uid="uid://oemy1qly8v4a" path="res://scripts/ui/positioning/world_based_control_alter.gd" id="23_yq6so"]
 [ext_resource type="PackedScene" uid="uid://cd0yemnim3xk4" path="res://scenes/ui/tinkerables/dialogue/dialogue_window.tscn" id="24_5q0nq"]
 
 [sub_resource type="Resource" id="Resource_oj2bi"]
@@ -290,11 +290,10 @@ tinkerable = NodePath("../TinkerableSelectMultibutton")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TestWorlUi/WorldNode8/TinkerableArea"]
 shape = SubResource("SphereShape3D_yc10j")
 
-[node name="WorldUiPosThing" type="Node" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("position_node", "control_node", "size_ref_container")]
-script = ExtResource("23_qkpxi")
-frustum_spring_freq = 100.0
-position_node = NodePath("..")
-control_node = NodePath("../DialogueWindow/DynamicWindowPosition")
+[node name="WorldUiPosThing2" type="Node" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("target_position_node", "control_to_reposition", "size_ref_container")]
+script = ExtResource("23_yq6so")
+target_position_node = NodePath("..")
+control_to_reposition = NodePath("../DialogueWindow/DynamicWindowPosition")
 size_ref_container = NodePath("../DialogueWindow/DynamicWindowPosition/DynamicDialogueBoxContainer")
 
 [node name="DialogueWindow" parent="TestWorlUi/WorldNode8" instance=ExtResource("24_5q0nq")]
