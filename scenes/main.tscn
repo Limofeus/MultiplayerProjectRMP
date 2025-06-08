@@ -134,10 +134,12 @@ metadata/_custom_type_script = "uid://73romn18puo4"
 radius = 1.0
 
 [sub_resource type="Curve" id="Curve_yq6so"]
-_data = [Vector2(0, 1), 0.0, -0.048759, 0, 0, Vector2(1, 0), -2.54818, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 1, Vector2(0.666, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.438202), -4.11746, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="Curve" id="Curve_fv21b"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 1, Vector2(0.503597, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.97985, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="BoxMesh" id="BoxMesh_yq6so"]
 size = Vector3(1, 2.07, 1)
@@ -296,11 +298,13 @@ tinkerable = NodePath("../TinkerableSelectMultibutton")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TestWorlUi/WorldNode8/TinkerableArea"]
 shape = SubResource("SphereShape3D_yc10j")
 
-[node name="WorldUiPosThing2" type="Node" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("target_position_node", "control_to_reposition", "size_ref_container")]
+[node name="WorldUiPosThing2" type="Node" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("target_position_node", "control_to_reposition", "size_ref_container", "modulate_node")]
 script = ExtResource("23_yq6so")
 target_position_node = NodePath("..")
 control_to_reposition = NodePath("../DialogueWindow/DynamicWindowPosition")
 size_ref_container = NodePath("../DialogueWindow/DynamicWindowPosition/DynamicDialogueBoxContainer")
+modulate_node = NodePath("../DialogueWindow")
+max_distance = 30.0
 distance_to_scale_curve = SubResource("Curve_yq6so")
 distance_to_transparency_curve = SubResource("Curve_fv21b")
 

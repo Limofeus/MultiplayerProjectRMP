@@ -6,6 +6,7 @@ class_name WorldBasedControlAlter
 @export var target_position_node : Node3D = null
 @export var control_to_reposition : Control = null
 @export var size_ref_container : Container = null #Used to position the control so that the container will always stay on screen
+@export var modulate_node : CanvasItem = null
 
 @export_group("Distance Settings")
 @export var max_distance : float = 50.0
@@ -67,6 +68,7 @@ func _process(delta):
 	
 	control_to_reposition.global_position = unadjusted_position
 	control_to_reposition.scale = Vector2.ONE * distance_to_scale
+	modulate_node.modulate.a = distance_to_transparency
 
 func prepare_displays() -> void:
 	target_viewport = get_viewport()
