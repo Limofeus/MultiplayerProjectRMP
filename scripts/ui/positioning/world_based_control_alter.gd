@@ -32,11 +32,18 @@ func _ready() -> void:
 
 func _process(delta):
 	var viewport_size = target_viewport.get_visible_rect().size
+
+	var dist_factor = clampf(get_distance_to_target() / max_distance, 0.0, 1.0)
+	var distance_to_scale = distance_to_scale_curve.sample(dist_factor)
+	var distance_to_transparency = distance_to_transparency_curve.sample(dist_factor)
+
 	var uncapped_position : Vector2 = get_uncapped_target_position(viewport_size)
-	var capped_position : Vector2 = cap_position(uncapped_position, size_ref_container.size, viewport_size)
-	var cap_factor : float = calculate_cap_factor(uncapped_position, size_ref_container.size, viewport_size)
+	var capped_position : Vector2 = cap_position(uncapped_position, size_ref_container.size * distance_to_scale, viewport_size)
+	var cap_factor : float = min(calculate_cap_factor(uncapped_position, size_ref_container.size * distance_to_scale, viewport_size), 1.0)
 
 	lerp_factor = max(move_toward(lerp_factor, cap_factor, delta * lerp_factor_activation_speed), cap_factor)
+
+	var unadjusted_position : Vector2 = Vector2.ZERO
 
 	if lerp_factor > 0.0:
 		SpringUtility.UpdateSpring(x_spring, capped_position.x, delta, spring_freq, spring_dampening)
@@ -50,14 +57,16 @@ func _process(delta):
 			x_spring.vel = StaticUtility.lerp_dampen(x_spring.vel, 0.0, (lerp_factor_activation_speed / lerp_factor), delta)
 			y_spring.vel = StaticUtility.lerp_dampen(y_spring.vel, 0.0, (lerp_factor_activation_speed / lerp_factor), delta)
 		
-		control_to_reposition.global_position = Vector2(x_spring.pos, y_spring.pos)
+		unadjusted_position = Vector2(x_spring.pos, y_spring.pos)
 	else:
 		x_spring.pos = capped_position.x
 		y_spring.pos = capped_position.y
 		x_spring.vel = 0.0
 		y_spring.vel = 0.0
-		control_to_reposition.global_position = capped_position
-
+		unadjusted_position = capped_position
+	
+	control_to_reposition.global_position = unadjusted_position
+	control_to_reposition.scale = Vector2.ONE * distance_to_scale
 
 func prepare_displays() -> void:
 	target_viewport = get_viewport()
@@ -105,3 +114,6 @@ func calculate_cap_factor(uncapped_position : Vector2, cap_size : Vector2, viewp
 	cap_dist = -cap_dist.min(Vector2.ZERO)
 
 	return max(cap_dist.x / half_cap.x, cap_dist.y / half_cap.y) #0 if position is uncapped, 1 if fully capped (at the edge)
+
+func get_distance_to_target() -> float:
+	return target_position_node.global_position.distance_to(target_camera.global_position)

@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://rpigau741e6g" path="res://scripts/ui/dialogue window/dialogue_window_visual.gd" id="1_kfdjx"]
 [ext_resource type="PackedScene" uid="uid://dhtsulks4qu18" path="res://scenes/ui/tinkerables/dialogue/dialogue_option.tscn" id="3_kfdjx"]
 
-[node name="DialogueWindow" type="Control" node_paths=PackedStringArray("dialogue_option_container", "modulate_item", "interpolating_content", "dynamic_dialogue_box_container", "dynamic_dialogue_box_content", "dynamic_dialogue_text_label", "static_dialogue_box_container", "static_dialogue_box_content", "static_dialogue_text_label")]
+[node name="DialogueWindow" type="Control" node_paths=PackedStringArray("dialogue_option_container", "modulate_item", "interpolating_content", "scale_copy_node", "dynamic_dialogue_box_container", "dynamic_dialogue_box_content", "dynamic_dialogue_text_label", "static_dialogue_box_container", "static_dialogue_box_content", "static_dialogue_text_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,6 +19,7 @@ dialogue_option_scene = ExtResource("3_kfdjx")
 dialogue_option_container = NodePath("ChoiseSelectionBox/CanvasGroup2/VBoxContainer")
 modulate_item = NodePath("CanvasGroup")
 interpolating_content = NodePath("BackdropPanel")
+scale_copy_node = NodePath("DynamicWindowPosition")
 dynamic_dialogue_box_container = NodePath("DynamicWindowPosition/DynamicDialogueBoxContainer")
 dynamic_dialogue_box_content = NodePath("DynamicWindowPosition/DynamicDialogueBoxContainer/StartTextSizeRef")
 dynamic_dialogue_text_label = NodePath("CanvasGroup/DynamicDialogueLabel")
@@ -60,7 +61,7 @@ theme_override_constants/margin_bottom = 20
 custom_minimum_size = Vector2(385.999, 88)
 layout_mode = 2
 mouse_filter = 2
-color = Color(1, 0.266667, 0.294118, 0)
+color = Color(0.278431, 0.898039, 0.294118, 0.588235)
 
 [node name="StaticDialogueBoxContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(0, 180)

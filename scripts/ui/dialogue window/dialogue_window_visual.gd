@@ -6,16 +6,21 @@ const MAX_ITERS : int = 30
 @export var spring_freq = 15.0
 @export var spring_damp = 1.0
 
+@export_group("Dialogue options")
 @export var dialogue_option_scene : PackedScene = null
 @export var dialogue_option_container : Container = null
 
+@export_group("Misc")
 @export var modulate_item : CanvasItem = null
 @export var interpolating_content : Control = null
+@export var scale_copy_node : Control = null
 
+@export_group("Dynamic dialogue box")
 @export var dynamic_dialogue_box_container : Container = null
 @export var dynamic_dialogue_box_content : Control = null #resized based on dynamic text size
 @export var dynamic_dialogue_text_label : RichTextLabel = null
 
+@export_group("Static dialogue box")
 @export var static_dialogue_box_container : Container = null
 @export var static_dialogue_box_content : Control = null
 @export var static_dialogue_text_label : RichTextLabel = null #opposite of dynamic, text size based on content size
@@ -36,6 +41,7 @@ var cur_visible_dynamic_dialogue : bool = true
 #var button = recalculate_dynamic_window_size.bind(4)
 
 func _ready():
+	process_priority = 1 #NOTICE: check world based control alter
 	update_static_dialogue_box()
 	update_dynamic_dialogue_box()
 
@@ -51,6 +57,11 @@ func _process(delta):
 	
 	change_canvas_transparency(lerp_pos, dynamic_dialogue_text_label)
 	change_canvas_transparency(1.0 - lerp_pos, static_dialogue_text_label)
+
+	center_pivot(interpolating_content)
+	center_pivot(dynamic_dialogue_text_label)
+	copy_scale(scale_copy_node, interpolating_content)
+	copy_scale(scale_copy_node, dynamic_dialogue_text_label)
 
 #Dialogue box
 
@@ -79,6 +90,12 @@ func reposition_static_dialogue():
 func reposition_to_control_center(reposition_node : Control, target_node : Control):
 	var target_center_position : Vector2 = target_node.position + (target_node.size / 2.0)
 	reposition_node.position = target_center_position - (reposition_node.size / 2.0)
+
+func center_pivot(target_node : Control):
+	target_node.pivot_offset = target_node.size / 2.0
+
+func copy_scale(copy_from : Control, copy_to : Control):
+	copy_to.scale = copy_from.scale
 
 func change_canvas_transparency(target_alpha : float, canvas_item : CanvasItem):
 	canvas_item.self_modulate.a = target_alpha

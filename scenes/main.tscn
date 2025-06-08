@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://fjib4361ovfd"]
+[gd_scene load_steps=51 format=3 uid="uid://fjib4361ovfd"]
 
 [ext_resource type="Script" uid="uid://bdbitsb3bdwvf" path="res://scripts/networking/network_manager.gd" id="1_1ap1m"]
 [ext_resource type="Script" uid="uid://bjmp5kq0tl031" path="res://scripts/utility/fps_counter.gd" id="1_bkmm5"]
@@ -132,6 +132,12 @@ metadata/_custom_type_script = "uid://73romn18puo4"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yc10j"]
 radius = 1.0
+
+[sub_resource type="Curve" id="Curve_yq6so"]
+_data = [Vector2(0, 1), 0.0, -0.048759, 0, 0, Vector2(1, 0), -2.54818, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_fv21b"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_yq6so"]
 size = Vector3(1, 2.07, 1)
@@ -295,8 +301,12 @@ script = ExtResource("23_yq6so")
 target_position_node = NodePath("..")
 control_to_reposition = NodePath("../DialogueWindow/DynamicWindowPosition")
 size_ref_container = NodePath("../DialogueWindow/DynamicWindowPosition/DynamicDialogueBoxContainer")
+distance_to_scale_curve = SubResource("Curve_yq6so")
+distance_to_transparency_curve = SubResource("Curve_fv21b")
 
 [node name="DialogueWindow" parent="TestWorlUi/WorldNode8" instance=ExtResource("24_5q0nq")]
+offset_top = 0.0
+offset_bottom = 0.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TestWorlUi"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.7737, 1.07711, 27.8912)
