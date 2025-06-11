@@ -25,7 +25,7 @@ func check_conditions() -> bool:
 		owner_change_target_seeker.search_distance = chase_distance
 		owner_change_target_seeker.research_target()
 		research_target_timer.start()
-		print("researching targets")
+		#print("researching targets")
 	var start_chase : bool = owner_change_target_seeker.get_has_target() and owner_change_target_seeker.get_dist_to_target() < chase_distance
 	if start_chase:
 		print("Starting the chase")

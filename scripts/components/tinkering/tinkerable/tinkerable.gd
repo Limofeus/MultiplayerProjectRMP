@@ -17,11 +17,19 @@ func recieve_interaction(interaction : Interaction, interacted_entity : Interact
 	if !routing_enabled():
 		return
 	var args_array = interaction_to_arguments(interaction, interacted_entity)
-	args_array.push_back(interacted_entity.get_path())
+	args_array.push_back(interacted_entity.get_path()) #Add path manually in interaction_to_arguments for tinkerables
 	route_to_authority(args_array)
 
+func respond_to_interaction(response : Interaction, entity_to_respond_to_path : NodePath) -> void:
+	if !response_enabled():
+		return
+	super(response, entity_to_respond_to_path)
+
 func routing_enabled() -> bool:
-	return true
+	return false
+
+func response_enabled() -> bool:
+	return false
 
 #DO NOT forget to call this when overriding interaction recieving child methods
 func update_tinkerable_state(new_state : TinkerableState) -> void:

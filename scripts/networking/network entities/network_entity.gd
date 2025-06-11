@@ -23,10 +23,11 @@ func fire_spawn_logic(spawn_arguments : Array[SpawnArgument]) -> void:
 
 func set_entity_authority(authority_to_set : int) -> void:
 	set_multiplayer_authority(authority_to_set, true)
-	if(has_authority()):
-		ownerLogic.process_mode = Node.PROCESS_MODE_INHERIT
-	else:
-		ownerLogic.process_mode = Node.PROCESS_MODE_DISABLED
+	if ownerLogic != null:
+		if(has_authority()):
+			ownerLogic.process_mode = Node.PROCESS_MODE_INHERIT
+		else:
+			ownerLogic.process_mode = Node.PROCESS_MODE_DISABLED
 	emit_authority_changed()
 
 func emit_authority_changed() -> void:
