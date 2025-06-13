@@ -1,9 +1,7 @@
-[gd_resource type="Resource" script_class="DialogueBlock" load_steps=3 format=3 uid="uid://bs0lgoco5obu0"]
+[gd_resource type="Resource" script_class="DialogueBlock" load_steps=2 format=3 uid="uid://bs0lgoco5obu0"]
 
-[ext_resource type="Resource" uid="uid://bcvxk46msnc1" path="res://scripts/resources/dialogues/test2.tres" id="1_25jud"]
 [ext_resource type="Script" uid="uid://bee4762ye2at8" path="res://scripts/resources/dialogues/dialogue_block.gd" id="1_frald"]
 
 [resource]
 script = ExtResource("1_frald")
-next_block = ExtResource("1_25jud")
 metadata/_custom_type_script = "uid://bee4762ye2at8"

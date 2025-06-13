@@ -1,6 +1,8 @@
 extends Resource
 class_name DialogueSequence
 
+@export var sequence_name : String = ""
+@export var sequence_lang_key : String = "en"
 @export var dialogue_blocks : Array[DialogueBlock] = []
 
 var current_block : DialogueBlock = null
@@ -9,6 +11,7 @@ var current_block_index : int = 0
 signal on_sequence_ended()
 
 func init_sequence() -> void:
+	#Probably clone resource before calling
 	for block in dialogue_blocks:
 		block.dialogue_sequence = self
 		block.init_block()
