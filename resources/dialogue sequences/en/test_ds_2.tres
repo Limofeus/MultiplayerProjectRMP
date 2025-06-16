@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DialogueSequence" load_steps=3 format=3 uid="uid://dgi4l3rprbgbv"]
+
+[ext_resource type="Script" uid="uid://bee4762ye2at8" path="res://scripts/resources/dialogues/dialogue_block.gd" id="1_mmwga"]
+[ext_resource type="Script" uid="uid://duyli6g2p5ayn" path="res://scripts/resources/dialogues/dialogue_sequence.gd" id="2_tutwy"]
+
+[resource]
+script = ExtResource("2_tutwy")
+sequence_name = "aboba_vanishing"
+sequence_lang_key = "en"
+dialogue_blocks = Array[ExtResource("1_mmwga")]([])
+metadata/_custom_type_script = "uid://duyli6g2p5ayn"
