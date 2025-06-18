@@ -23,3 +23,6 @@ func log_dialogue_sequences() -> void:
 	print("PREPARING DIALOGUE SEQUENCES...")
 	for sequence_name in dialogue_sequences.keys():
 		print("NAME: ", sequence_name, ", PATH: ", dialogue_sequences[sequence_name].resource_path)
+
+func get_dialogue_sequence(sequence_name : String) -> DialogueSequence:
+	return dialogue_sequences[sequence_name]

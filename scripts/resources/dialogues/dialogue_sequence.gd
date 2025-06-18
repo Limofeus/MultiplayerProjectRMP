@@ -8,6 +8,9 @@ class_name DialogueSequence
 var current_block : DialogueBlock = null
 var current_block_index : int = 0
 
+signal on_choice_options_updated(choice_option_strings : Array[String])
+signal on_main_text_updated(main_text : String)
+signal on_dialogue_metadata_updated(metadata : Dictionary) #Like speaker name, text style, etc.
 signal on_sequence_ended()
 
 func init_sequence() -> void:
@@ -43,3 +46,13 @@ func end_sequence() -> void:
 	current_block_index = 0
 
 	on_sequence_ended.emit()
+
+#Requests called from blocks
+func set_choice_options(choice_option_strings : Array[String]) -> void:
+	on_choice_options_updated.emit(choice_option_strings)
+
+func set_main_text(main_text : String) -> void:
+	on_main_text_updated.emit(main_text)
+
+func set_dialogue_metadata(metadata : Dictionary) -> void:
+	on_dialogue_metadata_updated.emit(metadata)
