@@ -4,6 +4,10 @@ class_name DialogueDriver #Returns lines of dialogue and stuff probably
 var current_dialogue_sequence : DialogueSequence
 var current_dialogue_priority : int = 0
 
+signal on_main_text_updated(main_text : String)
+signal on_choice_options_updated(choice_option_strings : Array[String])
+signal on_dialogue_metadata_updated(metadata : Dictionary)
+
 func start_dialogue(dialogue_name : String, dialogue_priority : int) -> void:
 	if dialogue_priority < current_dialogue_priority:
 		return
@@ -29,10 +33,10 @@ func clean_current_dialogue_sequence() -> void:
 	current_dialogue_priority = 0
 
 func main_text_updated(main_text : String) -> void:
-	pass
+	on_main_text_updated.emit(main_text)
 
 func dialogue_choices_updated(choice_option_strings : Array[String]) -> void:
-	pass
+	on_choice_options_updated.emit(choice_option_strings)
 
 func dialogue_metadata_updated(metadata : Dictionary) -> void:
-	pass
+	on_dialogue_metadata_updated.emit(metadata)
