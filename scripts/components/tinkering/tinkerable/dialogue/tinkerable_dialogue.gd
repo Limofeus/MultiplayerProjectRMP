@@ -3,7 +3,15 @@ class_name TinkerableDialogue
 
 var current_focusing_tinkerer : NetworkEntity = null
 
+var dialogue_driver : DialogueDriver = DialogueDriver.new()
+
 signal tinkerer_changed(new_tinkerer : NetworkEntity)
+
+func _ready():
+	super()
+	#Setup driver
+
+	#On choice update reconnect to driver?
 
 func tinker_input_enabled() -> bool:
 	return current_focusing_tinkerer != null and current_focusing_tinkerer.has_authority()

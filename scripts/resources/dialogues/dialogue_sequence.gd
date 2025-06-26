@@ -13,27 +13,34 @@ signal on_main_text_updated(main_text : String)
 signal on_dialogue_metadata_updated(metadata : Dictionary) #Like speaker name, text style, etc.
 signal on_sequence_ended()
 
-func init_sequence() -> void:
+func init_sequence(dialogue_parameters : Dictionary = {}) -> void:
 	#Probably clone resource before calling
 	for block in dialogue_blocks:
 		block.dialogue_sequence = self
-		block.init_block()
+		block.init_block(dialogue_parameters)
 
-func jump_start_at_block(block_index : int = 0) -> void:
-	init_sequence()
+func jump_start_at_block(block_index : int = 0, dialogue_parameters : Dictionary = {}) -> void:
+	init_sequence(dialogue_parameters)
 	jump_to_block(block_index)
 
-func jump_to_block(block_index : int) -> void:
+func jump_to_block(block_index : int, dialogue_parameters : Dictionary = {}) -> void:
 	if current_block != null:
-		current_block.block_end()
+		current_block.block_end(dialogue_parameters)
+
 	if block_index >= dialogue_blocks.size():
 		print("ERROR: Invalid block index")
 		return
+
 	current_block_index = block_index
 	current_block = dialogue_blocks[current_block_index]
-	current_block.block_start()
+	current_block.block_start(dialogue_parameters)
 
-func next_block() -> void:
+#NOTICE maybe move next block logic in to dialogue block itself, it'll just get id's from sequence and stuff (Also no need to check for lock this way, it'll depend on the block)
+func next_block(dialogue_parameters : Dictionary = {}) -> void:
+	if current_block != null:
+		if current_block.lock_next_block(dialogue_parameters):
+			return
+
 	if current_block_index + 1 >= dialogue_blocks.size():
 		end_sequence()
 	else:
@@ -46,6 +53,15 @@ func end_sequence() -> void:
 	current_block_index = 0
 
 	on_sequence_ended.emit()
+
+#Requests called from dialogue driver
+func action_on_current_block(action_name : String, dialogue_parameters : Dictionary = {}) -> void:
+	if current_block != null:
+		current_block.block_action(action_name, dialogue_parameters)
+
+func dialogue_parameters_changed(new_dialogue_parameters : Dictionary = {}) -> void:
+	for block in dialogue_blocks:
+		block.dialogue_parameters_changed(new_dialogue_parameters)
 
 #Requests called from blocks
 func set_choice_options(choice_option_strings : Array[String]) -> void:

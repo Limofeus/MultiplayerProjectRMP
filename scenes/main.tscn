@@ -25,7 +25,7 @@
 [ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="20_tel4y"]
 [ext_resource type="Script" uid="uid://oo1at2kcw1bi" path="res://scripts/ui/dialogue window/dialogue_window_updater.gd" id="20_yq6so"]
 [ext_resource type="PackedScene" uid="uid://6ypd48k7kbjj" path="res://scenes/ui/items_hotbar.tscn" id="21_iy7cf"]
-[ext_resource type="Script" uid="uid://5vx8lf2husda" path="res://scripts/components/tinkering/tinkerable/tinkerable_dialogue.gd" id="22_fv21b"]
+[ext_resource type="Script" uid="uid://5vx8lf2husda" path="res://scripts/components/tinkering/tinkerable/dialogue/tinkerable_dialogue.gd" id="22_fv21b"]
 [ext_resource type="PackedScene" uid="uid://dbnnhfo4lkk0v" path="res://scenes/testing_2/world_node_tinkerable_multibutton_test.tscn" id="22_jscy8"]
 [ext_resource type="Script" uid="uid://dhr6u82gkorbh" path="res://scripts/components/tinkering/spatial/tinkerable_area.gd" id="22_tel4y"]
 [ext_resource type="Script" uid="uid://oemy1qly8v4a" path="res://scripts/ui/positioning/world_based_control_alter.gd" id="23_yq6so"]

@@ -1,7 +1,7 @@
 extends DialogueBlock
 class_name DialogueTextBlock
 
-@export var dialogue_text : String = ""
+@export_multiline var dialogue_text : String = ""
 
-func block_start():
+func block_start(_dialogue_parameters : Dictionary = {}) -> void:
 	dialogue_sequence.set_main_text(dialogue_text)
