@@ -15,6 +15,8 @@ signal on_sequence_ended()
 
 func init_sequence(dialogue_parameters : Dictionary = {}) -> void:
 	#Probably clone resource before calling
+	var godot_cant_cast_empty_array_to_empty_string_array_so_i_have_to_do_it_like_this : Array[String] = []
+	on_choice_options_updated.emit(godot_cant_cast_empty_array_to_empty_string_array_so_i_have_to_do_it_like_this) #Reeemeemberr mee~~
 	for block in dialogue_blocks:
 		block.dialogue_sequence = self
 		block.init_block(dialogue_parameters)

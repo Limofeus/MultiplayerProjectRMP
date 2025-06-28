@@ -357,7 +357,7 @@ creature_inventory = NodePath("../PlayerInventory")
 network_entity = NodePath("../..")
 metadata/_custom_type_script = "uid://bmcerh7kxn1lm"
 
-[node name="Player" type="CharacterBody3D" parent="."]
+[node name="Player" type="CharacterBody3D" parent="." groups=["PlayerBody"]]
 collision_layer = 2
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]

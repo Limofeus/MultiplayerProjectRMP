@@ -1,7 +1,0 @@
-[gd_resource type="Resource" script_class="DialogueBlock" load_steps=2 format=3 uid="uid://bxs3t7yabtlef"]
-
-[ext_resource type="Script" uid="uid://bee4762ye2at8" path="res://scripts/resources/dialogues/dialogue_block.gd" id="1_uhh27"]
-
-[resource]
-script = ExtResource("1_uhh27")
-metadata/_custom_type_script = "uid://bee4762ye2at8"

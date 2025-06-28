@@ -41,7 +41,7 @@ func update_sequence_parameters() -> void:
 #ext functions
 
 func start_dialogue(dialogue_name : String, dialogue_priority : int) -> void:
-	if dialogue_priority < current_dialogue_priority:
+	if dialogue_priority <= current_dialogue_priority:
 		return
 
 	clean_current_dialogue_sequence()

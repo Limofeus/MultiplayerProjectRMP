@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://fjib4361ovfd"]
+[gd_scene load_steps=54 format=3 uid="uid://fjib4361ovfd"]
 
 [ext_resource type="Script" uid="uid://bdbitsb3bdwvf" path="res://scripts/networking/network_manager.gd" id="1_1ap1m"]
 [ext_resource type="Script" uid="uid://bjmp5kq0tl031" path="res://scripts/utility/fps_counter.gd" id="1_bkmm5"]
@@ -22,8 +22,9 @@
 [ext_resource type="Texture2D" uid="uid://dsp2730flqo78" path="res://sprites/menu/dither2.png" id="19_6gyjg"]
 [ext_resource type="Script" uid="uid://73romn18puo4" path="res://scripts/resources/tinkering/tinkerable_interact_prompt_button_settings.gd" id="19_og1vs"]
 [ext_resource type="PackedScene" uid="uid://c4eqeivjiq3wi" path="res://scenes/ui/settings_window_tmp_tmp.tscn" id="20_gqmmt"]
+[ext_resource type="Script" uid="uid://latelpkoglv5" path="res://scripts/components/tinkering/tinkerable/dialogue/dialogue triggers/collision_area_dialogue_trigger.gd" id="20_qkpxi"]
 [ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="20_tel4y"]
-[ext_resource type="Script" uid="uid://oo1at2kcw1bi" path="res://scripts/ui/dialogue window/dialogue_window_updater.gd" id="20_yq6so"]
+[ext_resource type="Script" uid="uid://oo1at2kcw1bi" path="res://scripts/components/tinkering/tinkerable/dialogue/dialogue_updater.gd" id="20_yq6so"]
 [ext_resource type="PackedScene" uid="uid://6ypd48k7kbjj" path="res://scenes/ui/items_hotbar.tscn" id="21_iy7cf"]
 [ext_resource type="Script" uid="uid://5vx8lf2husda" path="res://scripts/components/tinkering/tinkerable/dialogue/tinkerable_dialogue.gd" id="22_fv21b"]
 [ext_resource type="PackedScene" uid="uid://dbnnhfo4lkk0v" path="res://scenes/testing_2/world_node_tinkerable_multibutton_test.tscn" id="22_jscy8"]
@@ -112,6 +113,9 @@ script = ExtResource("19_og1vs")
 interact_prompt = "Action3"
 interact_time = 0.0
 metadata/_custom_type_script = "uid://73romn18puo4"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fv21b"]
+radius = 8.282
 
 [sub_resource type="Resource" id="Resource_vy44t"]
 script = ExtResource("19_og1vs")
@@ -276,13 +280,29 @@ interact_prompt_settings = Array[ExtResource("19_og1vs")]([SubResource("Resource
 [node name="WorldNode8" type="Node3D" parent="TestWorlUi"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.1633, 3.26049, 27.8912)
 
+[node name="Area3D" type="Area3D" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("collision_area")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31464, -2.3123, 0.79512)
+collision_layer = 0
+collision_mask = 3
+monitorable = false
+script = ExtResource("20_qkpxi")
+collision_area = NodePath(".")
+colliding_group = "PlayerBody"
+sequence_name = "aboba_greeting"
+dialogue_priority = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestWorlUi/WorldNode8/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.240337, -0.317035, -0.372303)
+shape = SubResource("SphereShape3D_fv21b")
+
 [node name="TD_net_ent" type="Node" parent="TestWorlUi/WorldNode8"]
 script = ExtResource("20_tel4y")
 
-[node name="DialogueUpdater" type="Node" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("tinkerable_dialogue", "dialogue_window")]
+[node name="DialogueUpdater" type="Node" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("tinkerable_dialogue", "dialogue_window", "dialogue_triggers")]
 script = ExtResource("20_yq6so")
 tinkerable_dialogue = NodePath("../TinkerableDialogue")
 dialogue_window = NodePath("../DialogueWindow")
+dialogue_triggers = [NodePath("../Area3D")]
 
 [node name="TinkerableDialogue" type="Node" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("tinker_center_node", "network_entity")]
 script = ExtResource("22_fv21b")

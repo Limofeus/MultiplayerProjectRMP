@@ -40,6 +40,7 @@ enabled=PackedStringArray("res://addons/imgui-godot/plugin.cfg")
 
 Creature="Creature attributes component"
 TinkerableArea="[Unused for now?] Tinkerable areas, used to find tinkerables (interactable objects, i.e. \"Press F to..\")"
+PlayerBody="Mostly for debugging.."
 
 [gui]
 

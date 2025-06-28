@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="DialogueSequence" load_steps=7 format=3 uid="uid://dfqp6048yr71p"]
+[gd_resource type="Resource" script_class="DialogueSequence" load_steps=9 format=3 uid="uid://dfqp6048yr71p"]
 
 [ext_resource type="Script" uid="uid://bee4762ye2at8" path="res://scripts/resources/dialogues/dialogue_block.gd" id="1_7m4nh"]
 [ext_resource type="Script" uid="uid://8njgmbn7c7jq" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_text_block.gd" id="2_oweex"]
 [ext_resource type="Script" uid="uid://duyli6g2p5ayn" path="res://scripts/resources/dialogues/dialogue_sequence.gd" id="2_v4vjb"]
+[ext_resource type="Script" uid="uid://bew54dp5qxf0f" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_useless_choice_block.gd" id="3_hu684"]
 
 [sub_resource type="Resource" id="Resource_hu684"]
 script = ExtResource("2_oweex")
@@ -14,14 +15,20 @@ script = ExtResource("2_oweex")
 dialogue_text = "В этих местах, меня кликают \"Абобой\" между прочим"
 metadata/_custom_type_script = "uid://8njgmbn7c7jq"
 
-[sub_resource type="Resource" id="Resource_oweex"]
+[sub_resource type="Resource" id="Resource_oho56"]
+script = ExtResource("3_hu684")
+useless_choices = Array[String](["Как скажешь..", "Пошёл в ж0пу"])
+dialogue_text = "По этому вынужден попросить вас называть меня по имени фамилии, хорошо?"
+metadata/_custom_type_script = "uid://bew54dp5qxf0f"
+
+[sub_resource type="Resource" id="Resource_hcr2s"]
 script = ExtResource("2_oweex")
-dialogue_text = "По этому вынужден попросить вас называть меня по имени фамилии, хорошо"
+dialogue_text = "Что бы ты только что не ответил, я это не узнаю т.к. такого функционала в этой системе пока нету :("
 metadata/_custom_type_script = "uid://8njgmbn7c7jq"
 
 [resource]
 script = ExtResource("2_v4vjb")
 sequence_name = "aboba_greeting"
 sequence_lang_key = "en"
-dialogue_blocks = Array[ExtResource("1_7m4nh")]([SubResource("Resource_hu684"), SubResource("Resource_hhfox"), SubResource("Resource_oweex")])
+dialogue_blocks = Array[ExtResource("1_7m4nh")]([SubResource("Resource_hu684"), SubResource("Resource_hhfox"), SubResource("Resource_oho56"), SubResource("Resource_hcr2s")])
 metadata/_custom_type_script = "uid://duyli6g2p5ayn"

@@ -140,3 +140,10 @@ func select_choise_option(index : int):
 	for child in dialogue_option_container.get_children():
 		var choise_option_visual = child as DialogueChoiceOptionVisual
 		choise_option_visual.set_selected(choise_option_visual.get_index() == index)
+
+#Other ext
+
+func set_text(text : String):
+	dynamic_dialogue_text_label.text = text
+	static_dialogue_text_label.text = text
+	#Also resize and stuff here..
