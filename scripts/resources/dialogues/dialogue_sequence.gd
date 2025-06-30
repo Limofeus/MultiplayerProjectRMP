@@ -48,12 +48,14 @@ func next_block(dialogue_parameters : Dictionary = {}) -> void:
 	else:
 		jump_to_block(current_block_index + 1)
 
-func end_sequence() -> void:
+func clean_sequence() -> void:
 	if current_block != null:
 		current_block.block_end()
-	current_block = null
-	current_block_index = 0
+		current_block = null
+		current_block_index = 0
 
+func end_sequence() -> void:
+	clean_sequence()
 	on_sequence_ended.emit()
 
 #Requests called from dialogue driver

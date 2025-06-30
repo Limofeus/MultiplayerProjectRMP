@@ -14,6 +14,7 @@ func connect_to_cur_dialogue_sequence() -> void:
 	current_dialogue_sequence.on_main_text_updated.connect(main_text_updated)
 	current_dialogue_sequence.on_choice_options_updated.connect(dialogue_choices_updated)
 	current_dialogue_sequence.on_dialogue_metadata_updated.connect(dialogue_metadata_updated)
+	current_dialogue_sequence.on_sequence_ended.connect(dialogue_sequence_ended)
 	#TODO: Figure out a connection to dialogue ending
 
 func clean_current_dialogue_sequence() -> void:
@@ -22,6 +23,7 @@ func clean_current_dialogue_sequence() -> void:
 	current_dialogue_sequence.on_main_text_updated.disconnect(main_text_updated)
 	current_dialogue_sequence.on_choice_options_updated.disconnect(dialogue_choices_updated)
 	current_dialogue_sequence.on_dialogue_metadata_updated.disconnect(dialogue_metadata_updated)
+	current_dialogue_sequence.on_sequence_ended.disconnect(dialogue_sequence_ended)
 	current_dialogue_sequence = null
 	current_dialogue_priority = 0
 
@@ -34,6 +36,9 @@ func dialogue_choices_updated(choice_option_strings : Array[String]) -> void:
 func dialogue_metadata_updated(metadata : Dictionary) -> void:
 	on_dialogue_metadata_updated.emit(metadata)
 
+func dialogue_sequence_ended() -> void:
+	clean_current_dialogue_sequence()
+
 func update_sequence_parameters() -> void:
 	if current_dialogue_sequence != null:
 		current_dialogue_sequence.dialogue_parameters_changed(dialogue_parameters)
@@ -44,7 +49,8 @@ func start_dialogue(dialogue_name : String, dialogue_priority : int) -> void:
 	if dialogue_priority <= current_dialogue_priority:
 		return
 
-	clean_current_dialogue_sequence()
+	if current_dialogue_sequence != null:
+		current_dialogue_sequence.end_sequence() #This in turn calls clean_current_dialogue_sequence via signals
 	current_dialogue_sequence = DialogueSequencesLoaderInstance.get_dialogue_sequence(dialogue_name)
 	current_dialogue_priority = dialogue_priority
 	connect_to_cur_dialogue_sequence()
