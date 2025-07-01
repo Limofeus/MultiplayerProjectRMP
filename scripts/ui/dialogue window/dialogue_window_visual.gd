@@ -3,8 +3,13 @@ class_name DialogueWindowVisual
 
 const MAX_ITERS : int = 30
 
+@export_group("Cross-fade spring")
 @export var spring_freq = 15.0
 @export var spring_damp = 1.0
+
+@export_group("State spring")
+@export var state_spring_freq = 12.0
+@export var state_spring_damp = 1.0
 
 @export_group("Dialogue options")
 @export var dialogue_option_scene : PackedScene = null
@@ -27,6 +32,9 @@ const MAX_ITERS : int = 30
 
 var spring_dampener : SpringUtility.SpringParams = SpringUtility.SpringParams.new(1.0) #1 - dynamic, 0 - static
 
+var dialogue_state_spring : SpringUtility.SpringParams = SpringUtility.SpringParams.new(0.0)
+var dialogue_state_target : float = 0.0
+
 var target_dynamic_dialogue : bool = true:
 	set(value):
 		if value:
@@ -36,6 +44,9 @@ var target_dynamic_dialogue : bool = true:
 		target_dynamic_dialogue = value
 
 var cur_visible_dynamic_dialogue : bool = true
+
+var scale_multiplier : float = 1.0
+var alpha_multiplier : float = 1.0
 
 #@export_tool_button("TestResize")
 #var button = recalculate_dynamic_window_size.bind(4)
@@ -47,10 +58,12 @@ func _ready():
 
 func _process(delta):
 	SpringUtility.UpdateSpring(spring_dampener, 1.0 if target_dynamic_dialogue else 0.0, delta, spring_freq, spring_damp)
+	SpringUtility.UpdateSpring(dialogue_state_spring, dialogue_state_target, delta, state_spring_freq, state_spring_damp)
+	
 	var lerp_pos = spring_dampener.pos
 	
-	interpolating_content.global_position = lerp(static_dialogue_box_container.global_position, dynamic_dialogue_box_container.global_position, spring_dampener.pos)
 	interpolating_content.size = lerp(static_dialogue_box_container.size, dynamic_dialogue_box_container.size, spring_dampener.pos)
+	interpolating_content.global_position = lerp(static_dialogue_box_container.global_position, dynamic_dialogue_box_container.global_position, spring_dampener.pos) + (( Vector2.ONE - interpolating_content.scale) * interpolating_content.size / 2.0)
 
 	reposition_dynamic_dialogue()
 	reposition_static_dialogue()
@@ -58,9 +71,13 @@ func _process(delta):
 	change_canvas_transparency(lerp_pos, dynamic_dialogue_text_label)
 	change_canvas_transparency(1.0 - lerp_pos, static_dialogue_text_label)
 
+	modulate_item.modulate.a = alpha_multiplier * dialogue_state_spring.pos
+	scale_copy_node.scale = Vector2.ONE * (scale_multiplier * dialogue_state_spring.pos)
+
 	center_pivot(interpolating_content)
 	center_pivot(dynamic_dialogue_text_label)
-	copy_scale(scale_copy_node, interpolating_content)
+	#copy_scale(scale_copy_node, interpolating_content)
+	interpolating_content.scale = Vector2.ONE * (scale_multiplier * dialogue_state_spring.pos)
 	copy_scale(scale_copy_node, dynamic_dialogue_text_label)
 
 #Dialogue box
@@ -143,7 +160,17 @@ func select_choise_option(index : int):
 
 #Other ext
 
+func set_visible(set_visible : bool):
+	pass
+
 func set_text(text : String):
 	dynamic_dialogue_text_label.text = text
 	static_dialogue_text_label.text = text
 	#Also resize and stuff here..
+
+func set_scale_alpha_multiplier(_scale_multiplier : float, _alpha_multiplier : float):
+	scale_multiplier = _scale_multiplier
+	alpha_multiplier = _alpha_multiplier
+
+func set_show_dialogue(shown : bool):
+	dialogue_state_target = 1.0 if shown else 0.0

@@ -9,6 +9,7 @@ var dialogue_parameters : Dictionary = {}
 signal on_main_text_updated(main_text : String)
 signal on_choice_options_updated(choice_option_strings : Array[String])
 signal on_dialogue_metadata_updated(metadata : Dictionary)
+signal on_dialogue_state_changed(dialogue_running : bool)
 
 func connect_to_cur_dialogue_sequence() -> void:
 	current_dialogue_sequence.on_main_text_updated.connect(main_text_updated)
@@ -38,6 +39,7 @@ func dialogue_metadata_updated(metadata : Dictionary) -> void:
 
 func dialogue_sequence_ended() -> void:
 	clean_current_dialogue_sequence()
+	on_dialogue_state_changed.emit(false)
 
 func update_sequence_parameters() -> void:
 	if current_dialogue_sequence != null:
@@ -55,6 +57,7 @@ func start_dialogue(dialogue_name : String, dialogue_priority : int) -> void:
 	current_dialogue_priority = dialogue_priority
 	connect_to_cur_dialogue_sequence()
 	current_dialogue_sequence.jump_start_at_block()
+	on_dialogue_state_changed.emit(true)
 
 func set_dialogue_parameter(key, value) -> void:
 	dialogue_parameters[key] = value

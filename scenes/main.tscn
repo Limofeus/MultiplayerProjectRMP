@@ -298,11 +298,12 @@ shape = SubResource("SphereShape3D_fv21b")
 [node name="TD_net_ent" type="Node" parent="TestWorlUi/WorldNode8"]
 script = ExtResource("20_tel4y")
 
-[node name="DialogueUpdater" type="Node" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("tinkerable_dialogue", "dialogue_window", "dialogue_triggers")]
+[node name="DialogueUpdater" type="Node" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("dialogue_triggers", "tinkerable_dialogue", "dialogue_window", "world_based_alter")]
 script = ExtResource("20_yq6so")
+dialogue_triggers = [NodePath("../Area3D")]
 tinkerable_dialogue = NodePath("../TinkerableDialogue")
 dialogue_window = NodePath("../DialogueWindow")
-dialogue_triggers = [NodePath("../Area3D")]
+world_based_alter = NodePath("../WorldUiPosThing2")
 
 [node name="TinkerableDialogue" type="Node" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("tinker_center_node", "network_entity")]
 script = ExtResource("22_fv21b")
@@ -336,6 +337,7 @@ distance_to_transparency_curve = SubResource("Curve_fv21b")
 [node name="DialogueWindow" parent="TestWorlUi/WorldNode8" instance=ExtResource("24_5q0nq")]
 offset_top = 0.0
 offset_bottom = 0.0
+state_spring_freq = 3.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TestWorlUi"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.7737, 1.07711, 27.8912)

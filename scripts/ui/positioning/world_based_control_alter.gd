@@ -26,6 +26,8 @@ var y_spring : SpringUtility.SpringParams = SpringUtility.SpringParams.new(0.0, 
 
 var lerp_factor : float = 0.0
 
+signal scale_mod_change(new_scale : float, new_alpha : float)
+
 func _ready() -> void:
 	process_priority = 1 #NOTICE: To make sure this updates after all player movement (Though maybe better to set it manually for whole object)
 	prepare_displays()
@@ -67,8 +69,9 @@ func _process(delta):
 		unadjusted_position = capped_position
 	
 	control_to_reposition.global_position = unadjusted_position
-	control_to_reposition.scale = Vector2.ONE * distance_to_scale
-	modulate_node.modulate.a = distance_to_transparency
+	scale_mod_change.emit(distance_to_scale, distance_to_transparency)
+	#control_to_reposition.scale = Vector2.ONE * distance_to_scale
+	#modulate_node.modulate.a = distance_to_transparency
 
 func prepare_displays() -> void:
 	target_viewport = get_viewport()

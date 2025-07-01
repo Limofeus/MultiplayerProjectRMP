@@ -17,7 +17,7 @@ mouse_filter = 2
 script = ExtResource("1_kfdjx")
 dialogue_option_scene = ExtResource("3_kfdjx")
 dialogue_option_container = NodePath("ChoiseSelectionBox/CanvasGroup2/VBoxContainer")
-modulate_item = NodePath("CanvasGroup")
+modulate_item = NodePath(".")
 interpolating_content = NodePath("BackdropPanel")
 scale_copy_node = NodePath("DynamicWindowPosition")
 dynamic_dialogue_box_container = NodePath("DynamicWindowPosition/DynamicDialogueBoxContainer")
@@ -70,8 +70,7 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -180.0
-offset_right = 502.0
+offset_top = -118.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -84,7 +83,7 @@ theme_override_constants/margin_bottom = 15
 custom_minimum_size = Vector2(262, 88)
 layout_mode = 2
 mouse_filter = 2
-color = Color(0.596078, 0.584314, 1, 0)
+color = Color(1, 0.384314, 0.647059, 0.596078)
 
 [node name="BackdropPanel" type="Panel" parent="."]
 layout_mode = 1
