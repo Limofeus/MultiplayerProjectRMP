@@ -10,6 +10,7 @@ const MAX_ITERS : int = 30
 @export_group("State spring")
 @export var state_spring_freq = 12.0
 @export var state_spring_damp = 1.0
+@export var static_min_scale = 0.8
 
 @export_group("Dialogue options")
 @export var dialogue_option_scene : PackedScene = null
@@ -63,7 +64,7 @@ func _process(delta):
 	var lerp_pos = spring_dampener.pos
 	
 	interpolating_content.size = lerp(static_dialogue_box_container.size, dynamic_dialogue_box_container.size, spring_dampener.pos)
-	interpolating_content.global_position = lerp(static_dialogue_box_container.global_position, dynamic_dialogue_box_container.global_position, spring_dampener.pos) + (( Vector2.ONE - interpolating_content.scale) * interpolating_content.size / 2.0)
+	interpolating_content.global_position = lerp(static_dialogue_box_container.global_position + (( Vector2.ONE - interpolating_content.scale) * interpolating_content.size / 2.0), dynamic_dialogue_box_container.global_position, spring_dampener.pos)
 
 	reposition_dynamic_dialogue()
 	reposition_static_dialogue()
@@ -77,7 +78,8 @@ func _process(delta):
 	center_pivot(interpolating_content)
 	center_pivot(dynamic_dialogue_text_label)
 	#copy_scale(scale_copy_node, interpolating_content)
-	interpolating_content.scale = Vector2.ONE * (scale_multiplier * dialogue_state_spring.pos)
+	var interpolating_content_scale_factor : float = scale_multiplier  * dialogue_state_spring.pos
+	interpolating_content.scale = Vector2.ONE * (lerp(interpolating_content_scale_factor, static_min_scale + (interpolating_content_scale_factor * (1.0 - static_min_scale)), 1.0 - lerp_pos))
 	copy_scale(scale_copy_node, dynamic_dialogue_text_label)
 
 #Dialogue box
