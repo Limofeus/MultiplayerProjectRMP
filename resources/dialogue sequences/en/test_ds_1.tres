@@ -7,23 +7,23 @@
 
 [sub_resource type="Resource" id="Resource_hu684"]
 script = ExtResource("2_oweex")
-dialogue_text = "Приветствую вас сэр"
+dialogue_text = "Начало диалога"
 metadata/_custom_type_script = "uid://8njgmbn7c7jq"
 
 [sub_resource type="Resource" id="Resource_hhfox"]
 script = ExtResource("2_oweex")
-dialogue_text = "В этих местах, меня кликают \"Абобой\" между прочим"
+dialogue_text = "Продолжение"
 metadata/_custom_type_script = "uid://8njgmbn7c7jq"
 
 [sub_resource type="Resource" id="Resource_oho56"]
 script = ExtResource("3_hu684")
-useless_choices = Array[String](["Как скажешь..", "Пошёл в ж0пу"])
-dialogue_text = "По этому вынужден попросить вас называть меня по имени фамилии, хорошо?"
+useless_choices = Array[String](["Вариант первый", "Второй вариант"])
+dialogue_text = "Какой ни будь выбор"
 metadata/_custom_type_script = "uid://bew54dp5qxf0f"
 
 [sub_resource type="Resource" id="Resource_hcr2s"]
 script = ExtResource("2_oweex")
-dialogue_text = "Что бы ты только что не ответил, я это не узнаю т.к. такого функционала в этой системе пока нету :("
+dialogue_text = "Конец диалога"
 metadata/_custom_type_script = "uid://8njgmbn7c7jq"
 
 [resource]
