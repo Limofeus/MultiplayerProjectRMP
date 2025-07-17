@@ -1,4 +1,4 @@
-extends Node
+extends EntityComponent
 
 @export var dialogue_triggers : Array[DialogueTrigger]
 @export_group("Node References")
@@ -6,6 +6,8 @@ extends Node
 @export var dialogue_window : DialogueWindowVisual = null
 @export var world_based_alter : WorldBasedControlAlter = null
 var dialogue_driver : DialogueDriver = DialogueDriver.new()
+
+var sync_cached_sequence_name : String = "" #Used to optimize packets a bit, in case of any bugs, just send seq name in every packet and deprecate this
 
 func _ready():
 
@@ -24,6 +26,7 @@ func _ready():
 	dialogue_driver.on_main_text_updated.connect(dialogue_window.set_text)
 
 	dialogue_driver.on_dialogue_state_changed.connect(dialogue_window.set_show_dialogue)
+	dialogue_driver.sync_dialogue_block.connect(request_sync_dialogue)
 
 	for dialogue_trigger in dialogue_triggers:
 		dialogue_trigger.start_dialogue.connect(dialogue_driver.start_dialogue)
@@ -51,3 +54,59 @@ func calc_set_dialogue_visibility() -> void:
 		set_visibility_state(Tinkerable.TinkerableState.Unfocused) #or Hidden, idk, again, read comment on line 9
 	else:
 		set_visibility_state(tinkerable_dialogue.current_tinkerable_state)
+
+#---- Syncing dialogue -----
+func receive_sync_request(dialogue_sequence_name : String, block_index : int, responsible_parameters : Dictionary) -> void:
+	sync_cached_sequence_name = dialogue_sequence_name
+	dialogue_driver.sync_dialogue(dialogue_sequence_name, block_index, responsible_parameters)
+
+func request_sync_dialogue(dialogue_sequence_name : String, block_index : int, responsible_parameters : Dictionary) -> void:
+	#Most owner / net entity / other NODE dependant sync logic should be here
+	#if !network_entity.has_authority():
+		#return
+
+	#Well... I'm surprised but this shit seems to work
+
+	if dialogue_sequence_name == "":
+		if responsible_parameters == {}:
+			end_dialogue_rpc_simple.rpc()
+		else:
+			end_dialogue_rpc.rpc(responsible_parameters)
+
+	if sync_cached_sequence_name == dialogue_sequence_name:
+		if responsible_parameters == {}:
+			sync_block_rpc_simple.rpc(block_index)
+		else:
+			sync_block_rpc_arguments.rpc(block_index, responsible_parameters)
+	else:
+		if responsible_parameters == {}:
+			sync_seq_block_rpc_simple.rpc(dialogue_sequence_name, block_index)
+		else:
+			sync_seq_block_rpc_arguments.rpc(dialogue_sequence_name, block_index, responsible_parameters)
+	
+	sync_cached_sequence_name = dialogue_sequence_name
+
+
+@rpc("reliable", "call_remote", "any_peer")
+func sync_seq_block_rpc_simple(dialogue_sequence_name : String, dialogue_block_index : int) -> void:
+	receive_sync_request(dialogue_sequence_name, dialogue_block_index, {})
+
+@rpc("reliable", "call_remote", "any_peer")
+func sync_seq_block_rpc_arguments(dialogue_sequence_name : String, dialogue_block_index : int, responsible_parameters : Dictionary) -> void:
+	receive_sync_request(dialogue_sequence_name, dialogue_block_index, responsible_parameters)
+
+@rpc("reliable", "call_remote", "any_peer")
+func sync_block_rpc_simple(dialogue_block_index : int) -> void:
+	receive_sync_request(sync_cached_sequence_name, dialogue_block_index, {})
+
+@rpc("reliable", "call_remote", "any_peer")
+func sync_block_rpc_arguments(dialogue_block_index : int, responsible_parameters : Dictionary) -> void:
+	receive_sync_request(sync_cached_sequence_name, dialogue_block_index, responsible_parameters)
+
+@rpc("reliable", "call_remote", "any_peer")
+func end_dialogue_rpc_simple() -> void:
+	dialogue_driver.sync_end_dialogue({})
+
+@rpc("reliable", "call_remote", "any_peer")
+func end_dialogue_rpc(responsible_parameters : Dictionary) -> void:
+	dialogue_driver.sync_end_dialogue(responsible_parameters)

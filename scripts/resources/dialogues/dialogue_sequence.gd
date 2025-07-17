@@ -13,6 +13,9 @@ signal on_main_text_updated(main_text : String)
 signal on_dialogue_metadata_updated(metadata : Dictionary) #Like speaker name, text style, etc.
 signal on_sequence_ended()
 
+signal sync_dialogue_block_request(block_index : int, sync_arguments : Array)
+signal sync_dialogue_end_request()
+
 func init_sequence(dialogue_parameters : Dictionary = {}) -> void:
 	#Probably clone resource before calling
 	var godot_cant_cast_empty_array_to_empty_string_array_so_i_have_to_do_it_like_this : Array[String] = []
@@ -25,8 +28,10 @@ func jump_start_at_block(block_index : int = 0, dialogue_parameters : Dictionary
 	init_sequence(dialogue_parameters)
 	jump_to_block(block_index)
 
-func jump_to_block(block_index : int, dialogue_parameters : Dictionary = {}) -> void:
+func jump_to_block(block_index : int, dialogue_parameters : Dictionary = {}, allow_sync = true) -> void:
+	var previous_block_sync_keys : Array = []
 	if current_block != null:
+		previous_block_sync_keys = current_block.sync_parameter_keys()
 		current_block.block_end(dialogue_parameters)
 
 	if block_index >= dialogue_blocks.size():
@@ -35,7 +40,15 @@ func jump_to_block(block_index : int, dialogue_parameters : Dictionary = {}) -> 
 
 	current_block_index = block_index
 	current_block = dialogue_blocks[current_block_index]
+
 	current_block.block_start(dialogue_parameters)
+	if current_block.requires_sync() and allow_sync:
+		sync_dialogue_block_request.emit(current_block_index, previous_block_sync_keys + current_block.sync_parameter_keys())
+
+func sync_dialogue_block(block_index : int, dialogue_parameters : Dictionary, sync_parameters : Dictionary = {}) -> void:
+	var synced_parameter_dict = dialogue_parameters.duplicate()
+	synced_parameter_dict.merge(sync_parameters, true) #Merge with override
+	jump_to_block(block_index, synced_parameter_dict, false)
 
 #NOTICE maybe move next block logic in to dialogue block itself, it'll just get id's from sequence and stuff (Also no need to check for lock this way, it'll depend on the block)
 func next_block(dialogue_parameters : Dictionary = {}) -> void:
@@ -54,8 +67,13 @@ func clean_sequence() -> void:
 		current_block = null
 		current_block_index = 0
 
-func end_sequence() -> void:
+func end_sequence(allow_sync : bool = true) -> void: #TODO: Look in to adding dialogue parameters in to all of those functions (too lazy to do this all now, no dialogue blocks use dialogue parameters now anyway)
 	clean_sequence()
+	if allow_sync:
+		var curr_relevant_param_keys : Array = []
+		if current_block != null:
+			curr_relevant_param_keys = current_block.sync_parameter_keys()
+		sync_dialogue_end_request.emit(curr_relevant_param_keys)
 	on_sequence_ended.emit()
 
 #Requests called from dialogue driver

@@ -298,12 +298,13 @@ shape = SubResource("SphereShape3D_fv21b")
 [node name="TD_net_ent" type="Node" parent="TestWorlUi/WorldNode8"]
 script = ExtResource("20_tel4y")
 
-[node name="DialogueUpdater" type="Node" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("dialogue_triggers", "tinkerable_dialogue", "dialogue_window", "world_based_alter")]
+[node name="DialogueUpdater" type="Node" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("dialogue_triggers", "tinkerable_dialogue", "dialogue_window", "world_based_alter", "network_entity")]
 script = ExtResource("20_yq6so")
 dialogue_triggers = [NodePath("../Area3D")]
 tinkerable_dialogue = NodePath("../TinkerableDialogue")
 dialogue_window = NodePath("../DialogueWindow")
 world_based_alter = NodePath("../WorldUiPosThing2")
+network_entity = NodePath("../TD_net_ent")
 
 [node name="TinkerableDialogue" type="Node" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("tinker_center_node", "network_entity")]
 script = ExtResource("22_fv21b")
