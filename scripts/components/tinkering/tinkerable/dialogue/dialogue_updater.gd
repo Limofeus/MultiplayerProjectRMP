@@ -18,14 +18,16 @@ func _ready():
 	tinkerable_dialogue.tinkerer_changed.connect(calc_set_dialogue_visibility.unbind(1))
 	tinkerable_dialogue.selection_changed.connect(dialogue_window.select_choise_option)
 	tinkerable_dialogue.main_tinker_action_no_choice.connect(dialogue_driver.next_dialogue_block)
-	world_based_alter.scale_mod_change.connect(dialogue_window.set_scale_alpha_multiplier)
 
+	world_based_alter.scale_mod_change.connect(dialogue_window.set_scale_alpha_multiplier)
+	
 	set_visibility_state(tinkerable_dialogue.current_tinkerable_state)
 
 	dialogue_driver.on_choice_options_updated.connect(tinkerable_dialogue.update_dialogue_options)
-	dialogue_driver.on_main_text_updated.connect(dialogue_window.set_text)
+	dialogue_driver.on_main_text_updated.connect(main_text_updated)
 
 	dialogue_driver.on_dialogue_state_changed.connect(dialogue_window.set_show_dialogue)
+	dialogue_driver.on_dialogue_metadata_updated.connect(dialogue_metadata_updated)
 	dialogue_driver.sync_dialogue_block.connect(request_sync_dialogue)
 
 	for dialogue_trigger in dialogue_triggers:
@@ -48,6 +50,16 @@ func set_visibility_state(new_state : Tinkerable.TinkerableState) -> void:
 	else:
 		dialogue_window.target_dynamic_dialogue = true
 		dialogue_window.set_choices_visible(false)
+
+#---- Connected functions ----
+
+func main_text_updated(main_text : String) -> void:
+	dialogue_window.set_text(main_text)
+	#dialogue_window.recalculate_dynamic_window_size(4)
+
+func dialogue_metadata_updated(metadata : Dictionary) -> void:
+	print("Got metadata update: " + str(metadata))
+	print("------------")
 
 func calc_set_dialogue_visibility() -> void:
 	if tinkerable_dialogue.other_peer_tinkering() or tinkerable_dialogue.current_focusing_tinkerer == null: #The thing after "or" is a quick fix because I haven't yet thought how it should behave (either instant swap to other peer, or other peer has to reengage)

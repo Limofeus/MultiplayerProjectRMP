@@ -7,23 +7,27 @@
 
 [sub_resource type="Resource" id="Resource_hu684"]
 script = ExtResource("2_oweex")
-dialogue_text = "Начало диалога"
+dialogue_text = "Началололололо диалога dasuiy gduag wugwadu awutd uygawuy gudywag iu giuwagdu g awuygduywaguydgwyuaguydguyaw gduy gwau gwd"
+sync_dialogue_block = true
 metadata/_custom_type_script = "uid://8njgmbn7c7jq"
 
 [sub_resource type="Resource" id="Resource_hhfox"]
 script = ExtResource("2_oweex")
 dialogue_text = "Продолжение"
+sync_dialogue_block = true
 metadata/_custom_type_script = "uid://8njgmbn7c7jq"
 
 [sub_resource type="Resource" id="Resource_oho56"]
 script = ExtResource("3_hu684")
 useless_choices = Array[String](["Вариант первый", "Второй вариант"])
 dialogue_text = "Какой ни будь выбор"
+sync_dialogue_block = true
 metadata/_custom_type_script = "uid://bew54dp5qxf0f"
 
 [sub_resource type="Resource" id="Resource_hcr2s"]
 script = ExtResource("2_oweex")
 dialogue_text = "Конец диалога"
+sync_dialogue_block = true
 metadata/_custom_type_script = "uid://8njgmbn7c7jq"
 
 [resource]

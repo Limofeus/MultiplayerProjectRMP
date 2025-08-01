@@ -4,6 +4,7 @@ class_name DialogueDriver #Returns lines of dialogue and stuff probably
 var current_dialogue_sequence : DialogueSequence
 var current_dialogue_priority : int = 0
 
+var dialogue_metadata : Dictionary = {"target_lines" : 4, "text_type_speed_multiplier" : 1} #Add another way to get default values?
 var dialogue_parameters : Dictionary = {} #Maybe need to sync parameters instead???
 
 signal on_main_text_updated(main_text : String)
@@ -45,7 +46,8 @@ func dialogue_choices_updated(choice_option_strings : Array[String]) -> void:
 	on_choice_options_updated.emit(choice_option_strings)
 
 func dialogue_metadata_updated(metadata : Dictionary) -> void:
-	on_dialogue_metadata_updated.emit(metadata)
+	dialogue_metadata.merge(metadata, true)
+	on_dialogue_metadata_updated.emit(dialogue_metadata)
 
 func dialogue_sequence_ended() -> void:
 	clean_current_dialogue_sequence()
@@ -99,6 +101,7 @@ func force_start_dialogue(dialogue_name : String, starting_block : int = 0, over
 
 	current_dialogue_sequence = DialogueSequencesLoaderInstance.get_dialogue_sequence(dialogue_name)
 	connect_to_cur_dialogue_sequence()
+	dialogue_metadata_updated({})
 	current_dialogue_sequence.jump_start_at_block(starting_block, new_dialogue_parameters)
 	on_dialogue_state_changed.emit(true)
 

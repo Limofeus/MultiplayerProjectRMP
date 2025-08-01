@@ -31,6 +31,9 @@ const MAX_ITERS : int = 30
 @export var static_dialogue_box_content : Control = null
 @export var static_dialogue_text_label : RichTextLabel = null #opposite of dynamic, text size based on content size
 
+var text_processor : DialogueTextProcessor = DialogueTextProcessor.new()
+var dialogue_metadata : Dictionary = {} #Chain updated through dialogue driver
+
 var spring_dampener : SpringUtility.SpringParams = SpringUtility.SpringParams.new(1.0) #1 - dynamic, 0 - static
 
 var dialogue_state_spring : SpringUtility.SpringParams = SpringUtility.SpringParams.new(0.0)
@@ -56,8 +59,16 @@ func _ready():
 	process_priority = 1 #NOTICE: check world based control alter
 	update_static_dialogue_box()
 	update_dynamic_dialogue_box()
+	text_processor.text_labels = [static_dialogue_text_label, dynamic_dialogue_text_label]
 
 func _process(delta):
+	interpolate_dialogue_box(delta)
+
+	text_processor.text_process_step(delta)
+
+#Dialogue box
+
+func interpolate_dialogue_box(delta):
 	SpringUtility.UpdateSpring(spring_dampener, 1.0 if target_dynamic_dialogue else 0.0, delta, spring_freq, spring_damp)
 	SpringUtility.UpdateSpring(dialogue_state_spring, dialogue_state_target, delta, state_spring_freq, state_spring_damp)
 	
@@ -81,8 +92,6 @@ func _process(delta):
 	var interpolating_content_scale_factor : float = scale_multiplier  * dialogue_state_spring.pos
 	interpolating_content.scale = Vector2.ONE * (lerp(interpolating_content_scale_factor, static_min_scale + (interpolating_content_scale_factor * (1.0 - static_min_scale)), 1.0 - lerp_pos))
 	copy_scale(scale_copy_node, dynamic_dialogue_text_label)
-
-#Dialogue box
 
 func update_dynamic_dialogue_box():
 	#dynamic_dialogue_text_label.show()
@@ -125,21 +134,27 @@ func recalculate_dynamic_window_size(target_line_count : int, start_max_size : f
 	var last_comfortable_size : float = 0.0
 	for i in range(MAX_ITERS):
 		var check_size : float = (min_size + max_size) / 2.0
-		if check_step_size(check_size, target_line_count):
+		#if check_step_size_line(check_size, target_line_count):
+		if check_step_size_aspect(check_size, 6):
 			min_size = check_size
 		else:
 			last_comfortable_size = check_size + 1.0
 			max_size = check_size
 
-	dynamic_dialogue_text_label.size.x = last_comfortable_size
+	dynamic_dialogue_text_label.size.x = dynamic_dialogue_text_label.get_content_width()
 	dynamic_dialogue_text_label.size.y = dynamic_dialogue_text_label.get_content_height()
 
 	dynamic_dialogue_box_content.custom_minimum_size = dynamic_dialogue_text_label.size
 	dynamic_dialogue_box_container.size = Vector2.ZERO
 
-func check_step_size(cur_size : float, target_line_count : int) -> bool:
+func check_step_size_line(cur_size : float, target_line_count : int) -> bool:
 	dynamic_dialogue_text_label.size.x = cur_size
 	return dynamic_dialogue_text_label.get_line_count() > target_line_count
+
+func check_step_size_aspect(cur_size : float, target_aspect : float) -> bool:
+	dynamic_dialogue_text_label.size.x = cur_size
+	dynamic_dialogue_text_label.size.y = dynamic_dialogue_text_label.get_content_height()
+	return dynamic_dialogue_text_label.size.aspect() <= target_aspect
 
 #Choices
 
@@ -165,9 +180,11 @@ func select_choise_option(index : int):
 func set_visible(set_visible : bool):
 	pass
 
-func set_text(text : String):
+func set_text(pre_processed_text : String):
+	var text = text_processor.prepare_text(pre_processed_text)
 	dynamic_dialogue_text_label.text = text
 	static_dialogue_text_label.text = text
+	recalculate_dynamic_window_size(4)
 	#Also resize and stuff here..
 
 func set_scale_alpha_multiplier(_scale_multiplier : float, _alpha_multiplier : float):
