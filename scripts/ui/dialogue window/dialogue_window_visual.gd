@@ -132,15 +132,21 @@ func recalculate_dynamic_window_size(target_line_count : int, start_max_size : f
 	var min_size : float = 0.0
 	var max_size : float = start_max_size
 	var last_comfortable_size : float = 0.0
+
+	dynamic_dialogue_text_label.size.x = 400.0 #TODO: Replace with dynamic value
+	var deb_tl_count : int = dynamic_dialogue_text_label.get_line_count()
+	#print("DEB_TL_COUNT: " + str(deb_tl_count))
+
 	for i in range(MAX_ITERS):
 		var check_size : float = (min_size + max_size) / 2.0
-		#if check_step_size_line(check_size, target_line_count):
-		if check_step_size_aspect(check_size, 6):
+		if check_step_size_line(check_size, deb_tl_count):
+		#if check_step_size_aspect(check_size, 6):
 			min_size = check_size
 		else:
 			last_comfortable_size = check_size + 1.0
 			max_size = check_size
 
+	dynamic_dialogue_text_label.size.x = last_comfortable_size
 	dynamic_dialogue_text_label.size.x = dynamic_dialogue_text_label.get_content_width()
 	dynamic_dialogue_text_label.size.y = dynamic_dialogue_text_label.get_content_height()
 
