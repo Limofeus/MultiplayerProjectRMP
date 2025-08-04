@@ -151,7 +151,9 @@ func recalculate_dynamic_window_size(target_line_count : int, start_max_size : f
 	dynamic_dialogue_text_label.size.y = dynamic_dialogue_text_label.get_content_height()
 
 	dynamic_dialogue_box_content.custom_minimum_size = dynamic_dialogue_text_label.size
+	
 	dynamic_dialogue_box_container.size = Vector2.ZERO
+	dynamic_dialogue_box_container.position = dynamic_dialogue_box_container.size / -2.0 #NOTE: Долбаёб писал это + посмотри на верх, там TODO
 
 func check_step_size_line(cur_size : float, target_line_count : int) -> bool:
 	dynamic_dialogue_text_label.size.x = cur_size
