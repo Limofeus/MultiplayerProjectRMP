@@ -19,6 +19,7 @@ const MAX_ITERS : int = 30
 @export_group("Misc")
 @export var modulate_item : CanvasItem = null
 @export var interpolating_content : Control = null
+@export var interpolating_content_lerp_power : float = 10.0
 @export var scale_copy_node : Control = null
 
 @export_group("Dynamic dialogue box")
@@ -52,6 +53,8 @@ var cur_visible_dynamic_dialogue : bool = true
 var scale_multiplier : float = 1.0
 var alpha_multiplier : float = 1.0
 
+var smoothed_dynamic_container_size : Vector2 = Vector2.ZERO
+
 #@export_tool_button("TestResize")
 #var button = recalculate_dynamic_window_size.bind(4)
 
@@ -74,8 +77,11 @@ func interpolate_dialogue_box(delta):
 	
 	var lerp_pos = spring_dampener.pos
 	
-	interpolating_content.size = lerp(static_dialogue_box_container.size, dynamic_dialogue_box_container.size, spring_dampener.pos)
-	interpolating_content.global_position = lerp(static_dialogue_box_container.global_position + (( Vector2.ONE - interpolating_content.scale) * interpolating_content.size / 2.0), dynamic_dialogue_box_container.global_position, spring_dampener.pos)
+	smoothed_dynamic_container_size = StaticUtility.lerp_dampen(smoothed_dynamic_container_size, dynamic_dialogue_box_container.size, interpolating_content_lerp_power, delta)
+	var dynamic_interpolating_content_position = dynamic_dialogue_box_container.global_position + (dynamic_dialogue_box_container.size / 2.0) - (smoothed_dynamic_container_size / 2.0)
+
+	interpolating_content.size = lerp(static_dialogue_box_container.size, smoothed_dynamic_container_size, spring_dampener.pos)
+	interpolating_content.global_position = lerp(static_dialogue_box_container.global_position + (( Vector2.ONE - interpolating_content.scale) * interpolating_content.size / 2.0), dynamic_interpolating_content_position, spring_dampener.pos)
 
 	reposition_dynamic_dialogue()
 	reposition_static_dialogue()

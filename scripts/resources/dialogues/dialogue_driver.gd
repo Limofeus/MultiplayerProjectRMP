@@ -70,12 +70,12 @@ func emit_dialogue_sync_request(block_index : int, force_sync_parameter_keys : A
 func emit_dialogue_end_sync_request(force_sync_parameter_keys : Array) -> void:
 	sync_dialogue_block.emit("", -1, compose_relevant_parameter_dictionary(force_sync_parameter_keys)) #Int num doesn't matter here actually, doesn't get transferred anyway
 
-func sync_dialogue(dialogue_sequence_name : String, block_index : int, force_sync_parameters : Dictionary) -> void:
+func sync_dialogue(dialogue_sequence_name : String, dialogue_priority : int, block_index : int, force_sync_parameters : Dictionary) -> void:
 	print("|DI SI| Received sync request for block " + str(block_index) + " in sequence " + dialogue_sequence_name + " with arguments: " + str(force_sync_parameters))
 	if dialogue_sequence_name == "":
 		pass #use this to pass dialogue end info?..
 	elif current_dialogue_sequence == null or current_dialogue_sequence.sequence_name != dialogue_sequence_name:
-		force_start_dialogue(dialogue_sequence_name, block_index, force_sync_parameters)
+		force_start_dialogue(dialogue_sequence_name, dialogue_priority, block_index, force_sync_parameters)
 	else:
 		current_dialogue_sequence.sync_dialogue_block(block_index, dialogue_parameters, force_sync_parameters)
 
@@ -88,12 +88,13 @@ func sync_end_dialogue(force_sync_parameters : Dictionary) -> void:
 func start_dialogue(dialogue_name : String, dialogue_priority : int) -> void:
 	if dialogue_priority <= current_dialogue_priority:
 		return
-	current_dialogue_priority = dialogue_priority
-	force_start_dialogue(dialogue_name)
+	force_start_dialogue(dialogue_name, dialogue_priority)
 
-func force_start_dialogue(dialogue_name : String, starting_block : int = 0, override_parameters : Dictionary = {}) -> void:
+func force_start_dialogue(dialogue_name : String, dialogue_priority : int = 0, starting_block : int = 0, override_parameters : Dictionary = {}) -> void:
 	if current_dialogue_sequence != null:
 		current_dialogue_sequence.end_sequence() #This in turn calls clean_current_dialogue_sequence via signals
+
+	current_dialogue_priority = dialogue_priority
 
 	#For easier sync, maybe wrap in some func later
 	var new_dialogue_parameters : Dictionary = dialogue_parameters.duplicate()

@@ -68,9 +68,9 @@ func calc_set_dialogue_visibility() -> void:
 		set_visibility_state(tinkerable_dialogue.current_tinkerable_state)
 
 #---- Syncing dialogue -----
-func receive_sync_request(dialogue_sequence_name : String, block_index : int, responsible_parameters : Dictionary) -> void:
+func receive_sync_request(dialogue_sequence_name : String, dialogue_priority : int, block_index : int, responsible_parameters : Dictionary) -> void:
 	sync_cached_sequence_name = dialogue_sequence_name
-	dialogue_driver.sync_dialogue(dialogue_sequence_name, block_index, responsible_parameters)
+	dialogue_driver.sync_dialogue(dialogue_sequence_name, dialogue_priority, block_index, responsible_parameters)
 
 func request_sync_dialogue(dialogue_sequence_name : String, block_index : int, responsible_parameters : Dictionary) -> void:
 	#Most owner / net entity / other NODE dependant sync logic should be here
@@ -92,28 +92,28 @@ func request_sync_dialogue(dialogue_sequence_name : String, block_index : int, r
 			sync_block_rpc_arguments.rpc(block_index, responsible_parameters)
 	else:
 		if responsible_parameters == {}:
-			sync_seq_block_rpc_simple.rpc(dialogue_sequence_name, block_index)
+			sync_seq_block_rpc_simple.rpc(dialogue_sequence_name, dialogue_driver.current_dialogue_priority, block_index)
 		else:
-			sync_seq_block_rpc_arguments.rpc(dialogue_sequence_name, block_index, responsible_parameters)
+			sync_seq_block_rpc_arguments.rpc(dialogue_sequence_name, dialogue_driver.current_dialogue_priority, block_index, responsible_parameters)
 	
 	sync_cached_sequence_name = dialogue_sequence_name
 
 
 @rpc("reliable", "call_remote", "any_peer")
-func sync_seq_block_rpc_simple(dialogue_sequence_name : String, dialogue_block_index : int) -> void:
-	receive_sync_request(dialogue_sequence_name, dialogue_block_index, {})
+func sync_seq_block_rpc_simple(dialogue_sequence_name : String, dialogue_priority : int, dialogue_block_index : int) -> void:
+	receive_sync_request(dialogue_sequence_name, dialogue_priority, dialogue_block_index, {})
 
 @rpc("reliable", "call_remote", "any_peer")
-func sync_seq_block_rpc_arguments(dialogue_sequence_name : String, dialogue_block_index : int, responsible_parameters : Dictionary) -> void:
-	receive_sync_request(dialogue_sequence_name, dialogue_block_index, responsible_parameters)
+func sync_seq_block_rpc_arguments(dialogue_sequence_name : String, dialogue_priority : int, dialogue_block_index : int, responsible_parameters : Dictionary) -> void:
+	receive_sync_request(dialogue_sequence_name, dialogue_priority, dialogue_block_index, responsible_parameters)
 
 @rpc("reliable", "call_remote", "any_peer")
 func sync_block_rpc_simple(dialogue_block_index : int) -> void:
-	receive_sync_request(sync_cached_sequence_name, dialogue_block_index, {})
+	receive_sync_request(sync_cached_sequence_name, 0, dialogue_block_index, {})
 
 @rpc("reliable", "call_remote", "any_peer")
 func sync_block_rpc_arguments(dialogue_block_index : int, responsible_parameters : Dictionary) -> void:
-	receive_sync_request(sync_cached_sequence_name, dialogue_block_index, responsible_parameters)
+	receive_sync_request(sync_cached_sequence_name, 0, dialogue_block_index, responsible_parameters)
 
 @rpc("reliable", "call_remote", "any_peer")
 func end_dialogue_rpc_simple() -> void:
