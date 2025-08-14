@@ -189,7 +189,19 @@ func select_choise_option(index : int):
 		var choise_option_visual = child as DialogueChoiceOptionVisual
 		choise_option_visual.set_selected(choise_option_visual.get_index() == index)
 
+#Text processing
+
+
+func printing_in_progress() -> bool:
+	return !text_processor.done_printing
+
 #Other ext
+
+func dialogue_locked() -> bool:
+	return printing_in_progress()
+
+func skip_text_printing():
+	text_processor.skip_text_printing()
 
 func set_visible(set_visible : bool):
 	pass

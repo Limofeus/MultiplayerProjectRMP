@@ -48,3 +48,12 @@ func text_process_step(delta):
 
 	if done_printing:
 		finished_printing_text.emit()
+
+func skip_text_printing():
+	letters_printed = text_letter_count + 1
+	done_printing = true
+
+	for text_label in text_labels:
+		text_label.visible_characters = text_letter_count
+	
+	finished_printing_text.emit()

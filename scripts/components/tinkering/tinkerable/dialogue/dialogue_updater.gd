@@ -17,7 +17,7 @@ func _ready():
 	tinkerable_dialogue.on_tinkerable_state_changed.connect(calc_set_dialogue_visibility.unbind(1))
 	tinkerable_dialogue.tinkerer_changed.connect(calc_set_dialogue_visibility.unbind(1))
 	tinkerable_dialogue.selection_changed.connect(dialogue_window.select_choise_option)
-	tinkerable_dialogue.main_tinker_action_no_choice.connect(dialogue_driver.next_dialogue_block)
+	tinkerable_dialogue.main_tinker_action_no_choice.connect(next_dialogue_block)
 
 	world_based_alter.scale_mod_change.connect(dialogue_window.set_scale_alpha_multiplier)
 	
@@ -38,7 +38,7 @@ func update_buttons():
 	for i in range(tinkerable_dialogue.interact_prompt_buttons.size()):
 		var tinker_button = tinkerable_dialogue.interact_prompt_buttons[i]
 
-		tinker_button.on_interaction_completed.connect(dialogue_driver.select_dialogue_choice.bind(i))
+		tinker_button.on_interaction_completed.connect(select_dialogue_choice.bind(i))
 
 		dialogue_options.append(tinker_button.interact_prompt)
 	dialogue_window.update_choice_options(dialogue_options)
@@ -66,6 +66,18 @@ func calc_set_dialogue_visibility() -> void:
 		set_visibility_state(Tinkerable.TinkerableState.Unfocused) #or Hidden, idk, again, read comment on line 9
 	else:
 		set_visibility_state(tinkerable_dialogue.current_tinkerable_state)
+
+func next_dialogue_block() -> void:
+	if dialogue_window.dialogue_locked():
+		dialogue_window.skip_text_printing()
+	else:
+		dialogue_driver.next_dialogue_block()
+
+func select_dialogue_choice(choice_index : int) -> void:
+	if dialogue_window.dialogue_locked():
+		dialogue_window.skip_text_printing()
+	else:
+		dialogue_driver.select_dialogue_choice(choice_index)
 
 #---- Syncing dialogue -----
 func receive_sync_request(dialogue_sequence_name : String, dialogue_priority : int, block_index : int, responsible_parameters : Dictionary) -> void:
