@@ -5,6 +5,7 @@ signal finished_printing_text()
 
 var time_to_print_letter : float = 0.05
 var accumulated_time : float = 0.0
+var time_since_done_printing : float = 0.0
 
 var letters_printed : int = 0
 var text_letter_count : int = 0
@@ -33,6 +34,7 @@ func get_letter_print_time() -> float:
 
 func text_process_step(delta):
 	if done_printing:
+		time_since_done_printing += delta
 		return
 
 	accumulated_time += delta
@@ -47,6 +49,7 @@ func text_process_step(delta):
 		text_label.visible_characters = letters_printed
 
 	if done_printing:
+		time_since_done_printing = 0.0;
 		finished_printing_text.emit()
 
 func skip_text_printing():

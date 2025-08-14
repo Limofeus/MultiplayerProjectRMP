@@ -21,6 +21,7 @@ const MAX_ITERS : int = 30
 @export var interpolating_content : Control = null
 @export var interpolating_content_lerp_power : float = 10.0
 @export var scale_copy_node : Control = null
+@export var post_print_lock_time : float = 0.35
 
 @export_group("Dynamic dialogue box")
 @export var dynamic_dialogue_box_container : Container = null
@@ -191,6 +192,8 @@ func select_choise_option(index : int):
 
 #Text processing
 
+func text_completion_delay_lock() -> bool:
+	return text_processor.time_since_done_printing <= post_print_lock_time
 
 func printing_in_progress() -> bool:
 	return !text_processor.done_printing
@@ -198,10 +201,11 @@ func printing_in_progress() -> bool:
 #Other ext
 
 func dialogue_locked() -> bool:
-	return printing_in_progress()
+	return (printing_in_progress() or text_completion_delay_lock())
 
 func skip_text_printing():
 	text_processor.skip_text_printing()
+	text_processor.time_since_done_printing += post_print_lock_time #Skip also skips the lock that locks it from.. well.. skipping
 
 func set_visible(set_visible : bool):
 	pass
