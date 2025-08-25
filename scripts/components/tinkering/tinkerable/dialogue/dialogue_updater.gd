@@ -5,6 +5,7 @@ extends EntityComponent
 @export var tinkerable_dialogue : TinkerableDialogue = null
 @export var dialogue_window : DialogueWindowVisual = null
 @export var world_based_alter : WorldBasedControlAlter = null
+@export var unfocused_skip_line_timer : Timer = null
 var dialogue_driver : DialogueDriver = DialogueDriver.new()
 
 var sync_cached_sequence_name : String = "" #Used to optimize packets a bit, in case of any bugs, just send seq name in every packet and deprecate this
@@ -15,7 +16,7 @@ func _ready():
 	tinkerable_dialogue.buttons_updated.connect(update_buttons)
 	#idk, maybe change this later, depending on what the view needs / capable of (Responsible for dialogue display while other peer is chatting with npc)
 	tinkerable_dialogue.on_tinkerable_state_changed.connect(calc_set_dialogue_visibility.unbind(1))
-	tinkerable_dialogue.tinkerer_changed.connect(calc_set_dialogue_visibility.unbind(1))
+	tinkerable_dialogue.tinkerer_changed.connect(tinkerer_changed)
 	tinkerable_dialogue.selection_changed.connect(dialogue_window.select_choise_option)
 	tinkerable_dialogue.main_tinker_action_no_choice.connect(next_dialogue_block)
 
@@ -32,6 +33,9 @@ func _ready():
 
 	for dialogue_trigger in dialogue_triggers:
 		dialogue_trigger.start_dialogue.connect(dialogue_driver.start_dialogue)
+
+	dialogue_window.text_processor.finished_printing_text.connect(text_finished_printing)
+	unfocused_skip_line_timer.timeout.connect(skip_line_timeout)
 
 func update_buttons():
 	var dialogue_options : Array[String] = []
@@ -78,6 +82,26 @@ func select_dialogue_choice(choice_index : int) -> void:
 		dialogue_window.skip_text_printing()
 	else:
 		dialogue_driver.select_dialogue_choice(choice_index)
+
+func tinkerer_changed(new_tinkerer : NetworkEntity) -> void:
+	if new_tinkerer == null:
+		set_dialogue_timer_pause(false)
+	else:
+		set_dialogue_timer_pause(true)
+	calc_set_dialogue_visibility()
+
+func set_dialogue_timer_pause(set_paused : bool) -> void:
+	unfocused_skip_line_timer.paused = set_paused
+
+func text_finished_printing() -> void:
+	start_line_skip_timer(dialogue_window.text_processor.text_letter_count * 0.02) #TODO think where better do this, idk
+
+func start_line_skip_timer(time_to_wait : float) -> void:
+	unfocused_skip_line_timer.start(time_to_wait)
+
+func skip_line_timeout() -> void:
+	if tinkerable_dialogue.network_entity != null and tinkerable_dialogue.network_entity.has_authority():
+		next_dialogue_block()
 
 #---- Syncing dialogue -----
 func receive_sync_request(dialogue_sequence_name : String, dialogue_priority : int, block_index : int, responsible_parameters : Dictionary) -> void:
