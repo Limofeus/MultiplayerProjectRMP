@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cd0yemnim3xk4"]
+[gd_scene load_steps=5 format=3 uid="uid://cd0yemnim3xk4"]
 
 [ext_resource type="FontFile" uid="uid://c2sattq3np4gm" path="res://fonts/vollkorn/Vollkorn-Black.otf" id="1_k001a"]
 [ext_resource type="Script" uid="uid://rpigau741e6g" path="res://scripts/ui/dialogue window/dialogue_window_visual.gd" id="1_kfdjx"]
 [ext_resource type="PackedScene" uid="uid://dhtsulks4qu18" path="res://scenes/ui/tinkerables/dialogue/dialogue_option.tscn" id="3_kfdjx"]
 
-[node name="DialogueWindow" type="Control" node_paths=PackedStringArray("dialogue_option_container", "modulate_item", "interpolating_content", "scale_copy_node", "dynamic_dialogue_box_container", "dynamic_dialogue_box_content", "dynamic_dialogue_text_label", "static_dialogue_box_container", "static_dialogue_box_content", "static_dialogue_text_label")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kfdjx"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="DialogueWindow" type="Control" node_paths=PackedStringArray("dialogue_option_container", "modulate_item", "interpolating_content", "scale_copy_node", "unfocused_skip_progress_bar", "dynamic_dialogue_box_container", "dynamic_dialogue_box_content", "dynamic_dialogue_text_label", "static_dialogue_box_container", "static_dialogue_box_content", "static_dialogue_text_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,6 +23,7 @@ dialogue_option_container = NodePath("ChoiseSelectionBox/CanvasGroup2/VBoxContai
 modulate_item = NodePath(".")
 interpolating_content = NodePath("BackdropPanel")
 scale_copy_node = NodePath("DynamicWindowPosition")
+unfocused_skip_progress_bar = NodePath("BackdropPanel/ProgressBar")
 dynamic_dialogue_box_container = NodePath("DynamicWindowPosition/DynamicDialogueBoxContainer")
 dynamic_dialogue_box_content = NodePath("DynamicWindowPosition/DynamicDialogueBoxContainer/StartTextSizeRef")
 dynamic_dialogue_text_label = NodePath("CanvasGroup/DynamicDialogueLabel")
@@ -98,6 +102,22 @@ offset_bottom = -389.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="BackdropPanel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_kfdjx")
+max_value = 1.0
+step = 0.0
+value = 1.0
+show_percentage = false
 
 [node name="CanvasGroup" type="CanvasGroup" parent="."]
 

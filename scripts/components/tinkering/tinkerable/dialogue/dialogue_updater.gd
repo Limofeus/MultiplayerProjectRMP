@@ -36,6 +36,8 @@ func _ready():
 
 	dialogue_window.text_processor.finished_printing_text.connect(text_finished_printing)
 	unfocused_skip_line_timer.timeout.connect(skip_line_timeout)
+	
+	dialogue_window.dialogue_unfocused_skip_timer = unfocused_skip_line_timer
 
 func update_buttons():
 	var dialogue_options : Array[String] = []
@@ -101,7 +103,7 @@ func start_line_skip_timer(time_to_wait : float) -> void:
 
 func skip_line_timeout() -> void:
 	if tinkerable_dialogue.network_entity != null and tinkerable_dialogue.network_entity.has_authority():
-		next_dialogue_block()
+		dialogue_driver.next_dialogue_block()
 
 #---- Syncing dialogue -----
 func receive_sync_request(dialogue_sequence_name : String, dialogue_priority : int, block_index : int, responsible_parameters : Dictionary) -> void:

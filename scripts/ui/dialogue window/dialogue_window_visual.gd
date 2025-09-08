@@ -21,6 +21,8 @@ const MAX_ITERS : int = 30
 @export var interpolating_content : Control = null
 @export var interpolating_content_lerp_power : float = 10.0
 @export var scale_copy_node : Control = null
+@export var unfocused_skip_progress_bar : ProgressBar = null
+
 @export var post_print_lock_time : float = 0.35
 
 @export_group("Dynamic dialogue box")
@@ -40,6 +42,7 @@ var spring_dampener : SpringUtility.SpringParams = SpringUtility.SpringParams.ne
 
 var dialogue_state_spring : SpringUtility.SpringParams = SpringUtility.SpringParams.new(0.0)
 var dialogue_state_target : float = 0.0
+var dialogue_unfocused_skip_timer : Timer = null
 
 var target_dynamic_dialogue : bool = true:
 	set(value):
@@ -69,6 +72,7 @@ func _process(delta):
 	interpolate_dialogue_box(delta)
 
 	text_processor.text_process_step(delta)
+	unfocused_skip_progress_bar.value = 1.0 - (dialogue_unfocused_skip_timer.time_left / dialogue_unfocused_skip_timer.wait_time)
 
 #Dialogue box
 

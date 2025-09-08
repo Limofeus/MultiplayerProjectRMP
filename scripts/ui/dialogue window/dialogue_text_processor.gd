@@ -58,5 +58,4 @@ func skip_text_printing():
 
 	for text_label in text_labels:
 		text_label.visible_characters = text_letter_count
-	
 	finished_printing_text.emit()
