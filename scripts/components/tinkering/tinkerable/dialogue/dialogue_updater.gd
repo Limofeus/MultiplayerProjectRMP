@@ -1,4 +1,5 @@
 extends EntityComponent
+class_name TinkerableDialogueUpdater
 
 @export var dialogue_triggers : Array[DialogueTrigger]
 @export_group("Node References")
@@ -10,8 +11,8 @@ var dialogue_driver : DialogueDriver = DialogueDriver.new()
 
 var sync_cached_sequence_name : String = "" #Used to optimize packets a bit, in case of any bugs, just send seq name in every packet and deprecate this
 
-func _ready():
-
+func _ready() -> void:
+	print("PAR: ", get_parent().name, " READY")
 	#TINKERABLE & CONTROL ALTER
 	tinkerable_dialogue.buttons_updated.connect(update_buttons)
 	#idk, maybe change this later, depending on what the view needs / capable of (Responsible for dialogue display while other peer is chatting with npc)
@@ -32,7 +33,9 @@ func _ready():
 	dialogue_driver.sync_dialogue_block.connect(request_sync_dialogue)
 
 	for dialogue_trigger in dialogue_triggers:
+		print("Connecting trigger: " + dialogue_trigger.name, " with driver: ", dialogue_driver != null)
 		dialogue_trigger.start_dialogue.connect(dialogue_driver.start_dialogue)
+		print("PAR: ", get_parent().name, " A2 DT SIZE: ", dialogue_trigger.start_dialogue.get_connections().size())
 
 	dialogue_window.text_processor.finished_printing_text.connect(text_finished_printing)
 	unfocused_skip_line_timer.timeout.connect(skip_line_timeout)

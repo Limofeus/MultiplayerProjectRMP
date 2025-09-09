@@ -1,0 +1,84 @@
+[gd_scene load_steps=12 format=3 uid="uid://dcv2qqx1bcyda"]
+
+[ext_resource type="Script" uid="uid://dcvoilv2ecdyd" path="res://scripts/world/world building/dialogues/simple_dialogue_point.gd" id="1_3ow00"]
+[ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="2_l3r23"]
+[ext_resource type="Script" uid="uid://oo1at2kcw1bi" path="res://scripts/components/tinkering/tinkerable/dialogue/dialogue_updater.gd" id="3_l3r23"]
+[ext_resource type="Script" uid="uid://5vx8lf2husda" path="res://scripts/components/tinkering/tinkerable/dialogue/tinkerable_dialogue.gd" id="4_2hjcj"]
+[ext_resource type="Script" uid="uid://oemy1qly8v4a" path="res://scripts/ui/positioning/world_based_control_alter.gd" id="5_hvq0h"]
+[ext_resource type="PackedScene" uid="uid://cd0yemnim3xk4" path="res://scenes/ui/tinkerables/dialogue/dialogue_window.tscn" id="6_isng5"]
+[ext_resource type="Script" uid="uid://dhr6u82gkorbh" path="res://scripts/components/tinkering/spatial/tinkerable_area.gd" id="7_hvq0h"]
+
+[sub_resource type="Curve" id="Curve_p5vyn"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 1, Vector2(0.666, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.438202), -4.11746, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_vmiem"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 1, Vector2(0.503597, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.97985, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_isng5"]
+radius = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_hvq0h"]
+
+[node name="SimpleDialoguePoint" type="Node3D" node_paths=PackedStringArray("default_tinkerable_area", "dialogue_updater", "dialogue_window_visual", "world_ui_reposition")]
+script = ExtResource("1_3ow00")
+default_tinkerable_area = NodePath("DialogueLogic/DefaultTinkerableArea")
+dialogue_updater = NodePath("DialogueLogic/DialogueUpdater")
+dialogue_window_visual = NodePath("DialogueLogic/DialogueWindow")
+world_ui_reposition = NodePath("DialogueLogic/WorldUIReposition")
+
+[node name="DialogueLogic" type="Node" parent="."]
+
+[node name="DialogueNetEntity" type="Node" parent="DialogueLogic"]
+script = ExtResource("2_l3r23")
+
+[node name="DialogueUpdater" type="Node" parent="DialogueLogic" node_paths=PackedStringArray("tinkerable_dialogue", "dialogue_window", "world_based_alter", "unfocused_skip_line_timer", "network_entity")]
+script = ExtResource("3_l3r23")
+tinkerable_dialogue = NodePath("../TinkerableDialogue")
+dialogue_window = NodePath("../DialogueWindow")
+world_based_alter = NodePath("../WorldUIReposition")
+unfocused_skip_line_timer = NodePath("Timer")
+network_entity = NodePath("../DialogueNetEntity")
+
+[node name="Timer" type="Timer" parent="DialogueLogic/DialogueUpdater"]
+one_shot = true
+
+[node name="TinkerableDialogue" type="Node" parent="DialogueLogic" node_paths=PackedStringArray("tinker_center_node", "network_entity")]
+script = ExtResource("4_2hjcj")
+tinker_center_node = NodePath("../DefaultTinkerableArea")
+tinker_range = 5.0
+tinker_angle_dot = 0.25
+network_entity = NodePath("../DialogueNetEntity")
+
+[node name="WorldUIReposition" type="Node" parent="DialogueLogic"]
+script = ExtResource("5_hvq0h")
+max_distance = 30.0
+distance_to_scale_curve = SubResource("Curve_p5vyn")
+distance_to_transparency_curve = SubResource("Curve_vmiem")
+
+[node name="ColorRect" type="ColorRect" parent="DialogueLogic"]
+anchors_preset = -1
+anchor_right = 0.035
+anchor_bottom = 0.222
+offset_left = 259.0
+offset_top = 217.0
+offset_right = 258.68
+offset_bottom = 113.144
+
+[node name="DialogueWindow" parent="DialogueLogic" instance=ExtResource("6_isng5")]
+offset_top = 0.0
+offset_bottom = 0.0
+
+[node name="DefaultTinkerableArea" type="Area3D" parent="DialogueLogic" node_paths=PackedStringArray("tinkerable")]
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("7_hvq0h")
+tinkerable = NodePath("../TinkerableDialogue")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DialogueLogic/DefaultTinkerableArea"]
+shape = SubResource("SphereShape3D_isng5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DialogueLogic/DefaultTinkerableArea"]
+mesh = SubResource("SphereMesh_hvq0h")

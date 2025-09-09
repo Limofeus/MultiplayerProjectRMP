@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://fjib4361ovfd"]
+[gd_scene load_steps=55 format=3 uid="uid://fjib4361ovfd"]
 
 [ext_resource type="Script" uid="uid://bdbitsb3bdwvf" path="res://scripts/networking/network_manager.gd" id="1_1ap1m"]
 [ext_resource type="Script" uid="uid://bjmp5kq0tl031" path="res://scripts/utility/fps_counter.gd" id="1_bkmm5"]
@@ -31,6 +31,7 @@
 [ext_resource type="Script" uid="uid://dhr6u82gkorbh" path="res://scripts/components/tinkering/spatial/tinkerable_area.gd" id="22_tel4y"]
 [ext_resource type="Script" uid="uid://oemy1qly8v4a" path="res://scripts/ui/positioning/world_based_control_alter.gd" id="23_yq6so"]
 [ext_resource type="PackedScene" uid="uid://cd0yemnim3xk4" path="res://scenes/ui/tinkerables/dialogue/dialogue_window.tscn" id="24_5q0nq"]
+[ext_resource type="PackedScene" uid="uid://dcv2qqx1bcyda" path="res://scenes/entities/simple_dialogue_point.tscn" id="27_qkpxi"]
 
 [sub_resource type="Resource" id="Resource_oj2bi"]
 script = ExtResource("10_aukot")
@@ -96,6 +97,9 @@ auto_exposure_speed = 2.0
 auto_exposure_min_sensitivity = 50.0
 auto_exposure_max_sensitivity = 500.0
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_fv21b"]
+radius = 8.282
+
 [sub_resource type="Resource" id="Resource_yq6so"]
 script = ExtResource("19_og1vs")
 interact_prompt = "Do actiuon1"
@@ -113,9 +117,6 @@ script = ExtResource("19_og1vs")
 interact_prompt = "Action3"
 interact_time = 0.0
 metadata/_custom_type_script = "uid://73romn18puo4"
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_fv21b"]
-radius = 8.282
 
 [sub_resource type="Resource" id="Resource_vy44t"]
 script = ExtResource("19_og1vs")
@@ -250,6 +251,23 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="ZoneTest" parent="World" instance=ExtResource("15_jscy8")]
+
+[node name="SimpleDialoguePoint" parent="." instance=ExtResource("27_qkpxi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.63918, 1.68011, 36.2041)
+
+[node name="Area3D" type="Area3D" parent="SimpleDialoguePoint" node_paths=PackedStringArray("collision_area")]
+collision_layer = 0
+collision_mask = 3
+monitorable = false
+script = ExtResource("20_qkpxi")
+collision_area = NodePath(".")
+colliding_group = "PlayerBody"
+sequence_name = "aboba_greeting"
+dialogue_priority = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SimpleDialoguePoint/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.240337, -0.317035, -0.372303)
+shape = SubResource("SphereShape3D_fv21b")
 
 [node name="TestWorlUi" type="Node" parent="."]
 

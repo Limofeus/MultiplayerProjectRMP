@@ -86,6 +86,7 @@ func sync_end_dialogue(force_sync_parameters : Dictionary) -> void:
 #ext functions
 
 func start_dialogue(dialogue_name : String, dialogue_priority : int) -> void:
+	print("Dialogue driver START: ", dialogue_name)
 	if dialogue_priority <= current_dialogue_priority:
 		return
 	force_start_dialogue(dialogue_name, dialogue_priority)
