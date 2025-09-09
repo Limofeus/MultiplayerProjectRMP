@@ -72,7 +72,7 @@ func _process(delta):
 	interpolate_dialogue_box(delta)
 
 	text_processor.text_process_step(delta)
-	unfocused_skip_progress_bar.value = 1.0 - (dialogue_unfocused_skip_timer.time_left / dialogue_unfocused_skip_timer.wait_time)
+	unfocused_skip_progress_bar.value = 1.0 - (dialogue_unfocused_skip_timer.time_left / dialogue_unfocused_skip_timer.wait_time) if text_processor.done_printing else 0.0
 
 #Dialogue box
 
