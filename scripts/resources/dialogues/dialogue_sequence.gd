@@ -43,7 +43,7 @@ func jump_to_block(block_index : int, dialogue_parameters : Dictionary = {}, all
 
 	current_block.block_start(dialogue_parameters)
 	if current_block.requires_sync() and allow_sync:
-		sync_dialogue_block_request.emit(current_block_index, previous_block_sync_keys + current_block.sync_parameter_keys())
+		sync_dialogue_block_request.emit(current_block_index, StaticUtility.merge_arrays(previous_block_sync_keys, current_block.sync_parameter_keys()))
 
 func sync_dialogue_block(block_index : int, dialogue_parameters : Dictionary, sync_parameters : Dictionary = {}) -> void:
 	var synced_parameter_dict = dialogue_parameters.duplicate()

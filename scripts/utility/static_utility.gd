@@ -40,3 +40,10 @@ static func get_all_file_paths(path: String) -> Array[String]: #Got this somewhe
 			file_paths.append(file_path)  
 		file_name = dir.get_next()  
 	return file_paths
+
+static func merge_arrays(merge_left : Array, merge_right : Array) -> Array:
+	var merged_array : Array = merge_left.duplicate()
+	for element in merge_right:
+		if !merged_array.has(element):
+			merged_array.append(element)
+	return merged_array
