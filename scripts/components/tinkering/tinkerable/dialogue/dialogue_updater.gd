@@ -93,6 +93,7 @@ func tinkerer_changed(new_tinkerer : NetworkEntity) -> void:
 		set_dialogue_timer_pause(false)
 	else:
 		set_dialogue_timer_pause(true)
+	dialogue_driver.set_dialogue_parameter("has_focused_tinkerer", !(new_tinkerer == null))
 	calc_set_dialogue_visibility()
 
 func set_dialogue_timer_pause(set_paused : bool) -> void:

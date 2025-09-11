@@ -14,6 +14,8 @@ signal on_dialogue_metadata_updated(metadata : Dictionary) #Like speaker name, t
 signal on_sequence_ended()
 
 signal sync_dialogue_block_request(block_index : int, sync_arguments : Array)
+signal sync_dialogue_action(block_index : int, action_name : String, sync_arguments : Array) #БЛЯЯЯ ПРОДОЛЖИТЬ ОТ СЮДА (ДЛЯ СЕБЯ / ЗАМЕТКА: parameters / action / requ_sync / ХУЙНЯ)
+signal sync_dialogue_parameters_change(block_index : int, sync_arguments : Array)
 signal sync_dialogue_end_request()
 
 func init_sequence(dialogue_parameters : Dictionary = {}) -> void:
@@ -80,10 +82,18 @@ func end_sequence(allow_sync : bool = true) -> void: #TODO: Look in to adding di
 func action_on_current_block(action_name : String, dialogue_parameters : Dictionary = {}) -> void:
 	if current_block != null:
 		current_block.block_action(action_name, dialogue_parameters)
+		if current_block.requires_action_sync():
+			sync_dialogue_action.emit(current_block_index, action_name, current_block.sync_parameter_keys())
 
 func dialogue_parameters_changed(new_dialogue_parameters : Dictionary = {}) -> void:
 	for block in dialogue_blocks:
-		block.dialogue_parameters_changed(new_dialogue_parameters)
+		var is_current_block : bool = block == current_block
+		block.dialogue_parameters_changed(new_dialogue_parameters, is_current_block)
+
+		if block.requires_parameter_sync() == DialogueBlock.ParameterSyncType.ALWAYS:
+			sync_dialogue_parameters_change.emit(current_block_index, block.sync_parameter_keys())
+		elif block.requires_parameter_sync() == DialogueBlock.ParameterSyncType.WHEN_CURRENT_BLOCK and is_current_block:
+			sync_dialogue_parameters_change.emit(current_block_index, block.sync_parameter_keys())
 
 #Requests called from blocks
 func set_choice_options(choice_option_strings : Array[String]) -> void:
