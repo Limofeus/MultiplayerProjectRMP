@@ -27,10 +27,10 @@ func requires_sync() -> bool:
 	return sync_dialogue_block
 
 func requires_action_sync() -> bool:
-	return false
+	return false #Try not to use this thing as well
 
 func requires_parameter_sync() -> ParameterSyncType:
-	return ParameterSyncType.DISABLED
+	return ParameterSyncType.DISABLED #Better not sync this at all, lol
 
 func sync_parameter_keys() -> Array:
 	return []
