@@ -89,6 +89,7 @@ func select_dialogue_choice(choice_index : int) -> void:
 		dialogue_driver.select_dialogue_choice(choice_index)
 
 func tinkerer_changed(new_tinkerer : NetworkEntity) -> void:
+	print("Updater tinkerer changed")
 	if new_tinkerer == null:
 		set_dialogue_timer_pause(false)
 	else:

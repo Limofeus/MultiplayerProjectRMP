@@ -14,9 +14,10 @@ signal on_dialogue_metadata_updated(metadata : Dictionary) #Like speaker name, t
 signal on_sequence_ended()
 
 signal sync_dialogue_block_request(block_index : int, sync_arguments : Array)
-signal sync_dialogue_action(block_index : int, action_name : String, sync_arguments : Array) #БЛЯЯЯ ПРОДОЛЖИТЬ ОТ СЮДА (ДЛЯ СЕБЯ / ЗАМЕТКА: parameters / action / requ_sync / ХУЙНЯ)
-signal sync_dialogue_parameters_change(block_index : int, sync_arguments : Array)
+signal sync_dialogue_action(block_index : int, action_name : String, sync_arguments : Array) #Not yet implemented
+signal sync_dialogue_parameters_change(block_index : int, sync_arguments : Array) #Not implemented yet
 signal sync_dialogue_end_request()
+#TODO: Idk, implement the action and param sync maybe
 
 func init_sequence(dialogue_parameters : Dictionary = {}) -> void:
 	#Probably clone resource before calling
@@ -28,7 +29,7 @@ func init_sequence(dialogue_parameters : Dictionary = {}) -> void:
 
 func jump_start_at_block(block_index : int = 0, dialogue_parameters : Dictionary = {}) -> void:
 	init_sequence(dialogue_parameters)
-	jump_to_block(block_index)
+	jump_to_block(block_index, dialogue_parameters)
 
 func jump_to_block(block_index : int, dialogue_parameters : Dictionary = {}, allow_sync = true) -> void:
 	var previous_block_sync_keys : Array = []
@@ -43,9 +44,11 @@ func jump_to_block(block_index : int, dialogue_parameters : Dictionary = {}, all
 	current_block_index = block_index
 	current_block = dialogue_blocks[current_block_index]
 
-	current_block.block_start(dialogue_parameters)
 	if current_block.requires_sync() and allow_sync:
 		sync_dialogue_block_request.emit(current_block_index, StaticUtility.merge_arrays(previous_block_sync_keys, current_block.sync_parameter_keys()))
+
+	current_block.block_start(dialogue_parameters) # Раньше была на 4 строчки выше.. хз вроде так бага одного нету, так что пока пусть тут побудет
+
 
 func sync_dialogue_block(block_index : int, dialogue_parameters : Dictionary, sync_parameters : Dictionary = {}) -> void:
 	var synced_parameter_dict = dialogue_parameters.duplicate()
@@ -61,7 +64,7 @@ func next_block(dialogue_parameters : Dictionary = {}) -> void:
 	if current_block_index + 1 >= dialogue_blocks.size():
 		end_sequence()
 	else:
-		jump_to_block(current_block_index + 1)
+		jump_to_block(current_block_index + 1, dialogue_parameters)
 
 func clean_sequence() -> void:
 	if current_block != null:

@@ -109,16 +109,17 @@ func force_start_dialogue(dialogue_name : String, dialogue_priority : int = 0, s
 
 func set_dialogue_parameter(key, value) -> void:
 	dialogue_parameters[key] = value
+	print("Dialogue parameters in driver changed: ", dialogue_parameters)
 	update_sequence_parameters()
 
 func next_dialogue_block() -> void:
 	if current_dialogue_sequence != null:
-		current_dialogue_sequence.next_block() #Checks for block lock
+		current_dialogue_sequence.next_block(dialogue_parameters) #Checks for block lock
 
 func select_dialogue_choice(choice_index : int) -> void:
 	if current_dialogue_sequence != null:
-		current_dialogue_sequence.action_on_current_block("dialogue_choice_selected_" + str(choice_index))
+		current_dialogue_sequence.action_on_current_block("dialogue_choice_selected_" + str(choice_index), dialogue_parameters)
 
 func action_on_current_block(action_name : String) -> void:
 	if current_dialogue_sequence != null:
-		current_dialogue_sequence.action_on_current_block(action_name)
+		current_dialogue_sequence.action_on_current_block(action_name, dialogue_parameters)

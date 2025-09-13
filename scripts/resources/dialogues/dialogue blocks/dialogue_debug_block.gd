@@ -10,7 +10,7 @@ func block_action(action_name : String, _dialogue_parameters : Dictionary = {}) 
 func lock_next_block(_dialogue_parameters : Dictionary = {}) -> bool:
 	return false
 
-func dialogue_parameters_changed(_dialogue_parameters : Dictionary = {}) -> void:
+func dialogue_parameters_changed(_dialogue_parameters : Dictionary = {}, _current_block : bool = false) -> void:
 	debug_print_parameters("parameters_changed", _dialogue_parameters)
 
 func requires_sync() -> bool:
