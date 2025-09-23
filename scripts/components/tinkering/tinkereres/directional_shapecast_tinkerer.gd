@@ -64,7 +64,12 @@ func update_tinkerable_list(new_tinkerable_list : Array[Tinkerable]):
 	
 	for tinkerable in new_tinkerable_list:
 		tinkerable_display_state_dict[tinkerable] = Tinkerable.TinkerableState.Hidden #Assumes tinkerables start out hidden
+		tinkerable.tree_exiting.connect(on_tinkerable_tree_exit.bind(tinkerable))
 		try_update_tinkerable_dict_entry(tinkerable, new_tinkerable_visibility_dict[tinkerable]) #Updates if it should be visible
+
+func on_tinkerable_tree_exit(tinkerable : Tinkerable) -> void:
+	try_update_tinkerable_dict_entry(tinkerable, Tinkerable.TinkerableState.Hidden)
+	tinkerable_display_state_dict.erase(tinkerable)
 
 func try_update_tinkerable_dict_entry(update_tinkerable : Tinkerable, new_value : Tinkerable.TinkerableState):
 	if tinkerable_display_state_dict[update_tinkerable] != new_value:

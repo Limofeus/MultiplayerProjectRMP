@@ -1,4 +1,4 @@
-extends InteractionRecievingComponent
+extends InteractionReceivingComponent
 class_name MountableComponent
 
 @export var owner_changer : OwnerChangeComponent

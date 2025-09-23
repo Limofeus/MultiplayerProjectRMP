@@ -37,7 +37,7 @@ func recieve_interaction(interaction : Interaction, interacted_entity : Interact
 		print("WARNING: No shared logic found on interactable entity, check " + str(self.name))
 		return
 	for shared_logic_child in sharedLogic.get_children():
-		if shared_logic_child is InteractionRecievingComponent:
+		if shared_logic_child is InteractionReceivingComponent:
 			print(self.get_current_authority())
 			shared_logic_child.recieve_interaction(interaction, interacted_entity)
 

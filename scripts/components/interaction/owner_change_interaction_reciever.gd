@@ -1,4 +1,4 @@
-extends InteractionRecievingComponent
+extends InteractionReceivingComponent
 
 @export var owner_change_component : OwnerChangeComponent
 @export var force_change_owner : bool = false #Use with caution (at least use this with timed owner change, tho TODO make alternative owner changed timed that will check for whoever was first to forve change, not both...)

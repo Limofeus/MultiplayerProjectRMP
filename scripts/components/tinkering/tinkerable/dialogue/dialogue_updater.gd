@@ -44,10 +44,11 @@ func _ready() -> void:
 
 func update_buttons():
 	var dialogue_options : Array[String] = []
+	
 	for i in range(tinkerable_dialogue.interact_prompt_buttons.size()):
 		var tinker_button = tinkerable_dialogue.interact_prompt_buttons[i]
 
-		tinker_button.on_interaction_completed.connect(select_dialogue_choice.bind(i))
+		tinker_button.on_interaction_completed.connect(select_dialogue_choice.bind(i).unbind(1))
 
 		dialogue_options.append(tinker_button.interact_prompt)
 	dialogue_window.update_choice_options(dialogue_options)

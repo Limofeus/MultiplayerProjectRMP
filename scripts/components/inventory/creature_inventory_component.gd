@@ -48,6 +48,12 @@ func select_slot(selected_slot : int) -> void:
 func get_selected_slot() -> int:
 	return creature_item_container.selected_slot
 
+#Quick and dirty func
+func free_space_for_item(item : InventoryItem) -> int:
+	if creature_item_container != null and creature_item_container.has_room_for(item):
+		return creature_item_container.max_free_space_for_item(item)
+	return 0
+
 @rpc("call_remote", "any_peer", "unreliable") #Since logic is handled on owner of the entity, we can make this unreliable as it should only affect visuals
 func propagate_selection(selected_slot : int) -> void:
 	creature_item_container.select_slot(selected_slot, creature_item_user)

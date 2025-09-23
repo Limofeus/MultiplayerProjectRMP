@@ -1,4 +1,4 @@
-extends InteractionRecievingComponent
+extends InteractionReceivingComponent
 class_name ProjectileComponent
 
 #TODO: Look in to this, maybe there's a way to separate the damaging and the position changing properties of projectiles

@@ -1,4 +1,4 @@
-extends InteractionRecievingComponent
+extends InteractionReceivingComponent
 class_name AuthorityRoutingInteractionComponent
 
 #For ease of use, ignores interaction if filter returnes false

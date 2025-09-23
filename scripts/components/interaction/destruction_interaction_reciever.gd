@@ -1,4 +1,4 @@
-extends InteractionRecievingComponent
+extends InteractionReceivingComponent
 
 @export var destruction_component : DestructionComponent
 @export var force_destruction : bool = true

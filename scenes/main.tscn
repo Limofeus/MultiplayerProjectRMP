@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://fjib4361ovfd"]
+[gd_scene load_steps=69 format=3 uid="uid://fjib4361ovfd"]
 
 [ext_resource type="Script" uid="uid://bdbitsb3bdwvf" path="res://scripts/networking/network_manager.gd" id="1_1ap1m"]
 [ext_resource type="Script" uid="uid://bjmp5kq0tl031" path="res://scripts/utility/fps_counter.gd" id="1_bkmm5"]
@@ -32,6 +32,16 @@
 [ext_resource type="Script" uid="uid://oemy1qly8v4a" path="res://scripts/ui/positioning/world_based_control_alter.gd" id="23_yq6so"]
 [ext_resource type="PackedScene" uid="uid://cd0yemnim3xk4" path="res://scenes/ui/tinkerables/dialogue/dialogue_window.tscn" id="24_5q0nq"]
 [ext_resource type="PackedScene" uid="uid://dcv2qqx1bcyda" path="res://scenes/entities/simple_dialogue_point.tscn" id="27_qkpxi"]
+[ext_resource type="Script" uid="uid://hkoxd4avrjl" path="res://scripts/components/tinkering/tinkerable/multibutton interaction/debug_multibutton_interaction_processor.gd" id="28_5poiv"]
+[ext_resource type="Script" uid="uid://chahk0rmmc7tg" path="res://scripts/components/inventory/dropped_item_component.gd" id="28_c6pm6"]
+[ext_resource type="Script" uid="uid://cv6ncnd7lg10u" path="res://scripts/components/tinkering/tinkerable/multibutton interaction/pickup_item_button_interaction.gd" id="29_2cjbq"]
+[ext_resource type="Script" uid="uid://hhxrri38woka" path="res://scripts/components/entity destruction/sequential_entity_destructor.gd" id="29_5he1u"]
+[ext_resource type="Resource" uid="uid://bpvdms7w0up6v" path="res://resources/inventory items/tools/spawner items/roomba_spawner_item.tres" id="30_2cjbq"]
+[ext_resource type="Script" uid="uid://dl81mamuiydco" path="res://scripts/components/inventory/item visual/dropped_item_visual_updater.gd" id="30_5poiv"]
+[ext_resource type="Script" uid="uid://lghsw7lphblg" path="res://scripts/components/inventory/item visual/dropped_item_visual.gd" id="31_2cjbq"]
+[ext_resource type="Script" uid="uid://c16p8nfy7vxqp" path="res://scripts/visual/simple effects/3d_node_simple_spin.gd" id="32_chjal"]
+[ext_resource type="Shader" uid="uid://bi67yjngfsmxq" path="res://shaders/mesh effects/textured_alpha_additive.gdshader" id="33_cjqg0"]
+[ext_resource type="Texture2D" uid="uid://dhxfkl1b3x4bf" path="res://sprites/effects/circle1_1.png" id="34_vchkt"]
 
 [sub_resource type="Resource" id="Resource_oj2bi"]
 script = ExtResource("10_aukot")
@@ -102,7 +112,7 @@ radius = 8.282
 
 [sub_resource type="Resource" id="Resource_yq6so"]
 script = ExtResource("19_og1vs")
-interact_prompt = "Do actiuon1"
+interact_prompt = "Подобрать"
 interact_time = 1.0
 metadata/_custom_type_script = "uid://73romn18puo4"
 
@@ -149,6 +159,28 @@ point_count = 3
 
 [sub_resource type="BoxMesh" id="BoxMesh_yq6so"]
 size = Vector3(1, 2.07, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_txyw0"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_sp5rk"]
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vc5cj"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("33_cjqg0")
+shader_parameter/main_texture = ExtResource("34_vchkt")
+shader_parameter/main_color = Color(1, 1, 1, 1)
+shader_parameter/power_mult = 20.0
+shader_parameter/alpha_mult = 1.0
+shader_parameter/mpimap_offset = 0.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oc4u5"]
+size = Vector2(0.6, 0.6)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tsk2b"]
 
@@ -366,6 +398,110 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.7737, 1.07711, 27.8912)
 mesh = SubResource("BoxMesh_yq6so")
 skeleton = NodePath("../WorldNode8")
 
+[node name="DroppedItem" type="Node" parent="TestWorlUi" node_paths=PackedStringArray("ownerLogic", "sharedLogic")]
+script = ExtResource("20_tel4y")
+ownerLogic = NodePath("OwnerLogic")
+sharedLogic = NodePath("SharedLogic")
+metadata/_custom_type_script = "uid://cwi5c0lmgvugw"
+
+[node name="OwnerLogic" type="Node" parent="TestWorlUi/DroppedItem"]
+
+[node name="Timer" type="Timer" parent="TestWorlUi/DroppedItem/OwnerLogic"]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="SharedLogic" type="Node" parent="TestWorlUi/DroppedItem"]
+
+[node name="DroppedItemComponent" type="Node" parent="TestWorlUi/DroppedItem/SharedLogic" node_paths=PackedStringArray("owner_prevent_pickup_timer", "destruction_component", "network_entity")]
+script = ExtResource("28_c6pm6")
+owner_prevent_pickup_timer = NodePath("../../OwnerLogic/Timer")
+destruction_component = NodePath("../DestructionComponent")
+network_entity = NodePath("../..")
+metadata/_custom_type_script = "uid://chahk0rmmc7tg"
+
+[node name="DestructionComponent" type="Node" parent="TestWorlUi/DroppedItem/SharedLogic" node_paths=PackedStringArray("sequential_deletion_nodes", "network_entity")]
+script = ExtResource("29_5he1u")
+sequential_deletion_nodes = [NodePath("../../OwnerLogic"), NodePath("../DroppedItemComponent"), NodePath("../DroppedItemVisualUpdater")]
+sequential_deletion_wait_times = Array[float]([5.0])
+network_entity = NodePath("../..")
+metadata/_custom_type_script = "uid://hhxrri38woka"
+
+[node name="DroppedItemVisualUpdater" type="Node" parent="TestWorlUi/DroppedItem/SharedLogic" node_paths=PackedStringArray("dropped_item_component", "dropped_item_visual", "destruction_component")]
+script = ExtResource("30_5poiv")
+dropped_item_component = NodePath("../DroppedItemComponent")
+dropped_item_visual = NodePath("../DroppedItemVisual")
+destruction_component = NodePath("../DestructionComponent")
+metadata/_custom_type_script = "uid://dl81mamuiydco"
+
+[node name="DroppedItemVisual" type="Node3D" parent="TestWorlUi/DroppedItem/SharedLogic" node_paths=PackedStringArray("item_display_plane", "tool_item_model_holder", "item_light", "item_name_label", "item_ammount_label")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.8947, 1.17784, 6.01158)
+script = ExtResource("31_2cjbq")
+item_display_plane = NodePath("MeshInstance3D")
+tool_item_model_holder = NodePath("ToolHolder")
+item_light = NodePath("OmniLight3D")
+item_name_label = NodePath("ItemNameLabel")
+item_ammount_label = NodePath("ItemAmmountLabel")
+metadata/_custom_type_script = "uid://lghsw7lphblg"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestWorlUi/DroppedItem/SharedLogic/DroppedItemVisual"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_txyw0")
+mesh = SubResource("PlaneMesh_sp5rk")
+skeleton = NodePath("")
+script = ExtResource("32_chjal")
+spin_speed = 3.0
+
+[node name="ItemNameLabel" type="Label3D" parent="TestWorlUi/DroppedItem/SharedLogic/DroppedItemVisual"]
+billboard = 1
+double_sided = false
+text = "       Item Name"
+font_size = 30
+outline_size = 10
+horizontal_alignment = 0
+
+[node name="ItemAmmountLabel" type="Label3D" parent="TestWorlUi/DroppedItem/SharedLogic/DroppedItemVisual"]
+billboard = 1
+double_sided = false
+text = "1       "
+font_size = 30
+outline_size = 10
+horizontal_alignment = 2
+
+[node name="ToolHolder" type="Node3D" parent="TestWorlUi/DroppedItem/SharedLogic/DroppedItemVisual"]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, -0.25, 0)
+script = ExtResource("32_chjal")
+
+[node name="MagicCircle" type="Node3D" parent="TestWorlUi/DroppedItem/SharedLogic/DroppedItemVisual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+script = ExtResource("32_chjal")
+spin_speed = 5.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestWorlUi/DroppedItem/SharedLogic/DroppedItemVisual/MagicCircle"]
+material_override = SubResource("ShaderMaterial_vc5cj")
+mesh = SubResource("PlaneMesh_oc4u5")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="TestWorlUi/DroppedItem/SharedLogic/DroppedItemVisual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.43932, 0)
+omni_range = 1.0
+
+[node name="Pickuper" parent="TestWorlUi/DroppedItem" instance=ExtResource("18_y6deb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.8569, 0.689294, 5.93704)
+
+[node name="TinkerableSelectMultibutton" parent="TestWorlUi/DroppedItem/Pickuper" index="1"]
+interact_prompt_settings = Array[ExtResource("19_og1vs")]([SubResource("Resource_yq6so"), SubResource("Resource_afa8h"), SubResource("Resource_fv21b")])
+
+[node name="DebugMultibuttonInteractionProcessor" type="Node" parent="TestWorlUi/DroppedItem/Pickuper/TinkerableSelectMultibutton" index="0"]
+script = ExtResource("28_5poiv")
+metadata/_custom_type_script = "uid://hkoxd4avrjl"
+
+[node name="PickupItemButtonInteraction" type="Node" parent="TestWorlUi/DroppedItem/Pickuper/TinkerableSelectMultibutton" index="1" node_paths=PackedStringArray("dropped_item_component", "entity_target")]
+script = ExtResource("29_2cjbq")
+inventory_item = ExtResource("30_2cjbq")
+dropped_item_component = NodePath("../../../SharedLogic/DroppedItemComponent")
+entity_target = NodePath("../../..")
+metadata/_custom_type_script = "uid://cv6ncnd7lg10u"
+
 [node name="UI Layer" type="CanvasLayer" parent="."]
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="UI Layer"]
@@ -485,3 +621,5 @@ color = Color(1, 1, 1, 0.156863)
 [editable path="TestWorlUi/WorldNode7"]
 [editable path="TestWorlUi/WorldNode7/MultiButtonPromptWindow"]
 [editable path="TestWorlUi/WorldNode8/DialogueWindow"]
+[editable path="TestWorlUi/DroppedItem/Pickuper"]
+[editable path="TestWorlUi/DroppedItem/Pickuper/MultiButtonPromptWindow"]

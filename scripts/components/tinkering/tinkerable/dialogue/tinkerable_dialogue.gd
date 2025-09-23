@@ -12,19 +12,18 @@ func tinker_input_enabled() -> bool:
 func other_peer_tinkering() -> bool:
 	return current_focusing_tinkerer != null and !current_focusing_tinkerer.has_authority()
 
-func process_tinker_input(input_event : InputEvent) -> void:
+func process_tinker_input(input_event : InputEvent, interacting_entity : InteractableNetworkEntity) -> void:
 	if tinker_input_enabled():
 		if interact_prompt_buttons.size() == 0:
 			if input_event.is_action_pressed(tinker_action_name):
 				main_tinker_action_no_choice.emit()
 		else:
-			super(input_event)
+			super(input_event, interacting_entity)
 	#else:
 		#print("TINKER INPUT DISABLED, cur tinkerer: ", current_focusing_tinkerer)
 
 func recieve_interaction(interaction : Interaction, interacted_entity : InteractableNetworkEntity) -> void:
-	if !interaction_filter(interaction):
-		return
+	super(interaction, interacted_entity)
 	update_current_tinkerer(interaction, interacted_entity)
 
 func update_current_tinkerer(interaction : Interaction, interacted_entity : InteractableNetworkEntity) -> void:
