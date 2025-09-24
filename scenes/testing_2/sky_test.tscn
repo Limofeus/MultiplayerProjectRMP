@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dmqkdprvruopn"]
+[gd_scene load_steps=26 format=3 uid="uid://dmqkdprvruopn"]
 
 [ext_resource type="Shader" uid="uid://d1iuphjudpf4s" path="res://shaders/test/sky_test_1.gdshader" id="1_1rkqf"]
 [ext_resource type="Script" uid="uid://qmbs0uhsfuc7" path="res://scripts/debug/testing/test_sky_shader_controller.gd" id="2_csrnv"]
@@ -43,6 +43,8 @@ shader_parameter/sun_view_gradient = SubResource("GradientTexture1D_ed2uu")
 shader_parameter/sun_radius = 0.04
 shader_parameter/sun_feather = 0.01
 shader_parameter/sun_color = Color(1, 1, 1, 1)
+shader_parameter/ground_color = Color(0.934813, 0.945181, 0.957259, 1)
+shader_parameter/ground_curve = 0.02
 shader_parameter/moon_1_radius = 0.263
 shader_parameter/moon_1_feather = 0.15
 shader_parameter/moon_1_feather_bias = 3.445
@@ -55,8 +57,8 @@ shader_parameter/moon_2_feather_bias = 0.246
 shader_parameter/moon_2_exposure = 0.0
 shader_parameter/moon_2_color = Color(0.777386, 0.953125, 0.796086, 1)
 shader_parameter/moon_2_sampler = ExtResource("2_fyqcy")
-shader_parameter/sun_dir = Vector3(0.37964, 0.565696, 0.732026)
-shader_parameter/moon_1_dir = Vector3(0.389228, 0.890382, 0.236055)
+shader_parameter/sun_dir = Vector3(0.27445, 0.769016, -0.577314)
+shader_parameter/moon_1_dir = Vector3(-0.939969, 0.33674, -0.0553548)
 shader_parameter/moon_2_dir = Vector3(-0.619317, 0.556166, -0.55419)
 
 [sub_resource type="Sky" id="Sky_6lpqi"]
@@ -80,12 +82,12 @@ fog_light_color = Color(0.444341, 0.60217, 0.780208, 1)
 fog_density = 0.3
 fog_aerial_perspective = 0.7
 fog_sky_affect = 0.2
-adjustment_brightness = 1.09
-adjustment_contrast = 1.26
+adjustment_saturation = 1.1
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_csrnv"]
 auto_exposure_enabled = true
-auto_exposure_scale = 0.9
+auto_exposure_scale = 0.85
+auto_exposure_speed = 1.0
 auto_exposure_min_sensitivity = 500.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_38bit"]
@@ -128,6 +130,11 @@ top_radius = 3.489
 bottom_radius = 4.0
 height = 0.3
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fyqcy"]
+albedo_color = Color(1, 0.435667, 0.401391, 1)
+metallic_specular = 0.77
+roughness = 0.41
+
 [node name="SkyTest" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("sun_node", "moon_1_node", "moon_2_node")]
@@ -139,7 +146,7 @@ moon_1_node = NodePath("../Moon1")
 moon_2_node = NodePath("../Moon2")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.243955, 0.89239, 0.37964, -0.702043, -0.432578, 0.565696, 0.669045, -0.128519, 0.732026, 0, 15.6462, 0)
+transform = Transform3D(0.882279, -0.382441, 0.27445, -0.440152, -0.463551, 0.769016, -0.166881, -0.799287, -0.577314, 0.757823, 15.7188, -3.0946)
 shadow_enabled = true
 directional_shadow_split_1 = 0.05
 directional_shadow_split_2 = 0.1
@@ -148,7 +155,7 @@ directional_shadow_blend_splits = true
 directional_shadow_max_distance = 500.0
 
 [node name="Moon1" type="Node3D" parent="."]
-transform = Transform3D(0.542459, -0.744474, 0.389228, -0.0144473, 0.454984, 0.890382, -0.839958, -0.488618, 0.236055, 0, 27.9505, 0)
+transform = Transform3D(-0.0987931, 0.326648, -0.939969, -0.113251, 0.934762, 0.33674, 0.988643, 0.139718, -0.0553548, 0, 27.9505, 0)
 
 [node name="Moon" type="DirectionalLight3D" parent="Moon1"]
 visible = false
@@ -257,3 +264,9 @@ skeleton = NodePath("../../Ground")
 
 [node name="model_sword_1" parent="TestObj" instance=ExtResource("3_6lpqi")]
 transform = Transform3D(0.751276, 0, 0.659989, 0, 1, 0, -0.659989, 0, 0.751276, 3.39951, 1.61593, -5.59934)
+
+[node name="Cylinder_001" parent="TestObj/model_sword_1" index="0"]
+transform = Transform3D(-0.0157271, -0.0443246, -0.0626216, -0.00417526, -0.0633346, 0.0458779, -0.0766075, 0.0125515, 0.0103555, -1.81036, -0.525877, 0.728379)
+material_override = SubResource("StandardMaterial3D_fyqcy")
+
+[editable path="TestObj/model_sword_1"]

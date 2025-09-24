@@ -13,7 +13,9 @@ group_uniforms Sun;
 uniform float sun_radius : hint_range(0, 1) = 0.04;
 uniform float sun_feather = 0.01;
 uniform vec3 sun_color : source_color = vec3(1.0, 1.0, 1.0);
-
+group_uniforms Ground;
+uniform vec4 ground_color : source_color = vec4(0.2, 0.169, 0.133, 1.0);
+uniform float ground_curve : hint_range(0, 1) = 0.02;
 group_uniforms Moons;
 uniform float moon_1_radius : hint_range(0, 1) = 0.05;
 uniform float moon_1_feather = 0.01;
@@ -112,6 +114,10 @@ void sky() {
 	vec3 moon_2_output = get_moon(view_dir, moon_2_dir, moon_2_radius, moon_2_feather, moon_2_feather_bias, moon_2_exposure, moon_2_color, moon_2_sampler) * (1.0 - moon_1_feathered_mask);
 
 	vec3 output = sky_output + sun_output + moon_1_output + moon_2_output;
+
+	float v_angle = acos(clamp(EYEDIR.y, -1.0, 1.0));
+	float c = (v_angle - (PI * 0.5)) / (PI * 0.5);
+	output = mix(output, ground_color.rgb, clamp(1.0 - pow(1.0 - c, 1.0 / ground_curve), 0.0, 1.0));
 
 	COLOR = output;
 }
