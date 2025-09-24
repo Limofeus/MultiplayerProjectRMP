@@ -2,6 +2,7 @@ shader_type sky;
 
 group_uniforms Sky;
 uniform sampler2D stars_panorama_map : source_color, repeat_enable;
+uniform samplerCube stars_cube_map : source_color, filter_linear_mipmap_anisotropic;
 uniform float stars_texture_lod = 0.0;
 group_uniforms SkyGradients;
 /** The gradient texture that is sampled using the Sun-Zenith angle */
@@ -122,8 +123,10 @@ void sky() {
 
 	vec3 stars_output = textureLod(stars_panorama_map, SKY_COORDS, stars_texture_lod).rgb;
 	
-	vec3 output = sky_output + sun_output + moon_1_output + moon_2_output;
+	vec3 stars_test = texture(stars_cube_map, view_dir).rgb;
 	
+	vec3 output = sky_output + sun_output + moon_1_output + moon_2_output;
+
 	//Ground mix
 	float v_angle = acos(clamp(EYEDIR.y, -1.0, 1.0));
 	float c = (v_angle - (PI * 0.5)) / (PI * 0.5);
