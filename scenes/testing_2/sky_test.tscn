@@ -37,13 +37,14 @@ width = 512
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_csrnv"]
 shader = ExtResource("1_1rkqf")
+shader_parameter/stars_texture_lod = 0.0
 shader_parameter/sun_zenith_gradient = SubResource("GradientTexture1D_6lpqi")
 shader_parameter/view_zenith_gradient = SubResource("GradientTexture1D_fyqcy")
 shader_parameter/sun_view_gradient = SubResource("GradientTexture1D_ed2uu")
 shader_parameter/sun_radius = 0.04
 shader_parameter/sun_feather = 0.01
 shader_parameter/sun_color = Color(1, 1, 1, 1)
-shader_parameter/ground_color = Color(0.934813, 0.945181, 0.957259, 1)
+shader_parameter/ground_color = Color(0.122683, 0.146755, 0.174391, 1)
 shader_parameter/ground_curve = 0.02
 shader_parameter/moon_1_radius = 0.263
 shader_parameter/moon_1_feather = 0.15
@@ -51,13 +52,15 @@ shader_parameter/moon_1_feather_bias = 3.445
 shader_parameter/moon_1_exposure = 0.700001
 shader_parameter/moon_1_color = Color(0.746415, 0.507751, 1, 1)
 shader_parameter/moon_1_sampler = ExtResource("2_fyqcy")
+shader_parameter/moon_1_texture_lod = 0.0
 shader_parameter/moon_2_radius = 0.07
 shader_parameter/moon_2_feather = 0.02
 shader_parameter/moon_2_feather_bias = 0.246
 shader_parameter/moon_2_exposure = 0.0
 shader_parameter/moon_2_color = Color(0.777386, 0.953125, 0.796086, 1)
 shader_parameter/moon_2_sampler = ExtResource("2_fyqcy")
-shader_parameter/sun_dir = Vector3(0.27445, 0.769016, -0.577314)
+shader_parameter/moon_2_texture_lod = 1.0
+shader_parameter/sun_dir = Vector3(0.603276, -0.550243, -0.577313)
 shader_parameter/moon_1_dir = Vector3(-0.939969, 0.33674, -0.0553548)
 shader_parameter/moon_2_dir = Vector3(-0.619317, 0.556166, -0.55419)
 
@@ -146,7 +149,8 @@ moon_1_node = NodePath("../Moon1")
 moon_2_node = NodePath("../Moon2")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.882279, -0.382441, 0.27445, -0.440152, -0.463551, 0.769016, -0.166881, -0.799287, -0.577314, 0.757823, 15.7188, -3.0946)
+transform = Transform3D(-0.746837, -0.279806, 0.603276, -0.643727, 0.531835, -0.550243, -0.166881, -0.799287, -0.577314, 0.757823, 15.7188, -3.0946)
+visible = false
 shadow_enabled = true
 directional_shadow_split_1 = 0.05
 directional_shadow_split_2 = 0.1
@@ -158,7 +162,6 @@ directional_shadow_max_distance = 500.0
 transform = Transform3D(-0.0987931, 0.326648, -0.939969, -0.113251, 0.934762, 0.33674, 0.988643, 0.139718, -0.0553548, 0, 27.9505, 0)
 
 [node name="Moon" type="DirectionalLight3D" parent="Moon1"]
-visible = false
 light_color = Color(0.93618, 0.766931, 1, 1)
 light_energy = 0.1
 light_indirect_energy = 0.1
