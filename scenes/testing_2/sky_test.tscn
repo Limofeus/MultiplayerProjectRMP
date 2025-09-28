@@ -1,10 +1,20 @@
-[gd_scene load_steps=27 format=3 uid="uid://dmqkdprvruopn"]
+[gd_scene load_steps=30 format=3 uid="uid://dmqkdprvruopn"]
 
 [ext_resource type="Shader" uid="uid://d1iuphjudpf4s" path="res://shaders/test/sky_test_1.gdshader" id="1_1rkqf"]
 [ext_resource type="Script" uid="uid://qmbs0uhsfuc7" path="res://scripts/debug/testing/test_sky_shader_controller.gd" id="2_csrnv"]
 [ext_resource type="Texture2D" uid="uid://ntmcxa50h5oh" path="res://temp/planet_map_test.png" id="2_fyqcy"]
 [ext_resource type="PackedScene" uid="uid://3cp2vrn1eqmo" path="res://models/weapons/model_sword_1.glb" id="3_6lpqi"]
-[ext_resource type="CompressedCubemap" uid="uid://cqe1dlwpmhps0" path="res://temp/NASA_star_color_cubemap.png" id="3_ed2uu"]
+[ext_resource type="CompressedCubemap" uid="uid://d3jb4p42t2jdq" path="res://temp/RandomCM.png" id="3_ed2uu"]
+[ext_resource type="Texture2D" uid="uid://bkoh3kbgxl8at" path="res://temp/NonCubeRandomStars.png" id="4_c5ghh"]
+
+[sub_resource type="Gradient" id="Gradient_c5ghh"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.0779817, 0.158257, 0.25, 0.367508, 0.490536, 0.697161, 0.823344, 0.993691)
+colors = PackedColorArray(0, 0, 0, 1, 0.103133, 0.028, 0.35, 1, 0.13, 0.234833, 0.5, 1, 0, 0.36, 0.198, 1, 0, 0.58, 0.0386666, 1, 0.69, 0.667, 0, 1, 0.78, 0.338, 0, 1, 0.49, 0, 0.1225, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yhlol"]
+gradient = SubResource("Gradient_c5ghh")
 
 [sub_resource type="Gradient" id="Gradient_fyqcy"]
 interpolation_mode = 2
@@ -38,8 +48,12 @@ width = 512
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_csrnv"]
 shader = ExtResource("1_1rkqf")
+shader_parameter/stars_panorama_map = ExtResource("4_c5ghh")
 shader_parameter/stars_cube_map = ExtResource("3_ed2uu")
-shader_parameter/stars_texture_lod = 0.0
+shader_parameter/stars_texture_lod = 1.635
+shader_parameter/rainbow_gradient = SubResource("GradientTexture1D_yhlol")
+shader_parameter/angle_degrees_start = 35.0
+shader_parameter/angle_degrees_end = 44.0
 shader_parameter/sun_zenith_gradient = SubResource("GradientTexture1D_6lpqi")
 shader_parameter/view_zenith_gradient = SubResource("GradientTexture1D_fyqcy")
 shader_parameter/sun_view_gradient = SubResource("GradientTexture1D_ed2uu")
@@ -61,10 +75,10 @@ shader_parameter/moon_2_feather_bias = 0.246
 shader_parameter/moon_2_exposure = 0.0
 shader_parameter/moon_2_color = Color(0.777386, 0.953125, 0.796086, 1)
 shader_parameter/moon_2_sampler = ExtResource("2_fyqcy")
-shader_parameter/moon_2_texture_lod = 0.0
-shader_parameter/sun_dir = Vector3(0.603276, -0.550243, -0.577313)
-shader_parameter/moon_1_dir = Vector3(-0.939969, 0.33674, -0.0553548)
-shader_parameter/moon_2_dir = Vector3(-0.619317, 0.556166, -0.55419)
+shader_parameter/moon_2_texture_lod = 1.8
+shader_parameter/sun_dir = Vector3(0.234488, 0.426222, -0.873699)
+shader_parameter/moon_1_dir = Vector3(-0.885774, 0.392326, 0.247961)
+shader_parameter/moon_2_dir = Vector3(-0.723586, 0.679212, -0.122866)
 
 [sub_resource type="Sky" id="Sky_6lpqi"]
 sky_material = SubResource("ShaderMaterial_csrnv")
@@ -151,8 +165,7 @@ moon_1_node = NodePath("../Moon1")
 moon_2_node = NodePath("../Moon2")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.746837, -0.279806, 0.603276, -0.643727, 0.531835, -0.550243, -0.166881, -0.799287, -0.577314, 0.757823, 15.7188, -3.0946)
-visible = false
+transform = Transform3D(0.0698665, 0.969605, 0.234488, 0.889044, -0.167138, 0.426222, 0.452459, 0.178692, -0.873699, 0.757823, 15.7188, -3.0946)
 shadow_enabled = true
 directional_shadow_split_1 = 0.05
 directional_shadow_split_2 = 0.1
@@ -161,9 +174,10 @@ directional_shadow_blend_splits = true
 directional_shadow_max_distance = 500.0
 
 [node name="Moon1" type="Node3D" parent="."]
-transform = Transform3D(-0.0987931, 0.326648, -0.939969, -0.113251, 0.934762, 0.33674, 0.988643, 0.139718, -0.0553548, 0, 27.9505, 0)
+transform = Transform3D(0.223731, 0.406632, -0.885774, -0.107143, 0.913564, 0.392326, 0.968744, 0.0071265, 0.247961, 0, 27.9505, 0)
 
 [node name="Moon" type="DirectionalLight3D" parent="Moon1"]
+visible = false
 light_color = Color(0.93618, 0.766931, 1, 1)
 light_energy = 0.1
 light_indirect_energy = 0.1
@@ -175,7 +189,7 @@ directional_shadow_blend_splits = true
 directional_shadow_max_distance = 500.0
 
 [node name="Moon2" type="Node3D" parent="."]
-transform = Transform3D(0.180039, 0.764221, -0.619317, 0.787637, 0.265155, 0.556166, 0.589248, -0.587928, -0.55419, 0, 20.6556, 0)
+transform = Transform3D(0.473673, 0.502054, -0.723586, 0.618106, 0.395749, 0.679212, 0.627358, -0.768976, -0.122866, 0, 20.6556, 0)
 
 [node name="Ground" type="Node3D" parent="."]
 

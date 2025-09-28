@@ -1,9 +1,13 @@
 shader_type sky;
 
 group_uniforms Sky;
-uniform sampler2D stars_panorama_map : source_color, repeat_enable;
-uniform samplerCube stars_cube_map : source_color, filter_linear_mipmap_anisotropic;
+uniform sampler2D stars_panorama_map : source_color, repeat_disable, filter_linear_mipmap_anisotropic;
+uniform samplerCube stars_cube_map : source_color, repeat_disable, filter_linear_mipmap_anisotropic;
 uniform float stars_texture_lod = 0.0;
+group_uniforms Rainbow;
+uniform sampler2D rainbow_gradient : source_color, repeat_disable;
+uniform float angle_degrees_start = 40.0;
+uniform float angle_degrees_end = 43.0;
 group_uniforms SkyGradients;
 /** The gradient texture that is sampled using the Sun-Zenith angle */
 uniform sampler2D sun_zenith_gradient : source_color, repeat_disable;
@@ -88,6 +92,10 @@ vec3 get_moon(vec3 view_dir, vec3 moon_dir, float moon_radius, float moon_exposu
 	return moon_output;
 }
 
+vec3 subtract_mask(vec3 input_color, float mask){
+	return input_color * max(1.0 - mask, 0.0);
+}
+
 void sky() {
 	vec3 view_dir = EYEDIR;
 
@@ -122,15 +130,22 @@ void sky() {
 	vec3 moon_2_output = get_moon(view_dir, moon_2_dir, moon_2_radius, moon_2_exposure, moon_2_color, moon_2_sampler, moon_2_texture_lod) * moon_2_feathered_mask * (1.0 - moon_1_feathered_mask);
 
 	vec3 stars_output = textureLod(stars_panorama_map, SKY_COORDS, stars_texture_lod).rgb;
-	
-	vec3 stars_test = texture(stars_cube_map, view_dir).rgb;
-	
-	vec3 output = sky_output + sun_output + moon_1_output + moon_2_output;
+	vec3 stars_test = subtract_mask(texture(stars_cube_map, view_dir, -0.3).rgb, moon_1_feathered_mask + moon_2_feathered_mask);
+
+	float rainbow_top_pos = angle_degrees_end / 180.0;
+	float rainbow_bottom_pos = angle_degrees_start / 180.0;
+	float rainbow_sky_coef = (sun_view_dot + 1.0) / 2.0;
+	float rainbow_pos = (rainbow_sky_coef - rainbow_bottom_pos) / (rainbow_top_pos - rainbow_bottom_pos);
+	rainbow_pos = clamp(rainbow_pos, 0.0, 1.0);
+	vec3 rainbow_test =  texture(rainbow_gradient, vec2(rainbow_pos, 0.5)).rgb;
+
+	vec3 output = sky_output + sun_output + moon_1_output + moon_2_output + rainbow_test;// + stars_test;
+	//output = stars_test;
 
 	//Ground mix
 	float v_angle = acos(clamp(EYEDIR.y, -1.0, 1.0));
 	float c = (v_angle - (PI * 0.5)) / (PI * 0.5);
-	output = mix(output, ground_color.rgb, clamp(1.0 - pow(1.0 - c, 1.0 / ground_curve), 0.0, 1.0));
+	//output = mix(output, ground_color.rgb, clamp(1.0 - pow(1.0 - c, 1.0 / ground_curve), 0.0, 1.0));
 
 	COLOR = output;
 }
