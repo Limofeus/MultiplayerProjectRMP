@@ -8,6 +8,8 @@ group_uniforms Rainbow;
 uniform sampler2D rainbow_gradient : source_color, repeat_disable;
 uniform float angle_degrees_start = 40.0;
 uniform float angle_degrees_end = 43.0;
+uniform float rainbow_exposure = 1.0;
+uniform sampler2D time_to_exposure;
 group_uniforms SkyGradients;
 /** The gradient texture that is sampled using the Sun-Zenith angle */
 uniform sampler2D sun_zenith_gradient : source_color, repeat_disable;
@@ -137,7 +139,8 @@ void sky() {
 	float rainbow_sky_coef = (sun_view_dot + 1.0) / 2.0;
 	float rainbow_pos = (rainbow_sky_coef - rainbow_bottom_pos) / (rainbow_top_pos - rainbow_bottom_pos);
 	rainbow_pos = clamp(rainbow_pos, 0.0, 1.0);
-	vec3 rainbow_test =  texture(rainbow_gradient, vec2(rainbow_pos, 0.5)).rgb;
+	vec3 rainbow_test =  texture(rainbow_gradient, vec2(rainbow_pos, 0.5)).rgb * rainbow_exposure;
+	rainbow_test = rainbow_test * texture(time_to_exposure, vec2(sun_zenith_dot01, 0.5)).rgb;
 
 	vec3 output = sky_output + sun_output + moon_1_output + moon_2_output + rainbow_test;// + stars_test;
 	//output = stars_test;
