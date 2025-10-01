@@ -2,6 +2,7 @@ extends TinkerableSelectMultibutton
 class_name TinkerableDialogue
 
 var current_focusing_tinkerer : NetworkEntity = null
+var keep_visible : bool = false;
 
 signal tinkerer_changed(new_tinkerer : NetworkEntity)
 signal main_tinker_action_no_choice()

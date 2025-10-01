@@ -28,13 +28,13 @@ func _ready() -> void:
 	dialogue_driver.on_choice_options_updated.connect(tinkerable_dialogue.update_dialogue_options)
 	dialogue_driver.on_main_text_updated.connect(main_text_updated)
 
-	dialogue_driver.on_dialogue_state_changed.connect(dialogue_window.set_show_dialogue)
+	dialogue_driver.on_dialogue_state_changed.connect(dialogue_state_changed)
 	dialogue_driver.on_dialogue_metadata_updated.connect(dialogue_metadata_updated)
 	dialogue_driver.sync_dialogue_block.connect(request_sync_dialogue)
 
 	for dialogue_trigger in dialogue_triggers:
 		print("Connecting trigger: " + dialogue_trigger.name, " with driver: ", dialogue_driver != null)
-		dialogue_trigger.start_dialogue.connect(dialogue_driver.start_dialogue)
+		dialogue_trigger.setup_dialogue_trigger(dialogue_driver, tinkerable_dialogue)
 		print("PAR: ", get_parent().name, " A2 DT SIZE: ", dialogue_trigger.start_dialogue.get_connections().size())
 
 	dialogue_window.text_processor.finished_printing_text.connect(text_finished_printing)
@@ -88,6 +88,9 @@ func select_dialogue_choice(choice_index : int) -> void:
 		dialogue_window.skip_text_printing()
 	else:
 		dialogue_driver.select_dialogue_choice(choice_index)
+
+func dialogue_state_changed(dialogue_running : bool) -> void:
+	dialogue_window.set_show_dialogue(dialogue_running || tinkerable_dialogue.keep_visible) #BUMP, check choice_dialogue_trigger.gd
 
 func tinkerer_changed(new_tinkerer : NetworkEntity) -> void:
 	print("Updater tinkerer changed")

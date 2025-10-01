@@ -148,7 +148,7 @@ void sky() {
 	//Ground mix
 	float v_angle = acos(clamp(EYEDIR.y, -1.0, 1.0));
 	float c = (v_angle - (PI * 0.5)) / (PI * 0.5);
-	//output = mix(output, ground_color.rgb, clamp(1.0 - pow(1.0 - c, 1.0 / ground_curve), 0.0, 1.0));
+	output = mix(output, ground_color.rgb, clamp(1.0 - pow(1.0 - c, 1.0 / ground_curve), 0.0, 1.0));
 
 	COLOR = output;
 }

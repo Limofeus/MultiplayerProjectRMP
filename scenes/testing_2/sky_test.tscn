@@ -39,7 +39,7 @@ width = 512
 
 [sub_resource type="Gradient" id="Gradient_yhlol"]
 interpolation_mode = 2
-offsets = PackedFloat32Array(0.5, 0.6, 0.75)
+offsets = PackedFloat32Array(0.55, 0.65, 0.8)
 colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_gsn4e"]
@@ -71,7 +71,7 @@ shader_parameter/sun_view_gradient = SubResource("GradientTexture1D_ed2uu")
 shader_parameter/sun_radius = 0.04
 shader_parameter/sun_feather = 0.01
 shader_parameter/sun_color = Color(1, 1, 1, 1)
-shader_parameter/ground_color = Color(0.122683, 0.146755, 0.174391, 1)
+shader_parameter/ground_color = Color(0.4845, 0.517275, 0.57, 1)
 shader_parameter/ground_curve = 0.02
 shader_parameter/moon_1_radius = 0.263
 shader_parameter/moon_1_feather = 0.15
@@ -87,7 +87,7 @@ shader_parameter/moon_2_exposure = 0.0
 shader_parameter/moon_2_color = Color(0.777386, 0.953125, 0.796086, 1)
 shader_parameter/moon_2_sampler = ExtResource("2_fyqcy")
 shader_parameter/moon_2_texture_lod = 1.8
-shader_parameter/sun_dir = Vector3(0.240216, 0.331349, -0.912417)
+shader_parameter/sun_dir = Vector3(0.240216, 0.276375, -0.930544)
 shader_parameter/moon_1_dir = Vector3(-0.885774, 0.392326, 0.247961)
 shader_parameter/moon_2_dir = Vector3(-0.717099, 0.679212, -0.15634)
 
@@ -176,7 +176,7 @@ moon_1_node = NodePath("../Moon1")
 moon_2_node = NodePath("../Moon2")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.625989, 0.741913, 0.240216, 0.66551, -0.668808, 0.331349, 0.406491, -0.0475541, -0.912417, 0.757823, 15.7188, -3.0946)
+transform = Transform3D(0.625989, 0.741912, 0.240216, 0.688556, -0.670454, 0.276375, 0.3661, -0.00760544, -0.930544, 0.757823, 15.7188, -3.0946)
 shadow_enabled = true
 directional_shadow_split_1 = 0.05
 directional_shadow_split_2 = 0.1
@@ -190,7 +190,7 @@ transform = Transform3D(0.223731, 0.406632, -0.885774, -0.107143, 0.913564, 0.39
 [node name="Moon" type="DirectionalLight3D" parent="Moon1"]
 visible = false
 light_color = Color(0.93618, 0.766931, 1, 1)
-light_energy = 0.1
+light_energy = 0.05
 light_indirect_energy = 0.1
 shadow_enabled = true
 directional_shadow_split_1 = 0.05

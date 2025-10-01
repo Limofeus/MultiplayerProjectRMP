@@ -1,11 +1,24 @@
-[gd_resource type="Resource" script_class="DialogueSequence" load_steps=3 format=3 uid="uid://dgi4l3rprbgbv"]
+[gd_resource type="Resource" script_class="DialogueSequence" load_steps=6 format=3 uid="uid://dgi4l3rprbgbv"]
 
 [ext_resource type="Script" uid="uid://bee4762ye2at8" path="res://scripts/resources/dialogues/dialogue_block.gd" id="1_mmwga"]
+[ext_resource type="Script" uid="uid://8njgmbn7c7jq" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_text_block.gd" id="2_s6arb"]
 [ext_resource type="Script" uid="uid://duyli6g2p5ayn" path="res://scripts/resources/dialogues/dialogue_sequence.gd" id="2_tutwy"]
+
+[sub_resource type="Resource" id="Resource_tivi3"]
+script = ExtResource("2_s6arb")
+dialogue_text = "Спасибо что осмотрел меня"
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[sub_resource type="Resource" id="Resource_s6arb"]
+script = ExtResource("2_s6arb")
+dialogue_text = "Я признателен тебе за это"
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
 
 [resource]
 script = ExtResource("2_tutwy")
-sequence_name = "aboba_vanishing"
+sequence_name = "testing_inspect"
 sequence_lang_key = "en"
-dialogue_blocks = Array[ExtResource("1_mmwga")]([])
+dialogue_blocks = Array[ExtResource("1_mmwga")]([SubResource("Resource_tivi3"), SubResource("Resource_s6arb")])
 metadata/_custom_type_script = "uid://duyli6g2p5ayn"

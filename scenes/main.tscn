@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://fjib4361ovfd"]
+[gd_scene load_steps=70 format=3 uid="uid://fjib4361ovfd"]
 
 [ext_resource type="Script" uid="uid://bdbitsb3bdwvf" path="res://scripts/networking/network_manager.gd" id="1_1ap1m"]
 [ext_resource type="Script" uid="uid://bjmp5kq0tl031" path="res://scripts/utility/fps_counter.gd" id="1_bkmm5"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://d18ee7hebbod5" path="res://scenes/world/zones/zone_test.tscn" id="15_jscy8"]
 [ext_resource type="PackedScene" uid="uid://prgs730tnshv" path="res://scenes/testing_2/world_node_tinkerable_test.tscn" id="16_yc10j"]
 [ext_resource type="Script" uid="uid://jrqidiswd16s" path="res://scripts/ui/menus/open_settings_window_button.gd" id="17_gqmmt"]
+[ext_resource type="Script" uid="uid://cr5g5jxltekbc" path="res://scripts/components/tinkering/tinkerable/dialogue/dialogue triggers/choice_dialogue_trigger.gd" id="18_chjal"]
 [ext_resource type="Shader" uid="uid://2u66ri5gklxa" path="res://shaders/main menu effects/dither_canvas.gdshader" id="18_v1b13"]
 [ext_resource type="PackedScene" uid="uid://bxbpl6qtx6mpd" path="res://scenes/testing_2/world_node_tinkerable_select_multibutton_test.tscn" id="18_y6deb"]
 [ext_resource type="Texture2D" uid="uid://dsp2730flqo78" path="res://sprites/menu/dither2.png" id="19_6gyjg"]
@@ -300,6 +301,14 @@ dialogue_priority = 1
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SimpleDialoguePoint/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.240337, -0.317035, -0.372303)
 shape = SubResource("SphereShape3D_fv21b")
+
+[node name="ChoiceDialogueTrigger" type="Node" parent="SimpleDialoguePoint"]
+script = ExtResource("18_chjal")
+choice_names = Array[String](["Осмотреть", "Веселье"])
+sequence_names = Array[String](["inspect", "funny"])
+sequence_name = "testing_"
+dialogue_priority = 1
+metadata/_custom_type_script = "uid://cr5g5jxltekbc"
 
 [node name="TestWorlUi" type="Node" parent="."]
 

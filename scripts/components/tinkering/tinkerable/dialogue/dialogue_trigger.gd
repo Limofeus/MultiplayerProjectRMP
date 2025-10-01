@@ -7,6 +7,9 @@ class_name DialogueTrigger
 
 signal start_dialogue(sequence_name : String, priority : int)
 
+func setup_dialogue_trigger(dialogue_driver : DialogueDriver, _tinkerable_dialogue : TinkerableDialogue = null) -> void:
+	start_dialogue.connect(dialogue_driver.start_dialogue)
+
 func fire_dialogue_trigger() -> void:
 	print("Firing dialogue: ", sequence_name)
 	print("A1 DT SIZE: ", start_dialogue.get_connections().size())
