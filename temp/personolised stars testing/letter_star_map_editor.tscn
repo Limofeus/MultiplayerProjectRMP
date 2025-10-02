@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://bwwnftpmicpfq"]
+
+[ext_resource type="Script" uid="uid://c2pd22kyd62vx" path="res://temp/personolised stars testing/starmap_editor.gd" id="1_nhed2"]
+
+[sub_resource type="Gradient" id="Gradient_nhed2"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_76gty"]
+gradient = SubResource("Gradient_nhed2")
+width = 196
+height = 260
+
+[sub_resource type="Gradient" id="Gradient_d2fmk"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nhed2"]
+gradient = SubResource("Gradient_d2fmk")
+width = 192
+height = 256
+
+[sub_resource type="Gradient" id="Gradient_76gty"]
+colors = PackedColorArray(0.122252, 0.122252, 0.122252, 1, 0.121569, 0.121569, 0.121569, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ul404"]
+gradient = SubResource("Gradient_76gty")
+width = 132
+height = 196
+
+[node name="LetterStarMapEditor" type="Node2D"]
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_76gty")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_nhed2")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_ul404")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(-3, -53, 52, -101, 80, -34, -2, 107, -80, -39, -46, -101, 8, -51)
+width = 5.0
+default_color = Color(1, 1, 1, 0.556863)
+script = ExtResource("1_nhed2")
+symbol_name = "❤"
