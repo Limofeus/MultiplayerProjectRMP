@@ -142,6 +142,7 @@ void sky() {
 	rainbow_pos = clamp(rainbow_pos, 0.0, 1.0);
 	vec3 rainbow_test =  texture(rainbow_gradient, vec2(rainbow_pos, 0.5)).rgb * rainbow_exposure;
 
+	//rainbow_test = sample_wavelength_rgb_zero_one(rainbow_pos) * rainbow_exposure;
 	rainbow_test = rainbow_test * texture(time_to_exposure, vec2(sun_zenith_dot01, 0.5)).rgb;
 
 	vec3 output = sky_output + sun_output + moon_1_output + moon_2_output + rainbow_test;// + stars_test;

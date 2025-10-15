@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dmqkdprvruopn"]
+[gd_scene load_steps=39 format=3 uid="uid://dmqkdprvruopn"]
 
 [ext_resource type="Shader" uid="uid://d1iuphjudpf4s" path="res://shaders/test/sky_test_1.gdshader" id="1_1rkqf"]
 [ext_resource type="Script" uid="uid://qmbs0uhsfuc7" path="res://scripts/debug/testing/test_sky_shader_controller.gd" id="2_csrnv"]
@@ -64,7 +64,7 @@ shader_parameter/stars_texture_lod = 1.635
 shader_parameter/rainbow_gradient = SubResource("GradientTexture1D_yhlol")
 shader_parameter/angle_degrees_start = 35.0
 shader_parameter/angle_degrees_end = 44.0
-shader_parameter/rainbow_exposure = 0.195
+shader_parameter/rainbow_exposure = 0.15
 shader_parameter/time_to_exposure = SubResource("GradientTexture1D_gsn4e")
 shader_parameter/sun_zenith_gradient = SubResource("GradientTexture1D_6lpqi")
 shader_parameter/view_zenith_gradient = SubResource("GradientTexture1D_fyqcy")
@@ -166,10 +166,41 @@ albedo_color = Color(1, 0.435667, 0.401391, 1)
 metallic_specular = 0.77
 roughness = 0.41
 
+[sub_resource type="Gradient" id="Gradient_gsn4e"]
+offsets = PackedFloat32Array(0.0692042, 0.100346, 0.979239, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.911661, 0.911661, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_elupf"]
+gradient = SubResource("Gradient_gsn4e")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 1)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gsn4e"]
 shader = ExtResource("7_yhlol")
-shader_parameter/min_wavelength = 351.5
-shader_parameter/max_wavelength = 734.65
+shader_parameter/flare_texture = SubResource("GradientTexture2D_elupf")
+shader_parameter/fisheye_power = 3.125
+shader_parameter/scale_test = 1.0
+shader_parameter/offset_test = Vector2(1.72, 0.45)
+shader_parameter/scale_test_2 = 0.5
+
+[sub_resource type="Gradient" id="Gradient_elupf"]
+offsets = PackedFloat32Array(0.0692042, 0.100346, 0.979239, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.911661, 0.911661, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wkk4b"]
+gradient = SubResource("Gradient_elupf")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5n3c7"]
+shader = ExtResource("7_yhlol")
+shader_parameter/flare_texture = SubResource("GradientTexture2D_wkk4b")
+shader_parameter/fisheye_power = 3.125
+shader_parameter/scale_test = 1.0
+shader_parameter/offset_test = Vector2(1.29, 0.615)
+shader_parameter/scale_test_2 = 0.5
 
 [node name="SkyTest" type="Node3D"]
 
@@ -305,8 +336,30 @@ transform = Transform3D(0.751276, 0, 0.659989, 0, 1, 0, -0.659989, 0, 0.751276, 
 transform = Transform3D(-0.0157271, -0.0443246, -0.0626216, -0.00417526, -0.0633346, 0.0458779, -0.0766075, 0.0125515, 0.0103555, -1.81036, -0.525877, 0.728379)
 material_override = SubResource("StandardMaterial3D_fyqcy")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 739.0
+offset_top = -301.0
+offset_right = 958.0
+offset_bottom = -82.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_elupf")
+
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_gsn4e")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_5n3c7")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

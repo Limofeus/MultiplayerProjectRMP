@@ -5,7 +5,10 @@ const float ZERO_ONE_SAMPLE_WAVELENGTH_MAX = 750.0;
 
 float gamma_correct_wavelength_value(float value){
 	float result = 0.0;
-	if(value <= 0.0031308){
+	if(value <= 0.0){
+		result = 0.0;
+	}
+	else if(value <= 0.0031308){
 		result = value * 12.92;
 	}
 	else if(value <= 1.0){
