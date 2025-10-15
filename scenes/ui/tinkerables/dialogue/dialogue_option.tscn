@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dhtsulks4qu18"]
 
-[ext_resource type="Shader" uid="uid://dx15w12ftu8i0" path="res://shaders/test/outline_test_6.gdshader" id="1_8i0ac"]
+[ext_resource type="Shader" uid="uid://dx15w12ftu8i0" path="res://shaders/test/outline tests/outline_test_6.gdshader" id="1_8i0ac"]
 [ext_resource type="Script" uid="uid://5exu5ocbk2r6" path="res://scripts/ui/dialogue window/dialogue_choise_option_visual.gd" id="1_nbe3h"]
 [ext_resource type="Texture2D" uid="uid://cprp0ruq77wtm" path="res://sprites/testing/sdf_test_textures/dialogue_selector_unselected-p.png" id="1_s2sx6"]
 [ext_resource type="Texture2D" uid="uid://bcmvkv7cjbnlo" path="res://sprites/testing/sdf_test_textures/dialogue_selector_selected-p.png" id="2_co52j"]

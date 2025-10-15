@@ -1,4 +1,5 @@
 shader_type sky;
+#include "res://shaders/shaderincludes/wavelength_to_rgb.gdshaderinc"
 
 group_uniforms Sky;
 uniform sampler2D stars_panorama_map : source_color, repeat_disable, filter_linear_mipmap_anisotropic;
@@ -140,6 +141,7 @@ void sky() {
 	float rainbow_pos = (rainbow_sky_coef - rainbow_bottom_pos) / (rainbow_top_pos - rainbow_bottom_pos);
 	rainbow_pos = clamp(rainbow_pos, 0.0, 1.0);
 	vec3 rainbow_test =  texture(rainbow_gradient, vec2(rainbow_pos, 0.5)).rgb * rainbow_exposure;
+
 	rainbow_test = rainbow_test * texture(time_to_exposure, vec2(sun_zenith_dot01, 0.5)).rgb;
 
 	vec3 output = sky_output + sun_output + moon_1_output + moon_2_output + rainbow_test;// + stars_test;
