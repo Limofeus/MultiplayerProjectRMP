@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://dmqkdprvruopn"]
+[gd_scene load_steps=46 format=3 uid="uid://dmqkdprvruopn"]
 
 [ext_resource type="Shader" uid="uid://d1iuphjudpf4s" path="res://shaders/test/sky_test_1.gdshader" id="1_1rkqf"]
 [ext_resource type="Script" uid="uid://qmbs0uhsfuc7" path="res://scripts/debug/testing/test_sky_shader_controller.gd" id="2_csrnv"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://3cp2vrn1eqmo" path="res://models/weapons/model_sword_1.glb" id="3_6lpqi"]
 [ext_resource type="CompressedCubemap" uid="uid://d3jb4p42t2jdq" path="res://temp/RandomCM.png" id="3_ed2uu"]
 [ext_resource type="Texture2D" uid="uid://bkoh3kbgxl8at" path="res://temp/NonCubeRandomStars.png" id="4_c5ghh"]
+[ext_resource type="Shader" uid="uid://bkojnhbnh1lpo" path="res://shaders/test/screen_quad_test_1.gdshader" id="7_gsn4e"]
 [ext_resource type="Shader" uid="uid://dgr380r3fosxk" path="res://shaders/test/flare_test_1.gdshader" id="7_yhlol"]
 
 [sub_resource type="Gradient" id="Gradient_c5ghh"]
@@ -165,6 +166,42 @@ height = 0.3
 albedo_color = Color(1, 0.435667, 0.401391, 1)
 metallic_specular = 0.77
 roughness = 0.41
+
+[sub_resource type="Gradient" id="Gradient_wkk4b"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.358779, 0.442748, 0.473282)
+colors = PackedColorArray(1, 1, 1, 1, 0.0646966, 0.0646965, 0.0646965, 1, 0.0177324, 0.0177324, 0.0177324, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5n3c7"]
+gradient = SubResource("Gradient_wkk4b")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gsn4e"]
+noise_type = 2
+frequency = 0.9
+fractal_type = 0
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_elupf"]
+width = 512
+height = 512
+depth = 512
+seamless = true
+noise = SubResource("FastNoiseLite_gsn4e")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_elupf"]
+render_priority = 0
+shader = ExtResource("7_gsn4e")
+shader_parameter/noise_sampler = SubResource("NoiseTexture3D_elupf")
+shader_parameter/noise_gradient = SubResource("GradientTexture1D_5n3c7")
+shader_parameter/sphere_radius_scale = 0.001
+shader_parameter/sphere_radius_power = 90.0
+shader_parameter/sphere_radius_scroll_speed = 0.1
+shader_parameter/offset_vector = Vector3(9.575, 3.915, 0.89)
+shader_parameter/pre_sphere_scale_vector = Vector3(4, 0.02, 4)
+shader_parameter/mult_val = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_wkk4b"]
+flip_faces = true
+size = Vector2(2, 2)
 
 [sub_resource type="Gradient" id="Gradient_gsn4e"]
 offsets = PackedFloat32Array(0.0692042, 0.100346, 0.979239, 1)
@@ -335,6 +372,16 @@ transform = Transform3D(0.751276, 0, 0.659989, 0, 1, 0, -0.659989, 0, 0.751276, 
 [node name="Cylinder_001" parent="TestObj/model_sword_1" index="0"]
 transform = Transform3D(-0.0157271, -0.0443246, -0.0626216, -0.00417526, -0.0633346, 0.0458779, -0.0766075, 0.0125515, 0.0103555, -1.81036, -0.525877, 0.728379)
 material_override = SubResource("StandardMaterial3D_fyqcy")
+
+[node name="ScreenQuadTest" type="Node3D" parent="."]
+transform = Transform3D(0.394887, -0.0769314, 0.242993, 0.10653, 0.456881, -0.0284736, -0.23155, 0.0789999, 0.401302, 0.00310147, 0.362491, -1.99956)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ScreenQuadTest"]
+transform = Transform3D(1.78763, 0.482256, -1.04821, -0.348263, 2.06827, 0.357628, 1.10002, -0.128898, 1.81667, -2.27632, -0.0335527, 3.67586)
+material_override = SubResource("ShaderMaterial_elupf")
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_wkk4b")
+skeleton = NodePath("../..")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchors_preset = 8
