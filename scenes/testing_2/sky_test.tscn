@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=4 uid="uid://dmqkdprvruopn"]
+[gd_scene load_steps=69 format=4 uid="uid://dmqkdprvruopn"]
 
 [ext_resource type="Shader" uid="uid://d1iuphjudpf4s" path="res://shaders/test/sky_test_1.gdshader" id="1_1rkqf"]
 [ext_resource type="Script" uid="uid://qmbs0uhsfuc7" path="res://scripts/debug/testing/test_sky_shader_controller.gd" id="2_csrnv"]
@@ -10,6 +10,8 @@
 [ext_resource type="Shader" uid="uid://cbh0rlhxpsqrb" path="res://shaders/test/screen_quad_test_2.gdshader" id="7_gsn4e"]
 [ext_resource type="Shader" uid="uid://dgr380r3fosxk" path="res://shaders/test/flare_test_1.gdshader" id="7_yhlol"]
 [ext_resource type="Shader" uid="uid://cg000x81bh1cv" path="res://shaders/test/screen_quad_test_2_pt2.gdshader" id="9_elupf"]
+[ext_resource type="Shader" uid="uid://c68xid4nc5uo2" path="res://shaders/test/flare_alt_quad_test_1.gdshader" id="9_pr8cq"]
+[ext_resource type="Shader" uid="uid://o43xllhsyony" path="res://shaders/test/flare_alt_test_1.gdshader" id="10_5n3c7"]
 
 [sub_resource type="Gradient" id="Gradient_c5ghh"]
 interpolation_mode = 2
@@ -91,7 +93,7 @@ shader_parameter/moon_2_exposure = 0.0
 shader_parameter/moon_2_color = Color(0.777386, 0.953125, 0.796086, 1)
 shader_parameter/moon_2_sampler = ExtResource("2_fyqcy")
 shader_parameter/moon_2_texture_lod = 1.8
-shader_parameter/sun_dir = Vector3(0.24022, 0.969798, 0.0422553)
+shader_parameter/sun_dir = Vector3(0.24022, 0.294628, -0.924926)
 shader_parameter/moon_1_dir = Vector3(-0.885774, 0.392326, 0.247961)
 shader_parameter/moon_2_dir = Vector3(-0.717099, 0.679212, -0.15634)
 
@@ -217,6 +219,20 @@ height = 0.3
 albedo_color = Color(1, 0.435667, 0.401391, 1)
 metallic_specular = 0.77
 roughness = 0.41
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pr8cq"]
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission = Color(0.646284, 0.879622, 0, 1)
+emission_energy_multiplier = 1.64
+
+[sub_resource type="TorusMesh" id="TorusMesh_w1kui"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2lwd4"]
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission = Color(0.874696, 0, 0.120862, 1)
+emission_energy_multiplier = 2.4
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_elupf"]
 render_priority = 0
@@ -430,6 +446,52 @@ height = 6.348
 radial_segments = 4
 rings = 0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2lwd4"]
+render_priority = 0
+shader = ExtResource("9_pr8cq")
+shader_parameter/flare_threshold = 0.65
+shader_parameter/flare_margin = 0.2
+shader_parameter/uv_feather = 0.4
+shader_parameter/global_flare_power = 0.2
+shader_parameter/uv_mipmap_bias = 0.25
+shader_parameter/flat_uv_bias = 0.0
+shader_parameter/fisheye_power = 0.0
+shader_parameter/cascade_1_scale = 1.25
+shader_parameter/cascade_2_scale = 0.45
+shader_parameter/cascade_3_scale = 0.2
+shader_parameter/cascade_4_scale = -0.66
+shader_parameter/cascade_5_scale = -1.5
+shader_parameter/cascade_1_power = 0.03
+shader_parameter/cascade_2_power = 0.07
+shader_parameter/cascade_3_power = 0.06
+shader_parameter/cascade_4_power = 0.02
+shader_parameter/cascade_5_power = 0.04
+
+[sub_resource type="QuadMesh" id="QuadMesh_5n3c7"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3552q"]
+render_priority = 0
+shader = ExtResource("9_pr8cq")
+shader_parameter/flare_threshold = 0.65
+shader_parameter/flare_margin = 0.2
+shader_parameter/uv_feather = 0.4
+shader_parameter/global_flare_power = 0.2
+shader_parameter/uv_mipmap_bias = 0.25
+shader_parameter/flat_uv_bias = 0.0
+shader_parameter/fisheye_power = -1.175
+shader_parameter/cascade_1_scale = -0.565
+shader_parameter/cascade_2_scale = -0.28
+shader_parameter/cascade_3_scale = -0.115
+shader_parameter/cascade_4_scale = 0.325
+shader_parameter/cascade_5_scale = 0.89
+shader_parameter/cascade_1_power = 0.03
+shader_parameter/cascade_2_power = 0.07
+shader_parameter/cascade_3_power = 0.06
+shader_parameter/cascade_4_power = 0.02
+shader_parameter/cascade_5_power = 0.04
+
 [sub_resource type="Gradient" id="Gradient_gsn4e"]
 offsets = PackedFloat32Array(0.0692042, 0.100346, 0.979239, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 0.911661, 0.911661, 1, 1, 1, 1, 1, 1, 1, 1, 0)
@@ -448,6 +510,11 @@ shader_parameter/scale_test = 1.0
 shader_parameter/offset_test = Vector2(0.93, -0.34)
 shader_parameter/scale_test_2 = 0.5
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w1kui"]
+shader = ExtResource("10_5n3c7")
+shader_parameter/flare_threshold = 0.95
+shader_parameter/flare_margin = 0.05
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5n3c7"]
 shader = ExtResource("9_elupf")
 shader_parameter/threshold = 0.8
@@ -465,7 +532,7 @@ moon_1_node = NodePath("../Moon1")
 moon_2_node = NodePath("../Moon2")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.625995, 0.741906, 0.24022, -0.188035, -0.155351, 0.969799, 0.756818, -0.652259, 0.042256, 0.757823, 15.7188, -3.0946)
+transform = Transform3D(0.625995, 0.741906, 0.24022, 0.681213, -0.670181, 0.294628, 0.379577, -0.0207952, -0.924926, 0.757823, 15.7188, -3.0946)
 shadow_enabled = true
 directional_shadow_split_1 = 0.05
 directional_shadow_split_2 = 0.1
@@ -597,6 +664,16 @@ transform = Transform3D(0.751276, 0, 0.659989, 0, 1, 0, -0.659989, 0, 0.751276, 
 transform = Transform3D(-0.0157271, -0.0443246, -0.0626216, -0.00417526, -0.0633346, 0.0458779, -0.0766075, 0.0125515, 0.0103555, -1.81036, -0.525877, 0.728379)
 material_override = SubResource("StandardMaterial3D_fyqcy")
 
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="TestObj"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.7623, 0, -1.58077)
+material_override = SubResource("StandardMaterial3D_pr8cq")
+mesh = SubResource("TorusMesh_w1kui")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="TestObj"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.1195, -2.38419e-07, 3.87393)
+material_override = SubResource("StandardMaterial3D_2lwd4")
+mesh = SubResource("TorusMesh_w1kui")
+
 [node name="ScreenQuadTest" type="Node3D" parent="."]
 transform = Transform3D(0.394887, -0.0769314, 0.242993, 0.10653, 0.456881, -0.0284736, -0.23155, 0.0789999, 0.401302, 0.00310147, 0.362491, -1.99956)
 
@@ -631,7 +708,20 @@ amount = 300
 process_material = SubResource("ParticleProcessMaterial_3552q")
 draw_pass_1 = SubResource("CapsuleMesh_ojl51")
 
+[node name="ScreenFlareQuad" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_2lwd4")
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_5n3c7")
+skeleton = NodePath("../ScreenQuadTest")
+
+[node name="ScreenFlareQuad2" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_3552q")
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_5n3c7")
+skeleton = NodePath("../ScreenQuadTest")
+
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -646,7 +736,17 @@ grow_vertical = 2
 texture = SubResource("GradientTexture2D_elupf")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_gsn4e")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Flare2" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_w1kui")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
