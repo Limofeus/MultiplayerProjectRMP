@@ -108,9 +108,6 @@ auto_exposure_speed = 2.0
 auto_exposure_min_sensitivity = 50.0
 auto_exposure_max_sensitivity = 500.0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_fv21b"]
-radius = 8.282
-
 [sub_resource type="Resource" id="Resource_yq6so"]
 script = ExtResource("19_og1vs")
 interact_prompt = "Подобрать"
@@ -128,6 +125,9 @@ script = ExtResource("19_og1vs")
 interact_prompt = "Action3"
 interact_time = 0.0
 metadata/_custom_type_script = "uid://73romn18puo4"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fv21b"]
+radius = 8.282
 
 [sub_resource type="Resource" id="Resource_vy44t"]
 script = ExtResource("19_og1vs")
@@ -287,20 +287,6 @@ shadow_enabled = true
 
 [node name="SimpleDialoguePoint" parent="." instance=ExtResource("27_qkpxi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.63918, 1.68011, 36.2041)
-
-[node name="Area3D" type="Area3D" parent="SimpleDialoguePoint" node_paths=PackedStringArray("collision_area")]
-collision_layer = 0
-collision_mask = 3
-monitorable = false
-script = ExtResource("20_qkpxi")
-collision_area = NodePath(".")
-colliding_group = "PlayerBody"
-sequence_name = "aboba_greeting"
-dialogue_priority = 1
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SimpleDialoguePoint/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.240337, -0.317035, -0.372303)
-shape = SubResource("SphereShape3D_fv21b")
 
 [node name="ChoiceDialogueTrigger" type="Node" parent="SimpleDialoguePoint"]
 script = ExtResource("18_chjal")
@@ -510,6 +496,21 @@ inventory_item = ExtResource("30_2cjbq")
 dropped_item_component = NodePath("../../../SharedLogic/DroppedItemComponent")
 entity_target = NodePath("../../..")
 metadata/_custom_type_script = "uid://cv6ncnd7lg10u"
+
+[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("collision_area")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.63918, 1.68011, 36.2041)
+collision_layer = 0
+collision_mask = 3
+monitorable = false
+script = ExtResource("20_qkpxi")
+collision_area = NodePath(".")
+colliding_group = "PlayerBody"
+sequence_name = "aboba_greeting"
+dialogue_priority = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.240337, -0.317035, -0.372303)
+shape = SubResource("SphereShape3D_fv21b")
 
 [node name="UI Layer" type="CanvasLayer" parent="."]
 

@@ -715,6 +715,7 @@ mesh = SubResource("QuadMesh_5n3c7")
 skeleton = NodePath("../ScreenQuadTest")
 
 [node name="ScreenFlareQuad2" type="MeshInstance3D" parent="."]
+visible = false
 material_override = SubResource("ShaderMaterial_3552q")
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_5n3c7")

@@ -24,6 +24,8 @@ class InteractPromptButton:
 		current_interacting_entity = interacting_entity
 		on_interact_state_changed.emit(is_interacting)
 		if time_to_interact == 0.0:
+			print("Interaction with button completed..")
+			print(on_interaction_completed.get_connections())
 			on_interaction_completed.emit(current_interacting_entity)
 			stop_interaction()
 
@@ -41,11 +43,15 @@ class InteractPromptButton:
 			interact_progress += delta
 			on_progress_updated.emit(interact_progress / time_to_interact)
 			if interact_progress >= time_to_interact:
+				print("Interaction with button completed..")
+				print(on_interaction_completed.get_connections())
 				on_interaction_completed.emit(current_interacting_entity)
 				stop_interaction()
 
+@export var create_interact_prompt_buttons_on_ready : bool = true
 @export var tinker_action_name_prefix : String = "tinker_action_"
 @export var interact_prompt_settings : Array[TinkerableInteractButtonPromptSettings] = []
+
 var interact_prompt_buttons : Array[InteractPromptButton] = []
 
 signal button_state_changed(button_id : int) #Get button to find the new state if you need it :shrug: + or BETTER subscribe to button signals DIRECTLY, the array's exposed
@@ -53,13 +59,15 @@ signal button_interaction_completed(button_id : int, interacting_entity : Intera
 signal buttons_updated()
 
 func _ready():
-	recreate_interact_prompt_buttons()
+	if create_interact_prompt_buttons_on_ready:
+		recreate_interact_prompt_buttons()
 
 func _process(delta):
 	for button in interact_prompt_buttons:
 		button.update_interaction_progress(delta)
 
 func recreate_interact_prompt_buttons() -> void:
+	print("Recreating interact prompt buttons at node: ", self)
 	stop_all_button_interactions()
 	interact_prompt_buttons.clear()
 	for i in range(interact_prompt_settings.size()):
