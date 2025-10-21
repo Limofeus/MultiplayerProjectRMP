@@ -25,15 +25,16 @@ func select_trigger_choice(choice_id : int) -> void:
 
 func create_and_connect_buttons(tinkerable_dialogue : TinkerableDialogue) -> void:
 	#Doing it like this so it auto unbinds whenever buttons change via dialogue
-	print("Creating buttons..")
+	#print("Creating buttons..")
 	tinkerable_dialogue.update_dialogue_options(choice_names.duplicate())
 	for i in range(tinkerable_dialogue.interact_prompt_buttons.size()):
-		print("Connecting button: " + str(i))
+		#print("Connecting button: " + str(i))
 		tinkerable_dialogue.interact_prompt_buttons[i].on_interaction_completed.connect(select_trigger_choice.bind(i).unbind(1))
-		print(str(tinkerable_dialogue.interact_prompt_buttons[i].on_interaction_completed.get_connections()))
+		#print(str(tinkerable_dialogue.interact_prompt_buttons[i].on_interaction_completed.get_connections()))
 
 #TODO: Bruh, should really move this up and decouple in to different classes (visual and tinkerable dialogue)
 #PLUS need to make sure visual correctly updates each time with options and stuff and etc. rn only updates on dialogue state change
 #Basically the choice options visual needs a rework lol
 func tinkerable_state_changed(new_state : Tinkerable.TinkerableState, tinkerable_dialogue : TinkerableDialogue) -> void:
-	tinkerable_dialogue.keep_visible = new_state == Tinkerable.TinkerableState.Focused
+	#tinkerable_dialogue.keep_visible = new_state == Tinkerable.TinkerableState.Focused
+	pass

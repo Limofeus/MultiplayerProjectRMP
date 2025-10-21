@@ -53,6 +53,7 @@ func update_buttons():
 		dialogue_options.append(tinker_button.interact_prompt)
 	dialogue_window.update_choice_options(dialogue_options)
 
+#NOTE: Нуу.. эээ.. короче в будущем буду эту функцию искать точно, так что сейчас помечу (P.S. Для плавной анимации кнопок выбора в диалоге)
 func set_visibility_state(new_state : Tinkerable.TinkerableState) -> void:
 	if new_state == Tinkerable.TinkerableState.Focused:
 		dialogue_window.target_dynamic_dialogue = false
@@ -65,6 +66,7 @@ func set_visibility_state(new_state : Tinkerable.TinkerableState) -> void:
 
 func main_text_updated(main_text : String) -> void:
 	dialogue_window.set_text(main_text)
+	unfocused_skip_line_timer.stop()
 	#dialogue_window.recalculate_dynamic_window_size(4)
 
 func dialogue_metadata_updated(metadata : Dictionary) -> void:
@@ -102,15 +104,20 @@ func tinkerer_changed(new_tinkerer : NetworkEntity) -> void:
 	calc_set_dialogue_visibility()
 
 func set_dialogue_timer_pause(set_paused : bool) -> void:
+	if unfocused_skip_line_timer.is_stopped():
+		return
 	unfocused_skip_line_timer.paused = set_paused
 
 func text_finished_printing() -> void:
 	start_line_skip_timer(dialogue_window.text_processor.text_letter_count * 0.02) #TODO think where better do this, idk
+	print(">>>>>>>>>>>>  STARTING TIMER")
 
 func start_line_skip_timer(time_to_wait : float) -> void:
 	unfocused_skip_line_timer.start(time_to_wait)
+	unfocused_skip_line_timer.paused = !(tinkerable_dialogue.current_focusing_tinkerer == null)
 
 func skip_line_timeout() -> void:
+	print(">>>>>>>>>>>> Timer timeout..")
 	if tinkerable_dialogue.network_entity != null and tinkerable_dialogue.network_entity.has_authority():
 		dialogue_driver.next_dialogue_block()
 

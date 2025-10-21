@@ -38,7 +38,7 @@ const MAX_ITERS : int = 30
 var text_processor : DialogueTextProcessor = DialogueTextProcessor.new()
 var dialogue_metadata : Dictionary = {} #Chain updated through dialogue driver
 
-var spring_dampener : SpringUtility.SpringParams = SpringUtility.SpringParams.new(1.0) #1 - dynamic, 0 - static
+var spring_dampener : SpringUtility.SpringParams = SpringUtility.SpringParams.new(0.0) #1 - dynamic, 0 - static
 
 var dialogue_state_spring : SpringUtility.SpringParams = SpringUtility.SpringParams.new(0.0)
 var dialogue_state_target : float = 0.0
@@ -220,6 +220,7 @@ func set_text(pre_processed_text : String):
 	static_dialogue_text_label.text = text
 	recalculate_dynamic_window_size(4)
 	#Also resize and stuff here..
+	update_static_dialogue_box()
 
 func set_scale_alpha_multiplier(_scale_multiplier : float, _alpha_multiplier : float):
 	scale_multiplier = _scale_multiplier

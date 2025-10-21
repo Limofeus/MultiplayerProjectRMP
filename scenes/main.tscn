@@ -377,8 +377,8 @@ shape = SubResource("SphereShape3D_yc10j")
 [node name="WorldUiPosThing2" type="Node" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("target_position_node", "control_to_reposition", "size_ref_container", "modulate_node")]
 script = ExtResource("23_yq6so")
 target_position_node = NodePath("..")
-control_to_reposition = NodePath("../DialogueWindow/DynamicWindowPosition")
-size_ref_container = NodePath("../DialogueWindow/DynamicWindowPosition/DynamicDialogueBoxContainer")
+control_to_reposition = NodePath("../DialogueWindow/ModulateItem/DynamicWindowPosition")
+size_ref_container = NodePath("../DialogueWindow/ModulateItem/DynamicWindowPosition/DynamicDialogueBoxContainer")
 modulate_node = NodePath("../DialogueWindow")
 max_distance = 30.0
 distance_to_scale_curve = SubResource("Curve_yq6so")

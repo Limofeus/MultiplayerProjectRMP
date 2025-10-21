@@ -20,18 +20,27 @@ mouse_filter = 2
 script = ExtResource("1_kfdjx")
 dialogue_option_scene = ExtResource("3_kfdjx")
 dialogue_option_container = NodePath("ChoiseSelectionBox/CanvasGroup2/VBoxContainer")
-modulate_item = NodePath(".")
-interpolating_content = NodePath("BackdropPanel")
-scale_copy_node = NodePath("DynamicWindowPosition")
-unfocused_skip_progress_bar = NodePath("BackdropPanel/ProgressBar")
-dynamic_dialogue_box_container = NodePath("DynamicWindowPosition/DynamicDialogueBoxContainer")
-dynamic_dialogue_box_content = NodePath("DynamicWindowPosition/DynamicDialogueBoxContainer/StartTextSizeRef")
-dynamic_dialogue_text_label = NodePath("CanvasGroup/DynamicDialogueLabel")
-static_dialogue_box_container = NodePath("StaticDialogueBoxContainer")
-static_dialogue_box_content = NodePath("StaticDialogueBoxContainer/EndTextSizeRef")
-static_dialogue_text_label = NodePath("CanvasGroup/StaticDialogueLabel")
+modulate_item = NodePath("ModulateItem")
+interpolating_content = NodePath("ModulateItem/BackdropPanel")
+scale_copy_node = NodePath("ModulateItem/DynamicWindowPosition")
+unfocused_skip_progress_bar = NodePath("ModulateItem/BackdropPanel/ProgressBar")
+dynamic_dialogue_box_container = NodePath("ModulateItem/DynamicWindowPosition/DynamicDialogueBoxContainer")
+dynamic_dialogue_box_content = NodePath("ModulateItem/DynamicWindowPosition/DynamicDialogueBoxContainer/StartTextSizeRef")
+dynamic_dialogue_text_label = NodePath("ModulateItem/CanvasGroup/DynamicDialogueLabel")
+static_dialogue_box_container = NodePath("ModulateItem/StaticDialogueBoxContainer")
+static_dialogue_box_content = NodePath("ModulateItem/StaticDialogueBoxContainer/EndTextSizeRef")
+static_dialogue_text_label = NodePath("ModulateItem/CanvasGroup/StaticDialogueLabel")
 
-[node name="DynamicWindowPosition" type="Control" parent="."]
+[node name="ModulateItem" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="DynamicWindowPosition" type="Control" parent="ModulateItem"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -42,7 +51,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="DynamicDialogueBoxContainer" type="MarginContainer" parent="DynamicWindowPosition"]
+[node name="DynamicDialogueBoxContainer" type="MarginContainer" parent="ModulateItem/DynamicWindowPosition"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -61,13 +70,13 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 20
 
-[node name="StartTextSizeRef" type="ColorRect" parent="DynamicWindowPosition/DynamicDialogueBoxContainer"]
+[node name="StartTextSizeRef" type="ColorRect" parent="ModulateItem/DynamicWindowPosition/DynamicDialogueBoxContainer"]
 custom_minimum_size = Vector2(385.999, 88)
 layout_mode = 2
 mouse_filter = 2
-color = Color(0.278431, 0.898039, 0.294118, 0.588235)
+color = Color(0.277672, 0.899255, 0.277838, 0)
 
-[node name="StaticDialogueBoxContainer" type="MarginContainer" parent="."]
+[node name="StaticDialogueBoxContainer" type="MarginContainer" parent="ModulateItem"]
 custom_minimum_size = Vector2(0, 180)
 layout_mode = 1
 anchors_preset = 12
@@ -83,13 +92,13 @@ theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 120
 theme_override_constants/margin_bottom = 15
 
-[node name="EndTextSizeRef" type="ColorRect" parent="StaticDialogueBoxContainer"]
+[node name="EndTextSizeRef" type="ColorRect" parent="ModulateItem/StaticDialogueBoxContainer"]
 custom_minimum_size = Vector2(262, 88)
 layout_mode = 2
 mouse_filter = 2
-color = Color(1, 0.384314, 0.647059, 0.596078)
+color = Color(1, 0.387155, 0.647417, 0)
 
-[node name="BackdropPanel" type="Panel" parent="."]
+[node name="BackdropPanel" type="Panel" parent="ModulateItem"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -103,7 +112,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="BackdropPanel"]
+[node name="ProgressBar" type="ProgressBar" parent="ModulateItem/BackdropPanel"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -119,9 +128,9 @@ step = 0.0
 value = 1.0
 show_percentage = false
 
-[node name="CanvasGroup" type="CanvasGroup" parent="."]
+[node name="CanvasGroup" type="CanvasGroup" parent="ModulateItem"]
 
-[node name="StaticDialogueLabel" type="RichTextLabel" parent="CanvasGroup"]
+[node name="StaticDialogueLabel" type="RichTextLabel" parent="ModulateItem/CanvasGroup"]
 texture_filter = 2
 clip_contents = false
 offset_left = 123.0
@@ -140,10 +149,9 @@ Surely [color=orange][shake]there are means[/shake][/color] to handle it ;-;"
 fit_content = true
 scroll_active = false
 autowrap_mode = 2
-vertical_alignment = 1
 visible_characters_behavior = 1
 
-[node name="DynamicDialogueLabel" type="RichTextLabel" parent="CanvasGroup"]
+[node name="DynamicDialogueLabel" type="RichTextLabel" parent="ModulateItem/CanvasGroup"]
 texture_filter = 2
 clip_contents = false
 offset_left = 616.0

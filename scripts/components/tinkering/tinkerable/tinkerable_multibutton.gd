@@ -24,8 +24,8 @@ class InteractPromptButton:
 		current_interacting_entity = interacting_entity
 		on_interact_state_changed.emit(is_interacting)
 		if time_to_interact == 0.0:
-			print("Interaction with button completed..")
-			print(on_interaction_completed.get_connections())
+			#print("Interaction with button completed..")
+			#print(on_interaction_completed.get_connections())
 			on_interaction_completed.emit(current_interacting_entity)
 			stop_interaction()
 
@@ -43,8 +43,8 @@ class InteractPromptButton:
 			interact_progress += delta
 			on_progress_updated.emit(interact_progress / time_to_interact)
 			if interact_progress >= time_to_interact:
-				print("Interaction with button completed..")
-				print(on_interaction_completed.get_connections())
+				#print("Interaction with button completed..")
+				#print(on_interaction_completed.get_connections())
 				on_interaction_completed.emit(current_interacting_entity)
 				stop_interaction()
 
@@ -67,7 +67,7 @@ func _process(delta):
 		button.update_interaction_progress(delta)
 
 func recreate_interact_prompt_buttons() -> void:
-	print("Recreating interact prompt buttons at node: ", self)
+	#print("Recreating interact prompt buttons at node: ", self)
 	stop_all_button_interactions()
 	interact_prompt_buttons.clear()
 	for i in range(interact_prompt_settings.size()):
