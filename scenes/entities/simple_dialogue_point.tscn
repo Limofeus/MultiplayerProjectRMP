@@ -57,15 +57,6 @@ max_distance = 30.0
 distance_to_scale_curve = SubResource("Curve_p5vyn")
 distance_to_transparency_curve = SubResource("Curve_vmiem")
 
-[node name="ColorRect" type="ColorRect" parent="DialogueLogic"]
-anchors_preset = -1
-anchor_right = 0.035
-anchor_bottom = 0.222
-offset_left = 259.0
-offset_top = 217.0
-offset_right = 258.68
-offset_bottom = 113.144
-
 [node name="DialogueWindow" parent="DialogueLogic" instance=ExtResource("6_isng5")]
 offset_top = 0.0
 offset_bottom = 0.0

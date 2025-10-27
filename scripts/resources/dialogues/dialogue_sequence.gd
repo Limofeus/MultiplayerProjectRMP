@@ -31,11 +31,11 @@ func jump_start_at_block(block_index : int = 0, dialogue_parameters : Dictionary
 	init_sequence(dialogue_parameters)
 	jump_to_block(block_index, dialogue_parameters)
 
-func jump_to_block(block_index : int, dialogue_parameters : Dictionary = {}, allow_sync = true) -> void:
+func jump_to_block(block_index : int, dialogue_parameters : Dictionary = {}, sync_pass : bool = true) -> void:
 	var previous_block_sync_keys : Array = []
 	if current_block != null:
 		previous_block_sync_keys = current_block.sync_parameter_keys()
-		current_block.block_end(dialogue_parameters)
+		current_block.block_end(dialogue_parameters) #TODO: maybe pass "sync_pass" here and maybe to other functions as well idk
 
 	if block_index >= dialogue_blocks.size():
 		print("ERROR: Invalid block index")
@@ -44,10 +44,10 @@ func jump_to_block(block_index : int, dialogue_parameters : Dictionary = {}, all
 	current_block_index = block_index
 	current_block = dialogue_blocks[current_block_index]
 
-	if current_block.requires_sync() and allow_sync:
+	if current_block.requires_sync() and sync_pass:
 		sync_dialogue_block_request.emit(current_block_index, StaticUtility.merge_arrays(previous_block_sync_keys, current_block.sync_parameter_keys()))
 
-	current_block.block_start(dialogue_parameters) # Раньше была на 4 строчки выше.. хз вроде так бага одного нету, так что пока пусть тут побудет
+	current_block.block_start(dialogue_parameters, sync_pass) # Раньше была на 4 строчки выше.. хз вроде так бага одного нету, так что пока пусть тут побудет
 
 
 func sync_dialogue_block(block_index : int, dialogue_parameters : Dictionary, sync_parameters : Dictionary = {}) -> void:

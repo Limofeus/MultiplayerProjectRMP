@@ -59,6 +59,8 @@ var alpha_multiplier : float = 1.0
 
 var smoothed_dynamic_container_size : Vector2 = Vector2.ZERO
 
+signal dialogue_metadata_updated(metadata : Dictionary)
+
 #@export_tool_button("TestResize")
 #var button = recalculate_dynamic_window_size.bind(4)
 
@@ -228,3 +230,7 @@ func set_scale_alpha_multiplier(_scale_multiplier : float, _alpha_multiplier : f
 
 func set_show_dialogue(shown : bool):
 	dialogue_state_target = 1.0 if shown else 0.0
+
+func update_metadata(new_metadata_dict : Dictionary):
+	dialogue_metadata = new_metadata_dict
+	dialogue_metadata_updated.emit(dialogue_metadata)

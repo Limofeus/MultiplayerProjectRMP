@@ -93,7 +93,7 @@ shader_parameter/moon_2_exposure = 0.0
 shader_parameter/moon_2_color = Color(0.777386, 0.953125, 0.796086, 1)
 shader_parameter/moon_2_sampler = ExtResource("2_fyqcy")
 shader_parameter/moon_2_texture_lod = 1.8
-shader_parameter/sun_dir = Vector3(0.24022, 0.294628, -0.924926)
+shader_parameter/sun_dir = Vector3(0.240219, 0.294628, -0.924926)
 shader_parameter/moon_1_dir = Vector3(-0.885774, 0.392326, 0.247961)
 shader_parameter/moon_2_dir = Vector3(-0.717099, 0.679212, -0.15634)
 

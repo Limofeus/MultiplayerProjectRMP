@@ -16,7 +16,7 @@ func _ready() -> void:
 	#TINKERABLE & CONTROL ALTER
 	tinkerable_dialogue.buttons_updated.connect(update_buttons)
 	#idk, maybe change this later, depending on what the view needs / capable of (Responsible for dialogue display while other peer is chatting with npc)
-	tinkerable_dialogue.on_tinkerable_state_changed.connect(calc_set_dialogue_visibility.unbind(1))
+	tinkerable_dialogue.on_tinkerable_state_changed.connect(tinker_state_changed)
 	tinkerable_dialogue.tinkerer_changed.connect(tinkerer_changed)
 	tinkerable_dialogue.selection_changed.connect(dialogue_window.select_choise_option)
 	tinkerable_dialogue.main_tinker_action_no_choice.connect(next_dialogue_block)
@@ -71,7 +71,11 @@ func main_text_updated(main_text : String) -> void:
 
 func dialogue_metadata_updated(metadata : Dictionary) -> void:
 	print("Got metadata update: " + str(metadata))
-	print("------------")
+	dialogue_window.update_metadata(metadata)
+
+func tinker_state_changed(new_state : Tinkerable.TinkerableState) -> void:
+	dialogue_driver.merge_update_dialogue_metadata({"tinkerable_state" : new_state})
+	calc_set_dialogue_visibility()
 
 func calc_set_dialogue_visibility() -> void:
 	if tinkerable_dialogue.other_peer_tinkering() or tinkerable_dialogue.current_focusing_tinkerer == null: #The thing after "or" is a quick fix because I haven't yet thought how it should behave (either instant swap to other peer, or other peer has to reengage)

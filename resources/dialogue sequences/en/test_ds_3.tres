@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="DialogueSequence" load_steps=8 format=3 uid="uid://deyex8sfmplmh"]
+[gd_resource type="Resource" script_class="DialogueSequence" load_steps=12 format=3 uid="uid://deyex8sfmplmh"]
 
 [ext_resource type="Script" uid="uid://bee4762ye2at8" path="res://scripts/resources/dialogues/dialogue_block.gd" id="1_50ir2"]
 [ext_resource type="Script" uid="uid://8njgmbn7c7jq" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_text_block.gd" id="2_3tuvn"]
 [ext_resource type="Script" uid="uid://duyli6g2p5ayn" path="res://scripts/resources/dialogues/dialogue_sequence.gd" id="2_y0cw3"]
 [ext_resource type="Script" uid="uid://bew54dp5qxf0f" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_useless_choice_block.gd" id="3_npeky"]
+[ext_resource type="Script" uid="uid://cf0bgbio7nxdr" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_focus_branching_block.gd" id="4_lb72r"]
 
 [sub_resource type="Resource" id="Resource_npeky"]
 script = ExtResource("2_3tuvn")
@@ -24,9 +25,28 @@ dialogue_text = "Well I don't care anyway"
 sync_dialogue_block = true
 metadata/_custom_type_script = "uid://8njgmbn7c7jq"
 
+[sub_resource type="Resource" id="Resource_ap3py"]
+script = ExtResource("4_lb72r")
+focused_jump_index = 4
+unfocused_jump_index = 5
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://cf0bgbio7nxdr"
+
+[sub_resource type="Resource" id="Resource_s6dmf"]
+script = ExtResource("2_3tuvn")
+dialogue_text = "Спасибо что всё ещё тут"
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[sub_resource type="Resource" id="Resource_wmeii"]
+script = ExtResource("2_3tuvn")
+dialogue_text = "Пока"
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
 [resource]
 script = ExtResource("2_y0cw3")
 sequence_name = "testing_funny"
 sequence_lang_key = "en"
-dialogue_blocks = Array[ExtResource("1_50ir2")]([SubResource("Resource_npeky"), SubResource("Resource_lb72r"), SubResource("Resource_f2y2a")])
+dialogue_blocks = Array[ExtResource("1_50ir2")]([SubResource("Resource_npeky"), SubResource("Resource_lb72r"), SubResource("Resource_f2y2a"), SubResource("Resource_ap3py"), SubResource("Resource_s6dmf"), SubResource("Resource_wmeii")])
 metadata/_custom_type_script = "uid://duyli6g2p5ayn"

@@ -4,7 +4,7 @@ class_name DialogueDriver #Returns lines of dialogue and stuff probably
 var current_dialogue_sequence : DialogueSequence
 var current_dialogue_priority : int = 0
 
-var dialogue_metadata : Dictionary = {"target_lines" : 4, "text_type_speed_multiplier" : 1} #Add another way to get default values?
+var dialogue_metadata : Dictionary = {"target_lines" : 4, "text_type_speed_multiplier" : 1, "speaker_name" : ""} #Add another way to get default values?
 var dialogue_parameters : Dictionary = {} #Maybe need to sync parameters instead???
 
 signal on_main_text_updated(main_text : String)
@@ -12,7 +12,7 @@ signal on_choice_options_updated(choice_option_strings : Array[String])
 signal on_dialogue_metadata_updated(metadata : Dictionary)
 signal on_dialogue_state_changed(dialogue_running : bool)
 
-signal sync_dialogue_block(dialogue_sequence_name : String, block_index : int, sync_parameters : Dictionary)
+signal sync_dialogue_block(dialogue_sequence_name : String, block_index : int, sync_parameters : Dictionary) #TODO: Implement dialogue action syncing?..
 
 func connect_to_cur_dialogue_sequence() -> void:
 	current_dialogue_sequence.on_main_text_updated.connect(main_text_updated)
@@ -46,6 +46,9 @@ func dialogue_choices_updated(choice_option_strings : Array[String]) -> void:
 	on_choice_options_updated.emit(choice_option_strings)
 
 func dialogue_metadata_updated(metadata : Dictionary) -> void:
+	merge_update_dialogue_metadata(metadata)
+
+func merge_update_dialogue_metadata(metadata : Dictionary) -> void:
 	dialogue_metadata.merge(metadata, true)
 	on_dialogue_metadata_updated.emit(dialogue_metadata)
 

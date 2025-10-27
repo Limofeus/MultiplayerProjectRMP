@@ -1,8 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cd0yemnim3xk4"]
+[gd_scene load_steps=9 format=3 uid="uid://cd0yemnim3xk4"]
 
 [ext_resource type="FontFile" uid="uid://c2sattq3np4gm" path="res://fonts/vollkorn/Vollkorn-Black.otf" id="1_k001a"]
 [ext_resource type="Script" uid="uid://rpigau741e6g" path="res://scripts/ui/dialogue window/dialogue_window_visual.gd" id="1_kfdjx"]
+[ext_resource type="FontFile" uid="uid://8cykwsd1pbhj" path="res://fonts/vollkorn/Vollkorn-Medium.otf" id="3_0lrc2"]
+[ext_resource type="Script" uid="uid://bqfbvj6g0xsxv" path="res://scripts/ui/dialogue window/dialogue window elements/visibility_based_on_expression_window_element.gd" id="3_7yjq8"]
+[ext_resource type="Script" uid="uid://bnctkw8cv6flj" path="res://scripts/ui/dialogue window/dialogue window elements/label_change_dialogue_element.gd" id="3_60w08"]
 [ext_resource type="PackedScene" uid="uid://dhtsulks4qu18" path="res://scenes/ui/tinkerables/dialogue/dialogue_option.tscn" id="3_kfdjx"]
+[ext_resource type="Script" uid="uid://sw4iyr4jpgsv" path="res://scripts/ui/dialogue window/dialogue window elements/texture_change_dialogue_element.gd" id="3_kx3sx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kfdjx"]
 bg_color = Color(1, 1, 1, 1)
@@ -75,6 +79,44 @@ custom_minimum_size = Vector2(385.999, 88)
 layout_mode = 2
 mouse_filter = 2
 color = Color(0.277672, 0.899255, 0.277838, 0)
+
+[node name="TestExpression" type="Node" parent="ModulateItem" node_paths=PackedStringArray("dialogue_window_visual")]
+script = ExtResource("3_7yjq8")
+expression = "val(\"speaker_texture\") + \"Aboba\""
+dialogue_window_visual = NodePath("../..")
+
+[node name="SpeakerImage" type="TextureRect" parent="ModulateItem" node_paths=PackedStringArray("texture_rect_to_update", "dialogue_window_visual")]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 252.0
+offset_right = 284.0
+offset_bottom = 455.0
+script = ExtResource("3_kx3sx")
+texture_rect_to_update = NodePath(".")
+dialogue_window_visual = NodePath("../..")
+bound_metadata_entry = "speaker_texture"
+
+[node name="SpeakerName" type="Label" parent="ModulateItem" node_paths=PackedStringArray("label_to_update", "dialogue_window_visual")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 38.0
+offset_top = -232.0
+offset_right = 950.0
+offset_bottom = -209.0
+grow_vertical = 0
+size_flags_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.596078)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/shadow_outline_size = 2
+theme_override_fonts/font = ExtResource("3_0lrc2")
+theme_override_font_sizes/font_size = 40
+script = ExtResource("3_60w08")
+label_to_update = NodePath(".")
+dialogue_window_visual = NodePath("../..")
+bound_metadata_entry = "speaker_name"
 
 [node name="StaticDialogueBoxContainer" type="MarginContainer" parent="ModulateItem"]
 custom_minimum_size = Vector2(0, 180)

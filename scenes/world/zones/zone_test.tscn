@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://d18ee7hebbod5"]
+[gd_scene load_steps=69 format=3 uid="uid://d18ee7hebbod5"]
 
 [ext_resource type="Texture2D" uid="uid://coeqr5p2toa25" path="res://sprites/testing/TEST_TEX.png" id="1_sfa5y"]
 [ext_resource type="Script" uid="uid://tfe74edb8n6c" path="res://scripts/components/utility/editor tools/csg_material_texture_size_setter.gd" id="2_y1tiq"]
@@ -15,6 +15,26 @@
 [ext_resource type="PackedScene" uid="uid://c484qktn6burs" path="res://scenes/entities/creatures/bosses/sm_enemy_boss_green_1.tscn" id="13_pok8s"]
 [ext_resource type="PackedScene" uid="uid://b3kj2xjwgeemc" path="res://scenes/entities/creatures/bosses/sm_enemy_boss_red_1.tscn" id="14_ihdt4"]
 [ext_resource type="PackedScene" uid="uid://dugj4q0ytwe0u" path="res://scenes/entities/creatures/bosses/sm_enemy_boss_purple_1.tscn" id="15_bhfbc"]
+[ext_resource type="PackedScene" uid="uid://dcv2qqx1bcyda" path="res://scenes/entities/simple_dialogue_point.tscn" id="16_hro3e"]
+[ext_resource type="Script" uid="uid://cr5g5jxltekbc" path="res://scripts/components/tinkering/tinkerable/dialogue/dialogue triggers/choice_dialogue_trigger.gd" id="17_3l0w8"]
+[ext_resource type="PackedScene" uid="uid://prgs730tnshv" path="res://scenes/testing_2/world_node_tinkerable_test.tscn" id="18_bot6g"]
+[ext_resource type="PackedScene" uid="uid://dbnnhfo4lkk0v" path="res://scenes/testing_2/world_node_tinkerable_multibutton_test.tscn" id="19_171s4"]
+[ext_resource type="PackedScene" uid="uid://bxbpl6qtx6mpd" path="res://scenes/testing_2/world_node_tinkerable_select_multibutton_test.tscn" id="20_vnrq1"]
+[ext_resource type="Script" uid="uid://73romn18puo4" path="res://scripts/resources/tinkering/tinkerable_interact_prompt_button_settings.gd" id="21_5l3tj"]
+[ext_resource type="Script" uid="uid://latelpkoglv5" path="res://scripts/components/tinkering/tinkerable/dialogue/dialogue triggers/collision_area_dialogue_trigger.gd" id="22_x52dd"]
+[ext_resource type="Script" uid="uid://cwi5c0lmgvugw" path="res://scripts/networking/network entities/interactable_network_entity.gd" id="23_h4r4c"]
+[ext_resource type="Script" uid="uid://oo1at2kcw1bi" path="res://scripts/components/tinkering/tinkerable/dialogue/dialogue_updater.gd" id="24_s6351"]
+[ext_resource type="Script" uid="uid://5vx8lf2husda" path="res://scripts/components/tinkering/tinkerable/dialogue/tinkerable_dialogue.gd" id="25_dhmw5"]
+[ext_resource type="Script" uid="uid://dhr6u82gkorbh" path="res://scripts/components/tinkering/spatial/tinkerable_area.gd" id="26_3p8cy"]
+[ext_resource type="Script" uid="uid://oemy1qly8v4a" path="res://scripts/ui/positioning/world_based_control_alter.gd" id="27_twk73"]
+[ext_resource type="PackedScene" uid="uid://cd0yemnim3xk4" path="res://scenes/ui/tinkerables/dialogue/dialogue_window.tscn" id="28_fo61q"]
+[ext_resource type="Script" uid="uid://chahk0rmmc7tg" path="res://scripts/components/inventory/dropped_item_component.gd" id="29_8n4uq"]
+[ext_resource type="Script" uid="uid://hhxrri38woka" path="res://scripts/components/entity destruction/sequential_entity_destructor.gd" id="30_mupvh"]
+[ext_resource type="Script" uid="uid://dl81mamuiydco" path="res://scripts/components/inventory/item visual/dropped_item_visual_updater.gd" id="31_hlftd"]
+[ext_resource type="Script" uid="uid://lghsw7lphblg" path="res://scripts/components/inventory/item visual/dropped_item_visual.gd" id="32_jac1w"]
+[ext_resource type="Script" uid="uid://c16p8nfy7vxqp" path="res://scripts/visual/simple effects/3d_node_simple_spin.gd" id="33_le6k6"]
+[ext_resource type="Shader" uid="uid://bi67yjngfsmxq" path="res://shaders/mesh effects/textured_alpha_additive.gdshader" id="34_bb3e8"]
+[ext_resource type="Texture2D" uid="uid://dhxfkl1b3x4bf" path="res://sprites/effects/circle1_1.png" id="35_kda7b"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lamas"]
 albedo_texture = ExtResource("1_sfa5y")
@@ -98,6 +118,81 @@ shader_parameter/sprite_sheet_columns = 16
 
 [sub_resource type="QuadMesh" id="QuadMesh_rx52d"]
 size = Vector2(38, 51.2)
+
+[sub_resource type="Resource" id="Resource_yq6so"]
+script = ExtResource("21_5l3tj")
+interact_prompt = "Подобрать"
+interact_time = 1.0
+metadata/_custom_type_script = "uid://73romn18puo4"
+
+[sub_resource type="Resource" id="Resource_afa8h"]
+script = ExtResource("21_5l3tj")
+interact_prompt = "Do action2"
+interact_time = 2.0
+metadata/_custom_type_script = "uid://73romn18puo4"
+
+[sub_resource type="Resource" id="Resource_fv21b"]
+script = ExtResource("21_5l3tj")
+interact_prompt = "Action3"
+interact_time = 0.0
+metadata/_custom_type_script = "uid://73romn18puo4"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_iltfc"]
+radius = 8.282
+
+[sub_resource type="Resource" id="Resource_vy44t"]
+script = ExtResource("21_5l3tj")
+interact_prompt = "H.. hello?"
+interact_time = 0.0
+metadata/_custom_type_script = "uid://73romn18puo4"
+
+[sub_resource type="Resource" id="Resource_dgi5k"]
+script = ExtResource("21_5l3tj")
+interact_prompt = "Are you there?"
+interact_time = 0.0
+metadata/_custom_type_script = "uid://73romn18puo4"
+
+[sub_resource type="Resource" id="Resource_2wyq8"]
+script = ExtResource("21_5l3tj")
+interact_prompt = "Why bother?"
+interact_time = 0.0
+metadata/_custom_type_script = "uid://73romn18puo4"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mbu5x"]
+radius = 1.0
+
+[sub_resource type="Curve" id="Curve_3cdgb"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 1, Vector2(0.666, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.438202), -4.11746, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_fx3uf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 1, Vector2(0.503597, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.97985, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="BoxMesh" id="BoxMesh_6jpku"]
+size = Vector3(1, 2.07, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f6wnh"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bnqtj"]
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b4kub"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("34_bb3e8")
+shader_parameter/main_texture = ExtResource("35_kda7b")
+shader_parameter/main_color = Color(1, 1, 1, 1)
+shader_parameter/power_mult = 20.0
+shader_parameter/alpha_mult = 1.0
+shader_parameter/mpimap_offset = 0.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xnce1"]
+size = Vector2(0.6, 0.6)
 
 [node name="ZoneTest" type="Node3D"]
 
@@ -271,3 +366,225 @@ entity_to_spawn = ExtResource("14_ihdt4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.672, 3.89212, -10.9612)
 script = ExtResource("7_4q7r7")
 entity_to_spawn = ExtResource("15_bhfbc")
+
+[node name="SimpleDialoguePoint" parent="." instance=ExtResource("16_hro3e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.63918, 1.68011, 36.2041)
+
+[node name="ChoiceDialogueTrigger" type="Node" parent="SimpleDialoguePoint"]
+script = ExtResource("17_3l0w8")
+choice_names = Array[String](["Осмотреть", "Веселье"])
+sequence_names = Array[String](["inspect", "funny"])
+sequence_name = "testing_"
+dialogue_priority = 1
+metadata/_custom_type_script = "uid://cr5g5jxltekbc"
+
+[node name="TestWorlUi" type="Node" parent="."]
+
+[node name="WorldNode" parent="TestWorlUi" instance=ExtResource("18_bot6g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.48898, 0.999003, 4.458)
+
+[node name="WorldNode2" parent="TestWorlUi" instance=ExtResource("18_bot6g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2122, 0.754485, 6.44678)
+
+[node name="WorldNode3" parent="TestWorlUi" instance=ExtResource("18_bot6g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.85439, 1.10439, 4.14479)
+
+[node name="WorldNode4" parent="TestWorlUi" instance=ExtResource("19_171s4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4919, 0.753613, 7.61866)
+
+[node name="WorldNode5" parent="TestWorlUi" instance=ExtResource("19_171s4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8566, 0.753613, 8.98435)
+
+[node name="WorldNode6" parent="TestWorlUi" instance=ExtResource("20_vnrq1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.66949, 0.795433, 14.323)
+
+[node name="WorldNode7" parent="TestWorlUi" instance=ExtResource("20_vnrq1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3356, 0.795433, 15.0381)
+
+[node name="TinkerableSelectMultibutton" parent="TestWorlUi/WorldNode7" index="1"]
+interact_prompt_settings = Array[ExtResource("21_5l3tj")]([SubResource("Resource_yq6so"), SubResource("Resource_afa8h"), SubResource("Resource_fv21b")])
+
+[node name="WorldNode8" type="Node3D" parent="TestWorlUi"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.1633, 3.26049, 27.8912)
+
+[node name="Area3D" type="Area3D" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("collision_area")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31464, -2.3123, 0.79512)
+collision_layer = 0
+collision_mask = 3
+monitorable = false
+script = ExtResource("22_x52dd")
+collision_area = NodePath(".")
+colliding_group = "PlayerBody"
+sequence_name = "aboba_greeting"
+dialogue_priority = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestWorlUi/WorldNode8/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.240337, -0.317035, -0.372303)
+shape = SubResource("SphereShape3D_iltfc")
+
+[node name="TD_net_ent" type="Node" parent="TestWorlUi/WorldNode8"]
+script = ExtResource("23_h4r4c")
+
+[node name="DialogueUpdater" type="Node" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("dialogue_triggers", "tinkerable_dialogue", "dialogue_window", "world_based_alter", "unfocused_skip_line_timer", "network_entity")]
+script = ExtResource("24_s6351")
+dialogue_triggers = [NodePath("../Area3D")]
+tinkerable_dialogue = NodePath("../TinkerableDialogue")
+dialogue_window = NodePath("../DialogueWindow")
+world_based_alter = NodePath("../WorldUiPosThing2")
+unfocused_skip_line_timer = NodePath("Timer")
+network_entity = NodePath("../TD_net_ent")
+
+[node name="Timer" type="Timer" parent="TestWorlUi/WorldNode8/DialogueUpdater"]
+one_shot = true
+
+[node name="TinkerableDialogue" type="Node" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("tinker_center_node", "network_entity")]
+script = ExtResource("25_dhmw5")
+interact_prompt_settings = Array[ExtResource("21_5l3tj")]([SubResource("Resource_vy44t"), SubResource("Resource_dgi5k"), SubResource("Resource_2wyq8")])
+tinker_center_node = NodePath("../TinkerableArea")
+tinker_range = 5.0
+tinker_angle_dot = 0.25
+network_entity = NodePath("../TD_net_ent")
+
+[node name="TinkerableArea" type="Area3D" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("tinkerable")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.54488, 0)
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("26_3p8cy")
+tinkerable = NodePath("../TinkerableDialogue")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestWorlUi/WorldNode8/TinkerableArea"]
+shape = SubResource("SphereShape3D_mbu5x")
+
+[node name="WorldUiPosThing2" type="Node" parent="TestWorlUi/WorldNode8" node_paths=PackedStringArray("target_position_node", "control_to_reposition", "size_ref_container", "modulate_node")]
+script = ExtResource("27_twk73")
+target_position_node = NodePath("..")
+control_to_reposition = NodePath("../DialogueWindow/ModulateItem/DynamicWindowPosition")
+size_ref_container = NodePath("../DialogueWindow/ModulateItem/DynamicWindowPosition/DynamicDialogueBoxContainer")
+modulate_node = NodePath("../DialogueWindow")
+max_distance = 30.0
+distance_to_scale_curve = SubResource("Curve_3cdgb")
+distance_to_transparency_curve = SubResource("Curve_fx3uf")
+
+[node name="DialogueWindow" parent="TestWorlUi/WorldNode8" instance=ExtResource("28_fo61q")]
+offset_top = 0.0
+offset_bottom = 0.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestWorlUi"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.7737, 1.07711, 27.8912)
+mesh = SubResource("BoxMesh_6jpku")
+skeleton = NodePath("../WorldNode8")
+
+[node name="DroppedItem" type="Node" parent="TestWorlUi" node_paths=PackedStringArray("ownerLogic", "sharedLogic")]
+script = ExtResource("23_h4r4c")
+ownerLogic = NodePath("OwnerLogic")
+sharedLogic = NodePath("SharedLogic")
+metadata/_custom_type_script = "uid://cwi5c0lmgvugw"
+
+[node name="OwnerLogic" type="Node" parent="TestWorlUi/DroppedItem"]
+
+[node name="Timer" type="Timer" parent="TestWorlUi/DroppedItem/OwnerLogic"]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="SharedLogic" type="Node" parent="TestWorlUi/DroppedItem"]
+
+[node name="DroppedItemComponent" type="Node" parent="TestWorlUi/DroppedItem/SharedLogic" node_paths=PackedStringArray("owner_prevent_pickup_timer", "destruction_component", "network_entity")]
+script = ExtResource("29_8n4uq")
+owner_prevent_pickup_timer = NodePath("../../OwnerLogic/Timer")
+destruction_component = NodePath("../DestructionComponent")
+network_entity = NodePath("../..")
+metadata/_custom_type_script = "uid://chahk0rmmc7tg"
+
+[node name="DestructionComponent" type="Node" parent="TestWorlUi/DroppedItem/SharedLogic" node_paths=PackedStringArray("sequential_deletion_nodes", "network_entity")]
+script = ExtResource("30_mupvh")
+sequential_deletion_nodes = [NodePath("../../OwnerLogic"), NodePath("../DroppedItemComponent"), NodePath("../DroppedItemVisualUpdater")]
+sequential_deletion_wait_times = Array[float]([5.0])
+network_entity = NodePath("../..")
+metadata/_custom_type_script = "uid://hhxrri38woka"
+
+[node name="DroppedItemVisualUpdater" type="Node" parent="TestWorlUi/DroppedItem/SharedLogic" node_paths=PackedStringArray("dropped_item_component", "dropped_item_visual", "destruction_component")]
+script = ExtResource("31_hlftd")
+dropped_item_component = NodePath("../DroppedItemComponent")
+dropped_item_visual = NodePath("../DroppedItemVisual")
+destruction_component = NodePath("../DestructionComponent")
+metadata/_custom_type_script = "uid://dl81mamuiydco"
+
+[node name="DroppedItemVisual" type="Node3D" parent="TestWorlUi/DroppedItem/SharedLogic" node_paths=PackedStringArray("item_display_plane", "tool_item_model_holder", "item_light", "item_name_label", "item_ammount_label")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.8947, 1.17784, 6.01158)
+script = ExtResource("32_jac1w")
+item_display_plane = NodePath("MeshInstance3D")
+tool_item_model_holder = NodePath("ToolHolder")
+item_light = NodePath("OmniLight3D")
+item_name_label = NodePath("ItemNameLabel")
+item_ammount_label = NodePath("ItemAmmountLabel")
+metadata/_custom_type_script = "uid://lghsw7lphblg"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestWorlUi/DroppedItem/SharedLogic/DroppedItemVisual"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_f6wnh")
+mesh = SubResource("PlaneMesh_bnqtj")
+skeleton = NodePath("")
+script = ExtResource("33_le6k6")
+spin_speed = 3.0
+
+[node name="ItemNameLabel" type="Label3D" parent="TestWorlUi/DroppedItem/SharedLogic/DroppedItemVisual"]
+billboard = 1
+double_sided = false
+text = "       Item Name"
+font_size = 30
+outline_size = 10
+horizontal_alignment = 0
+
+[node name="ItemAmmountLabel" type="Label3D" parent="TestWorlUi/DroppedItem/SharedLogic/DroppedItemVisual"]
+billboard = 1
+double_sided = false
+text = "1       "
+font_size = 30
+outline_size = 10
+horizontal_alignment = 2
+
+[node name="ToolHolder" type="Node3D" parent="TestWorlUi/DroppedItem/SharedLogic/DroppedItemVisual"]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, -0.25, 0)
+script = ExtResource("33_le6k6")
+
+[node name="MagicCircle" type="Node3D" parent="TestWorlUi/DroppedItem/SharedLogic/DroppedItemVisual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+script = ExtResource("33_le6k6")
+spin_speed = 5.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestWorlUi/DroppedItem/SharedLogic/DroppedItemVisual/MagicCircle"]
+material_override = SubResource("ShaderMaterial_b4kub")
+mesh = SubResource("PlaneMesh_xnce1")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="TestWorlUi/DroppedItem/SharedLogic/DroppedItemVisual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.43932, 0)
+omni_range = 1.0
+
+[node name="Pickuper" parent="TestWorlUi/DroppedItem" instance=ExtResource("20_vnrq1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.8569, 0.689294, 5.93704)
+
+[node name="TinkerableSelectMultibutton" parent="TestWorlUi/DroppedItem/Pickuper" index="1"]
+interact_prompt_settings = Array[ExtResource("21_5l3tj")]([SubResource("Resource_yq6so"), SubResource("Resource_afa8h"), SubResource("Resource_fv21b")])
+
+[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("collision_area")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.63918, 1.68011, 36.2041)
+collision_layer = 0
+collision_mask = 3
+monitorable = false
+script = ExtResource("22_x52dd")
+collision_area = NodePath(".")
+colliding_group = "PlayerBody"
+sequence_name = "aboba_greeting"
+dialogue_priority = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.240337, -0.317035, -0.372303)
+shape = SubResource("SphereShape3D_iltfc")
+
+[editable path="TestWorlUi/WorldNode7"]
+[editable path="TestWorlUi/WorldNode7/MultiButtonPromptWindow"]
+[editable path="TestWorlUi/WorldNode8/DialogueWindow"]
+[editable path="TestWorlUi/DroppedItem/Pickuper"]
+[editable path="TestWorlUi/DroppedItem/Pickuper/MultiButtonPromptWindow"]

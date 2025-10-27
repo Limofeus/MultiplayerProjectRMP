@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="DialogueSequence" load_steps=8 format=3 uid="uid://cxfmymuekcik4"]
+
+[ext_resource type="Script" uid="uid://bee4762ye2at8" path="res://scripts/resources/dialogues/dialogue_block.gd" id="1_7wuvo"]
+[ext_resource type="Script" uid="uid://duyli6g2p5ayn" path="res://scripts/resources/dialogues/dialogue_sequence.gd" id="2_1h14t"]
+[ext_resource type="Script" uid="uid://8njgmbn7c7jq" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_text_block.gd" id="2_nj47b"]
+[ext_resource type="Script" uid="uid://bew54dp5qxf0f" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_useless_choice_block.gd" id="3_x7kir"]
+
+[sub_resource type="Resource" id="Resource_ct4fx"]
+script = ExtResource("2_nj47b")
+dialogue_text = "Ты видишь стопку из нескольких тестовых кубов"
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[sub_resource type="Resource" id="Resource_h5rvc"]
+script = ExtResource("3_x7kir")
+useless_choices = Array[String](["Зачем эти кубы существуют?", "Кто создал эти кубы?"])
+dialogue_text = "Само собой у тебя возникает мысль..."
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://bew54dp5qxf0f"
+
+[sub_resource type="Resource" id="Resource_w3t0f"]
+script = ExtResource("2_nj47b")
+dialogue_text = "Поняв, что ответа на этот вопрос ты скорее всего не получишь, ты решаешь, что лучше держаться от этой кучи подальше"
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[resource]
+script = ExtResource("2_1h14t")
+sequence_name = "buch_of_squares"
+sequence_lang_key = "en"
+dialogue_blocks = Array[ExtResource("1_7wuvo")]([SubResource("Resource_ct4fx"), SubResource("Resource_h5rvc"), SubResource("Resource_w3t0f")])
+metadata/_custom_type_script = "uid://duyli6g2p5ayn"

@@ -35,7 +35,7 @@ func requires_parameter_sync() -> ParameterSyncType:
 func sync_parameter_keys() -> Array:
 	return []
 
-func block_start(_dialogue_parameters : Dictionary = {}) -> void:
+func block_start(_dialogue_parameters : Dictionary = {}, _sync_pass : bool = true) -> void:
 	pass
 
 func block_end(_dialogue_parameters : Dictionary = {}) -> void:

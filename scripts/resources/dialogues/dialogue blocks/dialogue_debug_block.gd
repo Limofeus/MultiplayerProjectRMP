@@ -19,7 +19,7 @@ func requires_sync() -> bool:
 func sync_parameter_keys() -> Array:
 	return []
 
-func block_start(_dialogue_parameters : Dictionary = {}) -> void:
+func block_start(_dialogue_parameters : Dictionary = {}, _sync_pass : bool = true) -> void:
 	print("------ DIALOGUE DEBUG BLOCK START ------")
 	debug_print_parameters("block_start", _dialogue_parameters)
 

@@ -1,5 +1,16 @@
 class_name StaticUtility
 
+class ExpressionContext:
+	var dict : Dictionary = {}
+
+	func val(key : String):
+		if !dict.has(key):
+			return null
+		return dict[key]
+
+	func _init(initial_dictionary : Dictionary):
+		dict = initial_dictionary
+
 static func lerp_dampen(a : Variant, b : Variant, lambda : float, delta_time : float) -> Variant:
 	return lerp(a, b, 1 - exp(-lambda * delta_time))
 
@@ -47,3 +58,25 @@ static func merge_arrays(merge_left : Array, merge_right : Array) -> Array:
 		if !merged_array.has(element):
 			merged_array.append(element)
 	return merged_array
+
+static func get_dict_value_if_present(dict : Dictionary, key : String) -> Variant:
+	if dict.has(key):
+		return dict[key]
+	else:
+		return null
+
+static func expression_on_dict(dict : Dictionary, expression_string : String, show_error : bool = false) -> Variant:
+	var expression := Expression.new()
+	var expression_context := ExpressionContext.new(dict)
+	var error := expression.parse(expression_string)
+
+	if error != OK:
+		push_error("Error parsing expression: " + expression_string)
+		return null
+
+	var result = expression.execute([], expression_context, show_error)
+
+	if expression.has_execute_failed():
+		return null
+
+	return result
