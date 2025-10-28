@@ -26,3 +26,6 @@ func log_dialogue_sequences() -> void:
 
 func get_dialogue_sequence(sequence_name : String) -> DialogueSequence:
 	return dialogue_sequences[sequence_name]
+
+func get_dialogue_sequence_copy(sequence_name : String) -> DialogueSequence:
+	return dialogue_sequences[sequence_name].duplicate()
