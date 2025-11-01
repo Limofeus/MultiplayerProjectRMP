@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://fjib4361ovfd"]
+[gd_scene load_steps=46 format=3 uid="uid://fjib4361ovfd"]
 
 [ext_resource type="Script" uid="uid://bdbitsb3bdwvf" path="res://scripts/networking/network_manager.gd" id="1_1ap1m"]
 [ext_resource type="Script" uid="uid://bjmp5kq0tl031" path="res://scripts/utility/fps_counter.gd" id="1_bkmm5"]
@@ -14,12 +14,17 @@
 [ext_resource type="AudioStream" uid="uid://b1g5gqke1y13a" path="res://audio/music/theme_ambient_1.ogg" id="10_jbj1t"]
 [ext_resource type="AudioStream" uid="uid://dgf4kuwg5o5cg" path="res://audio/music/theme_battle_1.ogg" id="11_muem4"]
 [ext_resource type="Material" uid="uid://dox7ghi1mskpg" path="res://materials/effects/overlays/speedlines_overlay.tres" id="12_oyb24"]
-[ext_resource type="PackedScene" uid="uid://d18ee7hebbod5" path="res://scenes/world/zones/zone_test.tscn" id="15_jscy8"]
+[ext_resource type="PackedScene" uid="uid://dcv2qqx1bcyda" path="res://scenes/entities/simple_dialogue_point.tscn" id="16_jscy8"]
 [ext_resource type="Script" uid="uid://jrqidiswd16s" path="res://scripts/ui/menus/open_settings_window_button.gd" id="17_gqmmt"]
+[ext_resource type="Script" uid="uid://tfe74edb8n6c" path="res://scripts/components/utility/editor tools/csg_material_texture_size_setter.gd" id="17_jscy8"]
+[ext_resource type="Script" uid="uid://cr5g5jxltekbc" path="res://scripts/components/tinkering/tinkerable/dialogue/dialogue triggers/choice_dialogue_trigger.gd" id="17_pm3ni"]
+[ext_resource type="Script" uid="uid://cf62jkm8arfbu" path="res://scripts/visual/creatures/sprite_sheet_billboard.gd" id="18_2wyq8"]
 [ext_resource type="Shader" uid="uid://2u66ri5gklxa" path="res://shaders/main menu effects/dither_canvas.gdshader" id="18_v1b13"]
 [ext_resource type="Texture2D" uid="uid://dsp2730flqo78" path="res://sprites/menu/dither2.png" id="19_6gyjg"]
 [ext_resource type="PackedScene" uid="uid://c4eqeivjiq3wi" path="res://scenes/ui/settings_window_tmp_tmp.tscn" id="20_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://6ypd48k7kbjj" path="res://scenes/ui/items_hotbar.tscn" id="21_iy7cf"]
+[ext_resource type="Shader" uid="uid://bfx5psllv5gl5" path="res://shaders/spatial/creature_sprite_sheet.gdshader" id="21_yq6so"]
+[ext_resource type="Resource" uid="uid://b3jk6eigtjjyo" path="res://resources/sprite sheets/creatures/skeleton/skeleton_idle_omnidir_sprite_sheet.tres" id="24_og1vs"]
 
 [sub_resource type="Resource" id="Resource_oj2bi"]
 script = ExtResource("10_aukot")
@@ -84,6 +89,46 @@ auto_exposure_scale = 0.2
 auto_exposure_speed = 2.0
 auto_exposure_min_sensitivity = 50.0
 auto_exposure_max_sensitivity = 500.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_y6deb"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_jscy8"]
+radius = 0.4
+height = 0.8
+
+[sub_resource type="Gradient" id="Gradient_p5gqa"]
+offsets = PackedFloat32Array(0.488806, 0.645522)
+colors = PackedColorArray(0.226563, 0.226563, 0.226563, 1, 0.601563, 0.601563, 0.601563, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_n5doh"]
+frequency = 0.0316
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gfgok"]
+seamless = true
+color_ramp = SubResource("Gradient_p5gqa")
+noise = SubResource("FastNoiseLite_n5doh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pm3ni"]
+albedo_color = Color(0.25, 0.25, 0.25, 1)
+albedo_texture = SubResource("NoiseTexture2D_gfgok")
+uv1_scale = Vector3(114.753, 98.604, 8.58411)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fv21b"]
+albedo_color = Color(0.25, 0.25, 0.25, 1)
+albedo_texture = SubResource("NoiseTexture2D_gfgok")
+uv1_scale = Vector3(23, 13, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_og1vs"]
+render_priority = 0
+shader = ExtResource("21_yq6so")
+shader_parameter/base_color = Color(0.228895, 0, 0.00171223, 1)
+shader_parameter/roughness = 3.0
+shader_parameter/sprite_sheet_pos = Vector2(0, 0)
+shader_parameter/sprite_sheet_rows = 4
+shader_parameter/sprite_sheet_columns = 16
+
+[sub_resource type="QuadMesh" id="QuadMesh_vxglm"]
+size = Vector2(38, 51.2)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tsk2b"]
 
@@ -185,7 +230,85 @@ camera_attributes = SubResource("CameraAttributesPractical_rqodr")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="ZoneTest" parent="World" instance=ExtResource("15_jscy8")]
+[node name="SimpleDialoguePoint" parent="World" instance=ExtResource("16_jscy8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.95236, 0.592895, -8.34851)
+
+[node name="ChoiceDialogueTrigger" type="Node" parent="World/SimpleDialoguePoint"]
+script = ExtResource("17_pm3ni")
+choice_names = Array[String](["Осмотреть"])
+sequence_names = Array[String](["buch_of_squares"])
+dialogue_priority = 1
+metadata/_custom_type_script = "uid://cr5g5jxltekbc"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World"]
+transform = Transform3D(0.362129, 0, 0.453924, 0, 0.580676, 0, -0.453924, 0, 0.362129, 4.87515, 0.386277, -8.71737)
+mesh = SubResource("BoxMesh_y6deb")
+skeleton = NodePath("../SimpleDialoguePoint")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="World"]
+transform = Transform3D(0.558591, 0, -0.158623, 0, 0.580676, 0, 0.158623, 0, 0.558591, 4.87415, 0.386277, -8.09355)
+mesh = SubResource("BoxMesh_y6deb")
+skeleton = NodePath("../SimpleDialoguePoint")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="World"]
+transform = Transform3D(0.460879, 0, 0.353236, 0, 0.580676, 0, -0.353236, 0, 0.460879, 5.50518, 0.386277, -8.42777)
+mesh = SubResource("BoxMesh_y6deb")
+skeleton = NodePath("../SimpleDialoguePoint")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="World"]
+transform = Transform3D(0.460879, 0, 0.353236, 0, 0.580676, 0, -0.353236, 0, 0.460879, 5.03086, 0.898391, -8.42777)
+mesh = SubResource("BoxMesh_y6deb")
+skeleton = NodePath("../SimpleDialoguePoint")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.02932, 0.809891, 3.47871)
+mesh = SubResource("SphereMesh_jscy8")
+skeleton = NodePath("../SphereInspect")
+
+[node name="SphereInspect" parent="World" instance=ExtResource("16_jscy8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.02932, 0.809891, 3.47871)
+
+[node name="ChoiceDialogueTrigger" type="Node" parent="World/SphereInspect"]
+script = ExtResource("17_pm3ni")
+choice_names = Array[String](["Осмотреть"])
+sequence_names = Array[String](["floating_sphere_inspect"])
+dialogue_priority = 1
+metadata/_custom_type_script = "uid://cr5g5jxltekbc"
+
+[node name="Node3D" type="Node3D" parent="World" node_paths=PackedStringArray("csg_array")]
+script = ExtResource("17_jscy8")
+material_to_apply = SubResource("StandardMaterial3D_pm3ni")
+csg_array = [NodePath("CSGBox3D")]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="World/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.411893, 0)
+use_collision = true
+size = Vector3(13, 1, 23)
+material = SubResource("StandardMaterial3D_fv21b")
+
+[node name="TestThingy" type="Node3D" parent="World" node_paths=PackedStringArray("billboard_node")]
+transform = Transform3D(-0.874451, 0, -0.485115, 0, 1, 0, 0.485115, 0, -0.874451, -2.33628, 4.76837e-07, -8.50006)
+script = ExtResource("18_2wyq8")
+cur_sprite_sheet = ExtResource("24_og1vs")
+cycle_speed_mult = 5.0
+billboard_node = NodePath("MeshInstance3D")
+billboard_material = SubResource("ShaderMaterial_og1vs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/TestThingy"]
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 1.60655, 0)
+material_override = SubResource("ShaderMaterial_og1vs")
+mesh = SubResource("QuadMesh_vxglm")
+skeleton = NodePath("../../../..")
+
+[node name="SphereInspect2" parent="World/TestThingy" instance=ExtResource("16_jscy8")]
+transform = Transform3D(-0.874451, 0, 0.485115, 0, 1, 0, -0.485115, 0, -0.874451, 0, 0.927296, 0)
+
+[node name="ChoiceDialogueTrigger" type="Node" parent="World/TestThingy/SphereInspect2"]
+script = ExtResource("17_pm3ni")
+choice_names = Array[String](["Кто ты?"])
+sequence_names = Array[String](["skeleton_thing_chat"])
+dialogue_priority = 1
+metadata/_custom_type_script = "uid://cr5g5jxltekbc"
 
 [node name="UI Layer" type="CanvasLayer" parent="."]
 

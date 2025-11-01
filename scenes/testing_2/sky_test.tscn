@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=4 uid="uid://dmqkdprvruopn"]
+[gd_scene load_steps=71 format=4 uid="uid://dmqkdprvruopn"]
 
 [ext_resource type="Shader" uid="uid://d1iuphjudpf4s" path="res://shaders/test/sky_test_1.gdshader" id="1_1rkqf"]
 [ext_resource type="Script" uid="uid://qmbs0uhsfuc7" path="res://scripts/debug/testing/test_sky_shader_controller.gd" id="2_csrnv"]
@@ -12,6 +12,8 @@
 [ext_resource type="Shader" uid="uid://cg000x81bh1cv" path="res://shaders/test/screen_quad_test_2_pt2.gdshader" id="9_elupf"]
 [ext_resource type="Shader" uid="uid://c68xid4nc5uo2" path="res://shaders/test/flare_alt_quad_test_1.gdshader" id="9_pr8cq"]
 [ext_resource type="Shader" uid="uid://o43xllhsyony" path="res://shaders/test/flare_alt_test_1.gdshader" id="10_5n3c7"]
+[ext_resource type="Shader" uid="uid://cube4x666o3wr" path="res://shaders/test/strange_pixel_filter_test.gdshader" id="10_w1kui"]
+[ext_resource type="Script" uid="uid://c4feno041npfe" path="res://shaders/test/strange_pixel_filter_updater.gd" id="11_2lwd4"]
 
 [sub_resource type="Gradient" id="Gradient_c5ghh"]
 interpolation_mode = 2
@@ -349,7 +351,7 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/imported = false
-tracks/2/enabled = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("../GPUParticles3D:visible")
 tracks/2/interp = 0
 tracks/2/loop_wrap = true
@@ -361,7 +363,7 @@ tracks/2/keys = {
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("../GPUParticles3D2:visible")
 tracks/3/interp = 0
 tracks/3/loop_wrap = true
@@ -473,24 +475,9 @@ size = Vector2(2, 2)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3552q"]
 render_priority = 0
-shader = ExtResource("9_pr8cq")
-shader_parameter/flare_threshold = 0.65
-shader_parameter/flare_margin = 0.2
-shader_parameter/uv_feather = 0.4
-shader_parameter/global_flare_power = 0.2
-shader_parameter/uv_mipmap_bias = 0.25
-shader_parameter/flat_uv_bias = 0.0
-shader_parameter/fisheye_power = -1.175
-shader_parameter/cascade_1_scale = -0.565
-shader_parameter/cascade_2_scale = -0.28
-shader_parameter/cascade_3_scale = -0.115
-shader_parameter/cascade_4_scale = 0.325
-shader_parameter/cascade_5_scale = 0.89
-shader_parameter/cascade_1_power = 0.03
-shader_parameter/cascade_2_power = 0.07
-shader_parameter/cascade_3_power = 0.06
-shader_parameter/cascade_4_power = 0.02
-shader_parameter/cascade_5_power = 0.04
+shader = ExtResource("10_w1kui")
+shader_parameter/screen_uv_divider = 80.0
+shader_parameter/pixel_offset = 32.0
 
 [sub_resource type="Gradient" id="Gradient_gsn4e"]
 offsets = PackedFloat32Array(0.0692042, 0.100346, 0.979239, 1)
@@ -709,6 +696,7 @@ process_material = SubResource("ParticleProcessMaterial_3552q")
 draw_pass_1 = SubResource("CapsuleMesh_ojl51")
 
 [node name="ScreenFlareQuad" type="MeshInstance3D" parent="."]
+visible = false
 material_override = SubResource("ShaderMaterial_2lwd4")
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_5n3c7")
@@ -720,6 +708,15 @@ material_override = SubResource("ShaderMaterial_3552q")
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_5n3c7")
 skeleton = NodePath("../ScreenQuadTest")
+
+[node name="StrangePixelFilter" type="MeshInstance3D" parent="." node_paths=PackedStringArray("camera_ref")]
+material_override = SubResource("ShaderMaterial_3552q")
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_5n3c7")
+skeleton = NodePath("../ScreenQuadTest")
+script = ExtResource("11_2lwd4")
+shader_material = SubResource("ShaderMaterial_3552q")
+camera_ref = NodePath("../Camera3D")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 visible = false
@@ -764,6 +761,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.993664, -0.0276362, 0.108937, 5.27939e-10, 0.969295, 0.245899, -0.112388, -0.244342, 0.963154, -0.088226, 8.27953, 10.0363)
+transform = Transform3D(0.438371, -0.12198, -0.890478, 0, 0.990748, -0.135715, 0.898794, 0.0594938, 0.434315, -0.088, 8.243, 10.036)
+fov = 80.0
 
 [editable path="TestObj/model_sword_1"]

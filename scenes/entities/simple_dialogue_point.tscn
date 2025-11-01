@@ -72,4 +72,5 @@ tinkerable = NodePath("../TinkerableDialogue")
 shape = SubResource("SphereShape3D_isng5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="DialogueLogic/DefaultTinkerableArea"]
+visible = false
 mesh = SubResource("SphereMesh_hvq0h")

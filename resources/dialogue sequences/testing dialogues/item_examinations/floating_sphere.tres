@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="DialogueSequence" load_steps=12 format=3 uid="uid://dr36vo6dfv7v0"]
+
+[ext_resource type="Script" uid="uid://bee4762ye2at8" path="res://scripts/resources/dialogues/dialogue_block.gd" id="1_j5mar"]
+[ext_resource type="Script" uid="uid://8njgmbn7c7jq" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_text_block.gd" id="2_jfshw"]
+[ext_resource type="Texture2D" uid="uid://csy847ro5urpt" path="res://temp/sphere_test_thingy.png" id="3_jfshw"]
+[ext_resource type="Script" uid="uid://dmqnqe78qk74h" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_set_metadata_block.gd" id="4_8hw0q"]
+[ext_resource type="Script" uid="uid://duyli6g2p5ayn" path="res://scripts/resources/dialogues/dialogue_sequence.gd" id="4_smv2t"]
+
+[sub_resource type="Resource" id="Resource_smv2t"]
+script = ExtResource("2_jfshw")
+dialogue_text = "Осматривая странную парящую [shake]сферу[/shake], у тебя создаётся впечатление будто бы она говорит с тобой…"
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[sub_resource type="Resource" id="Resource_bu8wt"]
+script = ExtResource("4_8hw0q")
+parameters_set_dictionary = {
+"speaker_name": "Sphere",
+"speaker_texture": ExtResource("3_jfshw")
+}
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://dmqnqe78qk74h"
+
+[sub_resource type="Resource" id="Resource_0egpo"]
+script = ExtResource("2_jfshw")
+dialogue_text = "Говорят, что те, кто смотрит в бездну замечают лишь своё отражение"
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[sub_resource type="Resource" id="Resource_ndblc"]
+script = ExtResource("2_jfshw")
+dialogue_text = "Вынужден не согласиться, смотря в бездну я замечаю лишь несовершенства её кромки"
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[sub_resource type="Resource" id="Resource_77rhh"]
+script = ExtResource("4_8hw0q")
+parameters_set_dictionary = {
+"speaker_name": "",
+"speaker_texture": null
+}
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://dmqnqe78qk74h"
+
+[sub_resource type="Resource" id="Resource_hodsr"]
+script = ExtResource("2_jfshw")
+dialogue_text = "Обдумывая слова [shake]сферы[/shake], вы решаете, что вступать с ней в диалог было бы нерационально"
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[resource]
+script = ExtResource("4_smv2t")
+sequence_name = "floating_sphere_inspect"
+sequence_lang_key = "en"
+dialogue_blocks = Array[ExtResource("1_j5mar")]([SubResource("Resource_smv2t"), SubResource("Resource_bu8wt"), SubResource("Resource_0egpo"), SubResource("Resource_ndblc"), SubResource("Resource_77rhh"), SubResource("Resource_hodsr")])
+metadata/_custom_type_script = "uid://duyli6g2p5ayn"
