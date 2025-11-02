@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://04epqdlotpeq"]
+
+[ext_resource type="Script" uid="uid://cs3efoyody15k" path="res://scripts/debug/testing/spring recoil/test_spring_recoil_manager.gd" id="1_khe6w"]
+
+[sub_resource type="Curve" id="Curve_khe6w"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.888889, -0.0961539), -0.587987, -0.587987, 0, 0, Vector2(0.956989, -0.346154), 0.0, 0.0, 0, 0, Vector2(0.982079, -1), 0.103181, 0.103181, 0, 0, Vector2(1, 1), 219.982, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_khe6w"]
+size = Vector2(16, 16)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hi3xj"]
+size = Vector2(64, 12)
+
+[node name="SpringRecoilTestingScene" type="Node2D" node_paths=PackedStringArray("forward_view_visual", "side_view_visual")]
+script = ExtResource("1_khe6w")
+forward_view_visual = NodePath("FVR/ForwardViewRecoil")
+side_view_visual = NodePath("SVR/SideViewRecoil")
+fire_cooldown = 0.05
+backwards_recoil_randomness = 2.0
+backwards_pos_to_horizontal_recoil = SubResource("Curve_khe6w")
+backwards_pos_to_horizontal_recoil_multiplier = 10.0
+backwards_recoil_curve_sample_multiplier = 3.4
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="FVR" type="Node2D" parent="."]
+position = Vector2(-200, 0)
+
+[node name="ForwardViewRecoil" type="Node2D" parent="FVR"]
+
+[node name="Sprite2D" type="Sprite2D" parent="FVR/ForwardViewRecoil"]
+texture = SubResource("PlaceholderTexture2D_khe6w")
+
+[node name="SVR" type="Node2D" parent="."]
+position = Vector2(200, 0)
+
+[node name="SideViewRecoil" type="Node2D" parent="SVR"]
+
+[node name="Sprite2D" type="Sprite2D" parent="SVR/SideViewRecoil"]
+position = Vector2(-20, -1.23)
+texture = SubResource("PlaceholderTexture2D_hi3xj")

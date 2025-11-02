@@ -128,10 +128,6 @@ tinker_action_selection_decrement={
 ]
 }
 
-[internationalization]
-
-locale/translations=PackedStringArray("res://temp/translation_test.tres")
-
 [physics]
 
 3d/physics_engine="Jolt Physics"
