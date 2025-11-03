@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d0vgovhcopb8q"
+path="res://.godot/imported/voice_i4.wav-e0ad629514d68d06fb4ec59c094c4863.sample"
+
+[deps]
+
+source_file="res://audio/dialogue/symbol sounds/voice 1/voice_i4.wav"
+dest_files=["res://.godot/imported/voice_i4.wav-e0ad629514d68d06fb4ec59c094c4863.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -22,6 +22,7 @@ const MAX_ITERS : int = 30
 @export var interpolating_content_lerp_power : float = 10.0
 @export var scale_copy_node : Control = null
 @export var unfocused_skip_progress_bar : ProgressBar = null
+@export var dialogue_audio_source : AudioStreamPlayer = null
 
 @export var post_print_lock_time : float = 0.35
 
@@ -69,6 +70,7 @@ func _ready():
 	update_static_dialogue_box()
 	update_dynamic_dialogue_box()
 	text_processor.text_labels = [static_dialogue_text_label, dynamic_dialogue_text_label]
+	text_processor.audio_source = dialogue_audio_source
 
 func _process(delta):
 	interpolate_dialogue_box(delta)

@@ -126,7 +126,7 @@ void fragment(){
 	//sampled_distort_noise *= lines_distance_factor;
 	//vec3 scaled_screen_color = texture(screen_texture, centered_scale_uv(SCREEN_UV, vec2(1.0 + (mixed_noise_value * lines_angle_factor * lines_distance_factor * 0.08)))).rgb;
 
-	ALBEDO = vec3(result);
+	ALBEDO = vec3(result, 0.0, 0.0);
 	//ALBEDO = vec3(abs(brightnes_scale_power - screen_avg));
 	//ALBEDO = scaled_screen_color;
 }

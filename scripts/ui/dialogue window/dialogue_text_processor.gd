@@ -3,7 +3,7 @@ class_name DialogueTextProcessor
 
 signal finished_printing_text()
 
-var time_to_print_letter : float = 0.05
+var time_to_print_letter : float = 0.03
 var accumulated_time : float = 0.0
 var time_since_done_printing : float = 0.0
 
@@ -14,6 +14,11 @@ var stripped_text : String = ""
 var text_labels : Array[RichTextLabel] = []
 
 var done_printing : bool = true
+
+
+var dialogue_symbol_sound_mapping : DialogueSymbolSoundsMapping = null
+var audio_source : AudioStreamPlayer = null
+
 
 #idk, parse tags inside text etc.
 func prepare_text(text : String) -> String: #Returns final result for window scaling, etc.
@@ -32,6 +37,22 @@ func prepare_text(text : String) -> String: #Returns final result for window sca
 func get_letter_print_time() -> float:
 	return time_to_print_letter #NOTE: Can add a lookup table to make different letter take different amount of time
 
+func on_letter_printed() -> void:
+	if audio_source != null && dialogue_symbol_sound_mapping != null:
+
+		if letters_printed > stripped_text.length():
+			return
+
+		var current_letter = stripped_text[letters_printed - 1]
+		#print("CL: " + current_letter, "   ", letters_printed - 1, "/", stripped_text.length() - 1)
+
+		var symbol_sound_clip = dialogue_symbol_sound_mapping.get_symbol_sound(current_letter.to_lower())
+		var pitch_variation = dialogue_symbol_sound_mapping.pitch_variation
+		if symbol_sound_clip != null:
+			audio_source.pitch_scale = randf_range(1.0 - pitch_variation, 1.0 + pitch_variation)
+			audio_source.stream = symbol_sound_clip
+			audio_source.play(0.0)
+
 func text_process_step(delta):
 	if done_printing:
 		time_since_done_printing += delta
@@ -42,6 +63,7 @@ func text_process_step(delta):
 	while accumulated_time >= get_letter_print_time() and !done_printing:
 		accumulated_time -= get_letter_print_time()
 		letters_printed += 1
+		on_letter_printed()
 		if letters_printed > text_letter_count:
 			done_printing = true
 

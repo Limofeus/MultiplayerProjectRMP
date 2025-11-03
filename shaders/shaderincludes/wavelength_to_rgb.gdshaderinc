@@ -1,5 +1,6 @@
 //SHIT ASS GOVNO NE ISPOLZOVAT, UDALI POTOM POZHALUSTA (Щит асс говно, удали потом пожалуйста)
 //UMALYAU, SDELAI SCREENSHOT, SDELAI CHTO UGODNO, NO UDALI PEJE (Умоляю, сделай скриншот, сделай что угодно, но удали пж)
+// -НЕЕЕТ, ТЫ БУДЕШЬ ЖИТЬ В МУЧЕНИЯХ, Я НЕ УДОЛЮ ТЕБЯ, ПРОДОЛЖАЙ МОЛИТЬ, НИЧТОЖЕСТВО!"!!!!!"
 const float ZERO_ONE_SAMPLE_WAVELENGTH_MIN = 350.0;
 const float ZERO_ONE_SAMPLE_WAVELENGTH_MAX = 750.0;
 
