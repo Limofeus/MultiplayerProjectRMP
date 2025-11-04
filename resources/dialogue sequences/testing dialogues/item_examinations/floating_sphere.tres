@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="DialogueSequence" load_steps=12 format=3 uid="uid://dr36vo6dfv7v0"]
+[gd_resource type="Resource" script_class="DialogueSequence" load_steps=14 format=3 uid="uid://dr36vo6dfv7v0"]
 
 [ext_resource type="Script" uid="uid://bee4762ye2at8" path="res://scripts/resources/dialogues/dialogue_block.gd" id="1_j5mar"]
 [ext_resource type="Script" uid="uid://8njgmbn7c7jq" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_text_block.gd" id="2_jfshw"]
 [ext_resource type="Texture2D" uid="uid://csy847ro5urpt" path="res://temp/sphere_test_thingy.png" id="3_jfshw"]
 [ext_resource type="Script" uid="uid://dmqnqe78qk74h" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_set_metadata_block.gd" id="4_8hw0q"]
+[ext_resource type="Resource" uid="uid://cv7ojb0vpq6tc" path="res://resources/dialogue symbol sound mappings/voice_2_symbol_sound_mapping.res" id="4_bu8wt"]
 [ext_resource type="Script" uid="uid://duyli6g2p5ayn" path="res://scripts/resources/dialogues/dialogue_sequence.gd" id="4_smv2t"]
+[ext_resource type="Resource" uid="uid://d212gkuqw7ujw" path="res://resources/dialogue symbol sound mappings/voice_1_symbol_sound_mapping.res" id="6_0egpo"]
 
 [sub_resource type="Resource" id="Resource_smv2t"]
 script = ExtResource("2_jfshw")
@@ -16,7 +18,8 @@ metadata/_custom_type_script = "uid://8njgmbn7c7jq"
 script = ExtResource("4_8hw0q")
 parameters_set_dictionary = {
 "speaker_name": "Sphere",
-"speaker_texture": ExtResource("3_jfshw")
+"speaker_texture": ExtResource("3_jfshw"),
+"symbol_sound_mapping": ExtResource("4_bu8wt")
 }
 sync_dialogue_block = true
 metadata/_custom_type_script = "uid://dmqnqe78qk74h"
@@ -37,7 +40,8 @@ metadata/_custom_type_script = "uid://8njgmbn7c7jq"
 script = ExtResource("4_8hw0q")
 parameters_set_dictionary = {
 "speaker_name": "",
-"speaker_texture": null
+"speaker_texture": null,
+"symbol_sound_mapping": ExtResource("6_0egpo")
 }
 sync_dialogue_block = true
 metadata/_custom_type_script = "uid://dmqnqe78qk74h"

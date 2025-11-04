@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dhtsulks4qu18" path="res://scenes/ui/tinkerables/dialogue/dialogue_option.tscn" id="3_kfdjx"]
 [ext_resource type="Script" uid="uid://sw4iyr4jpgsv" path="res://scripts/ui/dialogue window/dialogue window elements/texture_change_dialogue_element.gd" id="3_kx3sx"]
 [ext_resource type="Script" uid="uid://ccfokgerfuqpk" path="res://scripts/ui/dialogue window/dialogue window elements/symbol_sound_mapping_setter.gd" id="4_0wdu0"]
-[ext_resource type="Resource" uid="uid://cv7ojb0vpq6tc" path="res://resources/dialogue symbol sound mappings/voice_2_symbol_sound_mapping.res" id="5_64oas"]
+[ext_resource type="Resource" uid="uid://d212gkuqw7ujw" path="res://resources/dialogue symbol sound mappings/voice_1_symbol_sound_mapping.res" id="5_64oas"]
 
 [sub_resource type="Curve" id="Curve_0wdu0"]
 _data = [Vector2(0, 0), 0.0, 2.78109, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -117,7 +117,7 @@ dialogue_window_visual = NodePath("../..")
 
 [node name="SymbolSoundMappingSetter" type="Node" parent="ModulateItem" node_paths=PackedStringArray("dialogue_window_visual")]
 script = ExtResource("4_0wdu0")
-debug_ssm = ExtResource("5_64oas")
+default_symbol_sound_mapping = ExtResource("5_64oas")
 dialogue_window_visual = NodePath("../..")
 bound_metadata_entry = "symbol_sound_mapping"
 
