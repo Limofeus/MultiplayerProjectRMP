@@ -44,7 +44,7 @@ func on_letter_printed() -> void:
 			return
 
 		var current_letter = stripped_text[letters_printed - 1]
-		#print("CL: " + current_letter, "   ", letters_printed - 1, "/", stripped_text.length() - 1)
+		print("CL: " + current_letter, "   ", letters_printed - 1, "/", stripped_text.length() - 1)
 
 		var symbol_sound_clip = dialogue_symbol_sound_mapping.get_symbol_sound(current_letter.to_lower())
 		var pitch_variation = dialogue_symbol_sound_mapping.pitch_variation

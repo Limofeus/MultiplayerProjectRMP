@@ -6,11 +6,11 @@
 [ext_resource type="Script" uid="uid://dmqnqe78qk74h" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_set_metadata_block.gd" id="4_8hw0q"]
 [ext_resource type="Resource" uid="uid://cv7ojb0vpq6tc" path="res://resources/dialogue symbol sound mappings/voice_2_symbol_sound_mapping.res" id="4_bu8wt"]
 [ext_resource type="Script" uid="uid://duyli6g2p5ayn" path="res://scripts/resources/dialogues/dialogue_sequence.gd" id="4_smv2t"]
-[ext_resource type="Resource" uid="uid://d212gkuqw7ujw" path="res://resources/dialogue symbol sound mappings/voice_1_symbol_sound_mapping.res" id="6_0egpo"]
+[ext_resource type="Resource" uid="uid://c3gs3ie70rhbd" path="res://resources/dialogue symbol sound mappings/typing_1_symbol_sound_mapping.res" id="6_smv2t"]
 
 [sub_resource type="Resource" id="Resource_smv2t"]
 script = ExtResource("2_jfshw")
-dialogue_text = "Осматривая странную парящую [shake]сферу[/shake], у тебя создаётся впечатление будто бы она говорит с тобой…"
+dialogue_text = "Осматривая странную парящую [shake]сферу[/shake], у тебя создаётся впечатление будто бы она говорит с тобой..."
 sync_dialogue_block = true
 metadata/_custom_type_script = "uid://8njgmbn7c7jq"
 
@@ -41,14 +41,14 @@ script = ExtResource("4_8hw0q")
 parameters_set_dictionary = {
 "speaker_name": "",
 "speaker_texture": null,
-"symbol_sound_mapping": ExtResource("6_0egpo")
+"symbol_sound_mapping": ExtResource("6_smv2t")
 }
 sync_dialogue_block = true
 metadata/_custom_type_script = "uid://dmqnqe78qk74h"
 
 [sub_resource type="Resource" id="Resource_hodsr"]
 script = ExtResource("2_jfshw")
-dialogue_text = "Обдумывая слова [shake]сферы[/shake], вы решаете, что вступать с ней в диалог было бы нерационально"
+dialogue_text = "Обдумывая слова [shake]сферы[/shake], вы решаете, что вступать с ней в диалог было бы нерационально."
 sync_dialogue_block = true
 metadata/_custom_type_script = "uid://8njgmbn7c7jq"
 

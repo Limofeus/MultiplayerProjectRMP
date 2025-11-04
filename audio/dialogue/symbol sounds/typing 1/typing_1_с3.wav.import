@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dn13c6l818ivn"
+path="res://.godot/imported/typing_1_с3.wav-cf63cde004b915d62096a97e3c695eea.sample"
+
+[deps]
+
+source_file="res://audio/dialogue/symbol sounds/typing 1/typing_1_с3.wav"
+dest_files=["res://.godot/imported/typing_1_с3.wav-cf63cde004b915d62096a97e3c695eea.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

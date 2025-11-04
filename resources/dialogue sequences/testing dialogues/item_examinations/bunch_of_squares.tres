@@ -20,7 +20,7 @@ metadata/_custom_type_script = "uid://bew54dp5qxf0f"
 
 [sub_resource type="Resource" id="Resource_w3t0f"]
 script = ExtResource("2_nj47b")
-dialogue_text = "Поняв, что ответа на этот вопрос ты скорее всего не получишь, ты решаешь, что лучше держаться от этой кучи подальше"
+dialogue_text = "Поняв, что ответа на этот вопрос ты скорее всего не получишь, ты решаешь, что лучше держаться от этой кучи подальше."
 sync_dialogue_block = true
 metadata/_custom_type_script = "uid://8njgmbn7c7jq"
 
