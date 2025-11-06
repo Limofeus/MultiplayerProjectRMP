@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="DialogueSetMetadataBlock" load_steps=4 format=3 uid="uid://bdlses4xrx8s5"]
+
+[ext_resource type="Texture2D" uid="uid://07wpx4jfg5j6" path="res://jeremys_cousine.png" id="1_yjh21"]
+[ext_resource type="Resource" uid="uid://d212gkuqw7ujw" path="res://resources/dialogue symbol sound mappings/voice_1_symbol_sound_mapping.res" id="2_x2kay"]
+[ext_resource type="Script" uid="uid://dmqnqe78qk74h" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_set_metadata_block.gd" id="3_4clmm"]
+
+[resource]
+script = ExtResource("3_4clmm")
+parameters_set_dictionary = {
+"speaker_name": "Jeremy",
+"speaker_texture": ExtResource("1_yjh21"),
+"symbol_sound_mapping": ExtResource("2_x2kay")
+}
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://dmqnqe78qk74h"

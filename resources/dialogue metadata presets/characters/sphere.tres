@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="DialogueSetMetadataBlock" load_steps=4 format=3 uid="uid://ceh31qo08juqw"]
+
+[ext_resource type="Texture2D" uid="uid://csy847ro5urpt" path="res://temp/sphere_test_thingy.png" id="1_kj4uc"]
+[ext_resource type="Resource" uid="uid://cv7ojb0vpq6tc" path="res://resources/dialogue symbol sound mappings/voice_2_symbol_sound_mapping.res" id="2_navik"]
+[ext_resource type="Script" uid="uid://dmqnqe78qk74h" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_set_metadata_block.gd" id="3_lviqk"]
+
+[resource]
+script = ExtResource("3_lviqk")
+parameters_set_dictionary = {
+"speaker_name": "Sphere",
+"speaker_texture": ExtResource("1_kj4uc"),
+"symbol_sound_mapping": ExtResource("2_navik")
+}
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://dmqnqe78qk74h"

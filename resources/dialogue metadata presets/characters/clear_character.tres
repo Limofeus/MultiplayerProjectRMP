@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="DialogueSetMetadataBlock" load_steps=3 format=3 uid="uid://injhq6fdk17u"]
+
+[ext_resource type="Resource" uid="uid://c3gs3ie70rhbd" path="res://resources/dialogue symbol sound mappings/typing_1_symbol_sound_mapping.res" id="1_6r5yv"]
+[ext_resource type="Script" uid="uid://dmqnqe78qk74h" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_set_metadata_block.gd" id="2_5vnt6"]
+
+[resource]
+script = ExtResource("2_5vnt6")
+parameters_set_dictionary = {
+"speaker_name": "",
+"speaker_texture": null,
+"symbol_sound_mapping": ExtResource("1_6r5yv")
+}
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://dmqnqe78qk74h"

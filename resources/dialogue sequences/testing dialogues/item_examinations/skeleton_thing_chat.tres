@@ -2,16 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bee4762ye2at8" path="res://scripts/resources/dialogues/dialogue_block.gd" id="1_2dexe"]
 [ext_resource type="Script" uid="uid://duyli6g2p5ayn" path="res://scripts/resources/dialogues/dialogue_sequence.gd" id="2_woo24"]
-[ext_resource type="Script" uid="uid://dmqnqe78qk74h" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_set_metadata_block.gd" id="2_wwaxv"]
+[ext_resource type="Resource" uid="uid://bdlses4xrx8s5" path="res://resources/dialogue metadata presets/characters/jeremy.tres" id="2_wwaxv"]
 [ext_resource type="Script" uid="uid://8njgmbn7c7jq" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_text_block.gd" id="3_a56k8"]
-
-[sub_resource type="Resource" id="Resource_xlmcy"]
-script = ExtResource("2_wwaxv")
-parameters_set_dictionary = {
-"speaker_name": "Skeleman"
-}
-sync_dialogue_block = true
-metadata/_custom_type_script = "uid://dmqnqe78qk74h"
+[ext_resource type="Resource" uid="uid://injhq6fdk17u" path="res://resources/dialogue metadata presets/characters/clear_character.tres" id="4_a56k8"]
 
 [sub_resource type="Resource" id="Resource_7vcot"]
 script = ExtResource("3_a56k8")
@@ -29,5 +22,5 @@ metadata/_custom_type_script = "uid://8njgmbn7c7jq"
 script = ExtResource("2_woo24")
 sequence_name = "skeleton_thing_chat"
 sequence_lang_key = "en"
-dialogue_blocks = Array[ExtResource("1_2dexe")]([SubResource("Resource_xlmcy"), SubResource("Resource_7vcot"), SubResource("Resource_hdygi")])
+dialogue_blocks = Array[ExtResource("1_2dexe")]([ExtResource("2_wwaxv"), SubResource("Resource_7vcot"), SubResource("Resource_hdygi"), ExtResource("4_a56k8")])
 metadata/_custom_type_script = "uid://duyli6g2p5ayn"
