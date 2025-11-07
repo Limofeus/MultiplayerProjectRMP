@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Store" load_steps=8 format=3 uid="uid://dewf1yepwdbfu"]
+
+[ext_resource type="Script" uid="uid://drrtl77gvj2ih" path="res://scripts/resources/store/store.gd" id="1_4k0ql"]
+[ext_resource type="Script" uid="uid://btadgh38s6ejl" path="res://scripts/resources/store/store_listing.gd" id="2_g00rq"]
+[ext_resource type="Script" uid="uid://d3q0h4xwkuasd" path="res://scripts/resources/store/store_listing_item.gd" id="3_pscoh"]
+[ext_resource type="Resource" uid="uid://c3f3100tm85xh" path="res://resources/inventory items/tools/weapon items/bow_1_weapon.tres" id="4_7e8e0"]
+[ext_resource type="Script" uid="uid://drrqidfthpaeu" path="res://scripts/resources/store/store listing items/add_inventory_item_listing_item.gd" id="5_6mqs3"]
+
+[sub_resource type="Resource" id="Resource_p16ut"]
+script = ExtResource("5_6mqs3")
+inventory_item = ExtResource("4_7e8e0")
+metadata/_custom_type_script = "uid://drrqidfthpaeu"
+
+[sub_resource type="Resource" id="Resource_l11ve"]
+script = ExtResource("2_g00rq")
+listing_items = Array[ExtResource("3_pscoh")]([SubResource("Resource_p16ut")])
+metadata/_custom_type_script = "uid://btadgh38s6ejl"
+
+[resource]
+script = ExtResource("1_4k0ql")
+store_listings = Array[ExtResource("2_g00rq")]([SubResource("Resource_l11ve"), null])
+metadata/_custom_type_script = "uid://drrtl77gvj2ih"

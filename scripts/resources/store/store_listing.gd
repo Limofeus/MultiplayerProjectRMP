@@ -1,7 +1,7 @@
 extends Resource
 class_name StoreListing
 
-@export var listing_items : Array[InventoryItem] = []
+@export var listing_items : Array[StoreListingItem] = []
 
 func can_purchase() -> bool:
 	for listing_item in listing_items:
