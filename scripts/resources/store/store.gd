@@ -3,6 +3,8 @@ class_name Store
 
 @export var store_listings : Array[StoreListing] = []
 
+signal availability_checked()
+
 #NOTE: better check again before purchase
 func can_purchase_listing(store_listing : StoreListing) -> bool:
 	return store_listing.can_purchase()
