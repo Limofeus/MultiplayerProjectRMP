@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://375dw8v4ids4"]
+
+[ext_resource type="PackedScene" uid="uid://datflsk7fe0xs" path="res://scenes/ui/shop/shop_panel.tscn" id="1_n3xg0"]
+
+[node name="ShopWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ShopPanel" parent="." instance=ExtResource("1_n3xg0")]
+layout_mode = 1
+offset_right = -778.0
