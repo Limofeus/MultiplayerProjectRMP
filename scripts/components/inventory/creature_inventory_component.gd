@@ -22,9 +22,9 @@ func add_initial_items() -> void:
 		for item in initial_items:
 			add_item(item)
 
-func add_item(item : InventoryItem, ammount : int = 1) -> void: #Rewrite with support to item count
-	creature_item_container.add_item(item, ammount)
-	propagate_add_item.rpc(item.resource_path, ammount)
+func add_item(item : InventoryItem, amount : int = 1) -> void: #Rewrite with support to item count
+	creature_item_container.add_item(item, amount)
+	propagate_add_item.rpc(item.resource_path, amount)
 
 func clear_slot(slot_id : int) -> void:
 	creature_item_container.clear_slot(slot_id)
@@ -59,10 +59,10 @@ func propagate_selection(selected_slot : int) -> void:
 	creature_item_container.select_slot(selected_slot, creature_item_user)
 
 @rpc("call_remote", "any_peer", "reliable") #Adding items is reliable
-func propagate_add_item(item_resource_path : String, ammount : int) -> void:
+func propagate_add_item(item_resource_path : String, amount : int) -> void:
 	var item : InventoryItem = ResourceLoader.load(item_resource_path, "InventoryItem", ResourceLoader.CACHE_MODE_REUSE)
-	print("Recieved propagated item: " + item.name)
-	creature_item_container.add_item(item, ammount)
+	print("Received propagated item: " + item.name)
+	creature_item_container.add_item(item, amount)
 
 @rpc("call_remote", "any_peer", "reliable")
 func propagate_clear_slot(slot_id : int) -> void:
