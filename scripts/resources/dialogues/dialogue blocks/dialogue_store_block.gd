@@ -2,6 +2,7 @@ extends DialogueBlock
 
 @export var store_preset : Store = null
 
+#TODO: get more time for this...
 func block_start(_dialogue_parameters : Dictionary = {}, _sync_pass : bool = true) -> void:
 	if !_sync_pass:
 		return
