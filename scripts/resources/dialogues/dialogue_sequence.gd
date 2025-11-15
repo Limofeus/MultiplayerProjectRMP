@@ -11,6 +11,7 @@ var current_block_index : int = 0
 signal on_choice_options_updated(choice_option_strings : Array[String])
 signal on_main_text_updated(main_text : String)
 signal on_dialogue_metadata_updated(metadata : Dictionary) #Like speaker name, text style, etc.
+signal call_external_action(action_name : String, sync_arguments : Array[Variant])
 signal on_sequence_ended()
 
 signal sync_dialogue_block_request(block_index : int, sync_arguments : Array)
