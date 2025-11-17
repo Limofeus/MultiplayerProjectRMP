@@ -10,6 +10,8 @@ var dialogue_parameters : Dictionary = {} #Maybe need to sync parameters instead
 signal on_main_text_updated(main_text : String)
 signal on_choice_options_updated(choice_option_strings : Array[String])
 signal on_dialogue_metadata_updated(metadata : Dictionary)
+signal on_call_external_action(action_name : String, sync_arguments : Array[Variant])
+
 signal on_dialogue_state_changed(dialogue_running : bool)
 
 signal sync_dialogue_block(dialogue_sequence_name : String, block_index : int, sync_parameters : Dictionary) #TODO: Implement dialogue action syncing?..
@@ -19,6 +21,7 @@ func connect_to_cur_dialogue_sequence() -> void:
 	current_dialogue_sequence.on_choice_options_updated.connect(dialogue_choices_updated)
 	current_dialogue_sequence.on_dialogue_metadata_updated.connect(dialogue_metadata_updated)
 	current_dialogue_sequence.on_sequence_ended.connect(dialogue_sequence_ended)
+	current_dialogue_sequence.call_external_action.connect(call_external_action)
 	
 	current_dialogue_sequence.sync_dialogue_block_request.connect(emit_dialogue_sync_request.bind(current_dialogue_sequence.sequence_name))
 	current_dialogue_sequence.sync_dialogue_end_request.connect(emit_dialogue_end_sync_request)
@@ -55,6 +58,9 @@ func merge_update_dialogue_metadata(metadata : Dictionary) -> void:
 func dialogue_sequence_ended() -> void:
 	clean_current_dialogue_sequence()
 	on_dialogue_state_changed.emit(false)
+
+func call_external_action(action_name : String, sync_arguments : Array[Variant]) -> void:
+	on_call_external_action.emit(action_name, sync_arguments)
 
 func update_sequence_parameters() -> void:
 	if current_dialogue_sequence != null:
