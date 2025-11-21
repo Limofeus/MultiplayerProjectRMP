@@ -21,7 +21,7 @@ func connect_to_cur_dialogue_sequence() -> void:
 	current_dialogue_sequence.on_choice_options_updated.connect(dialogue_choices_updated)
 	current_dialogue_sequence.on_dialogue_metadata_updated.connect(dialogue_metadata_updated)
 	current_dialogue_sequence.on_sequence_ended.connect(dialogue_sequence_ended)
-	current_dialogue_sequence.call_external_action.connect(call_external_action)
+	current_dialogue_sequence.on_call_external_action.connect(call_external_action)
 	
 	current_dialogue_sequence.sync_dialogue_block_request.connect(emit_dialogue_sync_request.bind(current_dialogue_sequence.sequence_name))
 	current_dialogue_sequence.sync_dialogue_end_request.connect(emit_dialogue_end_sync_request)
@@ -35,7 +35,7 @@ func clean_current_dialogue_sequence() -> void:
 	current_dialogue_sequence.on_choice_options_updated.disconnect(dialogue_choices_updated)
 	current_dialogue_sequence.on_dialogue_metadata_updated.disconnect(dialogue_metadata_updated)
 	current_dialogue_sequence.on_sequence_ended.disconnect(dialogue_sequence_ended)
-	current_dialogue_sequence.call_external_action.disconnect(call_external_action)
+	current_dialogue_sequence.on_call_external_action.disconnect(call_external_action)
 
 	current_dialogue_sequence.sync_dialogue_block_request.disconnect(emit_dialogue_sync_request)
 	current_dialogue_sequence.sync_dialogue_end_request.disconnect(emit_dialogue_end_sync_request)

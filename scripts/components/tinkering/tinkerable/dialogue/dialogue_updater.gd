@@ -11,6 +11,8 @@ var dialogue_driver : DialogueDriver = DialogueDriver.new()
 
 var sync_cached_sequence_name : String = "" #Used to optimize packets a bit, in case of any bugs, just send seq name in every packet and deprecate this
 
+signal external_action(action_name : String, sync_arguments : Array[Variant])
+
 func _ready() -> void:
 	print("PAR: ", get_parent().name, " READY")
 	#TINKERABLE & CONTROL ALTER
@@ -25,12 +27,7 @@ func _ready() -> void:
 	
 	set_visibility_state(tinkerable_dialogue.current_tinkerable_state)
 
-	dialogue_driver.on_choice_options_updated.connect(tinkerable_dialogue.update_dialogue_options)
-	dialogue_driver.on_main_text_updated.connect(main_text_updated)
-
-	dialogue_driver.on_dialogue_state_changed.connect(dialogue_state_changed)
-	dialogue_driver.on_dialogue_metadata_updated.connect(dialogue_metadata_updated)
-	dialogue_driver.sync_dialogue_block.connect(request_sync_dialogue)
+	connect_dialogue_driver()
 
 	for dialogue_trigger in dialogue_triggers:
 		print("Connecting trigger: " + dialogue_trigger.name, " with driver: ", dialogue_driver != null)
@@ -41,6 +38,15 @@ func _ready() -> void:
 	unfocused_skip_line_timer.timeout.connect(skip_line_timeout)
 	
 	dialogue_window.dialogue_unfocused_skip_timer = unfocused_skip_line_timer
+
+func connect_dialogue_driver() -> void:
+	dialogue_driver.on_choice_options_updated.connect(tinkerable_dialogue.update_dialogue_options)
+	dialogue_driver.on_main_text_updated.connect(main_text_updated)
+	dialogue_driver.on_call_external_action.connect(call_external_action)
+
+	dialogue_driver.on_dialogue_state_changed.connect(dialogue_state_changed)
+	dialogue_driver.on_dialogue_metadata_updated.connect(dialogue_metadata_updated)
+	dialogue_driver.sync_dialogue_block.connect(request_sync_dialogue)
 
 func update_buttons():
 	var dialogue_options : Array[String] = []
@@ -72,6 +78,9 @@ func main_text_updated(main_text : String) -> void:
 func dialogue_metadata_updated(metadata : Dictionary) -> void:
 	print("Got metadata update: " + str(metadata))
 	dialogue_window.update_metadata(metadata)
+
+func call_external_action(action_name : String, sync_arguments : Array[Variant]) -> void:
+	external_action.emit(action_name, sync_arguments)
 
 func tinker_state_changed(new_state : Tinkerable.TinkerableState) -> void:
 	dialogue_driver.merge_update_dialogue_metadata({"tinkerable_state" : new_state})

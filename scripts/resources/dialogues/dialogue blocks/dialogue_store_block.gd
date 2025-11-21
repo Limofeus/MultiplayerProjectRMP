@@ -7,3 +7,4 @@ func block_start(_dialogue_parameters : Dictionary = {}, _sync_pass : bool = tru
 	if !_sync_pass:
 		return
 	var store_model : Store = store_preset.duplicate()
+	dialogue_sequence.call_external_action("open_store", [store_model])

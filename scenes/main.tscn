@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://fjib4361ovfd"]
+[gd_scene load_steps=46 format=3 uid="uid://fjib4361ovfd"]
 
 [ext_resource type="Script" uid="uid://bdbitsb3bdwvf" path="res://scripts/networking/network_manager.gd" id="1_1ap1m"]
 [ext_resource type="Script" uid="uid://bjmp5kq0tl031" path="res://scripts/utility/fps_counter.gd" id="1_bkmm5"]
@@ -23,10 +23,8 @@
 [ext_resource type="Texture2D" uid="uid://dsp2730flqo78" path="res://sprites/menu/dither2.png" id="19_6gyjg"]
 [ext_resource type="PackedScene" uid="uid://c4eqeivjiq3wi" path="res://scenes/ui/settings_window_tmp_tmp.tscn" id="20_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://6ypd48k7kbjj" path="res://scenes/ui/items_hotbar.tscn" id="21_iy7cf"]
-[ext_resource type="Texture2D" uid="uid://dhxvcqaohnbmg" path="res://temp/2025-11-15_20.09.39.png" id="21_vxglm"]
 [ext_resource type="Shader" uid="uid://bfx5psllv5gl5" path="res://shaders/spatial/creature_sprite_sheet.gdshader" id="21_yq6so"]
 [ext_resource type="Resource" uid="uid://b3jk6eigtjjyo" path="res://resources/sprite sheets/creatures/skeleton/skeleton_idle_omnidir_sprite_sheet.tres" id="24_og1vs"]
-[ext_resource type="FontFile" uid="uid://c2sattq3np4gm" path="res://fonts/vollkorn/Vollkorn-Black.otf" id="27_2f3dj"]
 
 [sub_resource type="Resource" id="Resource_oj2bi"]
 script = ExtResource("10_aukot")
@@ -132,12 +130,6 @@ shader_parameter/sprite_sheet_columns = 16
 [sub_resource type="QuadMesh" id="QuadMesh_vxglm"]
 size = Vector2(38, 51.2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yq6so"]
-albedo_texture = ExtResource("21_vxglm")
-
-[sub_resource type="QuadMesh" id="QuadMesh_fv21b"]
-size = Vector2(16, 9)
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tsk2b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flevc"]
@@ -154,24 +146,6 @@ shader_parameter/dither_power = 0.75
 shader_parameter/dither_scroll_speed = Vector2(2, 2)
 shader_parameter/dither_tex_size = Vector2(5, 5)
 shader_parameter/dither_texture = ExtResource("19_6gyjg")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tel4y"]
-albedo_color = Color(1, 0.71, 0.71, 1)
-emission_enabled = true
-emission = Color(0.422002, 0, 0.0310633, 1)
-
-[sub_resource type="TextMesh" id="TextMesh_qkpxi"]
-text = "ТЯЖЁЛОЕ ЯДРО"
-font = ExtResource("27_2f3dj")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5q0nq"]
-albedo_color = Color(0.318683, 0.153907, 1, 1)
-emission_enabled = true
-emission = Color(0.131406, 0.0576086, 0.313154, 1)
-
-[sub_resource type="TextMesh" id="TextMesh_dgi5k"]
-text = "НЕДЕЛЯ 64"
-font = ExtResource("27_2f3dj")
 
 [node name="Main" type="Node"]
 
@@ -309,11 +283,29 @@ csg_array = [NodePath("CSGBox3D")]
 [node name="CSGBox3D" type="CSGBox3D" parent="World/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.411893, -7)
 use_collision = true
-size = Vector3(31, 1, 43)
+size = Vector3(24, 1, 37)
+material = SubResource("StandardMaterial3D_fv21b")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="World/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5, 6.58811, -7)
+use_collision = true
+size = Vector3(3, 13, 37)
+material = SubResource("StandardMaterial3D_fv21b")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="World/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 6.58811, -7)
+use_collision = true
+size = Vector3(3, 13, 37)
+material = SubResource("StandardMaterial3D_fv21b")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="World/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 6.58811, 12.5)
+use_collision = true
+size = Vector3(25, 13, 2)
 material = SubResource("StandardMaterial3D_fv21b")
 
 [node name="TestThingy" type="Node3D" parent="World" node_paths=PackedStringArray("billboard_node")]
-transform = Transform3D(-0.874451, 0, -0.485115, 0, 1, 0, 0.485115, 0, -0.874451, -2.33628, 4.76837e-07, -8.50006)
+transform = Transform3D(-0.874451, 0, -0.485115, 0, 1, 0, 0.485115, 0, -0.874451, -4.94513, 4.76837e-07, -12.93)
 script = ExtResource("18_2wyq8")
 cur_sprite_sheet = ExtResource("24_og1vs")
 cycle_speed_mult = 5.0
@@ -335,11 +327,6 @@ choice_names = Array[String](["Кто ты?"])
 sequence_names = Array[String](["skeleton_thing_chat"])
 dialogue_priority = 1
 metadata/_custom_type_script = "uid://cr5g5jxltekbc"
-
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="World"]
-transform = Transform3D(-0.63597, 0, 0.771713, 0, 1, 0, -0.771713, 0, -0.63597, -6.98746, 4.51206, -3.95953)
-material_override = SubResource("StandardMaterial3D_yq6so")
-mesh = SubResource("QuadMesh_fv21b")
 
 [node name="UI Layer" type="CanvasLayer" parent="."]
 
@@ -453,18 +440,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 1, 1, 0.156863)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(-6.25141, 0, 3.18333, 0, 7.01525, 0, -3.18333, 0, -6.25141, -1.60174, 6.04219, -0.304047)
-material_override = SubResource("StandardMaterial3D_tel4y")
-mesh = SubResource("TextMesh_qkpxi")
-skeleton = NodePath("")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-6.25141, 0, 3.18333, 0, 7.01525, 0, -3.18333, 0, -6.25141, -1.07758, 2.64547, -1.19141)
-material_override = SubResource("StandardMaterial3D_5q0nq")
-mesh = SubResource("TextMesh_dgi5k")
-skeleton = NodePath("")
 
 [connection signal="text_changed" from="UI Layer/UI/DebugWindow/VBoxContainer/IpField" to="DebugNode" method="set_connection_address_string"]
 [connection signal="text_changed" from="UI Layer/UI/DebugWindow/VBoxContainer/PortField" to="DebugNode" method="set_connection_port_string"]
