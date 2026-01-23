@@ -495,6 +495,10 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player/ItemPickup"]
 shape = SubResource("CapsuleShape3D_qlogj")
 
+[node name="OmniLight3D" type="OmniLight3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.46692, 0)
+omni_range = 10.0
+
 [connection signal="authority_changed" from="." to="SharedLogic/SetMaterialBasedOnOwner" method="_on_entity_authority_change"]
 [connection signal="entity_ready" from="." to="OwnerLogic/PlayerHotbar" method="connect_container_to_hotbar"]
 [connection signal="entity_ready" from="." to="SharedLogic/PlayerInventory" method="add_initial_items"]

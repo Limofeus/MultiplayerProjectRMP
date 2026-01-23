@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://fjib4361ovfd"]
+[gd_scene load_steps=41 format=3 uid="uid://fjib4361ovfd"]
 
 [ext_resource type="Script" uid="uid://bdbitsb3bdwvf" path="res://scripts/networking/network_manager.gd" id="1_1ap1m"]
 [ext_resource type="Script" uid="uid://bjmp5kq0tl031" path="res://scripts/utility/fps_counter.gd" id="1_bkmm5"]
@@ -16,7 +16,6 @@
 [ext_resource type="Material" uid="uid://dox7ghi1mskpg" path="res://materials/effects/overlays/speedlines_overlay.tres" id="12_oyb24"]
 [ext_resource type="PackedScene" uid="uid://dcv2qqx1bcyda" path="res://scenes/entities/simple_dialogue_point.tscn" id="16_jscy8"]
 [ext_resource type="Script" uid="uid://jrqidiswd16s" path="res://scripts/ui/menus/open_settings_window_button.gd" id="17_gqmmt"]
-[ext_resource type="Script" uid="uid://tfe74edb8n6c" path="res://scripts/components/utility/editor tools/csg_material_texture_size_setter.gd" id="17_jscy8"]
 [ext_resource type="Script" uid="uid://cr5g5jxltekbc" path="res://scripts/components/tinkering/tinkerable/dialogue/dialogue triggers/choice_dialogue_trigger.gd" id="17_pm3ni"]
 [ext_resource type="Script" uid="uid://cf62jkm8arfbu" path="res://scripts/visual/creatures/sprite_sheet_billboard.gd" id="18_2wyq8"]
 [ext_resource type="Shader" uid="uid://2u66ri5gklxa" path="res://shaders/main menu effects/dither_canvas.gdshader" id="18_v1b13"]
@@ -25,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://6ypd48k7kbjj" path="res://scenes/ui/items_hotbar.tscn" id="21_iy7cf"]
 [ext_resource type="Shader" uid="uid://bfx5psllv5gl5" path="res://shaders/spatial/creature_sprite_sheet.gdshader" id="21_yq6so"]
 [ext_resource type="Resource" uid="uid://b3jk6eigtjjyo" path="res://resources/sprite sheets/creatures/skeleton/skeleton_idle_omnidir_sprite_sheet.tres" id="24_og1vs"]
+[ext_resource type="PackedScene" uid="uid://bcern4c5ar8nd" path="res://models/map_tmp/MobilkiProj.glb" id="25_og1vs"]
 
 [sub_resource type="Resource" id="Resource_oj2bi"]
 script = ExtResource("10_aukot")
@@ -95,28 +95,6 @@ auto_exposure_max_sensitivity = 500.0
 [sub_resource type="SphereMesh" id="SphereMesh_jscy8"]
 radius = 0.4
 height = 0.8
-
-[sub_resource type="Gradient" id="Gradient_p5gqa"]
-offsets = PackedFloat32Array(0.488806, 0.645522)
-colors = PackedColorArray(0.226563, 0.226563, 0.226563, 1, 0.601563, 0.601563, 0.601563, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_n5doh"]
-frequency = 0.0316
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gfgok"]
-seamless = true
-color_ramp = SubResource("Gradient_p5gqa")
-noise = SubResource("FastNoiseLite_n5doh")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pm3ni"]
-albedo_color = Color(0.25, 0.25, 0.25, 1)
-albedo_texture = SubResource("NoiseTexture2D_gfgok")
-uv1_scale = Vector3(114.753, 98.604, 8.58411)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fv21b"]
-albedo_color = Color(0.25, 0.25, 0.25, 1)
-albedo_texture = SubResource("NoiseTexture2D_gfgok")
-uv1_scale = Vector3(23, 13, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_og1vs"]
 render_priority = 0
@@ -228,6 +206,7 @@ camera_attributes = SubResource("CameraAttributesPractical_rqodr")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="World"]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+visible = false
 shadow_enabled = true
 
 [node name="SimpleDialoguePoint" parent="World" instance=ExtResource("16_jscy8")]
@@ -274,35 +253,6 @@ choice_names = Array[String](["Осмотреть"])
 sequence_names = Array[String](["floating_sphere_inspect"])
 dialogue_priority = 1
 metadata/_custom_type_script = "uid://cr5g5jxltekbc"
-
-[node name="Node3D" type="Node3D" parent="World" node_paths=PackedStringArray("csg_array")]
-script = ExtResource("17_jscy8")
-material_to_apply = SubResource("StandardMaterial3D_pm3ni")
-csg_array = [NodePath("CSGBox3D")]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="World/Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.411893, -7)
-use_collision = true
-size = Vector3(24, 1, 37)
-material = SubResource("StandardMaterial3D_fv21b")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="World/Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5, 6.58811, -7)
-use_collision = true
-size = Vector3(3, 13, 37)
-material = SubResource("StandardMaterial3D_fv21b")
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="World/Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 6.58811, -7)
-use_collision = true
-size = Vector3(3, 13, 37)
-material = SubResource("StandardMaterial3D_fv21b")
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="World/Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 6.58811, 12.5)
-use_collision = true
-size = Vector3(25, 13, 2)
-material = SubResource("StandardMaterial3D_fv21b")
 
 [node name="TestThingy" type="Node3D" parent="World" node_paths=PackedStringArray("billboard_node")]
 transform = Transform3D(-0.874451, 0, -0.485115, 0, 1, 0, 0.485115, 0, -0.874451, -4.94513, 4.76837e-07, -12.93)
@@ -440,6 +390,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 1, 1, 0.156863)
+
+[node name="Map" parent="." instance=ExtResource("25_og1vs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -1, 11)
 
 [connection signal="text_changed" from="UI Layer/UI/DebugWindow/VBoxContainer/IpField" to="DebugNode" method="set_connection_address_string"]
 [connection signal="text_changed" from="UI Layer/UI/DebugWindow/VBoxContainer/PortField" to="DebugNode" method="set_connection_port_string"]
