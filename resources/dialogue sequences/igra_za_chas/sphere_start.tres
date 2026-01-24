@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="DialogueSequence" load_steps=9 format=3 uid="uid://bl2fcetqe1qqg"]
+
+[ext_resource type="Script" uid="uid://bee4762ye2at8" path="res://scripts/resources/dialogues/dialogue_block.gd" id="1_ke03d"]
+[ext_resource type="Resource" uid="uid://ceh31qo08juqw" path="res://resources/dialogue metadata presets/characters/sphere.tres" id="2_qsjn4"]
+[ext_resource type="Script" uid="uid://8njgmbn7c7jq" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_text_block.gd" id="3_tutcs"]
+[ext_resource type="Resource" uid="uid://injhq6fdk17u" path="res://resources/dialogue metadata presets/characters/clear_character.tres" id="4_w56nb"]
+[ext_resource type="Script" uid="uid://duyli6g2p5ayn" path="res://scripts/resources/dialogues/dialogue_sequence.gd" id="5_lade1"]
+
+[sub_resource type="Resource" id="Resource_7vcot"]
+script = ExtResource("3_tutcs")
+dialogue_text = "\"храп храп храп\" А? ого! Кто-то действительно зашёл? так..."
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[sub_resource type="Resource" id="Resource_7c51m"]
+script = ExtResource("3_tutcs")
+dialogue_text = "ДОБРО ПОЖАЛОВАТЬ НА ТЕСТ МУЛЬТИПЛЕЕРА!"
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[sub_resource type="Resource" id="Resource_palbe"]
+script = ExtResource("3_tutcs")
+dialogue_text = "короче. Идите нарецепшон. Там всё подробно объяснят, а я пошёл чистить полы. Надеюсь мне дадут премию..."
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[resource]
+script = ExtResource("5_lade1")
+sequence_name = "sphere_start"
+sequence_lang_key = "en"
+dialogue_blocks = Array[ExtResource("1_ke03d")]([ExtResource("2_qsjn4"), SubResource("Resource_7vcot"), SubResource("Resource_7c51m"), SubResource("Resource_palbe"), ExtResource("4_w56nb")])
+metadata/_custom_type_script = "uid://duyli6g2p5ayn"

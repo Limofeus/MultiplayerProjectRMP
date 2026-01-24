@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="DialogueSequence" load_steps=10 format=3 uid="uid://caydn6lemj2wf"]
+
+[ext_resource type="Script" uid="uid://bee4762ye2at8" path="res://scripts/resources/dialogues/dialogue_block.gd" id="1_n5y7h"]
+[ext_resource type="Resource" uid="uid://dga56vv0vsal0" path="res://resources/dialogue metadata presets/characters/skeleton_vim.tres" id="2_86oxp"]
+[ext_resource type="Script" uid="uid://8njgmbn7c7jq" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_text_block.gd" id="3_qjkgw"]
+[ext_resource type="Script" uid="uid://bew54dp5qxf0f" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_useless_choice_block.gd" id="4_sm64v"]
+[ext_resource type="Resource" uid="uid://injhq6fdk17u" path="res://resources/dialogue metadata presets/characters/clear_character.tres" id="5_xqxm8"]
+[ext_resource type="Script" uid="uid://duyli6g2p5ayn" path="res://scripts/resources/dialogues/dialogue_sequence.gd" id="6_1bvmc"]
+
+[sub_resource type="Resource" id="Resource_7vcot"]
+script = ExtResource("3_qjkgw")
+dialogue_text = "Как же там было... Налево пойдёшь - скелета найдёшь. направо пойдёшь - прав будешь. "
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[sub_resource type="Resource" id="Resource_736g0"]
+script = ExtResource("4_sm64v")
+useless_choices = Array[String](["Лево", "Право"])
+dialogue_text = "Что ты выберешь? Право или лево?"
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://bew54dp5qxf0f"
+
+[sub_resource type="Resource" id="Resource_2tk7a"]
+script = ExtResource("3_qjkgw")
+dialogue_text = "хм... Занимательный выбор. Наверное. Если честно я был занят. размышлял, что будет, если смешать кванотовозапутанные ветки винограда с антиматерией. В любом случае тебя ждут опасные испытания впереди, так что желаю удачи."
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[resource]
+script = ExtResource("6_1bvmc")
+sequence_name = "skelet_path_chat"
+sequence_lang_key = "en"
+dialogue_blocks = Array[ExtResource("1_n5y7h")]([ExtResource("2_86oxp"), SubResource("Resource_7vcot"), SubResource("Resource_736g0"), SubResource("Resource_2tk7a"), ExtResource("5_xqxm8")])
+metadata/_custom_type_script = "uid://duyli6g2p5ayn"

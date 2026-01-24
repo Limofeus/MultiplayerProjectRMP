@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="DialogueSequence" load_steps=8 format=3 uid="uid://b3kc42ohgmnul"]
+
+[ext_resource type="Script" uid="uid://bee4762ye2at8" path="res://scripts/resources/dialogues/dialogue_block.gd" id="1_whaxx"]
+[ext_resource type="Resource" uid="uid://qats71281lq3" path="res://resources/dialogue metadata presets/characters/cube.tres" id="2_kd4uk"]
+[ext_resource type="Script" uid="uid://8njgmbn7c7jq" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_text_block.gd" id="3_3hmkj"]
+[ext_resource type="Resource" uid="uid://injhq6fdk17u" path="res://resources/dialogue metadata presets/characters/clear_character.tres" id="4_sksy3"]
+[ext_resource type="Script" uid="uid://duyli6g2p5ayn" path="res://scripts/resources/dialogues/dialogue_sequence.gd" id="5_7e1bl"]
+
+[sub_resource type="Resource" id="Resource_7vcot"]
+script = ExtResource("3_3hmkj")
+dialogue_text = "О, привет! Давненько тут никого не было... В любом случае, дальше будет опасьненько, так что тебе лучше выбрать оружие. Можешь взять любое, из карманов..."
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[sub_resource type="Resource" id="Resource_whaxx"]
+script = ExtResource("3_3hmkj")
+dialogue_text = "В любом случае оно не моё, а мне платят, только чтобы тут летать и разговаривать с вами. Короче: оружие - ключ к выживанию и всё такое."
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[resource]
+script = ExtResource("5_7e1bl")
+sequence_name = "kvadratik_chat"
+sequence_lang_key = "en"
+dialogue_blocks = Array[ExtResource("1_whaxx")]([ExtResource("2_kd4uk"), SubResource("Resource_7vcot"), SubResource("Resource_whaxx"), ExtResource("4_sksy3")])
+metadata/_custom_type_script = "uid://duyli6g2p5ayn"

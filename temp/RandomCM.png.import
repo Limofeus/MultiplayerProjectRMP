@@ -1,0 +1,25 @@
+[remap]
+
+importer="cubemap_texture"
+type="CompressedCubemap"
+uid="uid://d3jb4p42t2jdq"
+path="res://.godot/imported/RandomCM.png-44bb9e7bde5cf168dbdb9ad62857065e.ccube"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://temp/RandomCM.png"
+dest_files=["res://.godot/imported/RandomCM.png-44bb9e7bde5cf168dbdb9ad62857065e.ccube"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+slices/arrangement=1

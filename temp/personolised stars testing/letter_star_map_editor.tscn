@@ -1,6 +1,44 @@
-[gd_scene load_steps=8 format=3 uid="uid://bwwnftpmicpfq"]
+[gd_scene load_steps=64 format=3 uid="uid://bwwnftpmicpfq"]
 
 [ext_resource type="Script" uid="uid://c2pd22kyd62vx" path="res://temp/personolised stars testing/starmap_editor.gd" id="1_nhed2"]
+[ext_resource type="Script" uid="uid://ghu2otw1v5fe" path="res://scripts/utility/dialogue_symbols_mapping_generator.gd" id="2_76gty"]
+[ext_resource type="Script" uid="uid://ch3qrygifgf8n" path="res://scripts/resources/dialogues/symbol sounds mapping/dialogue_symbol_sound_map.gd" id="3_tuu7d"]
+[ext_resource type="Script" uid="uid://xtto1fyv5ihq" path="res://scripts/resources/dialogues/symbol sounds mapping/dialogue_symbol_sounds.gd" id="4_2e8cu"]
+[ext_resource type="AudioStream" uid="uid://dqc2ditfc1sjw" path="res://audio/dialogue/symbol sounds/voice 1/voice_a1.wav" id="5_a8px5"]
+[ext_resource type="AudioStream" uid="uid://dsu4kehtdk5dm" path="res://audio/dialogue/symbol sounds/voice 1/voice_a2.wav" id="6_q0xjv"]
+[ext_resource type="AudioStream" uid="uid://b03bywo85xkp3" path="res://audio/dialogue/symbol sounds/voice 1/voice_a3.wav" id="7_8q3ma"]
+[ext_resource type="AudioStream" uid="uid://dv6fosobnaje2" path="res://audio/dialogue/symbol sounds/voice 1/voice_a4.wav" id="8_uj65x"]
+[ext_resource type="AudioStream" uid="uid://cwiui42a6kamo" path="res://audio/dialogue/symbol sounds/voice 1/voice_o1.wav" id="9_ox2pf"]
+[ext_resource type="AudioStream" uid="uid://wyk8m657g4q8" path="res://audio/dialogue/symbol sounds/voice 1/voice_o2.wav" id="10_0udij"]
+[ext_resource type="AudioStream" uid="uid://cjl76ar4cfj4a" path="res://audio/dialogue/symbol sounds/voice 1/voice_o3.wav" id="11_tvhft"]
+[ext_resource type="AudioStream" uid="uid://bsgl4tdcr0hj7" path="res://audio/dialogue/symbol sounds/voice 1/voice_o4.wav" id="12_7jeec"]
+[ext_resource type="AudioStream" uid="uid://npmrc2hsbtyt" path="res://audio/dialogue/symbol sounds/voice 1/voice_e1.wav" id="13_dgnoh"]
+[ext_resource type="AudioStream" uid="uid://tws7riw8iwd4" path="res://audio/dialogue/symbol sounds/voice 1/voice_e2.wav" id="14_4pmtv"]
+[ext_resource type="AudioStream" uid="uid://ofbgtwdq3nvb" path="res://audio/dialogue/symbol sounds/voice 1/voice_e3.wav" id="15_nb3bf"]
+[ext_resource type="AudioStream" uid="uid://dkbaeyxs8b12s" path="res://audio/dialogue/symbol sounds/voice 1/voice_e4.wav" id="16_xkfd0"]
+[ext_resource type="AudioStream" uid="uid://dmsg0g81bflj8" path="res://audio/dialogue/symbol sounds/voice 1/voice_i1.wav" id="17_jw524"]
+[ext_resource type="AudioStream" uid="uid://d0ef5jri688b7" path="res://audio/dialogue/symbol sounds/voice 1/voice_i2.wav" id="18_fpxk4"]
+[ext_resource type="AudioStream" uid="uid://dvvaf5225b54h" path="res://audio/dialogue/symbol sounds/voice 1/voice_i3.wav" id="19_sao24"]
+[ext_resource type="AudioStream" uid="uid://d0vgovhcopb8q" path="res://audio/dialogue/symbol sounds/voice 1/voice_i4.wav" id="20_2wwgd"]
+[ext_resource type="AudioStream" uid="uid://cd7ucma0dhq2i" path="res://audio/dialogue/symbol sounds/voice 1/voice_u1.wav" id="21_xsq3y"]
+[ext_resource type="AudioStream" uid="uid://cn528vxoeajw2" path="res://audio/dialogue/symbol sounds/voice 1/voice_u2.wav" id="22_kpuel"]
+[ext_resource type="AudioStream" uid="uid://djay3421fnlyx" path="res://audio/dialogue/symbol sounds/voice 1/voice_u3.wav" id="23_ddxfj"]
+[ext_resource type="AudioStream" uid="uid://dui2gk85y3yrq" path="res://audio/dialogue/symbol sounds/voice 1/voice_u4.wav" id="24_f351f"]
+[ext_resource type="AudioStream" uid="uid://chdy24vpe1cf2" path="res://audio/dialogue/symbol sounds/voice 2/voice_2_a1.wav" id="25_fpxk4"]
+[ext_resource type="AudioStream" uid="uid://c50w754l0ge0n" path="res://audio/dialogue/symbol sounds/voice 2/voice_2_a2.wav" id="26_sao24"]
+[ext_resource type="AudioStream" uid="uid://d30ca63ktwlm5" path="res://audio/dialogue/symbol sounds/voice 2/voice_2_a3.wav" id="27_2wwgd"]
+[ext_resource type="AudioStream" uid="uid://hqfp5x0qlt52" path="res://audio/dialogue/symbol sounds/voice 2/voice_2_e1.wav" id="28_xsq3y"]
+[ext_resource type="AudioStream" uid="uid://bks7qq42o81qp" path="res://audio/dialogue/symbol sounds/voice 2/voice_2_e2.wav" id="29_kpuel"]
+[ext_resource type="AudioStream" uid="uid://cf16871a23bq4" path="res://audio/dialogue/symbol sounds/voice 2/voice_2_e3.wav" id="30_ddxfj"]
+[ext_resource type="AudioStream" uid="uid://da4h38003xdh0" path="res://audio/dialogue/symbol sounds/voice 2/voice_2_i1.wav" id="31_f351f"]
+[ext_resource type="AudioStream" uid="uid://dp3cv8lr0agkt" path="res://audio/dialogue/symbol sounds/voice 2/voice_2_i2.wav" id="32_iw1cm"]
+[ext_resource type="AudioStream" uid="uid://3x3xx35koxps" path="res://audio/dialogue/symbol sounds/voice 2/voice_2_i3.wav" id="33_c7n5o"]
+[ext_resource type="AudioStream" uid="uid://u02vbtdxnoek" path="res://audio/dialogue/symbol sounds/voice 2/voice_2_o1.wav" id="34_7b5ka"]
+[ext_resource type="AudioStream" uid="uid://mnoqlrlw6orh" path="res://audio/dialogue/symbol sounds/voice 2/voice_2_o2.wav" id="35_4c78t"]
+[ext_resource type="AudioStream" uid="uid://dqiv66nnvt78g" path="res://audio/dialogue/symbol sounds/voice 2/voice_2_o3.wav" id="36_3hofu"]
+[ext_resource type="AudioStream" uid="uid://cl6h28rd3yd1s" path="res://audio/dialogue/symbol sounds/voice 2/voice_2_u1.wav" id="37_pe6fy"]
+[ext_resource type="AudioStream" uid="uid://b0asxe3x624t7" path="res://audio/dialogue/symbol sounds/voice 2/voice_2_u2.wav" id="38_xqva2"]
+[ext_resource type="AudioStream" uid="uid://c5bnbvivcmhtk" path="res://audio/dialogue/symbol sounds/voice 2/voice_2_u3.wav" id="39_i0y4f"]
 
 [sub_resource type="Gradient" id="Gradient_nhed2"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
@@ -26,6 +64,117 @@ gradient = SubResource("Gradient_76gty")
 width = 132
 height = 196
 
+[sub_resource type="Resource" id="Resource_aq48q"]
+script = ExtResource("4_2e8cu")
+audio_clips = Array[AudioStream]([])
+metadata/_custom_type_script = "uid://xtto1fyv5ihq"
+
+[sub_resource type="Resource" id="Resource_ttv8s"]
+script = ExtResource("4_2e8cu")
+audio_clips = Array[AudioStream]([])
+metadata/_custom_type_script = "uid://xtto1fyv5ihq"
+
+[sub_resource type="Resource" id="Resource_haeir"]
+script = ExtResource("4_2e8cu")
+audio_clips = Array[AudioStream]([])
+metadata/_custom_type_script = "uid://xtto1fyv5ihq"
+
+[sub_resource type="Resource" id="Resource_mpubr"]
+script = ExtResource("4_2e8cu")
+audio_clips = Array[AudioStream]([])
+metadata/_custom_type_script = "uid://xtto1fyv5ihq"
+
+[sub_resource type="Resource" id="Resource_rw6g5"]
+script = ExtResource("4_2e8cu")
+audio_clips = Array[AudioStream]([])
+metadata/_custom_type_script = "uid://xtto1fyv5ihq"
+
+[sub_resource type="Resource" id="Resource_xpc4k"]
+script = ExtResource("3_tuu7d")
+sound_symbol_dictionary = Dictionary[String, ExtResource("4_2e8cu")]({
+"aая": SubResource("Resource_aq48q"),
+"eеэ": SubResource("Resource_ttv8s"),
+"iyи": SubResource("Resource_haeir"),
+"oо": SubResource("Resource_mpubr"),
+"uуюы": SubResource("Resource_rw6g5")
+})
+pitch_variation = 0.0
+metadata/_custom_type_script = "uid://ch3qrygifgf8n"
+
+[sub_resource type="Resource" id="Resource_iw1cm"]
+script = ExtResource("4_2e8cu")
+audio_clips = Array[AudioStream]([ExtResource("5_a8px5"), ExtResource("6_q0xjv"), ExtResource("7_8q3ma"), ExtResource("8_uj65x")])
+metadata/_custom_type_script = "uid://xtto1fyv5ihq"
+
+[sub_resource type="Resource" id="Resource_7b5ka"]
+script = ExtResource("4_2e8cu")
+audio_clips = Array[AudioStream]([ExtResource("13_dgnoh"), ExtResource("14_4pmtv"), ExtResource("15_nb3bf"), ExtResource("16_xkfd0")])
+metadata/_custom_type_script = "uid://xtto1fyv5ihq"
+
+[sub_resource type="Resource" id="Resource_4c78t"]
+script = ExtResource("4_2e8cu")
+audio_clips = Array[AudioStream]([ExtResource("17_jw524"), ExtResource("18_fpxk4"), ExtResource("19_sao24"), ExtResource("20_2wwgd")])
+metadata/_custom_type_script = "uid://xtto1fyv5ihq"
+
+[sub_resource type="Resource" id="Resource_c7n5o"]
+script = ExtResource("4_2e8cu")
+audio_clips = Array[AudioStream]([ExtResource("9_ox2pf"), ExtResource("10_0udij"), ExtResource("11_tvhft"), ExtResource("12_7jeec")])
+metadata/_custom_type_script = "uid://xtto1fyv5ihq"
+
+[sub_resource type="Resource" id="Resource_3hofu"]
+script = ExtResource("4_2e8cu")
+audio_clips = Array[AudioStream]([ExtResource("21_xsq3y"), ExtResource("22_kpuel"), ExtResource("23_ddxfj"), ExtResource("24_f351f")])
+metadata/_custom_type_script = "uid://xtto1fyv5ihq"
+
+[sub_resource type="Resource" id="Resource_pe6fy"]
+script = ExtResource("3_tuu7d")
+sound_symbol_dictionary = Dictionary[String, ExtResource("4_2e8cu")]({
+"aая": SubResource("Resource_iw1cm"),
+"eеэ": SubResource("Resource_7b5ka"),
+"iyи": SubResource("Resource_4c78t"),
+"oо": SubResource("Resource_c7n5o"),
+"uуюы": SubResource("Resource_3hofu")
+})
+pitch_variation = 0.0
+metadata/_custom_type_script = "uid://ch3qrygifgf8n"
+
+[sub_resource type="Resource" id="Resource_yo58d"]
+script = ExtResource("4_2e8cu")
+audio_clips = Array[AudioStream]([ExtResource("25_fpxk4"), ExtResource("26_sao24"), ExtResource("27_2wwgd")])
+metadata/_custom_type_script = "uid://xtto1fyv5ihq"
+
+[sub_resource type="Resource" id="Resource_cskjs"]
+script = ExtResource("4_2e8cu")
+audio_clips = Array[AudioStream]([ExtResource("28_xsq3y"), ExtResource("29_kpuel"), ExtResource("30_ddxfj")])
+metadata/_custom_type_script = "uid://xtto1fyv5ihq"
+
+[sub_resource type="Resource" id="Resource_wykbw"]
+script = ExtResource("4_2e8cu")
+audio_clips = Array[AudioStream]([ExtResource("31_f351f"), ExtResource("32_iw1cm"), ExtResource("33_c7n5o")])
+metadata/_custom_type_script = "uid://xtto1fyv5ihq"
+
+[sub_resource type="Resource" id="Resource_dnmpb"]
+script = ExtResource("4_2e8cu")
+audio_clips = Array[AudioStream]([ExtResource("34_7b5ka"), ExtResource("35_4c78t"), ExtResource("36_3hofu")])
+metadata/_custom_type_script = "uid://xtto1fyv5ihq"
+
+[sub_resource type="Resource" id="Resource_xqn0p"]
+script = ExtResource("4_2e8cu")
+audio_clips = Array[AudioStream]([ExtResource("37_pe6fy"), ExtResource("38_xqva2"), ExtResource("39_i0y4f")])
+metadata/_custom_type_script = "uid://xtto1fyv5ihq"
+
+[sub_resource type="Resource" id="Resource_m0lbb"]
+script = ExtResource("3_tuu7d")
+sound_symbol_dictionary = Dictionary[String, ExtResource("4_2e8cu")]({
+"aая": SubResource("Resource_yo58d"),
+"eеэ": SubResource("Resource_cskjs"),
+"iyи": SubResource("Resource_wykbw"),
+"oо": SubResource("Resource_dnmpb"),
+"uуюы": SubResource("Resource_xqn0p")
+})
+pitch_variation = 0.0
+metadata/_custom_type_script = "uid://ch3qrygifgf8n"
+
 [node name="LetterStarMapEditor" type="Node2D"]
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
@@ -43,3 +192,15 @@ width = 5.0
 default_color = Color(1, 1, 1, 0.556863)
 script = ExtResource("1_nhed2")
 symbol_name = "❤"
+
+[node name="VoiceRef" type="Node" parent="."]
+script = ExtResource("2_76gty")
+quick_dialogue_symbol_sound_mapping = SubResource("Resource_xpc4k")
+
+[node name="Voice1" type="Node" parent="."]
+script = ExtResource("2_76gty")
+quick_dialogue_symbol_sound_mapping = SubResource("Resource_pe6fy")
+
+[node name="Voice2" type="Node" parent="."]
+script = ExtResource("2_76gty")
+quick_dialogue_symbol_sound_mapping = SubResource("Resource_m0lbb")

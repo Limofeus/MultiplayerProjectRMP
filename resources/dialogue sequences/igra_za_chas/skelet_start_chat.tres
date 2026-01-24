@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="DialogueSequence" load_steps=10 format=3 uid="uid://dkhoq4jly6lp2"]
+
+[ext_resource type="Script" uid="uid://bee4762ye2at8" path="res://scripts/resources/dialogues/dialogue_block.gd" id="1_3bl68"]
+[ext_resource type="Resource" uid="uid://c5s8yg2yfyk3g" path="res://resources/dialogue metadata presets/characters/skeleton_big_bone.tres" id="2_hiv0i"]
+[ext_resource type="Script" uid="uid://8njgmbn7c7jq" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_text_block.gd" id="3_6oi47"]
+[ext_resource type="Script" uid="uid://bew54dp5qxf0f" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_useless_choice_block.gd" id="4_xm6ww"]
+[ext_resource type="Resource" uid="uid://injhq6fdk17u" path="res://resources/dialogue metadata presets/characters/clear_character.tres" id="5_h3i6k"]
+[ext_resource type="Script" uid="uid://duyli6g2p5ayn" path="res://scripts/resources/dialogues/dialogue_sequence.gd" id="6_xod16"]
+
+[sub_resource type="Resource" id="Resource_7vcot"]
+script = ExtResource("3_6oi47")
+dialogue_text = "О, приветсвую! Добро пожаловать на тест мультиплеера! Сразу предупреждаю: нет. Тортов у нас нет, как и злого ИИ, как и порталов, как и... Ну вы поняли. Итак, вам нужно идти вперёд и сражатся! Просто, не так-ли?"
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[sub_resource type="Resource" id="Resource_50ps0"]
+script = ExtResource("4_xm6ww")
+useless_choices = Array[String](["да, наверное...", "ага"])
+dialogue_text = "Ну что? всё поняли?"
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://bew54dp5qxf0f"
+
+[sub_resource type="Resource" id="Resource_di2au"]
+script = ExtResource("3_6oi47")
+dialogue_text = "Супер! Тогда вперёд! За науку!"
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[resource]
+script = ExtResource("6_xod16")
+sequence_name = "skelet_start_chat"
+sequence_lang_key = "en"
+dialogue_blocks = Array[ExtResource("1_3bl68")]([ExtResource("2_hiv0i"), SubResource("Resource_7vcot"), SubResource("Resource_50ps0"), SubResource("Resource_di2au"), ExtResource("5_h3i6k")])
+metadata/_custom_type_script = "uid://duyli6g2p5ayn"

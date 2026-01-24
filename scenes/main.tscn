@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://fjib4361ovfd"]
+[gd_scene load_steps=49 format=3 uid="uid://fjib4361ovfd"]
 
 [ext_resource type="Script" uid="uid://bdbitsb3bdwvf" path="res://scripts/networking/network_manager.gd" id="1_1ap1m"]
 [ext_resource type="Script" uid="uid://bjmp5kq0tl031" path="res://scripts/utility/fps_counter.gd" id="1_bkmm5"]
@@ -24,7 +24,16 @@
 [ext_resource type="PackedScene" uid="uid://6ypd48k7kbjj" path="res://scenes/ui/items_hotbar.tscn" id="21_iy7cf"]
 [ext_resource type="Shader" uid="uid://bfx5psllv5gl5" path="res://shaders/spatial/creature_sprite_sheet.gdshader" id="21_yq6so"]
 [ext_resource type="Resource" uid="uid://b3jk6eigtjjyo" path="res://resources/sprite sheets/creatures/skeleton/skeleton_idle_omnidir_sprite_sheet.tres" id="24_og1vs"]
-[ext_resource type="PackedScene" uid="uid://bcern4c5ar8nd" path="res://models/map_tmp/MobilkiProj.glb" id="25_og1vs"]
+[ext_resource type="Script" uid="uid://cpcgd5d5boc6h" path="res://scripts/world/entity spawning/spawn_entity_on_players_created.gd" id="25_dgi5k"]
+[ext_resource type="PackedScene" uid="uid://deffu7skq5ps3" path="res://models/map_tmp/MobilkiProj.glb" id="25_og1vs"]
+[ext_resource type="PackedScene" uid="uid://h4rhiwl8xmhl" path="res://scenes/entities/creatures/yolo_enemy.tscn" id="26_j8jky"]
+[ext_resource type="PackedScene" uid="uid://dtbs1e44py625" path="res://scenes/entities/creatures/yolo_enemy_alt.tscn" id="27_kmb1v"]
+[ext_resource type="PackedScene" uid="uid://bw2i466uid2v5" path="res://scenes/entities/creatures/yolo_ranged_enemy.tscn" id="28_fuf3a"]
+[ext_resource type="PackedScene" uid="uid://b6jdf6diba46" path="res://scenes/entities/creatures/yolo_ranged_enemy_alt.tscn" id="29_pibwh"]
+[ext_resource type="PackedScene" uid="uid://b1s0h0w4kbxbx" path="res://scenes/entities/creatures/bosses/sm_enemy_boss_blue_1.tscn" id="30_c6pm6"]
+[ext_resource type="PackedScene" uid="uid://c484qktn6burs" path="res://scenes/entities/creatures/bosses/sm_enemy_boss_green_1.tscn" id="31_5he1u"]
+[ext_resource type="PackedScene" uid="uid://b3kj2xjwgeemc" path="res://scenes/entities/creatures/bosses/sm_enemy_boss_red_1.tscn" id="32_5poiv"]
+[ext_resource type="PackedScene" uid="uid://dugj4q0ytwe0u" path="res://scenes/entities/creatures/bosses/sm_enemy_boss_purple_1.tscn" id="33_2cjbq"]
 
 [sub_resource type="Resource" id="Resource_oj2bi"]
 script = ExtResource("10_aukot")
@@ -91,10 +100,6 @@ auto_exposure_min_sensitivity = 50.0
 auto_exposure_max_sensitivity = 500.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_y6deb"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_jscy8"]
-radius = 0.4
-height = 0.8
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_og1vs"]
 render_priority = 0
@@ -239,21 +244,6 @@ transform = Transform3D(0.460879, 0, 0.353236, 0, 0.580676, 0, -0.353236, 0, 0.4
 mesh = SubResource("BoxMesh_y6deb")
 skeleton = NodePath("../SimpleDialoguePoint")
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.02932, 0.809891, 3.47871)
-mesh = SubResource("SphereMesh_jscy8")
-skeleton = NodePath("../SphereInspect")
-
-[node name="SphereInspect" parent="World" instance=ExtResource("16_jscy8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.02932, 0.809891, 3.47871)
-
-[node name="ChoiceDialogueTrigger" type="Node" parent="World/SphereInspect"]
-script = ExtResource("17_pm3ni")
-choice_names = Array[String](["Осмотреть"])
-sequence_names = Array[String](["floating_sphere_inspect"])
-dialogue_priority = 1
-metadata/_custom_type_script = "uid://cr5g5jxltekbc"
-
 [node name="TestThingy" type="Node3D" parent="World" node_paths=PackedStringArray("billboard_node")]
 transform = Transform3D(-0.874451, 0, -0.485115, 0, 1, 0, 0.485115, 0, -0.874451, -4.94513, 4.76837e-07, -12.93)
 script = ExtResource("18_2wyq8")
@@ -357,12 +347,15 @@ setting_scene = ExtResource("20_gqmmt")
 
 [node name="DebugWindow" type="PanelContainer" parent="UI Layer/UI"]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 6
+anchor_left = 1.0
 anchor_top = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
+offset_left = -150.0
 offset_top = -46.5
-offset_right = 150.0
 offset_bottom = 46.5
+grow_horizontal = 0
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI Layer/UI/DebugWindow"]
@@ -391,8 +384,329 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 1, 1, 0.156863)
 
-[node name="Map" parent="." instance=ExtResource("25_og1vs")]
+[node name="SphereDialogue" parent="." instance=ExtResource("16_jscy8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.90952, 0.942925, -3.84463)
+
+[node name="ChoiceDialogueTrigger" type="Node" parent="SphereDialogue"]
+script = ExtResource("17_pm3ni")
+choice_names = Array[String](["Разбудить"])
+sequence_names = Array[String](["sphere_start"])
+dialogue_priority = 1
+metadata/_custom_type_script = "uid://cr5g5jxltekbc"
+
+[node name="BigBoneDialogue" parent="." instance=ExtResource("16_jscy8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.99248, 1.15311, -33.6221)
+
+[node name="ChoiceDialogueTrigger" type="Node" parent="BigBoneDialogue"]
+script = ExtResource("17_pm3ni")
+choice_names = Array[String](["Поздороваться"])
+sequence_names = Array[String](["skelet_start_chat"])
+dialogue_priority = 1
+metadata/_custom_type_script = "uid://cr5g5jxltekbc"
+
+[node name="VimDialogue" parent="." instance=ExtResource("16_jscy8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.418114, 1.18349, -102.857)
+
+[node name="ChoiceDialogueTrigger" type="Node" parent="VimDialogue"]
+script = ExtResource("17_pm3ni")
+choice_names = Array[String](["Спросить"])
+sequence_names = Array[String](["skelet_path_chat"])
+dialogue_priority = 1
+metadata/_custom_type_script = "uid://cr5g5jxltekbc"
+
+[node name="DrJDialogue" parent="." instance=ExtResource("16_jscy8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.3614, 1.44951, -107.892)
+
+[node name="ChoiceDialogueTrigger" type="Node" parent="DrJDialogue"]
+script = ExtResource("17_pm3ni")
+choice_names = Array[String](["Осмотреть"])
+sequence_names = Array[String](["floating_head_chat"])
+dialogue_priority = 1
+metadata/_custom_type_script = "uid://cr5g5jxltekbc"
+
+[node name="QuadraticDialogue" parent="." instance=ExtResource("16_jscy8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.03111, 1.0629, -29.5186)
+
+[node name="ChoiceDialogueTrigger" type="Node" parent="QuadraticDialogue"]
+script = ExtResource("17_pm3ni")
+choice_names = Array[String](["Узнать"])
+sequence_names = Array[String](["kvadratik_chat"])
+dialogue_priority = 1
+metadata/_custom_type_script = "uid://cr5g5jxltekbc"
+
+[node name="EnimieSpawns" type="Node3D" parent="."]
+
+[node name="SkeletMeleYoloSpawn" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.99145, 2, -76.8665)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("26_j8jky")
+
+[node name="SkeletMeleYoloSpawn6" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.247, 2, -102.385)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("26_j8jky")
+
+[node name="SkeletMeleYoloSpawn7" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.0305, 2, -126.157)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("26_j8jky")
+
+[node name="SkeletMeleYoloSpawn8" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.8933, 2, -129.324)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("26_j8jky")
+
+[node name="SkeletMeleYoloSpawn9" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.905, 2, -145.089)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("26_j8jky")
+
+[node name="SkeletMeleYoloSpawn10" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.2125, 2, -146.001)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("26_j8jky")
+
+[node name="SkeletMeleYoloSpawn2" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.49191, 2, -73.3888)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("26_j8jky")
+
+[node name="SkeletMeleYoloSpawn3" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.33667, 2, -81.6014)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("26_j8jky")
+
+[node name="SkeletMeleYoloSpawn4" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.04756, 2, -83.8631)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("26_j8jky")
+
+[node name="SkeletMeleYoloSpawn5" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.10388, 2, -71.9717)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("26_j8jky")
+
+[node name="SkeletMeleYoloAltSpawn" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.77709, 2, -82.9882)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("27_kmb1v")
+
+[node name="SkeletMeleYoloAltSpawn4" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.3686, 2, -107.411)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("27_kmb1v")
+
+[node name="SkeletMeleYoloAltSpawn5" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.548, 2, -122.561)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("27_kmb1v")
+
+[node name="SkeletMeleYoloAltSpawn6" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.6972, 2, -122.505)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("27_kmb1v")
+
+[node name="SkeletMeleYoloAltSpawn7" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.9655, 2, -110.287)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("27_kmb1v")
+
+[node name="SkeletMeleYoloAltSpawn2" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.97862, 2, -72.1963)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("27_kmb1v")
+
+[node name="SkeletMeleYoloAltSpawn3" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.73365, 2, -77.8821)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("27_kmb1v")
+
+[node name="SkeletRangedYoloSpawn" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.6946, 2, -117.574)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("28_fuf3a")
+
+[node name="SkeletRangedYoloSpawn2" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.0592, 2, -134.913)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("28_fuf3a")
+
+[node name="SkeletRangedYoloSpawn3" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.0567, 2, -138.113)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("28_fuf3a")
+
+[node name="SkeletRangedYoloSpawn4" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.3636, 2, -145.173)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("28_fuf3a")
+
+[node name="SkeletRangedYoloSpawn5" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.4396, 2, -143.192)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("28_fuf3a")
+
+[node name="SkeletRangedYoloAltSpawn" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.5999, 2, -134.044)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("29_pibwh")
+
+[node name="SkeletRangedYoloAltSpawn2" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.5623, 2, -109.891)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("29_pibwh")
+
+[node name="SkeletRangedYoloAltSpawn3" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.3903, 2, -124.821)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("29_pibwh")
+
+[node name="SkeletRangedYoloAltSpawn4" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7135, 2, -127.561)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("29_pibwh")
+
+[node name="SkeletBoss1Spawn" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.2349, 2, -129.463)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("30_c6pm6")
+
+[node name="SkeletBoss2Spawn" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.0238, 2, -140.516)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("31_5he1u")
+
+[node name="SkeletBoss3Spawn" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.305, 2, -139.983)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("32_5poiv")
+
+[node name="SkeletBoss4Spawn" type="Node3D" parent="EnimieSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.62513, 2, -140.236)
+script = ExtResource("25_dgi5k")
+entity_to_spawn = ExtResource("33_2cjbq")
+
+[node name="MapAnchor" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -1, 11)
+
+[node name="Map" parent="MapAnchor" instance=ExtResource("25_og1vs")]
+
+[node name="Lighting" type="Node3D" parent="."]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0406763, 2.74078, 1.04999)
+light_color = Color(0.910186, 0.599526, 0.421988, 1)
+light_energy = 2.0
+omni_range = 14.928
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.31374, 7.40734, -33.9867)
+light_color = Color(0.910186, 0.599526, 0.421988, 1)
+light_energy = 2.0
+omni_range = 14.928
+
+[node name="OmniLight3D19" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.38, 2.21072, -33.6575)
+light_color = Color(0.87, 0, 0, 1)
+omni_range = 2.5
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.572684, 7.92682, -78.9003)
+light_color = Color(0.91964, 0.547199, 0.734019, 1)
+light_energy = 2.0
+omni_range = 14.928
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.14606, 1.90362, -98.8957)
+light_color = Color(0.432943, 0.737492, 0.811134, 1)
+light_energy = 2.0
+omni_range = 14.928
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.13155, 3.30571, -100.134)
+light_color = Color(0.869939, 0.630615, 0.342698, 1)
+light_energy = 2.0
+omni_range = 14.928
+
+[node name="OmniLight3D6" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.3011, 3.81839, -98.6265)
+light_color = Color(0.869939, 0.630615, 0.342698, 1)
+light_energy = 1.5
+omni_range = 14.928
+
+[node name="OmniLight3D7" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.2097, 3.11754, -122.597)
+light_color = Color(0.869939, 0.630615, 0.342698, 1)
+light_energy = 1.5
+omni_range = 14.928
+
+[node name="OmniLight3D8" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.573, 3.11754, -150.521)
+light_color = Color(0.869939, 0.630615, 0.342698, 1)
+light_energy = 1.5
+omni_range = 14.928
+
+[node name="OmniLight3D9" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.5585, 3.11754, -151.806)
+light_color = Color(0.869939, 0.630615, 0.342698, 1)
+light_energy = 1.5
+omni_range = 14.928
+
+[node name="OmniLight3D10" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.83, 3.11753, -121.81)
+light_color = Color(0.869939, 0.630615, 0.342698, 1)
+light_energy = 1.5
+omni_range = 14.928
+
+[node name="OmniLight3D11" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.8117, 3.11753, -101.665)
+light_color = Color(0.650218, 0.693142, 0.708542, 1)
+light_energy = 1.5
+omni_range = 14.928
+
+[node name="OmniLight3D12" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.3503, 3.11753, -118.729)
+light_color = Color(0.650218, 0.693142, 0.708542, 1)
+light_energy = 1.5
+omni_range = 14.928
+
+[node name="OmniLight3D14" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.4821, 3.11753, -128.992)
+light_color = Color(0.650218, 0.693142, 0.708542, 1)
+light_energy = 1.5
+omni_range = 14.928
+
+[node name="OmniLight3D15" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.1264, 3.11753, -128.078)
+light_color = Color(0.650218, 0.693142, 0.708542, 1)
+light_energy = 1.5
+omni_range = 14.928
+
+[node name="OmniLight3D13" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.1854, 3.11753, -128.762)
+light_color = Color(0.910707, 0.57163, 0.638502, 1)
+light_energy = 1.5
+omni_range = 14.928
+
+[node name="OmniLight3D16" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.71326, 3.11753, -129.678)
+light_color = Color(0.878954, 0.621772, 0.390923, 1)
+light_energy = 1.5
+omni_range = 14.928
+
+[node name="OmniLight3D17" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.84031, 3.11753, -135.414)
+light_color = Color(0.878954, 0.621772, 0.390923, 1)
+light_energy = 1.5
+omni_range = 14.928
+
+[node name="OmniLight3D18" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.02527, 0.290334, -153.631)
+light_color = Color(0.767098, 0.660553, 0.593205, 1)
+light_energy = 4.583
+omni_range = 48.102
 
 [connection signal="text_changed" from="UI Layer/UI/DebugWindow/VBoxContainer/IpField" to="DebugNode" method="set_connection_address_string"]
 [connection signal="text_changed" from="UI Layer/UI/DebugWindow/VBoxContainer/PortField" to="DebugNode" method="set_connection_port_string"]
+
+[editable path="MapAnchor/Map"]

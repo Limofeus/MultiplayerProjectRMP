@@ -1,0 +1,25 @@
+[remap]
+
+importer="cubemap_texture"
+type="CompressedCubemap"
+uid="uid://yvkuw4hhnc5x"
+path="res://.godot/imported/StarsTestCubeMap.png-f86ba42a0418a41522c14c94b6657c21.ccube"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://temp/StarsTestCubeMap.png"
+dest_files=["res://.godot/imported/StarsTestCubeMap.png-f86ba42a0418a41522c14c94b6657c21.ccube"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+slices/arrangement=1

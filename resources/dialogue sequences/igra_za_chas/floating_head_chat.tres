@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="DialogueSequence" load_steps=11 format=3 uid="uid://d1ww7c1fiijfw"]
+
+[ext_resource type="Script" uid="uid://bee4762ye2at8" path="res://scripts/resources/dialogues/dialogue_block.gd" id="1_lwuxs"]
+[ext_resource type="Resource" uid="uid://bbni60ioapckg" path="res://resources/dialogue metadata presets/characters/skeleton_drj.tres" id="2_0rh3r"]
+[ext_resource type="Script" uid="uid://8njgmbn7c7jq" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_text_block.gd" id="3_askog"]
+[ext_resource type="Script" uid="uid://bew54dp5qxf0f" path="res://scripts/resources/dialogues/dialogue blocks/dialogue_useless_choice_block.gd" id="4_2idc8"]
+[ext_resource type="Resource" uid="uid://injhq6fdk17u" path="res://resources/dialogue metadata presets/characters/clear_character.tres" id="5_s78a6"]
+[ext_resource type="Script" uid="uid://duyli6g2p5ayn" path="res://scripts/resources/dialogues/dialogue_sequence.gd" id="6_fsci0"]
+
+[sub_resource type="Resource" id="Resource_7vcot"]
+script = ExtResource("3_askog")
+dialogue_text = "А? хм... О.... Ваушки! Ты меня нашёл, ха! Я знал, что рано или поздно меня кто-нибудь найдёт! "
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[sub_resource type="Resource" id="Resource_nhyoc"]
+script = ExtResource("4_2idc8")
+useless_choices = Array[String](["мне лень", "хм, а что ты можешь мне предложить?"])
+dialogue_text = "Слушай, в этой комнате немного пустовато. Не мог бы ты сказать тому скелету из рецепшона, чтобы хотя бы телик сюда поставил, ладно? "
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://bew54dp5qxf0f"
+
+[sub_resource type="Resource" id="Resource_2tk7a"]
+script = ExtResource("3_askog")
+dialogue_text = "А я тебе... хм... О... А я тебе выдам бесплатно свою книгу про твои Приключения! Когда я её напишу, конечно."
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[sub_resource type="Resource" id="Resource_ukgjv"]
+script = ExtResource("3_askog")
+dialogue_text = "Только сейчас вряд-ли получится обсудить этот вопрос... Но ты не забудь, как появится возможность попросить, ладно?"
+sync_dialogue_block = true
+metadata/_custom_type_script = "uid://8njgmbn7c7jq"
+
+[resource]
+script = ExtResource("6_fsci0")
+sequence_name = "floating_head_chat"
+sequence_lang_key = "en"
+dialogue_blocks = Array[ExtResource("1_lwuxs")]([ExtResource("2_0rh3r"), SubResource("Resource_7vcot"), SubResource("Resource_nhyoc"), SubResource("Resource_2tk7a"), SubResource("Resource_ukgjv"), ExtResource("5_s78a6")])
+metadata/_custom_type_script = "uid://duyli6g2p5ayn"
