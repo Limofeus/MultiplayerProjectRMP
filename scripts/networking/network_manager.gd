@@ -10,12 +10,11 @@ class_name NetworkManager
 @export var initial_player_scene : PackedScene
 @export var player_spawn_arguments : Array[SpawnArgument] = []
 
-@export var debugLabel1 : Label
-@export var debugLabel2 : Label
 
 var is_dedicaded_server : bool = false
 static var instance : NetworkManager = null
 
+signal network_peer_set()
 signal player_scenes_created() #Maybe port this to main branch as well
 
 func _enter_tree():
@@ -44,7 +43,8 @@ func create_client() -> void:
 func set_network_peer(peer : ENetMultiplayerPeer) -> void:
 	multiplayer.multiplayer_peer = peer
 	print(multiplayer.get_unique_id())
-	debugLabel1.text = str(multiplayer.get_unique_id())
+	#debugLabel1.text = str(multiplayer.get_unique_id())
+	network_peer_set.emit()
 
 func create_players() -> void:
 	create_players_rpc.rpc()
